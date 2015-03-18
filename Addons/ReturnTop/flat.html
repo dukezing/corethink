@@ -1,0 +1,32 @@
+<div class="returntop">
+    <style>
+        *{margin:0;padding:0;}
+        @media (max-width: 768px) {.flat{display: none;}}
+        .flat ul{padding-left:0px;}
+        .flat ul li a:hover{text-decoration: none;}
+        .flat{position:fixed;width:54px;height:275px;right:0;top:214px;z-index:100;}
+        .flat ul li{width:54px;height:54px;float:left;position:relative;border-bottom:1px solid #444;list-style-type:none;}
+        .flat ul li .sidebox{position:absolute;width:54px;height:54px;top:0;right:0;transition:all 0.3s;background:#000;opacity:0.8;filter:Alpha(opacity=80);color:#fff;font:14px/54px "微软雅黑";overflow:hidden;}
+        .flat ul li .sidetop{width:54px;height:54px;line-height:54px;display:inline-block;background:#000;opacity:0.8;filter:Alpha(opacity=80);transition:all 0.3s;}
+        .flat ul li .sidetop:hover{background:#ae1c1c;opacity:1;filter:Alpha(opacity=100);}
+    </style>
+    <div class="flat">
+        <ul>
+            <li><a href="{$addons_config.customer}" class="sidebox"><img src="__ADDONROOT__/images/side_icon01.png">客服中心</a></li>
+            <li><a href="{$addons_config.case}" class="sidebox"><img src="__ADDONROOT__/images/side_icon02.png">客户案例</a></li>
+            <li><a href="http://wpa.qq.com/msgrd?v=3&uin={$addons_config.qq}&site=qq&menu=yes" class="sidebox" target="_blank"><img src="__ADDONROOT__/images/side_icon03.png">QQ咨询</a></li>
+            <li><a href="{$addons_config.weibo}" class="sidebox" target="_blank"><img src="__ADDONROOT__/images/side_icon04.png">新浪微博</a></li>
+            <li><a href="javascript:goTop();" class="sidetop"><img src="__ADDONROOT__/images/side_icon05.png"></a></li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(".flat ul li").hover(function(){
+                $(this).find(".sidebox").stop().animate({"width":"124px"},200).css({"opacity":"1","filter":"Alpha(opacity=100)","background":"#ae1c1c"})
+            },function(){
+                $(this).find(".sidebox").stop().animate({"width":"54px"},200).css({"opacity":"0.8","filter":"Alpha(opacity=50)","background":"#000"})
+            });
+        });
+        function goTop(){ $('html,body').animate({'scrollTop':0},600); }
+    </script>
+</div>

@@ -1,0 +1,115 @@
+<extend name="Public/layout"/>
+
+<block name="body">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-9">
+                <article class="article box">
+                    <header>
+                        <h1 class="text-center">{$info.title}</h1>
+                        <dl class="dl-inline">
+                            <dt>发布时间：</dt>
+                                <dd>{$info.utime|time_format}</dd>
+                            <dt>作者：</dt>
+                                <dd>{$info.uid|get_user_info="username"}</dd>
+                            <dd class="pull-right">
+                                <span class="label label-success">NEW</span>
+                                <span class="label label-warning">火爆</span>
+                                <span class="label label-info">原创</span>
+                                <span class="label label-danger"><i class="icon-eye-open"></i> {$info.view}</span>
+                            </dd>
+                        </dl>
+                        <notempty name="info.abstract">
+                            <section class="abstract">{$info.abstract}</section>
+                        </notempty>
+                    </header>
+                    <section class="article-content lazy">
+                        {$info.content}|parse_content}
+                    </section>
+                    <footer>
+                        <p class="pull-right text-muted">
+                            发布时间：{$info.utime|time_format} &nbsp;点击数：{$info.view}
+                        </p>
+                        <p class="text-important">本文版权所有归<a href="#">@CoreThink</a></p>
+                        <ul class="pager pager-justify pager-pills">{$info.previous}{$info.next}</ul>
+                        <div class="digg text-center">
+                            <a href="{:U('Digg/digg/model/'.$__CURRENT_MODEL_ID__.'/type/good/doc_id/'.$info['id'])}" class="btn digg-good ajax-digg">
+                                <span class="text"><span class="fa fa-thumbs-o-up"></span> 点赞</span>
+                                <span class="num">{$info.good}</span>
+                            </a>
+                            <a href="{:U('Digg/digg/model/'.$__CURRENT_MODEL_ID__.'/type/mark/doc_id/'.$info['id'])}" class="btn digg-mark ajax-digg">
+                                <span class="text"><span class="fa fa-star-o"></span> 收藏</span>
+                                <span class="num">{$info.mark}</span>
+                            </a>
+                        </div>
+                    </footer>
+                </article>
+                <include file="Comment:index" /><!-- 包含评论 -->
+            </div>
+            <div class="col-xs-12 col-sm-3">
+                <nav class="menu menu-corethink" data-toggle="menu">
+                    <!-- 侧边导航 -->
+                    <ul class="nav nav-primary">
+                        <!-- 模版标签 -->
+                        <corethink:category name="side_category">
+                            <li class="show">
+                                {$side_category.link}
+                                <ul class="nav">
+                                    <volist name="side_category._child" id="child_category">
+                                        <li <php>if($child_category['id'] == $__CURRENT_CATEGORY__) echo 'class="active"';</php> >
+                                            {$child_category.link}
+                                        </li>
+                                    </volist>
+                                </ul>
+                            </li>
+                        </corethink:category>
+                        <!-- /模版标签 -->
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</block>
+
+<block name="script">
+    <script type="text/javascript">
+        $(function(){
+            //已赞设置高亮
+            $.get("{:U('Digg/getDiggStatus/model/'.$__CURRENT_MODEL_ID__.'/type/good/doc_id/'.$info['id'])}").success(function(data){
+                if(data.status == 1){
+                    $('.digg-good').addClass('btn-primary');
+                }
+            });
+
+            //已收藏设置高亮
+            $.get("{:U('Digg/getDiggStatus/model/'.$__CURRENT_MODEL_ID__.'/type/mark/doc_id/'.$info['id'])}").success(function(data){
+                if(data.status == 1){
+                    $('.digg-mark').addClass('btn-primary');
+                }
+            });
+
+            //Digg
+            $('.ajax-digg').click(function(){
+                var target;
+                var that = this;
+                var type = $(this).attr('type')
+                if((target = $(this).attr('href')) || (target = $(this).attr('url'))){
+                    $.get(target).success(function(data){
+                        if(data.status == 1){
+                            var ret = data.info.split(".");
+                            if(ret[0] == "yes"){
+                                $(that).addClass('btn-primary');
+                            }else{
+                                $(that).removeClass('btn-primary');
+                            }
+                            $(that).find('span.num').css({'opacity':'0'}).text(ret[1]).animate({opacity:'1'});
+                        }else{
+                            alertMessager(data.info, 'danger');
+                        }
+                    });
+                }
+                return false;
+            });
+        });
+    </script>
+</block>

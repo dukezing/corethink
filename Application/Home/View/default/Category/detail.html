@@ -1,0 +1,39 @@
+<extend name="Public/layout"/>
+
+<block name="body">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-9">
+                <article class="article box">
+                    <header>
+                        <h1 class="text-center">{$info.title}</h1>
+                    </header>
+                    <section class="article-content lazy">
+                        {$info.content|parse_content}
+                    </section>
+                </article>
+            </div>
+            <div class="col-xs-12 col-sm-3">
+                <nav class="menu menu-corethink" data-toggle="menu">
+                    <!-- 侧边导航 -->
+                    <ul class="nav nav-primary">
+                        <!-- 模版标签 -->
+                        <corethink:category name="side_category">
+                            <li class="show">
+                                {$side_category.link}
+                                <ul class="nav">
+                                    <volist name="side_category._child" id="child_category">
+                                        <li <php>if($child_category['id'] == $__CURRENT_CATEGORY__) echo 'class="active"';</php> >
+                                            {$child_category.link}
+                                        </li>
+                                    </volist>
+                                </ul>
+                            </li>
+                        </corethink:category>
+                        <!-- /模版标签 -->
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</block>

@@ -1,0 +1,54 @@
+<extend name="Public/layout"/>
+
+<block name="body">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-9">
+                <div class="list box">
+                    <section class="items">
+                        <volist name="volist" id="vo">
+                            <div class="item">
+                                <div class="item-heading">
+                                    <h4><a href="{:U('Article/detail', array('id' => $vo['id']))}">{$vo.title}</a></h4>
+                                </div>
+                                <div class="item-content">
+                                    <div class="media pull-left hidden-xs">
+                                        <div class="media-place-holder lazy"><img class="cover" data-original="{$vo.cover|get_cover}"></div>
+                                    </div>
+                                    <div class="text">{$vo.abstract}</div>
+                                </div>
+                                <div class="item-footer">
+                                    <span class="label"></span>&nbsp;
+                                    <a href="#" class="text-muted"><i class="icon-comments"></i> {$vo.view}</a>&nbsp;
+                                    <span class="text-muted">{$vo.ctime|time_format}</span>
+                                </div>
+                            </div>
+                        </volist>
+                    </section>
+                    <footer><ul class="pager pager-loose pager-pills">{$page}</ul></footer>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-3 hidden-xs">
+                <nav class="menu menu-corethink" data-toggle="menu">
+                    <!-- 侧边导航 -->
+                    <ul class="nav nav-primary">
+                        <!-- 模版标签 -->
+                        <corethink:category name="side_category">
+                            <li class="show">
+                                {$side_category.link}
+                                <ul class="nav">
+                                    <volist name="side_category._child" id="child_category">
+                                        <li <php>if($child_category['id'] == $__CURRENT_CATEGORY__) echo 'class="active"';</php> >
+                                            {$child_category.link}
+                                        </li>
+                                    </volist>
+                                </ul>
+                            </li>
+                        </corethink:category>
+                        <!-- /模版标签 -->
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</block>

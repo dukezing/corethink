@@ -1,0 +1,67 @@
+<extend name="Public/layout"/>
+
+<block name="body">
+    <form action="__SELF__" method="post" class="form">
+        <div class="form-group">
+            <label class="item-label">幻灯片分组<span class="check-tips">（幻灯片分组）</span></label>
+            <div class="controls">
+                <select name="group" class="form-control">
+                    <volist name="slider_group_list" id="slider_group">
+                        <option value="{$key}" 
+                            <php>if($key == $info['group']) echo 'selected="selected"';</php> >
+                            {$slider_group}
+                        </option>
+                    </volist>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="item-label">幻灯标题<span class="check-tips">（幻灯标题）</span></label>
+            <div class="controls">
+                <input type="text" class="form-control" name="title" value="{$info.title|default=''}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="item-label">图片<span class="check-tips">（幻灯背景图片）</span></label>
+            <div class="controls">
+                <div id="upload"></div>
+                <div id="preview">
+                    <input type="hidden" name="cover" value="{$info.cover}">
+                    <img style="margin-top:8px;max-height:120px;" src="{$info.cover|get_cover}">
+                </div>
+                <link rel="stylesheet" type="text/css" href="__PUBLIC__/huploadify/huploadify.css">
+                <script type="text/javascript" src="__PUBLIC__/huploadify/huploadify.js" charset="utf-8"></script>
+                <script type="text/javascript">
+                    $('#upload').Huploadify({
+                        uploader:'{:U("Index/upload")}',
+                        fileTypeExts:'*.gif;*.jpg;*.jpeg;*.png;*.bmp',
+                        fileSizeLimit:{:C('UPLOAD_IMAGE_SIZE')}*1024,
+                        buttonText:'上 传 图 片',
+                        onUploadComplete:function(file, data){
+                            var data = $.parseJSON(data);
+                            $('#preview img').attr('src', data.url);
+                            $('#preview input').attr('value', data.id);
+                        }
+                    });
+                </script>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="item-label">链接<span class="check-tips">（链接）</span></label>
+            <div class="controls">
+                <input type="text" class="form-control" name="url" value="{$info.url|default=''}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="item-label">排序<span class="check-tips">（用于分组显示的顺序）</span></label>
+            <div class="controls">
+                <input type="text" class="form-control" name="sort" value="{$info.sort|default=0}">
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="hidden" name="id" value="{$info.id|default=''}">
+            <button class="btn btn-primary submit ajax-post" type="submit" target-form="form">确 定</button>
+            <button class="btn return" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+    </form>
+</block>

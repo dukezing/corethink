@@ -1,0 +1,67 @@
+<extend name="Public/layout"/>
+
+<block name="body">
+    <div class="container" style="margin:0px auto 0 auto;border-bottom: 2px solid #999;padding-bottom: 5px;">
+        <a style="float:left;margin-right:10px;" href="#"><img src="{$user_sns_info.head}" width="50" height="50" /></a>
+        <div style="float:left;margin-right:10px;overflow: hidden;zoom: 1;">
+            <div>
+                <b>欢迎你，{$user_sns_info.nick}，您的{$user_sns_info.type}帐号授权成功</b>！<br>
+                <span>接下来完成简单的设置，即可用{$user_sns_info.type}帐号直接登录。</span>
+            </div>
+        </div>
+    </div>
+    <div class="container"style="margin:30px auto 0 auto;padding-bottom: 5px;">
+        <div class="row">
+            <div class="col-sm-6">
+                <form class="reg-form" action="{:U('home/addon/execute',array('_addons'=>'SyncLogin','_controller'=>'Login','_action'=>'doregister'))}" method="post">
+                    <div class="legend"><legend>注册新账号</legend></div>
+                    <div class="form-group">
+                        <label class="control-label">用户名</label>
+                        <div class="controls">
+                            <input type="text" class="form-control" placeholder="请输入用户名" name="username" value="{$user_sns_info.nick}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">密 码</label>
+                        <div class="controls">
+                            <input type="password" class="form-control" placeholder="请输入密码" name="password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">确认密码</label>
+                        <div class="controls">
+                            <input type="password" class="form-control" placeholder="请输入确认密码" name="repassword">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success ajax-post" target-form="reg-form">注 册</button>
+                        <button type="reset" class="btn">重 置</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-6">
+                <form class="login-form" action="{:U('home/addon/execute',array('_addons'=>'SyncLogin','_controller'=>'Login','_action'=>'dobind'))}" method="post">
+                      <div class="legend"><legend>绑定已有账号</legend></div>
+                      <div class="form-group">
+                          <label class="control-label">用户名</label>
+                          <div class="controls">
+                              <input type="text" class="form-control" placeholder="请输入用户名" name="username">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label class="control-label">密 码</label>
+                          <div class="controls">
+                              <input type="password" class="form-control" placeholder="请输入密码" name="password">
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <div class="controls">
+                              <button type="submit" class="btn btn-success ajax-post" target-form="login-form">绑 定</button>
+                              <button type="reset" class="btn">重 置</button>
+                          </div>
+                      </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</block>

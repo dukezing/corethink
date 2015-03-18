@@ -1,0 +1,14 @@
+<style type="text/css">
+.synclogin .title{font-size: 22px;color: #999;margin-right: 10px;}
+.synclogin .btn{border: 0px;padding: 0px;border-radius: 50%;margin-top:-10px;margin-right: 5px;}
+.synclogin .fa{width: 32px;height: 30px;line-height: 30px;}
+</style>
+<php>if(!empty($config['type'])){</php>
+    <div class="synclogin">
+        <span class="title">快速登录</span>
+        <a class="btn btn-success" href="<php>if(in_array('Qq',$config['type'])){ echo addons_url('SyncLogin://Login/login',array('type'=>'qq'));}</php>"><i class="fa fa-qq"></i></a>
+        <a class="btn btn-danger" href="<php>if(in_array('Sina',$config['type'])){ echo addons_url('SyncLogin://Login/login',array('type'=>'sina'));}</php>"><i class="fa fa-weibo"></i></a>
+        <a class="btn btn-info" href="<php>if(in_array('Renren',$config['type'])){ echo addons_url('SyncLogin://Login/login',array('type'=>'renren'));}</php>"><i class="fa fa-renren"></i></a>
+        <a class="btn btn-warning" href="<php>if(in_array('Google',$config['type'])){ echo addons_url('SyncLogin://Login/login',array('type'=>'google'));}</php>"><i class="fa fa-google"></i></a>
+    </div>
+<php>}</php>

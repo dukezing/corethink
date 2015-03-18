@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="author" content="{:C('WEB_SITE_TITLE')}">
+    <meta name="keywords" content="{$meta_keywords}">
+    <meta name="description" content="{$meta_description}">
+    <meta name="generator" content="CoreThink">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="{:C('WEB_SITE_TITLE')}">
+    <meta name="format-detection" content="telephone=no,email=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>{$meta_title}｜{:C('WEB_SITE_TITLE')}</title>
+    <link rel="apple-touch-icon" type="image/x-icon" href="__ROOT__/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/zui/css/zui.min.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/chosen/chosen.min.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/kindeditor/themes/default/default.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/huploadify/huploadify.css">
+    <link rel="stylesheet" type="text/css" href="__CSS__/base.css">
+    <block name="style"></block>
+    <script type="text/javascript" src="__PUBLIC__/jquery/jquery-1.11.1.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="__PUBLIC__/jquery/jquery.lazyload.min.js" charset="utf-8"></script>
+    <!--[if lt IE 9]>
+        <script type="text/javascript" src=""__PUBLIC__/ieonly/html5shiv.js" charset="utf-8"></script>
+        <script type="text/javascript" src=""__PUBLIC__/ieonly/respond.js" charset="utf-8"></script>
+        <script type="text/javascript" src=""__PUBLIC__/ieonly/excanvas.js" charset="utf-8"></script>
+    <![endif]-->
+    <script type="text/javascript" src="__PUBLIC__/zui/js/zui.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="__PUBLIC__/chosen/chosen.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="__PUBLIC__/corethink/js/base.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('.lazy img').lazyload({effect: 'fadeIn', threshold:'-500'}); //图片lazyload
+            $('.form select.form-control').chosen({disable_search_threshold: 10}); //使用chosen插件接管select
+        });
+        //iOS Web APP中点击链接跳转到Safari浏览器新标签页的问题
+        if (("standalone" in window.navigator) && window.navigator.standalone) {
+            var noddy, remotes = false;
+            document.addEventListener('click',
+                function(event) {
+                    noddy = event.target;
+                    while (noddy.nodeName !== "A" && noddy.nodeName !== "HTML") {
+                        noddy = noddy.parentNode;
+                    }
+                    if ('href' in noddy && noddy.href.indexOf('http') !== -1 && (noddy.href.indexOf(document.location.host) !== -1 || remotes)) {
+                        event.preventDefault();
+                        document.location.href = noddy.href;
+                    }
+                },
+                false
+            );
+        }
+    </script>
+    <block name="script"></block>
+</head>
+<body>
+    {:hook('PageHeader')} <!-- 文档开始钩子 -->
+    <nav class="navbar navbar-default navbar-fixed-top navbar-corethink" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-main">
+                    <span class="sr-only">切换导航</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <php>if(C('WEB_SITE_LOGO')):</php>
+                    <a class="navbar-brand" href="__ROOT__/"><img class="logo" src="{$Think.config.WEB_SITE_LOGO|get_cover='path'}"></a>
+                <php>else:</php>
+                    <a class="navbar-brand" href="__ROOT__/"><img class="logo" src="__PUBLIC__/corethink/img/logo_title.png"></a>
+                <php>endif;</php>
+            </div>
+            <div class="collapse navbar-collapse navbar-collapse-main">
+                <ul class="nav navbar-nav">
+                    <li><a href="__ROOT__/">首页</a></li>
+                    <!-- 模版标签 -->
+                        <corethink:category name="_category">
+                            <li <if condition='$_category.id eq $__CURRENT_CATEGORY__'> class="active"</if> >{$_category.link}</li>
+                        </corethink:category>
+                    <!-- /模版标签 -->
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{:U('Message/index')}">消息</a></li>
+                    <present name="__USER__">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="icon-user"></i> {$__USER__.username}
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{:U('User/index')}"><i class="icon-home"></i> 个人中心</a></li>
+                                <li><a href="{:U('Message/index')}"><i class="icon-bell-alt"></i> 消息中心</a></li>
+                                <li class="divider hidden-xs"></li>
+                                <li><a href="{:U('User/logout')}" class="ajax-get"><i class="icon-signout"></i> 退出登录</a></li>
+                            </ul>
+                        </li>
+                    <else />
+                        <li><a href="{:U('User/login')}">登录</a></li>
+                        <li><a href="{:U('User/register')}">注册</a></li>
+                    </present>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <block name="wrap">
+        <block name="header">
+            <div class="header">
+                <div class="container">
+                    <ul class="breadcrumb">
+                        <li><i class="icon-location-arrow"></i></li>
+                        <li><a href="__ROOT__/">首页</a></li>
+                        <!-- 模版标签 -->
+                            <corethink:breadcrumb name="_breadcrumb" cid="$__CURRENT_CATEGORY__">
+                                <li>{$_breadcrumb.link}</li>
+                            </corethink:breadcrumb>
+                        <!-- /模版标签 -->
+                    </ul>
+                 </div>
+            </div>
+        </block>
+        <block name="body">这里是内容</block>
+    </block>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row navlink">
+                <div class="col-xs-12 col-sm-8">
+                    <!-- 底部地图导航模版标签 -->
+                        <corethink:navlink name="navlink">
+                            <div class="col-xs-12 col-sm-3">
+                                <dl>
+                                    <dt><a href="#">{$navlink.title}</a></dt>
+                                    <volist name="navlink._child" id="_navlink">
+                                        <dd>{$_navlink.link}</dd>
+                                    </volist>
+                                </dl>
+                            </div>
+                        </corethink:navlink>
+                    <!-- /底部地图导航模版标签 -->
+                </div>
+                <div class="col-xs-12 col-sm-4 hidden-xs">
+                    <div class="logo"><a href="__ROOT__/"><img src="__PUBLIC__/corethink/img/logo_title.png"></a></div>
+                    <div class="info">{:C('WEB_SITE_DESCRIPTION')}</div>
+                </div>
+            </div>
+            <div class="copyright">
+                <div>{:C('WEB_SITE_COPYRIGHT')}</div>
+                <div>服务咨询请拨打：150-0517-3785</div>
+            </div>
+        </div>
+    </footer>
+    {:hook('PageFooter')} <!-- 文档末尾钩子 -->
+    {:C('WEB_SITE_STATISTICS')} <!-- 站点统计代码 -->
+</body>
+</html>

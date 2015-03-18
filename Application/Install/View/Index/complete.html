@@ -1,0 +1,27 @@
+<extend name="Public/layout"/>
+
+<block name="header">
+    <li class="active"><a href="javascript:;">安装协议</a></li>
+    <li class="active"><a href="javascript:;">环境检测</a></li>
+    <li class="active"><a href="javascript:;">参数设置</a></li>
+    <li class="active"><a href="javascript:;">开始安装</a></li>
+    <li class="active"><a href="javascript:;">完成安装</a></li>
+</block>
+
+<block name="body">
+    <div class="article">
+        <header>
+            <h1 class="text-center">恭喜您，{:C('INSTALL_PRODUCT_NAME')}安装完成！</h1>
+            <section class="abstract">版权所有 (c) 2014－<php>echo date("Y",time());</php>{:C('INSTALL_COMPANY_NAME')}保留所有权利。</section>
+        </header>
+        <section class="article-content">
+            <present name="info">
+                {$info}
+            </present>
+        </section>
+        <div>
+            <a class="btn btn-primary" href="{:U('Admin/Index/index')}">登录后台</a>
+            <a class="btn btn-success" href="{:U('Home/Index/index')}">访问首页</a>
+        </div>
+    </div>
+</block>

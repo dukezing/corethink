@@ -1,0 +1,77 @@
+/* reset
+-------------------------------------------------- */
+.btn,
+.form-control,
+.input-group-addon {
+    border-radius: 0px;
+}
+body {
+    background: #eee;
+    padding-bottom: 50px;
+}
+.messager {
+    font-weight: bold;
+}
+
+/* 顶部主导航
+-------------------------------------------------- */
+.navbar-corethink {
+    border: none;
+    margin-bottom: 10px;
+    border-radius: 0;
+    background-color: #4f8ad0;
+}
+.navbar-corethink .navbar-header .icon-bar {
+    background: #ccc;
+}
+.navbar-corethink .navbar-brand {
+    color: #eee;
+}
+.navbar-corethink .navbar-brand img{
+    height: 28px;
+    margin: -4px 0px;
+}
+.navbar-corethink ul.navbar-nav > li > a {
+    color: #eee;
+}
+.navbar-corethink ul.navbar-nav > li > a:hover,
+.navbar-corethink ul.navbar-nav > li > a:focus,
+.navbar-corethink ul.navbar-nav > li.active > a,
+.navbar-corethink ul.navbar-nav li.open > a,
+.navbar-corethink ul.navbar-nav li.open > a:hover,
+.navbar-corethink ul.navbar-nav li.open > a:focus {
+    color: #fff;
+    background-color: #5799e6;
+}
+@media (min-width: 768px) {
+    .navbar-corethink .navbar-brand {
+        font-size: 26px;
+        padding: 15px;
+    }
+    .navbar-corethink .navbar-brand img{
+        height: 36px;
+        margin: -12px 0px -8px;
+    }
+    .navbar-corethink ul.navbar-nav > li > a {
+        padding: 15px;
+    }
+}
+
+
+/* 正文内容
+-------------------------------------------------- */
+.article {
+    background: #fff;
+}
+.article-content {
+    text-indent: 2em;
+}
+caption {
+    margin-bottom: 5px;
+}
+.icon-ok {
+    color: green;
+}
+.icon-remove {
+    color: red;
+}

@@ -1,0 +1,156 @@
+<extend name="Public/layout"/>
+
+<block name="style">
+    <style type="text/css">
+        body {
+            background-color: #f6f6f6;
+        }
+        .panel .logo {
+            height: 58px;
+        }
+    </style>
+</block>
+
+<block name="wrap">
+    <div class="container">
+        <div id="dashboard" class="dashboard dashboard-draggable" data-height="300">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4 " data-id="1">
+                    <div class="panel" data-url="http://baidu.com" id="panel1" data-id="1">
+                        <div class="panel-heading">
+                            <i class="icon-list-ul"></i> 关于CoreThink
+                        </div>
+                        <div class="panel-body">
+                            <p>
+                                CoreThink是一套轻量级WEB产品开发框架，追求简单、高效、卓越。可轻松实现移动互联网时代支持多终端的轻量级WEB产品快速开发。系统功能采用模块化开发，内置系统设置、分类管理、底部导航、数据备份、开发者工具（后台菜单管理、配置管理）、用户管理、部门管理、权限控制、内容模型、模板标签、模版主题、邮件管理、云存储、支付中心、插件扩展等模块，便于用户灵活扩展和二次开发。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 " data-id="2">
+                    <div class="panel" id="panel2" data-id="2">
+                        <div class="panel-heading">
+                            <i class="icon-list-ul"></i> 系统信息
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-condensed">
+                                <tbody>
+                                        <tr>
+                                            <td>CoreThink版本</td>
+                                            <td>{:C('CORETHINK_VERSION')}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>ThinkPHP版本</td>
+                                            <td>{$Think.VERSION}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>服务器操作系统</td>
+                                            <td>{$Think.const.PHP_OS}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>运行环境</td>
+                                            <td>{$_SERVER['SERVER_SOFTWARE']}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>MYSQL版本</td>
+                                            <td><php>$system_info_mysql = M()->query("select version() as v;");</php>{$system_info_mysql.0.v}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>上传限制</td>
+                                            <td>{:ini_get('upload_max_filesize')}</td>
+                                        </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 " data-id="3">
+                    <div class="panel" id="panel3" data-id="3">
+                        <div class="panel-heading">
+                            <i class="icon-list-ul"></i> 产品团队
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-condensed">
+                                <tbody>
+                                        <tr>
+                                            <td>总策划</td>
+                                            <td>江如意</td>
+                                        </tr>
+                                        <tr>
+                                            <td>产品设计及研发团队</td>
+                                            <td>江如意、赵瀚卿</td>
+                                        </tr>
+                                        <tr>
+                                            <td>界面及用户体验团队</td>
+                                            <td>江如意、赵瀚卿、张东晴</td>
+                                        </tr>
+                                        <tr>
+                                            <td>官方网址</td>
+                                            <td><a href="http://www.corethink.cn">http://www.corethink.cn</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>官方QQ群</td>
+                                            <td><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=1ac8801c2f274de186f5c52203f428a1726ba9e3018aa579399b4c6161ca63cd"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="CoreThink交流群01" title="CoreThink交流群01"></a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>联系我们</td>
+                                            <td>598821125@qq.com</td>
+                                        </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-12 " data-id="4">
+                    <div class="panel" id="panel4" data-id="4">
+                        <div class="panel-heading">
+                            <i class="icon-user"></i> 用户增长统计
+                        </div>
+                        <div class="panel-body" id="user-chart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</block>
+
+<block name="script">
+    <script type="text/javascript" src="__PUBLIC__/highcharts/highcharts.js" charset="utf-8"></script>
+    <script>
+        $(function () {
+            $('#user-chart').highcharts({
+                chart: {
+                    type: "spline",
+                    style: {
+                        fontFamily: '"Microsoft Yahei", "宋体"'
+                    }
+                },
+                title: {
+                    text: '最近{$count_day}天用户增长',
+                    x: -20 //center
+                },
+                xAxis: {
+                    categories: eval('{$user_reg_date}'),
+                    title: {
+                        text: '当天新注册会员',
+                        enabled: false
+                    }
+                },
+                yAxis: {
+                    title: '用户数'
+                },
+                legend: {
+                    layout: 'vertical',
+                    verticalAlign: 'middle',
+                    borderWidth: 0,
+                    enabled: false
+                },
+                series: [{
+                    name: '当天新注册会员',
+                    data: eval('{$user_reg_count}'),
+                    enable: true
+                }], credits: {enabled: false}
+            });
+        });
+    </script>
+</block>

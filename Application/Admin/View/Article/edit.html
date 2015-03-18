@@ -1,0 +1,166 @@
+<extend name="Public/layout"/>
+
+<block name="body">
+    <form action="__SELF__" method="post" class="form">
+        <div class="form-group">
+            <label class="item-label">文章<span class="check-tips">（文章所属的分类）</span></label>
+            <div class="controls">
+                <select name="cid" class="form-control">
+                    <volist name="all_category" id="_category">
+                        <option value="{$_category.id}" 
+                            <php>if($_category['id'] == $info['cid']) echo 'selected="selected"';</php> >
+                            {$_category.title_show}
+                        </option>
+                    </volist>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="item-label">文章标题<span class="check-tips">（文章标题）</span></label>
+            <div class="controls">
+                <input type="text" class="form-control" name="title" value="{$info.title|default=''}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="item-label">文章摘要<span class="check-tips">（文章内容摘要）</span></label>
+            <div class="controls">
+                <textarea class="form-control" name="abstract">{$info.abstract|default=''}</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="item-label">标签<span class="check-tips">（文章标签）</span></label>
+            <div class="controls">
+                <link rel="stylesheet" type="text/css" href="__PUBLIC__/tokeninput/token-input.css">
+                <script src="__PUBLIC__/tokeninput/jquery.tokeninput.min.js"></script>
+                <input type="text" id="tag_tags" class="form-control" name="tags" value="{$info.tags}">
+                <script type="text/javascript">
+                    //标签自动完成
+                    var tags = $('#tag_tags'), tagsPre = [];
+                    if (tags.length > 0) {
+                        var items = tags.val().split(','), result = [];
+                        for (var i = 0; i < items.length; i ++) {
+                            var tag = items[i];
+                            if (!tag) {
+                                continue;
+                            }
+                            tagsPre.push({
+                                id      :   tag,
+                                title   :   tag
+                            });
+                        }
+                    }
+                    tags.tokenInput('{:U("Tag/searchTags")}',{
+                        propertyToSearch    :   'title',
+                        tokenValue          :   'title',
+                        searchDelay         :   0,
+                        tokenLimit          :   5,
+                        preventDuplicates   :   true,
+                        animateDropdown     :   true,
+                        allowFreeTagging    :   true,
+                        hintText            :   '请输入标签名',
+                        noResultsText       :   '此标签不存在, 按回车创建',
+                        searchingText       :   "查找中...",
+                        prePopulate         :   tagsPre,
+                        onAdd: function (item){ //新增系统没有的标签时提交到数据库
+                            $.post('{:U("Tag/add")}', {'title': item.title});
+                        }
+                    });
+                </script>
+            </div>
+        </div>
+        <div class="form-group content">
+            <label class="item-label">文章内容<span class="check-tips">（文章正文内容）</span></label>
+            <div class="controls">
+                <textarea class="form-control" name="content">{$info.content|default=''}</textarea>
+                <script type="text/javascript" src="__PUBLIC__/kindeditor/kindeditor-min.js" charset="utf-8"></script>
+                <script type="text/javascript" src="__PUBLIC__/kindeditor/lang/zh_CN.js" charset="utf-8"></script>
+                <script type="text/javascript">
+                    var editor_content;
+                    KindEditor.ready(function(K) {
+                        editor_content = K.create('textarea[name="content"]', {
+                            allowFileManager : true,
+                            width: '100%',
+                            height: '500px',
+                            cssPath : [
+                                '__PUBLIC__/zui/css/zui.min.css',
+                                '__PUBLIC__/kindeditor/plugins/code/prettify.css'
+                            ],
+                            resizeType: 1,
+                            pasteType : 2,
+                            urlType : 'absolute',
+                            items : [{:C('EDITOR_STYLE_DEFAULT')}],
+                            fileManagerJson : '{:U("Index/fileManager")}',
+                            uploadJson : '{:U("Index/upload")}',
+                            remoteImgSaveUrl: '{:U("Index/downremoteimg")}',
+                            extraFileUploadParams: {
+                                session_id : '{:session_id()}'
+                            },
+                            afterBlur: function(){this.sync();},
+                            autoSaveMode:true,
+                            autoSaveInterval:100,
+                            afterCreate: function() {
+                                this.loadPlugin('autosave');
+                            }
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="item-label">封面图片<span class="check-tips">（文章封面图片）</span></label>
+            <div class="controls">
+                <div id="upload"></div>
+                <div id="preview">
+                    <input type="hidden" name="cover" value="{$info.cover}">
+                    <img style="margin-top:8px;max-height:120px;" src="{$info.cover|get_cover}">
+                </div>
+                <link rel="stylesheet" type="text/css" href="__PUBLIC__/huploadify/huploadify.css">
+                <script type="text/javascript" src="__PUBLIC__/huploadify/huploadify.js" charset="utf-8"></script>
+                <script type="text/javascript">
+                    $('#upload').Huploadify({
+                        uploader:'{:U("Index/upload")}',
+                        fileTypeExts:'*.gif;*.jpg;*.jpeg;*.png;*.bmp',
+                        fileSizeLimit:{:C('UPLOAD_IMAGE_SIZE')}*1024,
+                        buttonText:'上 传 图 片',
+                        onUploadComplete:function(file, data){
+                            var data = $.parseJSON(data);
+                            $('#preview img').attr('src', data.url);
+                            $('#preview input').attr('value', data.id);
+                        }
+                    });
+                </script>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="item-label">发布日期<span class="check-tips">（文章发布日期，默认当前时间）</span></label>
+            <div class="controls">
+                <input type="text" class="form-control time" name="ctime" value="{$info.ctime|time_format}">
+                <link rel="stylesheet" type="text/css" href="__PUBLIC__/datetimepicker/datetimepicker.min.css">
+                <script type="text/javascript" src="__PUBLIC__/datetimepicker/datetimepicker.min.js" charset="utf-8"></script>
+                <script type="text/javascript">
+                    $(function(){
+                        $(".time").datetimepicker({
+                            format: 'yyyy-mm-dd hh:ii',
+                            pickerPosition: 'top-left',
+                            todayBtn: true,
+                            autoclose: true,
+                            keyboardNavigation:false,
+                            language:'zh-cn'
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="item-label">排序<span class="check-tips">（用于分组显示的顺序）</span></label>
+            <div class="controls">
+                <input type="text" class="form-control" name="sort" value="{$info.sort|default=0}">
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="hidden" name="id" value="{$info.id|default=''}">
+            <button class="btn btn-primary submit ajax-post" type="submit" target-form="form">确 定</button>
+            <button class="btn return" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+    </form>
+</block>

@@ -1,0 +1,207 @@
+/* reset
+-------------------------------------------------- */
+.btn,
+.alert,
+.panel,
+.breadcrumb,
+.form-control,
+.chosen-single,
+.nav-tabs > li > a,
+.input-group-addon,
+.chosen-single {
+    border-radius: 0px !important;
+}
+.chosen-single,
+.dashboard .panel,
+.form-control:focus {
+    box-shadow: none !important;
+}
+.messager.top {
+    top: 53px;
+    font-weight: bold;
+}
+.tab-content {
+    margin-top: 10px;
+}
+
+
+/* 布局绝对定位
+-------------------------------------------------- */
+@media (min-width: 768px) {
+    .left {
+        padding: 0px;
+        top: 50px;
+        bottom: 0px;
+        position: absolute;
+        overflow: auto;
+        background: rgb(245, 246, 247);
+    }
+    .right {
+        top: 50px;
+        right: 0px;
+        bottom: 0px;
+        position: absolute;
+        overflow: auto;
+    }
+    .right .title {
+        margin-left: -10px;
+    }
+    .right .title .breadcrumb {
+        padding-left: 10px !important;
+    }
+    .menu-corethink,
+    .menu-corethink > .nav > li.show > a {
+        background: #fff !important;
+    }
+    .menu-corethink > .nav > li:first-child >a {
+        border-top: 0px;
+    }
+}
+
+
+/* 顶部主导航
+-------------------------------------------------- */
+.navbar-corethink {
+    border: none;
+    margin-bottom: 10px;
+    border-radius: 0;
+    background-color: #4f8ad0;
+}
+.navbar-corethink .navbar-header .icon-bar {
+    background: #ccc;
+}
+.navbar-corethink .navbar-brand {
+    color: #fff;
+}
+.navbar-corethink .navbar-brand img{
+    height: 28px;
+    margin: -4px 0px;
+}
+.navbar-corethink ul.navbar-nav > li > a {
+    color: #eee;
+}
+.navbar-corethink ul.navbar-nav > li > a:hover,
+.navbar-corethink ul.navbar-nav > li > a:focus,
+.navbar-corethink ul.navbar-nav > li.active > a,
+.navbar-corethink ul.navbar-nav li.open > a,
+.navbar-corethink ul.navbar-nav li.open > a:hover,
+.navbar-corethink ul.navbar-nav li.open > a:focus {
+    color: #fff;
+    background-color: #5799e6;
+}
+.navbar-corethink a .caret {
+    border-top-color: #eee;
+    border-bottom-color: #eee;
+}
+.navbar-corethink .nav .open > a .caret,
+.navbar-corethink .nav .open > a:hover .caret,
+.navbar-corethink .nav .open > a:focus .caret,
+.navbar-corethink .nav a:hover .caret {
+    border-top-color: #eee;
+    border-bottom-color: #eee;
+}
+@media (max-width: 768px) {
+    .navbar-corethink .dropdown-menu > li > a {
+        color: #fff;
+    }
+}
+@media (min-width: 768px) {
+    .navbar-corethink .navbar-brand {
+        font-size: 26px;
+        padding: 15px;
+    }
+    .navbar-corethink .navbar-brand img{
+        height: 36px;
+        margin: -12px 0px -8px;
+    }
+    .navbar-corethink ul.navbar-nav > li > a {
+        padding: 15px;
+    }
+}
+
+
+/* 左侧导航
+-------------------------------------------------- */
+.menu-corethink {
+    overflow: auto;
+    padding-right: -15px;
+}
+.menu-corethink > .nav > li:first-child >a {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px
+}
+.menu-corethink > .nav > li.show:last-child >.nav > li:last-child > a {
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px
+}
+.menu-corethink > .nav > li > .nav > li.active > a,
+.menu-corethink > .nav > li > .nav > li.active > a:hover,
+.menu-corethink > .nav > li > .nav > li.active > a:focus {
+    color: #fff;
+    background-color: #5799e6;
+    border-color: #5799e6;
+}
+.menu-corethink >.nav > li >.nav > li > a,
+.menu-corethink >.nav > li >.nav > li > a:hover {
+    border-top: 0px;
+    margin-top: 0px;
+}
+.menu-corethink > .nav > li.show > a {
+    background: #f6f6f6;
+}
+.menu-corethink > .nav > li.show > .nav {
+    background: none;
+}
+
+
+/* 右侧内容
+-------------------------------------------------- */
+.right .title .breadcrumb {
+    padding-left: 0px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+.right .title .breadcrumb li a {
+    color: #445566;
+    cursor: pointer;
+}
+.right .toolbar .btn,
+.right .toolbar input,
+.right .toolbar .nav-pills {
+    margin-bottom: 10px;
+}
+.right .uploadify-button,
+.right .form .controls > select {
+    width: 100%;
+}
+.right .form textarea {
+    height: 150px;
+}
+.right .form .submit,
+.right .form .reset,
+.right .form .return {
+    min-width:120px;
+}
+@media (max-width: 768px) {
+    .right .form .submit,
+    .right .form .reset,
+    .right .form .return {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+@media (min-width: 768px) {
+    .right .form .controls > input[type=text],
+    .right .form .controls > input[type=password],
+    .right .form .controls .token-input-list,
+    .right .form .controls > textarea,
+    .right .form .controls > select,
+    .right .config .ke-container,
+    .right .uploadify-button {
+        width: 50% !important;
+        max-width: 640px;
+    }
+    .right .ke-container {
+        max-width: 960px;
+    }
+}

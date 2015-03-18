@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="author" content="{:C('WEB_SITE_TITLE')}">
+    <meta name="keywords" content="{$meta_keywords}">
+    <meta name="description" content="{$meta_description}">
+    <meta name="generator" content="CoreThink">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="{:C('WEB_SITE_TITLE')}">
+    <meta name="format-detection" content="telephone=no,email=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>{$meta_title}｜{:C('WEB_SITE_TITLE')}后台管理</title>
+    <link rel="shortcut icon" type="image/x-icon" href="__ROOT__/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/zui/css/zui.min.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/chosen/chosen.min.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/chosen/chosen.icons.min.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="__CSS__/base.css">
+    <block name="style"></block>
+    <link rel="apple-touch-icon" type="image/x-icon" href="__ROOT__/favicon.ico">
+    <script type="text/javascript" src="__PUBLIC__/jquery/jquery-1.11.1.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="__PUBLIC__/zui/js/zui.min.js" charset="utf-8"></script>
+    <!--[if lt IE 9]>
+        <script type="text/javascript" src=""__PUBLIC__/ieonly/html5shiv.js" charset="utf-8"></script>
+        <script type="text/javascript" src=""__PUBLIC__/ieonly/respond.js" charset="utf-8"></script>
+        <script type="text/javascript" src=""__PUBLIC__/ieonly/excanvas.js" charset="utf-8"></script>
+    <![endif]-->
+    <script type="text/javascript" src="__PUBLIC__/chosen/chosen.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="__PUBLIC__/chosen/chosen.icons.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="__PUBLIC__/corethink/js/base.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        $(function(){
+            $("[data-toggle='tooltip']").tooltip(); //启用工具提示
+            $(".form .controls select.form-control").chosen({disable_search_threshold: 10}); //使用chosen插件接管select
+            $('.form .chosen-icon').chosenIcons(); //使用chosen插件选择WebFont
+        });
+        //iOS Web APP中点击链接跳转到Safari浏览器新标签页的问题
+        if (("standalone" in window.navigator) && window.navigator.standalone) {
+            var noddy, remotes = false;
+            document.addEventListener('click',
+                function(event) {
+                    noddy = event.target;
+                    while (noddy.nodeName !== "A" && noddy.nodeName !== "HTML") {
+                        noddy = noddy.parentNode;
+                    }
+                    if ('href' in noddy && noddy.href.indexOf('http') !== -1 && (noddy.href.indexOf(document.location.host) !== -1 || remotes)) {
+                        event.preventDefault();
+                        document.location.href = noddy.href;
+                    }
+                },
+                false
+            );
+        }
+    </script>
+    <block name="script"></block>
+</head>
+<body>
+    <nav class="navbar navbar-corethink" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-top">
+                <span class="sr-only">切换导航</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <php>if(C('WEB_SITE_LOGO')):</php>
+                <a class="navbar-brand" target="_blank" href="__ROOT__/"><img class="logo" src="{$Think.config.WEB_SITE_LOGO|get_cover='path'}"></a>
+            <php>else:</php>
+                <a class="navbar-brand" target="_blank" href="__ROOT__/"><img class="logo" src="__PUBLIC__/corethink/img/logo_light_title.png"></a>
+            <php>endif;</php>
+        </div>
+        <div class="collapse navbar-collapse navbar-collapse-top">
+            <!-- 顶部主导航 -->
+            <ul class="nav navbar-nav">
+                <volist name="__ALLMENULIST__" id="vo">
+                    <li <php>if($vo['id'] == $__CURRENT_ROOTMENU__) echo 'class="active"';</php> >
+                        <a href="{:U($vo['url'])}"><i class="{$vo.icon}"></i> {$vo.title}</a>
+                    </li>
+                </volist>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="{:U('Index/rmdirr')}" class="ajax-get"><i class="icon-trash"></i> 清空缓存</a></li>
+                <li><a target="_blank" href="__ROOT__/"><i class="icon-copy"></i> 打开前台</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="icon-user"></i> {$__USER__.username} <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{:U('User/edit', array('id' => is_login()))}"><i class="icon-user"></i> 修改昵称</a></li>
+                        <li><a href="{:U('User/edit', array('id' => is_login()))}"><i class="icon-lock"></i> 修改密码</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{:U('Public/logout')}" class="ajax-get"><i class="icon-signout"></i> 退出</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="wrap">
+        <block name="wrap">
+            <div class="col-xs-12 col-sm-2 left">
+                <nav class="menu menu-corethink" data-toggle="menu">
+                    <!-- 侧边导航 -->
+                    <ul class="nav nav-primary">
+                        <php>$__SIDEMENU__ = $__ALLMENULIST__[$__CURRENT_ROOTMENU__]['_child'];</php>
+                        <volist name="__SIDEMENU__" id="vo">
+                            <li class="show">
+                                <a href="#"><i class="icon-folder-open-alt"></i> {$vo.title}</a>
+                                <ul class="nav">
+                                    <volist name="vo._child" id="vo_child">
+                                        <li <php>if(in_array($vo_child['id'], $__PARENT_MENU_ID__)) echo 'class="active"';</php> >
+                                            <a href="{:U($vo_child['url'])}"><i class="{$vo_child.icon}"></i> {$vo_child.title}</a>
+                                        </li>
+                                    </volist>
+                                </ul>
+                            </li>
+                        </volist>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-xs-12 col-sm-10 right">
+                <div class="title">
+                    <ul class="breadcrumb">
+                        <li><i class="icon-location-arrow"></i></li>
+                        <volist name="__PARENT_MENU__" id="vo">
+                            <li><a href="{:U($vo['url'])}">{$vo.title}</a></li>
+                        </volist>
+                    </ul>
+                </div>
+                <block name="body">这是内容</block>
+            </div>
+        </block>
+    </div>
+</body>
+</html>

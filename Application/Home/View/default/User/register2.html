@@ -1,0 +1,71 @@
+<extend name="Public/layout"/>
+
+<block name="header">
+    <div class="header">
+        <div class="container">
+            <ul class="breadcrumb">
+                <li><i class="icon-location-arrow"></i></li>
+                <li><a href="__ROOT__/">首页</a></li>
+                <li><a href="{:U('User/register')}">用户注册</a></li>
+                <li><a href="{:U('User/register2')}">完善资料</a></li>
+            </ul>
+         </div>
+    </div>
+</block>
+
+<block name="body">
+    <div class="container">
+        <div class="row">
+            <div class="login col-xs-12 col-md-5">
+                <div class="login box">
+                    <h1 class="title">{$meta_title}</h1>
+                    <form action="__SELF__" method="post" class="form reg-form-email">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="icon-user"></i></span>
+                                <input type="text" class="form-control" name="username" placeholder="请输入昵称">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="control">
+                                <select class="form-control" name="sex">
+                                    <option value="1">男</option>
+                                    <option value="0">保密</option>
+                                    <option value="0">女</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="controls">
+                                <div id="upload"></div>
+                                <input type="hidden" name="avatar">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary submit ajax-post" type="submit" target-form="reg-form-email">完 成</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</block>
+
+<block name="script">
+    <script type="text/javascript" src="__PUBLIC__/huploadify/huploadify.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('#upload').Huploadify({
+                uploader:'{:U("Index/upload")}',
+                fileTypeExts:'*.gif;*.jpg;*.jpeg;*.png;*.bmp',
+                fileSizeLimit:{:C('UPLOAD_IMAGE_SIZE')}*1024,
+                buttonText:'上 传 头像',
+                onUploadComplete:function(file, data){
+                    var data = $.parseJSON(data);
+                    $('input[name="avatar"]').attr('value', data.id);
+                    $('.uploadify-button').css('backgroundImage', 'url(' + data.url + ')');
+                }
+            });
+        });
+    </script>
+</block>

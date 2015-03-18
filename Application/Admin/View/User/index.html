@@ -1,0 +1,68 @@
+<extend name="Public/layout"/>
+
+<block name="body">
+    <div class="row toolbar">
+        <div class="col-xs-12 col-sm-9">
+            <a class="btn" href="{:U('add')}">新 增</a>
+            <a class="btn ajax-post confirm" target-form="ids" href="{:U(CONTROLLER_NAME.'/setStatus',array('status'=>'resume'))}">启 用</a>
+            <a class="btn ajax-post confirm" target-form="ids" href="{:U(CONTROLLER_NAME.'/setStatus',array('status'=>'forbid'))}">禁 用</a>
+            <a class="btn ajax-post confirm" target-form="ids" href="{:U(CONTROLLER_NAME.'/setStatus',array('status'=>'delete'))}">删 除</a>
+            <a class="btn" href="{:U('User/index', array('status'=>'-1'))}">小黑屋</a>
+        </div>
+        <div class="col-xs-12 col-sm-3">
+            <div class="input-group search-form">
+                <input type="text" name="keyword" class="search-input form-control" value="{$_GET.keyword}" placeholder="请输入ID/用户名/邮箱/手机号">
+                <span class="input-group-btn"><a class="btn btn-default" href="javascript:;" id="search" url="{:U('index')}"><i class="icon-search"></i></a></span>
+            </div>
+        </div>
+    </div>
+    <div class="data-table">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th><input class="check-all" type="checkbox"></th>
+                    <th>UID</th>
+                    <th>用户名</th>
+                    <th class="hidden-xs">邮箱</th>
+                    <th class="hidden-xs">手机号</th>
+                    <th class="hidden-xs">积分</th>
+                    <th class="hidden-xs">登录次数</th>
+                    <th class="hidden-xs">最后登录时间</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <volist name="volist" id="vo">
+                    <tr class='<eq name="vo.id" value="1">success</eq>'>
+                        <td><input class="ids" type="checkbox" name="ids[]" value="{$vo.id}"></td>
+                        <td>{$vo.id}</td>
+                        <td>{$vo.username}</td>
+                        <td class="hidden-xs">{$vo.email}</td>
+                        <td class="hidden-xs">{$vo.mobile}</td>
+                        <td class="hidden-xs">{$vo.score}</td>
+                        <td class="hidden-xs">{$vo.login}</td>
+                        <td class="hidden-xs">{$vo.last_login_time|time_format}</td>
+                        <td>{$vo.status_text}</td>
+                        <td>
+                            <neq name="vo.status" value="-1">
+                                <a href="{:U('edit', array('id' => $vo['id']))}" data-toggle="tooltip" title="编辑该用户信息">编辑</a>
+                                <neq name="vo.id" value="1">
+                                    <eq name="vo.status" value="1">
+                                        <a href="{:U(CONTROLLER_NAME.'/setStatus',array('status'=>'forbid', 'ids' => $vo['id']))}" class="ajax-get confirm" data-toggle="tooltip" title="标记为禁用状态">禁用</a>
+                                    <else />
+                                        <a href="{:U(CONTROLLER_NAME.'/setStatus',array('status'=>'resume', 'ids' => $vo['id']))}" class="ajax-get confirm" data-toggle="tooltip" title="标记为启用状态">启用</a>
+                                    </eq>
+                                    <a href="{:U(CONTROLLER_NAME.'/setStatus',array('status'=>'delete', 'ids' => $vo['id']))}" class="ajax-get confirm" data-toggle="tooltip" title="标记为删除状态">删除</a>
+                                </neq>
+                            <else />
+                                <a href="{:U(CONTROLLER_NAME.'/setStatus',array('status'=>'restore', 'ids' => $vo['id']))}" class="ajax-get confirm" data-toggle="tooltip" title="标记为正常状态">恢复正常</a>
+                            </neq>
+                        </td>
+                    </tr>
+                </volist>
+            </tbody>
+        </table>
+        <ul class="pager pager-loose pager-pills">{$page}</ul>
+    </div>
+</block>

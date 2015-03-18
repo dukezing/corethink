@@ -1,0 +1,73 @@
+<extend name="Public/layout"/>
+
+<block name="body">
+    <div class="row toolbar">
+        <div class="col-xs-12  col-sm-9">
+            <a class="btn" href="{:U('add', array('cid' => $_GET['cid']))}">新增文章</a>
+            <a class="btn ajax-post confirm" target-form="ids" href="{:U('setStatus',array('status'=>'resume'))}">启 用</a>
+            <a class="btn ajax-post confirm" target-form="ids" href="{:U('setStatus',array('status'=>'forbid'))}">禁 用</a>
+            <a class="btn ajax-post confirm" target-form="ids" href="{:U('setStatus',array('status'=>'delete'))}">删 除</a>
+            <a class="btn" onclick="move()">移 动</a>
+        </div>
+        <div class="col-xs-12 col-sm-3">
+            <div class="input-group search-form">
+                <input type="text" name="keyword" class="search-input form-control" value="{$_GET.keyword}" placeholder="请输入ID/文章标题">
+                <span class="input-group-btn"><a class="btn btn-default" href="javascript:;" id="search" url="{:U('index')}"><i class="icon-search"></i></a></span>
+            </div>
+        </div>
+        <include file="Category:move" />
+        <script type="text/javascript">
+            function move(){
+                var ids = '';
+                $('input[name="ids[]"]:checked').each(function(){
+                   ids += ',' + $(this).val();
+                });
+                if(ids != ''){
+                    ids = ids.substr(1);
+                    $('input[name="ids"]').val(ids);
+                    $('.modal-title').html('移动选中的的文章至：');
+                    $('#moveModal').modal('show', 'fit')
+                }else{
+                    alertMessager('请选择需要移动的文章', 'danger');
+                }
+            }
+        </script>
+    </div>
+    <div class="data-table">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th><input class="check-all" type="checkbox"></th>
+                    <th>ID</th>
+                    <th>标题</th>
+                    <th class="hidden-xs">发布时间</th>
+                    <th class="hidden-xs">排序</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <volist name="volist" id="vo">
+                    <tr>
+                        <td><input class="ids" type="checkbox" name="ids[]" value="{$vo.id}"></td>
+                        <td class="hidden-xs">{$vo.id}</td>
+                        <td>{$vo.title}</td>
+                        <td class="hidden-xs">{$vo.ctime|time_format}</td>
+                        <td class="hidden-xs">{$vo.sort}</td>
+                        <td>{$vo.status_text}</td>
+                        <td>
+                            <a href="{:U('edit', array('id' => $vo['id']))}" data-toggle="tooltip" title="编辑该文章">编辑</a>
+                            <eq name="vo.status" value="1">
+                                <a href="{:U('setStatus',array('status'=>'forbid', 'ids' => $vo['id']))}" class="ajax-get confirm" data-toggle="tooltip" title="标记为禁用状态">禁用</a>
+                            <else />
+                                <a href="{:U('setStatus',array('status'=>'resume', 'ids' => $vo['id']))}" class="ajax-get confirm" data-toggle="tooltip" title="标记为启用状态">启用</a>
+                            </eq>
+                            <a href="{:U('setStatus',array('status'=>'delete', 'ids' => $vo['id']))}" class="ajax-get confirm" data-toggle="tooltip" title="标记为删除状态">删除</a>
+                        </td>
+                    </tr>
+                </volist>
+            </tbody>
+        </table>
+        <ul class="pager pager-loose pager-pills">{$page}</ul>
+    </div>
+</block>

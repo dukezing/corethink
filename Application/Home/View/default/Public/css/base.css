@@ -1,0 +1,282 @@
+/* reset
+-------------------------------------------------- */
+body {
+    padding-top: 52px;
+    background-color: #f2f2f2;
+    font-family: roboto, Verdana, Arial, Helvetica Neue, Helvetica, Tahoma, sans-serif;
+}
+.btn {
+    border: 0px;
+}
+.messager.top {
+    top: 56px;
+    font-weight: bold;
+}
+.card .caption a {
+    color: #fff;
+}
+pre,
+.btn,
+.alert,
+.panel,
+.form-control,
+.navbar-toggle,
+.dropdown-menu,
+.nav-tabs > li > a,
+.input-group-addon,
+.article > header > dl,
+.article > header > .abstract {
+    box-shadow: none;
+    border-radius: 0px;
+}
+
+
+/* 盒子
+-------------------------------------------------- */
+.box {
+    padding: 10px;
+    background: #fff;
+    margin-bottom: 10px;
+}
+.box header h1 {
+    margin-top: 10px;
+}
+.box header h3 {
+    margin-top: 20px;
+}
+
+
+
+/* 顶部主导航 navbar-corethink
+-------------------------------------------------- */
+.navbar-corethink {
+    border: none;
+    margin-bottom: 0px;
+    border-radius: 0;
+    background-color: rgba(255,255,255,0.9);
+    border-bottom: 1px solid #eee;
+}
+.navbar-corethink .navbar-brand {
+    color: #2C91D5;
+}
+.navbar-corethink .navbar-brand img{
+    height: 28px;
+    margin: -4px 0px;
+}
+.navbar-corethink .navbar-nav > li > a {
+    color: #333;
+    font-size: 15px;
+    font-family: "Microsoft YaHei";
+}
+.navbar-corethink .navbar-nav img {
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    margin: -10px 0px;
+}
+@media (min-width: 768px) {
+    .navbar-corethink .navbar-brand {
+        font-size: 30px;
+        padding: 10px;
+    }
+    .navbar-corethink .navbar-brand img {
+        height: 30px;
+        margin: -8px 0px -8px;
+    }
+    .navbar-corethink .navbar-nav > li > a {
+        padding: 16px 15px;
+    }
+    .navbar-corethink .navbar-nav .dropdown-menu > li > a {
+        padding: 8px 20px;
+    }
+}
+
+
+/* header
+-------------------------------------------------- */
+.header {
+    height: 50px;
+    margin-bottom: 10px;
+    background: #fff;
+}
+.header .breadcrumb {
+    padding: 15px;
+    margin-bottom: 0px;
+}
+.header .breadcrumb a {
+    color: #999;
+}
+
+
+/* 幻灯片
+-------------------------------------------------- */
+.carousel-corethink {
+    margin-bottom: 10px;;
+}
+.carousel-corethink .carousel-indicators {
+    bottom: -8px;
+}
+@media (max-width: 768px) {
+    .carousel-corethink .carousel-inner img{
+        width: 100%;
+        height: 150px;
+    }
+}
+@media (min-width: 768px) {
+    .carousel-corethink .carousel-inner img{
+        width: 100%;
+        height: 380px;
+    }
+}
+
+
+
+/* 文章
+-------------------------------------------------- */
+@media (max-width: 768px) {
+    .article header h1 {
+        font-size: 14px;
+    }
+}
+.reply-form .form-group {
+    margin-bottom: 10px;
+}
+
+
+/* footer
+-------------------------------------------------- */
+.footer {
+    color: #999;
+    text-align: center;
+    margin-top: 10px;
+    background-color: #fff;
+    border-top: solid 1px #e3e3e3;
+}
+.footer dl dt a {
+    color: #888;
+    font-weight: bold;
+    font-size: 14px;
+}
+.footer dl dd a {
+    color: #999;
+}
+.footer .logo img {
+    height: 25px;
+    margin: 8px 0px 8px;
+}
+.footer .info {
+    text-align: left;
+    font-size: 12px;
+    line-height: 20px;
+    text-indent: 2em;
+}
+.footer .copyright {
+    margin-top: 10px;
+}
+@media (max-width: 768px) {
+    .footer dl{
+        padding-bottom: 10px;
+    }
+    .footer dl dt{
+        text-align: left;
+        margin-bottom: 5px;
+    }
+    .footer dl dd{
+        float: left;
+        margin-right: 10px;
+    }
+}
+
+
+/* login
+-------------------------------------------------- */
+.login .nav > li > a {
+    padding: 12px 15px;
+    font-size: 16px;
+}
+.login .tab-content {
+    margin-top: 20px;
+}
+.login .submit {
+    border: 0px;
+    width: 100%;
+    margin-bottom: 0px;
+    height: 40px;
+}
+.login .title {
+    margin-top: 0px;
+    margin-bottom: 15px;
+}
+.login .input-group-addon {
+    border: 0px;
+    background-color: #f2f2f2;
+    padding: 5px 2px 5px 12px;
+    color: #999;
+}
+.login .form-control {
+    border: 0px;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    transition: none;
+    background-color: #f2f2f2;
+    height: 40px;
+    color: #999;
+}
+.login .form-control:focus {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    transition: none;
+}
+.login .tip a {
+    color: #999;
+    vertical-align: middle;
+}
+.login .info {
+    margin: -5px 0px 12px ;
+}
+.login .info a {
+    color: #999;
+}
+.login .info span {
+    margin: 0px 8px;
+    color: #999;
+}
+.login .chosen-single {
+    border: none;
+    height: 40px;
+    padding: 9px 8px;
+    border-radius: 0px;
+    background: #f2f2f2;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    transition: none;
+}
+.login .chosen-single div {
+    padding: 9px 8px;
+}
+.login .chosen-results li {
+    line-height: 25px;
+}
+.login .auto-tip li.hoverBg {
+    background:#ddd;
+}
+
+
+/* 用户主页
+-------------------------------------------------- */
+.userinfo header h1 {
+    font-size: 32px;
+    margin-top: 0px;
+    font-weight: normal;
+}
+.userinfo header .dl-inline dt,
+.userinfo header .dl-inline dd {
+    font-size: 20px;
+    line-height: 20px;
+}
+.userinfo header .dl-inline .time {
+    font-size: 16px;
+    line-height: 20px;
+    vertical-align: top;
+    color: #807e7a;
+}
