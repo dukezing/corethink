@@ -27,7 +27,7 @@ class ArticleController extends AdminController{
         $map['id|title'] = array($condition, $condition, '_multi'=>true);
         $lists = D('Article')->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))->getAllArticle($map);
         $page = new \Think\Page(D('Article')->where($map)->count(), C('ADMIN_PAGE_ROWS'));
-        $this->assign('all_category', D('Common/Tree')->toFormatTree(D('Category')->getAllCategory()));
+        $this->assign('all_category', D('Tree')->toFormatTree(D('Category')->getAllCategory()));
         $this->assign('volist', $this->int_to_icon($lists));
         $this->assign('page', $page->show());
         $this->meta_title = $category['title'];
@@ -54,7 +54,7 @@ class ArticleController extends AdminController{
                 $this->error($Article->getError());
             }
         }else{
-            $all_category = D('Common/Tree')->toFormatTree(D('Category')->getAllCategory());
+            $all_category = D('Tree')->toFormatTree(D('Category')->getAllCategory());
             $this->assign('all_category', $all_category);
             $info['cid'] = I('get.cid'); //获取当前分类
             $this->assign('info', $info);
@@ -82,7 +82,7 @@ class ArticleController extends AdminController{
                 $this->error($Article->getError());
             }
         }else{
-            $all_category = D('Common/Tree')->toFormatTree(D('Category')->getAllCategory());
+            $all_category = D('Tree')->toFormatTree(D('Category')->getAllCategory());
             $this->assign('info', D('Article')->getArticleById($id));
             $this->assign('all_category', $all_category);
             $this->meta_title = '编辑文章';

@@ -9,7 +9,7 @@
 namespace Org\Util;
 use Think\Db;
 //数据导出模型
-class Database {
+class Database{
     /**
      * 文件指针
      * @var resource
@@ -59,13 +59,13 @@ class Database {
                 session('backup_file', $this->file);
                 $this->create();
             }
-        } else {
+        }else{
             $backuppath = $this->config['path'];
             $filename   = "{$backuppath}{$this->file['name']}-{$this->file['part']}.sql";
             if($this->config['compress']){
                 $filename = "{$filename}.gz";
                 $this->fp = @gzopen($filename, "a{$this->config['level']}");
-            } else {
+            }else{
                 $this->fp = @fopen($filename, 'a');
             }
             $this->size = filesize($filename) + $size;
@@ -172,7 +172,7 @@ class Database {
         if($this->config['compress']){
             $gz   = gzopen($this->file[1], 'r');
             $size = 0;
-        } else {
+        }else{
             $size = filesize($this->file[1]);
             $gz   = fopen($this->file[1], 'r');
         }
@@ -187,11 +187,11 @@ class Database {
             if(preg_match('/.*;$/', trim($sql))){
                 if(false !== $db->execute($sql)){
                     $start += strlen($sql);
-                } else {
+                }else{
                     return false;
                 }
                 $sql = '';
-            } elseif ($this->config['compress'] ? gzeof($gz) : feof($gz)) {
+            }elseif($this->config['compress'] ? gzeof($gz) : feof($gz)){
                 return 0;
             }
         }

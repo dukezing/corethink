@@ -4,11 +4,11 @@
 // +----------------------------------------------------------------------
 // | Copyright (c) 2014 http://www.corethink.cn All rights reserved.
 // +----------------------------------------------------------------------
-// | Author: ijry <ijry@qq.com> <http://www.corethink.cn>
+// | Author: jry <59821125@qq.com> <http://www.corethink.cn>
 // +----------------------------------------------------------------------
 namespace Org\Util;
 //文件处理类
-class File {
+class File{
     /**
      * 创建目录
      * @param $dir  目录名

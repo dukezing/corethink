@@ -18,7 +18,7 @@ class CategoryController extends AdminController{
      * @author jry <598821125@qq.com>
      */
     public function index($pid = null){
-        $all_category = D('Common/Tree')->toFormatTree(D('Category')->getAllCategory());
+        $all_category = D('Tree')->toFormatTree(D('Category')->getAllCategory());
         $this->assign('volist', $this->int_to_icon($all_category));
         $this->assign('meta_title', "分类列表");
         $this->display();
@@ -43,10 +43,10 @@ class CategoryController extends AdminController{
                 $this->error($category->getError());
             }
         }else{
-            $all_category = D('Common/Tree')->toFormatTree(D('Category')->getAllCategory($map));
+            $all_category = D('Tree')->toFormatTree(D('Category')->getAllCategory($map));
             $all_category = array_merge(array(0 => array('id'=>0, 'title_show'=>'顶级分类')), $all_category);
             $this->assign('all_category', $all_category);
-            $this->assign('all_model', D('Model')->getAllModel());
+            $this->assign('all_model', D('CategoryModel')->getAllModel());
             $this->meta_title = '新增分类';
             $this->display('edit');
         }
@@ -71,10 +71,10 @@ class CategoryController extends AdminController{
             }
         }else{
             $info = D('Category')->getCategoryById($id);
-            $all_category = D('Common/Tree')->toFormatTree(D('Category')->getAllCategory());
+            $all_category = D('Tree')->toFormatTree(D('Category')->getAllCategory());
             $all_category = array_merge(array(0 => array('id'=>0, 'title_show'=>'顶级分类')), $all_category);
             $this->assign('all_category', $all_category);
-            $this->assign('all_model', D('Model')->getAllModel());
+            $this->assign('all_model', D('CategoryModel')->getAllModel());
             $this->assign('info', $info);
             $this->meta_title = '编辑分类';
             $this->display();
@@ -88,7 +88,7 @@ class CategoryController extends AdminController{
     public function del($id){
         $category = D('Category');
         $category_model = $category->getCategoryById($id, 'model');
-        $category_model_name = D('Model')->getModelNameById($category_model);
+        $category_model_name = D('CategoryModel')->getModelNameById($category_model);
         $condition['cid'] = $id;
         $category_list_count = D($category_model_name)->where($condition)->count();
         if($category_list_count == 0){
@@ -120,7 +120,7 @@ class CategoryController extends AdminController{
                 if($form_category_model === $to_category_model){
                     $map['id'] = array('in',$ids);
                     $data = array('cid' => $to_cid);
-                    $category_model_name = D('Model')->getModelNameById($to_category_model);
+                    $category_model_name = D('CategoryModel')->getModelNameById($to_category_model);
                     $this->editRow($category_model_name, $data, $map, array('success'=>'移动成功','error'=>'移动失败'));
                 }else{
                     $this->error('该分类模型不匹配');

@@ -17,7 +17,7 @@ class ArticleController extends HomeController{
     protected function _initialize(){
         parent::_initialize();
         Cookie('__forward__', $_SERVER['REQUEST_URI']);
-        $this->assign('__CURRENT_MODEL_ID__', D('Model')->getModelByName('article', 'id')); //当前模型ID
+        $this->assign('__CURRENT_MODEL_ID__', D('CategoryModel')->getModelByName('article', 'id')); //当前模型ID
     }
 
     /**
@@ -78,7 +78,7 @@ class ArticleController extends HomeController{
                 $this->error($Article->getError());
             }
         }else{
-            $all_category = D('Common/Tree')->toFormatTree(D('Category')->getAllCategory());
+            $all_category = D('Tree')->toFormatTree(D('Category')->getAllCategory());
             $this->assign('all_category', $all_category);
             $this->meta_title = '新增文章';
             $this->display('edit');
@@ -104,7 +104,7 @@ class ArticleController extends HomeController{
                 $this->error($Article->getError());
             }
         }else{
-            $all_category = D('Common/Tree')->toFormatTree(D('Category')->getAllCategory());
+            $all_category = D('Tree')->toFormatTree(D('Category')->getAllCategory());
             $this->assign('info', D('Article')->getArticleById($id));
             $this->assign('all_category', $all_category);
             $this->meta_title = '编辑文章';

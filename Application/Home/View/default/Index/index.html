@@ -3,30 +3,6 @@
 <block name="header"></block>
 
 <block name="body">
-    <div class="slider">
-        <div id="carousel-corethink" class="carousel carousel-corethink slide" data-ride="carousel">
-            <!-- 导航 -->
-            <ol class="carousel-indicators">
-                <!-- 模版标签 -->
-                <corethink:slider name="slider" group="1">
-                    <li data-target="#carousel-corethink" data-slide-to="{$key}" class="<php>if($key == 0) echo 'active';</php>"></li>
-                </corethink:slider>
-                <!-- /模版标签 -->
-            </ol>
-            <div class="carousel-inner">
-                <!-- 模版标签 -->
-                <corethink:slider name="slider" group="1">
-                    <div class="item <php>if($key == 0) echo 'active';</php>">
-                        <img alt="{$slider.title}" src="{$slider.cover|get_cover}">
-                        <div class="carousel-caption">
-                            <h3>{$slider.title}</h3>
-                        </div>
-                    </div>
-                </corethink:slider>
-                <!-- /模版标签 -->
-            </div>
-        </div>
-    </div>
     <div class="container">
         <style>
             .pro_name a{color: #4183c4;}

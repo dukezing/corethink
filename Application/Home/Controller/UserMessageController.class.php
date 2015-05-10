@@ -9,40 +9,27 @@
 namespace Home\Controller;
 use Think\Controller;
 /**
- * 前台默认控制器
+ * 消息控制器
  * @author jry <598821125@qq.com>
  */
-class IndexController extends HomeController{
+class UserMessageController extends HomeController{
+    /**
+     * 初始化方法
+     * @author jry <598821125@qq.com>
+     */
+    protected function _initialize(){
+        parent::_initialize();
+        $this->login();
+    }
     /**
      * 默认方法
      * @author jry <598821125@qq.com>
      */
-    public function index(){
-        $this->assign('meta_title', "首页");
+    public function index($type = 0){
+        $message_list = D('UserMessage')->getAllMessageByType($type);
+        $this->assign('volist', $message_list);
+        $this->assign('__CURRENT_MESSAGE_TYPE', $type);
+        $this->assign('meta_title', "消息中心");
         $this->display();
-    }
-
-    /**
-     * 编辑器上传
-     * @author jry <598821125@qq.com>
-     */
-    public function upload(){
-        exit(D('PublicUpload')->upload());
-    }
-
-    /**
-     * KindEditor编辑器下载远程图片
-     * @author jry <598821125@qq.com>
-     */
-    public function downremoteimg(){
-        exit(D('PublicUpload')->downremoteimg());
-    }
-
-    /**
-     * KindEditor编辑器文件管理
-     * @author jry <598821125@qq.com>
-     */
-    public function fileManager(){
-        exit(D('PublicUpload')->fileManager());
     }
 }

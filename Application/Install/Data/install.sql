@@ -5,7 +5,7 @@
 # http://www.sequelpro.com/
 # http://code.google.com/p/sequel-pro/
 #
-# Host: 202.119.236.194 (MySQL 5.5.34)
+# Host: 127.0.0.1 (MySQL 5.5.34)
 # Database: corethink
 # Generation Time: 2015-03-30 07:18:09 +0000
 # ************************************************************
@@ -36,12 +36,12 @@ CREATE TABLE `ct_addon` (
 LOCK TABLES `ct_addon` WRITE;
 /*!40000 ALTER TABLE `ct_addon` DISABLE KEYS */;
 
-INSERT INTO `ct_addon` (`id`, `name`, `title`, `description`, `config`, `author`, `version`, `ctime`, `utime`, `adminlist`, `status`)
+INSERT INTO `ct_addon` (`id`, `name`, `title`, `description`, `config`, `author`, `version`, `adminlist`, `ctime`, `utime`, `sort`, `status`)
 VALUES
-	(1, 'ReturnTop', '返回顶部', '返回顶部', '{\"status\":\"1\",\"theme\":\"rocket\",\"customer\":\"\",\"case\":\"\",\"qq\":\"\",\"weibo\":\"\"}', 'CoreThink', '1.0', 1407681961, 1408602081, 0, 1),
-	(2, 'Email', '邮件插件', '实现系统发邮件功能', '{\"status\":\"1\",\"MAIL_SMTP_TYPE\":\"1\",\"MAIL_SMTP_SECURE\":\"0\",\"MAIL_SMTP_PORT\":\"25\",\"MAIL_SMTP_HOST\":\"smtp.qq.com\",\"MAIL_SMTP_USER\":\"\",\"MAIL_SMTP_PASS\":\"\",\"default\":\"\"}', 'CoreThink', '1.0', 1428732454, 1428732454, 0, 1),
-	(3, 'SyncLogin', '第三方账号登陆', '第三方账号登陆', '{\"type\":[\"Qq\",\"Sina\",\"Renren\",\"Google\"],\"meta\":\"\",\"QqKEY\":\"\",\"QqSecret\":\"\",\"SinaKEY\":\"\",\"SinaSecret\":\"\",\"RenrenKEY\":\"\",\"RenrenSecret\":\"\",\"GoogleKEY\":\"\",\"GoogleSecret\":\"\"}', 'CoreThink', '1.0', 1428250248, 1428250248, 0, 1),
-	(4, 'AdFloat', '图片漂浮广告', '图片漂浮广告', '{\"status\":\"0\",\"url\":\"http:\\/\\/www.corethink.cn\",\"image\":\"\",\"width\":\"100\",\"height\":\"100\",\"speed\":\"10\",\"target\":\"1\"}', 'CoreThink', '1.0', 1408602081, 1408602081, 0, 1);
+	(1, 'ReturnTop', '返回顶部', '返回顶部', '{\"status\":\"1\",\"theme\":\"rocket\",\"customer\":\"\",\"case\":\"\",\"qq\":\"\",\"weibo\":\"\"}', 'CoreThink', '1.0', 0, 1407681961, 1408602081, 0, 1),
+	(2, 'Email', '邮件插件', '实现系统发邮件功能', '{\"status\":\"1\",\"MAIL_SMTP_TYPE\":\"1\",\"MAIL_SMTP_SECURE\":\"0\",\"MAIL_SMTP_PORT\":\"25\",\"MAIL_SMTP_HOST\":\"smtp.qq.com\",\"MAIL_SMTP_USER\":\"\",\"MAIL_SMTP_PASS\":\"\",\"default\":\"\"}', 'CoreThink', '1.0', 0, 1428732454, 1428732454, 0, 1),
+	(3, 'SyncLogin', '第三方账号登陆', '第三方账号登陆', '{\"type\":[\"Qq\",\"Sina\",\"Renren\",\"Google\"],\"meta\":\"\",\"QqKEY\":\"\",\"QqSecret\":\"\",\"SinaKEY\":\"\",\"SinaSecret\":\"\",\"RenrenKEY\":\"\",\"RenrenSecret\":\"\",\"GoogleKEY\":\"\",\"GoogleSecret\":\"\"}', 'CoreThink', '1.0', 1, 1428250248, 1428250248, 0, 1),
+	(4, 'AdFloat', '图片漂浮广告', '图片漂浮广告', '{\"status\":\"0\",\"url\":\"http:\\/\\/www.corethink.cn\",\"image\":\"\",\"width\":\"100\",\"height\":\"100\",\"speed\":\"10\",\"target\":\"1\"}', 'CoreThink', '1.0', 0, 1408602081, 1408602081, 0, 1);
 
 /*!40000 ALTER TABLE `ct_addon` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -98,12 +98,12 @@ CREATE TABLE `ct_category` (
 
 
 
-# Dump of table ct_comment
+# Dump of table ct_user_comment
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `ct_comment`;
+DROP TABLE IF EXISTS `ct_user_comment`;
 
-CREATE TABLE `ct_comment` (
+CREATE TABLE `ct_user_comment` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '评论ID',
   `pid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '评论父ID',
   `uid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '用户ID',
@@ -120,12 +120,12 @@ CREATE TABLE `ct_comment` (
 
 
 
-# Dump of table ct_config
+# Dump of table ct_system_config
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `ct_config`;
+DROP TABLE IF EXISTS `ct_system_config`;
 
-CREATE TABLE `ct_config` (
+CREATE TABLE `ct_system_config` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '配置ID',
   `title` varchar(32) NOT NULL DEFAULT '' COMMENT '配置标题',
   `name` varchar(32) NOT NULL COMMENT '配置名称',
@@ -141,10 +141,10 @@ CREATE TABLE `ct_config` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='系统配置表';
 
-LOCK TABLES `ct_config` WRITE;
-/*!40000 ALTER TABLE `ct_config` DISABLE KEYS */;
+LOCK TABLES `ct_system_config` WRITE;
+/*!40000 ALTER TABLE `ct_system_config` DISABLE KEYS */;
 
-INSERT INTO `ct_config` (`title`, `name`, `value`, `group`, `type`, `options`, `tip`, `ctime`, `utime`, `sort`, `status`)
+INSERT INTO `ct_system_config` (`title`, `name`, `value`, `group`, `type`, `options`, `tip`, `ctime`, `utime`, `sort`, `status`)
 VALUES
 	('站点开关', 'TOGGLE_WEB_SITE', '1', 1, 'select', '0:关闭,1:开启', '站点关闭后将不能访问', 1378898976, 1406992386, 1, 1),
 	('网站标题', 'WEB_SITE_TITLE', 'CoreThink框架', 1, 'text', '', '网站标题前台显示标题', 1378898976, 1379235274, 2, 1),
@@ -173,17 +173,17 @@ VALUES
 	('又拍云上传配置', 'UPLOAD_UPYUN_CONFIG', 'host:\r\nusername:\r\npassword:\r\nbucket:', 4, 'array', '', '又拍云上传配置', 1393073559, 1393073559, 5, 1),
 	('七牛云存储上传配置', 'UPLOAD_QINIU_CONFIG', 'secrectKey:\r\naccessKey:\r\ndomain:\r\nbucket:', 4, 'array', '', '七牛云存储上传配置', 1393074989, 1416637334, 6, 1);
 
-/*!40000 ALTER TABLE `ct_config` ENABLE KEYS */;
+/*!40000 ALTER TABLE `ct_system_config` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
 
-# Dump of table ct_digg
+# Dump of table ct_user_digg
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `ct_digg`;
+DROP TABLE IF EXISTS `ct_user_digg`;
 
-CREATE TABLE `ct_digg` (
+CREATE TABLE `ct_user_digg` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '投票ID',
   `doc_id` int(11) unsigned NOT NULL COMMENT '投票文档ID',
   `model` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '投票模型ID',
@@ -195,12 +195,12 @@ CREATE TABLE `ct_digg` (
 
 
 
-# Dump of table ct_group
+# Dump of table ct_user_group
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `ct_group`;
+DROP TABLE IF EXISTS `ct_user_group`;
 
-CREATE TABLE `ct_group` (
+CREATE TABLE `ct_user_group` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '部门ID',
   `pid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '上级部门ID',
   `title` varchar(32) NOT NULL DEFAULT '' COMMENT '部门名称',
@@ -213,23 +213,23 @@ CREATE TABLE `ct_group` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='部门信息表';
 
-LOCK TABLES `ct_group` WRITE;
-/*!40000 ALTER TABLE `ct_group` DISABLE KEYS */;
+LOCK TABLES `ct_user_group` WRITE;
+/*!40000 ALTER TABLE `ct_user_group` DISABLE KEYS */;
 
-INSERT INTO `ct_group` (`id`, `pid`, `title`, `icon`, `auth`, `ctime`, `utime`, `sort`, `status`)
+INSERT INTO `ct_user_group` (`id`, `pid`, `title`, `icon`, `auth`, `ctime`, `utime`, `sort`, `status`)
 VALUES
 	(1,0,'管理员','','',1426881003,1427552428,0,1);
 
-/*!40000 ALTER TABLE `ct_group` ENABLE KEYS */;
+/*!40000 ALTER TABLE `ct_user_group` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
-# Dump of table ct_hook
+# Dump of table ct_addon_hook
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `ct_hook`;
+DROP TABLE IF EXISTS `ct_addon_hook`;
 
-CREATE TABLE `ct_hook` (
+CREATE TABLE `ct_addon_hook` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '钩子ID',
   `name` varchar(32) NOT NULL DEFAULT '' COMMENT '钩子名称',
   `description` text NOT NULL COMMENT '描述',
@@ -242,26 +242,26 @@ CREATE TABLE `ct_hook` (
   UNIQUE KEY `name` (`name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='系统钩子表';
 
-LOCK TABLES `ct_hook` WRITE;
-/*!40000 ALTER TABLE `ct_hook` DISABLE KEYS */;
+LOCK TABLES `ct_addon_hook` WRITE;
+/*!40000 ALTER TABLE `ct_addon_hook` DISABLE KEYS */;
 
-INSERT INTO `ct_hook` (`id`, `name`, `description`, `addons`, `type`, `ctime`, `utime`, `status`)
+INSERT INTO `ct_addon_hook` (`id`, `name`, `description`, `addons`, `type`, `ctime`, `utime`, `status`)
 VALUES
 	(1, 'PageHeader', '页面header钩子，一般用于加载插件CSS文件和代码', 'SyncLogin', 1, 1407681961, 1407681961, 1),
 	(2, 'PageFooter', '页面footer钩子，一般用于加载插件CSS文件和代码', 'ReturnTop,AdFloat', 1, 1407681961, 1407681961, 1),
 	(3, 'SyncLogin', '第三方登陆', 'SyncLogin', 1, 1407681961, 1407681961, 1);
 
-/*!40000 ALTER TABLE `ct_hook` ENABLE KEYS */;
+/*!40000 ALTER TABLE `ct_addon_hook` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
 
-# Dump of table ct_message
+# Dump of table ct_user_message
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `ct_message`;
+DROP TABLE IF EXISTS `ct_user_message`;
 
-CREATE TABLE `ct_message` (
+CREATE TABLE `ct_user_message` (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '消息ID',
   `pid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '消息父ID',
   `title` varchar(1024) NOT NULL DEFAULT '' COMMENT '消息内容',
@@ -278,12 +278,12 @@ CREATE TABLE `ct_message` (
 
 
 
-# Dump of table ct_menu
+# Dump of table ct_system_menu
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `ct_menu`;
+DROP TABLE IF EXISTS `ct_system_menu`;
 
-CREATE TABLE `ct_menu` (
+CREATE TABLE `ct_system_menu` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '菜单ID',
   `pid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '上级菜单ID',
   `title` varchar(32) NOT NULL DEFAULT '' COMMENT '菜单名称',
@@ -296,13 +296,13 @@ CREATE TABLE `ct_menu` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='后台菜单表';
 
-LOCK TABLES `ct_menu` WRITE;
-/*!40000 ALTER TABLE `ct_menu` DISABLE KEYS */;
+LOCK TABLES `ct_system_menu` WRITE;
+/*!40000 ALTER TABLE `ct_system_menu` DISABLE KEYS */;
 
-INSERT INTO `ct_menu` (`id`, `pid`, `title`, `url`, `icon`, `ctime`, `utime`, `sort`, `status`)
+INSERT INTO `ct_system_menu` (`id`, `pid`, `title`, `url`, `icon`, `ctime`, `utime`, `sort`, `status`)
 VALUES
 	(1, 0, '首页', 'Index/index', 'icon-home', 1426580628, 1426580628, 1, 1),
-	(2, 0, '系统', 'Config/group', 'icon-windows', 1426580628, 1426580628, 2, 1),
+	(2, 0, '系统', 'SystemConfig/group', 'icon-windows', 1426580628, 1426580628, 2, 1),
 	(3, 0, '内容', 'Category/index', 'icon-tasks', 1430290092, 1430291772, 2, 1),
 	(4, 0, '用户', 'User/index', 'icon-group', 1426580628, 1426580628, 3, 1),
 	(5, 0, '其它', '', 'icon-cloud', 1426580628, 1426580628, 3, 0),
@@ -310,23 +310,22 @@ VALUES
 	(7, 2, '系统功能', '', 'icon-folder-open-alt', 1426580628, 1426580628, 1, 1),
 	(8, 2, '数据备份', '', 'icon-folder-open-alt', 1426580628, 1426580628, 2, 1),
 	(9, 3, '文档管理', '', 'icon-folder-open-alt', 1430290276, 1430291485, 1, 1),
-	(10, 3, '幻灯管理', '', 'icon-folder-open-alt', 1430290393, 1430290393, 2, 1),
 	(11, 4, '用户管理', '', 'icon-folder-open-alt', 1426580628, 1426580628, 1, 1),
 	(12, 6, '清空缓存', 'Index/rmdirr', '', 1427475588, 1427475588, 1, 1),
 	(13, 6, '上传文件', 'Index/upload', '', 1427475588, 1427475588, 2, 1),
 	(14, 6, '下载图片', 'Index/downremoteimg', '', 1427475588, 1427475588, 3, 1),
 	(15, 6, '文件浏览', 'Index/fileManager', '', 1427475588, 1427475588, 1, 4),
-	(16, 7, '系统设置', 'Config/group', 'icon-cog', 1426580628, 1430291269, 1, 1),
-	(17, 16, '修改', 'Config/save', '', 1426580628, 1426580628, 1, 1),
-	(18, 7, '菜单管理', 'Menu/index', 'icon-reorder', 1426580628, 1430291065, 2, 1),
-	(19, 18, '添加', 'Menu/add', '', 1426580628, 1426580628, 1, 1),
-	(20, 18, '编辑', 'Menu/edit', '', 1426580628, 1426580628, 2, 1),
-	(21, 18, '设置状态', 'Menu/setStatus', '', 1426580628, 1426580628, 3, 1),
-	(22, 7, '配置管理', 'Config/index', 'icon-wrench', 1426580628, 1430291167, 3, 1),
-	(23, 22, '添加', 'Config/add', '', 1426580628, 1426580628, 1, 1),
-	(24, 22, '编辑', 'Config/edit', '', 1426580628, 1426580628, 2, 1),
-	(25, 22, '设置状态', 'Config/setStatus', '', 1426580628, 1426580628, 3, 1),
-	(26, 7, '数据字典', 'Datebase/index', 'icon-table', 1429851071, 1430291185, 4, 1),
+	(16, 7, '系统设置', 'SystemConfig/group', 'icon-cog', 1426580628, 1430291269, 1, 1),
+	(17, 16, '修改', 'SystemConfig/save', '', 1426580628, 1426580628, 1, 1),
+	(18, 7, '菜单管理', 'SystemMenu/index', 'icon-reorder', 1426580628, 1430291065, 2, 1),
+	(19, 18, '添加', 'SystemMenu/add', '', 1426580628, 1426580628, 1, 1),
+	(20, 18, '编辑', 'SystemMenu/edit', '', 1426580628, 1426580628, 2, 1),
+	(21, 18, '设置状态', 'SystemMenu/setStatus', '', 1426580628, 1426580628, 3, 1),
+	(22, 7, '配置管理', 'SystemConfig/index', 'icon-wrench', 1426580628, 1430291167, 3, 1),
+	(23, 22, '添加', 'SystemConfig/add', '', 1426580628, 1426580628, 1, 1),
+	(24, 22, '编辑', 'SystemConfig/edit', '', 1426580628, 1426580628, 2, 1),
+	(25, 22, '设置状态', 'SystemConfig/setStatus', '', 1426580628, 1426580628, 3, 1),
+	(26, 7, '数据字典', 'SystemDatebase/index', 'icon-table', 1429851071, 1430291185, 4, 1),
 	(27, 7, '插件列表', 'Addon/index', 'icon-cogs', 1427475588, 1427475588, 5, 1),
 	(28, 27, '安装', 'Addon/install', '', 1427475588, 1427475588, 1, 1),
 	(29, 27, '卸载', 'Addon/uninstall', '', 1427475588, 1427475588, 2, 1),
@@ -336,59 +335,51 @@ VALUES
 	(33, 27, '数据列表', 'Addon/adminList', '', 1427475588, 1427475588, 6, 1),
 	(34, 27, '数据编辑', 'Addon/edit', '', 1427475588, 1427475588, 7, 1),
 	(35, 27, '数据删除', 'Addon/del', '', 1426580628, 1426580628, 8, 1),
-	(36, 8, '数据备份', 'Backup/export', 'icon-archive', 1426580628, 1426580628, 1, 1),
-	(37, 36, '备份', 'Backup/do_export', '', 1426580628, 1426580628, 1, 1),
-	(38, 36, '优化表', 'Backup/optimize', '', 1426580628, 1426580628, 2, 1),
-	(39, 36, '修复表', 'Backup/repair', '', 1426580628, 1426580628, 3, 1),
-	(40, 8, '数据还原', 'Backup/import', 'icon-undo', 1426580628, 1426580628, 2, 1),
-	(41, 40, '还原备份', 'Backup/do_import', '', 1426580628, 1426580628, 1, 1),
-	(42, 40, '删除备份', 'Backup/del', '', 1426580628, 1426580628, 2, 1),
+	(36, 8, '数据备份', 'SystemDatebase/export', 'icon-archive', 1426580628, 1426580628, 1, 1),
+	(37, 36, '备份', 'SystemDatebase/do_export', '', 1426580628, 1426580628, 1, 1),
+	(38, 36, '优化表', 'SystemDatebase/optimize', '', 1426580628, 1426580628, 2, 1),
+	(39, 36, '修复表', 'SystemDatebase/repair', '', 1426580628, 1426580628, 3, 1),
+	(40, 8, '数据还原', 'SystemDatebase/import', 'icon-undo', 1426580628, 1426580628, 2, 1),
+	(41, 40, '还原备份', 'SystemDatebase/do_import', '', 1426580628, 1426580628, 1, 1),
+	(42, 40, '删除备份', 'SystemDatebase/del', '', 1426580628, 1426580628, 2, 1),
 	(43, 9, '栏目分类', 'Category/index', 'icon-branch', 1426580628, 1430290312, 1, 1),
 	(44, 43, '添加', 'Category/add', '', 1426580628, 1426580628, 1, 1),
 	(45, 43, '编辑', 'Category/edit', '', 1426580628, 1426580628, 2, 1),
 	(46, 43, '设置状态', 'Category/setStatus', '', 1426580628, 1426580628, 3, 1),
 	(47, 43, '删除', 'Category/del', '', 1426580628, 1426580628, 4, 1),
-	(48, 9, '导航链接', 'Navlink/index', 'icon-link', 1426580628, 1430290718, 2, 1),
-	(49, 48, '添加', 'Navlink/add', '', 1426580628, 1426580628, 1, 1),
-	(50, 48, '编辑', 'Navlink/edit', '', 1426580628, 1426580628, 2, 1),
-	(51, 48, '设置状态', 'Navlink/setStatus', '', 1426580628, 1426580628, 3, 1),
-	(52, 9, '标签列表', 'Tag/index', 'icon-tag', 1426580628, 1430290718, 3, 1),
-	(53, 52, '添加', 'Tag/add', '', 1426580628, 1426580628, 1, 1),
-	(54, 52, '编辑', 'Tag/edit', '', 1426580628, 1426580628, 2, 1),
-	(55, 52, '设置状态', 'Tag/setStatus', '', 1426580628, 1426580628, 3, 1),
-	(56, 9, '评论列表', 'Comment/index', 'icon-comments-alt', 1426580628, 1426580628, 4, 1),
-	(57, 56, '添加', 'Comment/add', '', 1426580628, 1426580628, 1, 1),
-	(58, 56, '编辑', 'Comment/edit', '', 1426580628, 1426580628, 2, 1),
-	(59, 56, '设置状态', 'Comment/setStatus', '', 1426580628, 1426580628, 3, 1),
+	(52, 9, '标签列表', 'PublicTag/index', 'icon-tag', 1426580628, 1430290718, 3, 1),
+	(53, 52, '添加', 'PublicTag/add', '', 1426580628, 1426580628, 1, 1),
+	(54, 52, '编辑', 'PublicTag/edit', '', 1426580628, 1426580628, 2, 1),
+	(55, 52, '设置状态', 'PublicTag/setStatus', '', 1426580628, 1426580628, 3, 1),
+	(56, 9, '评论列表', 'UserComment/index', 'icon-comments-alt', 1426580628, 1426580628, 4, 1),
+	(57, 56, '添加', 'UserComment/add', '', 1426580628, 1426580628, 1, 1),
+	(58, 56, '编辑', 'UserComment/edit', '', 1426580628, 1426580628, 2, 1),
+	(59, 56, '设置状态', 'UserComment/setStatus', '', 1426580628, 1426580628, 3, 1),
 	(60, 9, '回收站', 'Index/recycle', 'icon-trash', 1427475588, 1430290597, 5, 1),
-	(61, 10, '幻灯列表', 'Slider/index', 'icon-play-circle', 1426580628, 1430291809, 1, 1),
-	(62, 61, '添加', 'Slider/add', '', 1426580628, 1426580628, 1, 1),
-	(63, 61, '编辑', 'Slider/edit', '', 1426580628, 1426580628, 2, 1),
-	(64, 61, '设置状态', 'Slider/setStatus', '', 1426580628, 1426580628, 3, 1),
 	(65, 11, '用户列表', 'User/index', 'icon-user', 1426580628, 1426580628, 1, 1),
 	(66, 65, '添加', 'User/add', '', 1426580628, 1426580628, 1, 1),
 	(67, 65, '编辑', 'User/edit', '', 1426580628, 1426580628, 2, 1),
 	(68, 65, '设置状态', 'User/setStatus', '', 1426580628, 1426580628, 3, 1),
-	(69, 11, '部门管理', 'Group/index', 'icon-sitemap', 1426580628, 1426580628, 2, 1),
-	(70, 69, '添加', 'Group/add', '', 1426580628, 1426580628, 1, 1),
-	(71, 69, '编辑', 'Group/edit', '', 1426580628, 1426580628, 2, 1),
-	(72, 69, '设置状态', 'Group/setStatus', '', 1426580628, 1426580628, 3, 1),
+	(69, 11, '部门管理', 'UserGroup/index', 'icon-sitemap', 1426580628, 1426580628, 2, 1),
+	(70, 69, '添加', 'UserGroup/add', '', 1426580628, 1426580628, 1, 1),
+	(71, 69, '编辑', 'UserGroup/edit', '', 1426580628, 1426580628, 2, 1),
+	(72, 69, '设置状态', 'UserGroup/setStatus', '', 1426580628, 1426580628, 3, 1),
 	(73, 43, '文章列表', 'Article/index', '', 1427475588, 1427475588, 4, 1),
 	(74, 73, '添加', 'Article/add', '', 1426580628, 1426580628, 1, 1),
 	(75, 73, '编辑', 'Article/edit', '', 1426580628, 1426580628, 2, 1),
 	(76, 73, '设置状态', 'Article/setStatus', '', 1426580628, 1426580628, 3, 1);
 
 
-/*!40000 ALTER TABLE `ct_menu` ENABLE KEYS */;
+/*!40000 ALTER TABLE `ct_system_menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
-# Dump of table ct_model
+# Dump of table ct_category_model
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `ct_model`;
+DROP TABLE IF EXISTS `ct_category_model`;
 
-CREATE TABLE `ct_model` (
+CREATE TABLE `ct_category_model` (
   `id` tinyint(4) unsigned NOT NULL AUTO_INCREMENT COMMENT '模型ID',
   `name` char(16) NOT NULL DEFAULT '' COMMENT '模型名称',
   `title` char(16) NOT NULL DEFAULT '' COMMENT '模型标题',
@@ -400,68 +391,26 @@ CREATE TABLE `ct_model` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='系统模型信息表';
 
-LOCK TABLES `ct_model` WRITE;
-/*!40000 ALTER TABLE `ct_model` DISABLE KEYS */;
+LOCK TABLES `ct_category_model` WRITE;
+/*!40000 ALTER TABLE `ct_category_model` DISABLE KEYS */;
 
-INSERT INTO `ct_model` (`id`, `name`, `title`, `icon`, `ctime`, `utime`, `sort`, `status`)
+INSERT INTO `ct_category_model` (`id`, `name`, `title`, `icon`, `ctime`, `utime`, `sort`, `status`)
 VALUES
 	(1,'link','链接','icon-link',1426580628,1426580628,0,1),
 	(2,'page','单页','icon-file',1426580628,1426580628,0,1),
 	(3,'article','文章','icon-edit',1426580628,1426580628,0,1);
 
-/*!40000 ALTER TABLE `ct_model` ENABLE KEYS */;
+/*!40000 ALTER TABLE `ct_category_model` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
-# Dump of table ct_navlink
+
+# Dump of table ct_addon_sync_login
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `ct_navlink`;
+DROP TABLE IF EXISTS `ct_addon_sync_login`;
 
-CREATE TABLE `ct_navlink` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '导航ID',
-  `pid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '上级导航ID',
-  `model` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '内容模型',
-  `title` varchar(32) NOT NULL DEFAULT '' COMMENT '导航标题',
-  `url` varchar(128) NOT NULL DEFAULT '' COMMENT '链接地址',
-  `content` text NOT NULL COMMENT '内容',
-  `template` varchar(32) NOT NULL DEFAULT '' COMMENT '模版',
-  `icon` varchar(32) NOT NULL COMMENT '图标',
-  `ctime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
-  `utime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改时间',
-  `sort` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '排序（同级有效）',
-  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='网站导航链接表';
-
-
-
-# Dump of table ct_slider
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `ct_slider`;
-
-CREATE TABLE `ct_slider` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '幻灯ID',
-  `title` varchar(127) NOT NULL DEFAULT '' COMMENT '标题',
-  `cover` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '图片ID',
-  `url` varchar(255) NOT NULL DEFAULT '' COMMENT '点击链接',
-  `group` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '幻灯片分组',
-  `ctime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
-  `utime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改时间',
-  `sort` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
-  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='幻灯信息表';
-
-
-
-# Dump of table ct_sync_login
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `ct_sync_login`;
-
-CREATE TABLE `ct_sync_login` (
+CREATE TABLE `ct_addon_sync_login` (
   `uid` int(11) NOT NULL COMMENT 'ID',
   `openid` varchar(64) NOT NULL DEFAULT '' COMMENT 'OpenID',
   `type` varchar(4) NOT NULL DEFAULT '' COMMENT '类别',
@@ -471,12 +420,12 @@ CREATE TABLE `ct_sync_login` (
 
 
 
-# Dump of table ct_tag
+# Dump of table ct_public_tag
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `ct_tag`;
+DROP TABLE IF EXISTS `ct_public_tag`;
 
-CREATE TABLE `ct_tag` (
+CREATE TABLE `ct_public_tag` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `title` varchar(32) NOT NULL COMMENT '标签',
   `count` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '数量',
@@ -490,12 +439,12 @@ CREATE TABLE `ct_tag` (
 
 
 
-# Dump of table ct_upload
+# Dump of table ct_public_upload
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `ct_upload`;
+DROP TABLE IF EXISTS `ct_public_upload`;
 
-CREATE TABLE `ct_upload` (
+CREATE TABLE `ct_public_upload` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '上传ID',
   `path` varchar(255) NOT NULL DEFAULT '' COMMENT '文件路径',
   `url` varchar(255) NOT NULL DEFAULT '' COMMENT '文件链接',

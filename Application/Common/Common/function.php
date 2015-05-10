@@ -44,11 +44,11 @@ function get_user_info($id, $field){
  * @author jry <598821125@qq.com>
  */
 function get_cover($id, $type){
-    $url = D('Upload')->getPathOrUrlById($id);
+    $url = D('PublicUpload')->getPathOrUrlById($id);
     if(!$url){
         switch($type){
             case 'avatar' : //用户头像
-                $url = __ROOT__.'/Application/Home/View/'.C('DEFAULT_THEME').'/Public/img/avatar/'.rand(1,7).'.png';
+                $url = __ROOT__.'/Public/corethink/avatar/'.rand(1,7).'.png';
                 break;
             default: //文档列表默认图片
                 break;

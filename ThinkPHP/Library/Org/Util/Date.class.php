@@ -15,7 +15,7 @@ namespace Org\Util;
  * @package  ORG
  * @subpackage  Date
  */
-class Date {
+class Date{
     /**
      * 日期的时间戳
      * @var integer

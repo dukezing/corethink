@@ -20,8 +20,6 @@ class CoreThink extends TagLib{
     protected $tags = array(
         'breadcrumb'  => array('attr' => 'name,cid', 'close' => 1), //面包屑导航列表
         'category' => array('attr' => 'name,pid', 'close' => 1), //栏目分类列表
-        'navlink'  => array('attr' => 'name,pid', 'close' => 1), //导航链接列表
-        'slider'   => array('attr' => 'name,group', 'close' => 1), //幻灯列表
         'comment'  => array('attr' => 'name,model,doc_id', 'close' => 1), //评论列表
         'article'  => array('attr' => 'name,cid,limit', 'close' => 1), //文章列表
     );
@@ -50,41 +48,9 @@ class CoreThink extends TagLib{
         $name   = $tag['name'];
         $parse  = '<?php ';
         $parse .= '$__CATEGORYLIST__ = D(\'Category\')->getAllCategory($map, "1");';
-        $parse .= '$__CATEGORYLIST__ = D(\'Common/Tree\')->list_to_tree($__CATEGORYLIST__);';
+        $parse .= '$__CATEGORYLIST__ = D(\'Tree\')->list_to_tree($__CATEGORYLIST__);';
         $parse .= ' ?>';
         $parse .= '<volist name="__CATEGORYLIST__" id="'. $name .'">';
-        $parse .= $content;
-        $parse .= '</volist>';
-        return $parse;
-    }
-
-    /**
-     * 导航链接列表
-     * @author jry <598821125@qq.com>
-     */
-    public function _navlink($tag, $content){
-        $name   = $tag['name'];
-        $parse  = '<?php ';
-        $parse .= '$__NAVLINK_LIST__ = D(\'Navlink\')->getAllNavlink($map, "1");';
-        $parse .= '$__NAVLINK_LIST__ = D(\'Common/Tree\')->list_to_tree($__NAVLINK_LIST__);';
-        $parse .= ' ?>';
-        $parse .= '<volist name="__NAVLINK_LIST__" id="'. $name .'">';
-        $parse .= $content;
-        $parse .= '</volist>';
-        return $parse;
-    }
-
-    /**
-     * 幻灯片列表
-     * @author jry <598821125@qq.com>
-     */
-    public function _slider($tag, $content){
-        $name   = $tag['name'];
-        $group  = $tag['group'];
-        $parse  = '<?php ';
-        $parse .= '$__SLIDER_LIST__ = D(\'Slider\')->getSliderByGroup('.$group.', "1");';
-        $parse .= ' ?>';
-        $parse .= '<volist name="__SLIDER_LIST__" id="'. $name .'">';
         $parse .= $content;
         $parse .= '</volist>';
         return $parse;
@@ -99,7 +65,7 @@ class CoreThink extends TagLib{
         $model  = $tag['model'];
         $doc_id  = $tag['doc_id'];
         $parse  = '<?php ';
-        $parse .= '$__COMMENT_LIST__ = D(\'Comment\')->getAllCommentByDocument('.$model.','.$doc_id.');';
+        $parse .= '$__COMMENT_LIST__ = D(\'UserComment\')->getAllCommentByDocument('.$model.','.$doc_id.');';
         $parse .= ' ?>';
         $parse .= '<volist name="__COMMENT_LIST__" id="'. $name .'">';
         $parse .= $content;

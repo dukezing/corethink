@@ -13,6 +13,12 @@ use Think\Model;
  */
 class SyncLoginModel extends Model{
     /**
+     * 数据库表名
+     * @author jry <598821125@qq.com>
+     */
+    protected $tableName = 'addon_sync_login'; 
+
+    /**
      * 自动完成规则
      * @author jry <598821125@qq.com>
      */

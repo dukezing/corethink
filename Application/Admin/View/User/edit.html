@@ -47,7 +47,7 @@
                 <div id="upload"></div>
                 <div id="preview">
                     <input type="hidden" name="avatar" value="{$info.avatar}">
-                    <img style="margin-top:8px;width:120px;height:120px;" src="{$info.avatar|get_cover}">
+                    <img style="margin-top:8px;width:120px;height:120px;" src="{$info.avatar|get_cover='avatar'}">
                 </div>
                 <link rel="stylesheet" type="text/css" href="__PUBLIC__/huploadify/huploadify.css">
                 <script type="text/javascript" src="__PUBLIC__/huploadify/huploadify.js" charset="utf-8"></script>

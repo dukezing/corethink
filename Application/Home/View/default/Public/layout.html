@@ -32,7 +32,7 @@
     <script type="text/javascript" src="__PUBLIC__/corethink/js/base.js" charset="utf-8"></script>
     <script type="text/javascript">
         $(function(){
-            $('.lazy img').lazyload({effect: 'fadeIn', threshold:'-500'}); //图片lazyload
+            $('.lazy img').lazyload({effect: 'fadeIn'}); //图片lazyload
             $('.form select.form-control').chosen({disable_search_threshold: 10}); //使用chosen插件接管select
         });
         //iOS Web APP中点击链接跳转到Safari浏览器新标签页的问题
@@ -82,7 +82,7 @@
                     <!-- /模版标签 -->
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{:U('Message/index')}">消息</a></li>
+                    <li><a href="{:U('UserMessage/index')}">消息</a></li>
                     <present name="__USER__">
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -91,7 +91,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a href="{:U('User/index')}"><i class="icon-home"></i> 个人中心</a></li>
-                                <li><a href="{:U('Message/index')}"><i class="icon-bell-alt"></i> 消息中心</a></li>
+                                <li><a href="{:U('UserMessage/index')}"><i class="icon-bell-alt"></i> 消息中心</a></li>
                                 <li class="divider hidden-xs"></li>
                                 <li><a href="{:U('User/logout')}" class="ajax-get"><i class="icon-signout"></i> 退出登录</a></li>
                             </ul>

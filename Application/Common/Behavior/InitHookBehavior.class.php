@@ -23,7 +23,7 @@ class InitHookBehavior extends Behavior{
         if(defined('BIND_MODULE') && BIND_MODULE === 'Install') return;
         $data = S('hooks');
         if(!$data){
-            $hooks = M('Hook')->getField('name,addons');
+            $hooks = D('AddonHook')->getField('name,addons');
             foreach ($hooks as $key => $value) {
                 if($value){
                     $map['status']  =   1;

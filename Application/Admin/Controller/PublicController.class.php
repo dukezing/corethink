@@ -32,7 +32,7 @@ class PublicController extends Controller{
             //读取数据库中的配置
             $config = S('DB_CONFIG_DATA');
             if(!$config){
-                $config = D('Config')->lists();
+                $config = D('SystemConfig')->lists();
                 $config['DEFAULT_THEME'] = ''; //后台无模板主题
                 S('DB_CONFIG_DATA',$config);
             }

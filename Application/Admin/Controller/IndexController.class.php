@@ -47,12 +47,12 @@ class IndexController extends AdminController{
             $this->error('模型ID错误');
         }
         $map['status'] = array('eq', '-1');
-        $current_model = D('Model')->getModelById($model);
+        $current_model = D('CategoryModel')->getModelById($model);
         $volist = D($current_model['name'])->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))->where($map)->select();
         $page = new \Think\Page(D($current_model['name'])->where($map)->count(), C('ADMIN_PAGE_ROWS'));
         $this->assign('page', $page->show());
         $this->assign('volist', $this->int_to_icon($volist));
-        $this->assign('__MODEL_LIST__', D('Model')->getAllModel(array('id' => array('egt', '3'))));
+        $this->assign('__MODEL_LIST__', D('CategoryModel')->getAllModel(array('id' => array('egt', '3'))));
         $this->assign('__CURRENT_MODEL_', $current_model);
         $this->meta_title = '回收站';
         $this->display();
@@ -77,7 +77,7 @@ class IndexController extends AdminController{
      * @author jry <598821125@qq.com>
      */
     public function upload(){
-        exit(D('Upload')->upload());
+        exit(D('PublicUpload')->upload());
     }
 
     /**
@@ -85,7 +85,7 @@ class IndexController extends AdminController{
      * @author jry <598821125@qq.com>
      */
     public function downremoteimg(){
-        exit(D('Upload')->downremoteimg());
+        exit(D('PublicUpload')->downremoteimg());
     }
 
     /**
@@ -93,6 +93,6 @@ class IndexController extends AdminController{
      * @author jry <598821125@qq.com>
      */
     public function fileManager(){
-        exit(D('Upload')->fileManager());
+        exit(D('PublicUpload')->fileManager());
     }
 }

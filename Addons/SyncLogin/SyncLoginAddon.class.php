@@ -28,7 +28,7 @@ class SyncLoginAddon extends Addon{
             'openid:openid',
             'type:类别',
         ),
-        'model'=>'sync_login',
+        'model'=>'addon_sync_login',
         'fields'=>'*',
         'search_key'=>'uid',
         'map' => '',
@@ -38,14 +38,14 @@ class SyncLoginAddon extends Addon{
     public function install(){
         $prefix = C("DB_PREFIX");
         $model = D();
-        $model->execute("DROP TABLE IF EXISTS {$prefix}sync_login;");
-        $model->execute("CREATE TABLE {$prefix}sync_login ( `uid` int(11) NOT NULL,  `openid` varchar(64) NOT NULL,  `type` varchar(4) NOT NULL,  `access_token` varchar(64) NOT NULL,  `refresh_token` varchar(64) NOT NULL  )");
+        $model->execute("DROP TABLE IF EXISTS {$prefix}addon_sync_login;");
+        $model->execute("CREATE TABLE {$prefix}addon_sync_login ( `uid` int(11) NOT NULL,  `openid` varchar(64) NOT NULL,  `type` varchar(4) NOT NULL,  `access_token` varchar(64) NOT NULL,  `refresh_token` varchar(64) NOT NULL  )");
         return true;
     }
 
     public function uninstall(){
         $prefix = C("DB_PREFIX");
-        $model->execute("DROP TABLE IF EXISTS {$prefix}sync_login;");
+        $model->execute("DROP TABLE IF EXISTS {$prefix}addon_sync_login;");
         return true;
     }
 

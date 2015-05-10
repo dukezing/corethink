@@ -25,30 +25,30 @@ class AdminController extends Controller{
         }
 
         //权限检测
-        if(!D('Group')->checkAuth()){
+        if(!D('UserGroup')->checkAuth()){
             $this->error('权限不足！');
         }
 
         //读取数据库中的配置
         $config = S('DB_CONFIG_DATA');
         if(!$config){
-            $config = D('Config')->lists();
+            $config = D('SystemConfig')->lists();
             $config['DEFAULT_THEME'] = ''; //后台无模板主题
             S('DB_CONFIG_DATA',$config);
         }
         C($config); //添加配置
 
         //获取菜单导航
-        $all_menu = D('Common/Tree')->list_to_tree(D('Menu')->getAllMenu($map, $status="1")); //所有菜单
+        $all_menu = D('Tree')->list_to_tree(D('SystemMenu')->getAllMenu($map, $status="1")); //所有菜单
         foreach($all_menu as $key => $val){
             $all_menu_list[$val['id']] = $val;
         }
-        $current_menu = D('Menu')->getMenuByControllerAndAction(); //当前菜单
-        $parent_menu = D('Menu')->getParentMenu($current_menu['id']);
+        $current_menu = D('SystemMenu')->getMenuByControllerAndAction(); //当前菜单
+        $parent_menu = D('SystemMenu')->getParentMenu($current_menu['id']);
         foreach($parent_menu as $key => $val){
             $parent_menu_id[] = $val['id'];
         }
-        $current_root_menu = D('Menu')->getRootMenuById($current_menu['id']); //当前菜单的顶级菜单
+        $current_root_menu = D('SystemMenu')->getRootMenuById($current_menu['id']); //当前菜单的顶级菜单
 
         $this->assign('__ALLMENULIST__', $all_menu_list); //所有菜单
         $this->assign('__PARENT_MENU__', $parent_menu); //所有父级菜单
@@ -84,26 +84,26 @@ class AdminController extends Controller{
                 $data = array('status' => 0);
                 $this->editRow($model, $data, $map, array('success'=>'禁用成功','error'=>'禁用失败'));
                 break;
-            case 'resume'  : //恢复条目
+            case 'resume'  : //启用条目
                 $data = array('status' => 1);
                 $this->editRow($model, $data, $map, array('success'=>'启用成功','error'=>'启用失败'));
                 break;
-            case 'delete'  : //假删除条目
-                $data['status'] = -1;
-                $this->editRow($model, $data, $map, array('success'=>'删除成功','error'=>'删除失败'));
+            case 'delete'  : //删除条目
+                $result = D($model)->where($map)->delete();
+                if($result){
+                    $this->success('删除成功，不可恢复！');
+                }else{
+                    $this->error('删除失败');
+                }
                 break;
-            case 'restore' : //从假删除状态还原条目
+            case 'recycle' : //移动至回收站
+                $data['status'] = -1;
+                $this->editRow($model, $data, $map, array('success'=>'成功移至回收站','error'=>'删除失败'));
+                break;
+            case 'restore' : //从回收站还原
                 $data = array('status' => 1);
                 $map  = array_merge(array('status' => -1), $map);
                 $this->editRow($model, $data, $map, array('success'=>'恢复成功','error'=>'恢复失败'));
-                break;
-            case 'destory' : //真删除条目
-                $result = D($model)->where($map)->delete();
-                if($result){
-                    $this->success('确认删除成功，不可恢复！');
-                }else{
-                    $this->error('确认删除失败');
-                }
                 break;
             default :
                 $this->error('参数错误');
@@ -129,7 +129,7 @@ class AdminController extends Controller{
             $where = array_merge(array('id' => array('in', $id )) ,(array)$where);
         }
         $msg = array_merge(array('success'=>'操作成功！', 'error'=>'操作失败！', 'url'=>'' ,'ajax'=>IS_AJAX) , (array)$msg);
-        if(M($model)->where($map)->save($data) !== false ) {
+        if(M($model)->where($map)->save($data) !== false){
             $this->success($msg['success'], $msg['url'], $msg['ajax']);
         }else{
             $this->error($msg['error'], $msg['url'], $msg['ajax']);

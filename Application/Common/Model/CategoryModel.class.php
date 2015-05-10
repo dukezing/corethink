@@ -73,7 +73,7 @@ class CategoryModel extends Model{
                     $list[$key]['link'] = '<a href="'.U('Category/detail', array('id' => $val['id'])).'">'.$val['title'].'</a>';
                     break;
                 default :
-                    $curent_model = D('Model')->getModelNameById($val['model']);
+                    $curent_model = D('CategoryModel')->getModelNameById($val['model']);
                     $list[$key]['link'] = '<a href="'.U($curent_model.'/index', array('cid' => $val['id'])).'">'.$val['title'].'</a>';
             }
         }

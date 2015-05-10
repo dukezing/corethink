@@ -48,7 +48,7 @@ class UserController extends AdminController{
                 $this->error($user->getError());
             }
         }else{
-            $all_group = D('Common/Tree')->toFormatTree(D('Group')->getAllGroup());
+            $all_group = D('Tree')->toFormatTree(D('UserGroup')->getAllGroup());
             $all_group = array_merge(array(0 => array('id'=>0, 'title_show'=>'游荡中')), $all_group);
             $this->assign('all_group', $all_group);
             $this->meta_title = '新增用户';
@@ -83,7 +83,7 @@ class UserController extends AdminController{
                 $this->error('更新失败', $user->getError());
             }
         }else{
-            $all_group = D('Common/Tree')->toFormatTree(D('Group')->getAllGroup());
+            $all_group = D('Tree')->toFormatTree(D('UserGroup')->getAllGroup());
             $all_group = array_merge(array(0 => array('id'=>0, 'title_show'=>'游荡中')), $all_group);
             $this->assign('all_group', $all_group);
             $this->assign('info', D('User')->getUserById($id));

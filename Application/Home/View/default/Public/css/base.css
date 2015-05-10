@@ -108,29 +108,6 @@ pre,
 }
 
 
-/* 幻灯片
--------------------------------------------------- */
-.carousel-corethink {
-    margin-bottom: 10px;;
-}
-.carousel-corethink .carousel-indicators {
-    bottom: -8px;
-}
-@media (max-width: 768px) {
-    .carousel-corethink .carousel-inner img{
-        width: 100%;
-        height: 150px;
-    }
-}
-@media (min-width: 768px) {
-    .carousel-corethink .carousel-inner img{
-        width: 100%;
-        height: 380px;
-    }
-}
-
-
-
 /* 文章
 -------------------------------------------------- */
 @media (max-width: 768px) {
