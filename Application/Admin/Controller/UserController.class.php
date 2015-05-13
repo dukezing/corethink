@@ -18,15 +18,40 @@ class UserController extends AdminController{
      * @author jry <598821125@qq.com>
      */
     public function index($status = '0,1'){
+        //搜索
         $keyword = (string)I('keyword');
         $condition = array('like','%'.$keyword.'%');
         $map['id|username|email|mobile'] = array($condition, $condition, $condition, $condition,'_multi'=>true);
-        $all_user = D('User')->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))->getAllUser($map, $status);
-        $page = new \Think\Page(D('User')->count(), C('ADMIN_PAGE_ROWS'));
-        $this->assign('page', $page->show());
-        $this->assign('volist', $this->int_to_icon($all_user));
-        $this->assign('meta_title', "用户列表");
-        $this->display();
+
+        //获取所有用户
+        $map['status'] = array('egt', '0'); //禁用和正常状态
+        $data_list = D('User')->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))->where($map)->order('sort desc,id desc')->select();
+        $page = new \Think\Page(D('User')->where($map)->count(), C('ADMIN_PAGE_ROWS'));
+
+        //使用Builder快速建立列表页面。
+        $builder = new \Admin\Builder\AdminListBuilder();
+        $builder->title('评论列表')  //设置页面标题
+                ->AddNewButton()    //添加新增按钮
+                ->addResumeButton() //添加启用按钮
+                ->addForbidButton() //添加禁用按钮
+                ->addDeleteButton() //添加删除按钮
+                ->setSearch('请输入ID/用户名/邮箱/手机号', U('index'))
+                ->addField('id', 'UID', 'text')
+                ->addField('username', '用户名', 'text')
+                ->addField('email', '邮箱', 'text')
+                ->addField('mobile', '手机号', 'text')
+                ->addField('score', '积分', 'text')
+                ->addField('money', '余额', 'text')
+                ->addField('last_login_time', '最后登录时间时间', 'time')
+                ->addField('sort', '排序', 'text')
+                ->addField('status', '状态', 'status')
+                ->addField('right_button', '操作', 'btn')
+                ->dataList($data_list)    //数据列表
+                ->addRightButton('edit')   //添加编辑按钮
+                ->addRightButton('forbid') //添加禁用/启用按钮
+                ->addRightButton('delete') //添加删除按钮
+                ->setPage($page->show())
+                ->display();
     }
 
     /**

@@ -15,17 +15,43 @@ use Think\Controller;
 class SystemConfigController extends AdminController{
     /**
      * 配置列表
+     * @param $tab 配置分组ID
      * @author jry <598821125@qq.com>
      */
-    public function index($group = 1){
-        $map['group'] = array('eq', $group);
+    public function index($tab = 1){
+        //搜索
+        $keyword = (string)I('keyword');
+        $condition = array('like','%'.$keyword.'%');
+        $map['id|name|title'] = array($condition, $condition, $condition,'_multi'=>true);
+
+        //获取所有配置
+        $map['status'] = array('egt', '0'); //禁用和正常状态
+        $map['group'] = array('eq', $tab);
+        $data_list = D('SystemConfig')->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))->where($map)->order('sort asc,id asc')->select();
         $page = new \Think\Page(D('SystemConfig')->where($map)->count(), C('ADMIN_PAGE_ROWS'));
-        $this->assign('page', $page->show());
-        $this->assign('current_group', $group);
-        $this->assign('config_groups', C('CONFIG_GROUP_LIST'));
-        $this->assign('volist', $this->int_to_icon(D('SystemConfig')->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))->getAllConfigByGroup($group)));
-        $this->meta_title = '配置管理';
-        $this->display();
+
+        //使用Builder快速建立列表页面。
+        $builder = new \Admin\Builder\AdminListBuilder();
+        $builder->title('配置列表')  //设置页面标题
+                ->AddNewButton()    //添加新增按钮
+                ->addResumeButton() //添加启用按钮
+                ->addForbidButton() //添加禁用按钮
+                ->addDeleteButton() //添加删除按钮
+                ->setSearch('请输入ID/配置名称/配置标题', U('index', array('group' => $group)))
+                ->SetTablist(C('CONFIG_GROUP_LIST')) //设置Tab按钮列表
+                ->SetCurrentTab($tab) //设置当前Tab
+                ->addField('id', 'UID', 'text')
+                ->addField('name', '名称', 'text')
+                ->addField('title', '标题', 'text')
+                ->addField('sort', '排序', 'text')
+                ->addField('status', '状态', 'status')
+                ->addField('right_button', '操作', 'btn')
+                ->dataList($data_list)    //数据列表
+                ->addRightButton('edit')   //添加编辑按钮
+                ->addRightButton('forbid') //添加禁用/启用按钮
+                ->addRightButton('delete') //添加删除按钮
+                ->setPage($page->show())
+                ->display();
     }
 
     /**

@@ -17,11 +17,40 @@ class SystemMenuController extends AdminController{
      * 菜单列表
      * @author jry <598821125@qq.com>
      */
-    public function index($pid = null){
-        $all_menu = D('Tree')->toFormatTree(D('SystemMenu')->getAllMenu());
-        $this->assign('volist', $this->int_to_icon($all_menu));
-        $this->assign('meta_title', "菜单列表");
-        $this->display();
+    public function index(){
+        //搜索
+        $keyword = (string)I('keyword');
+        $condition = array('like','%'.$keyword.'%');
+        $map['id|title'] = array($condition, $condition, '_multi'=>true); //搜索条件
+
+        //获取所有菜单
+        $map['status'] = array('egt', '0'); //禁用和正常状态
+        $data_list = D('SystemMenu')->where($map)->order('sort asc, id asc')->select();
+
+        //转换成树状列表
+        $tree = new \Org\Util\Tree();
+        $data_list = $tree->toFormatTree($data_list);
+
+        //使用Builder快速建立列表页面。
+        $builder = new \Admin\Builder\AdminListBuilder();
+        $builder->title('菜单列表')  //设置页面标题
+                ->AddNewButton()    //添加新增按钮
+                ->addResumeButton() //添加启用按钮
+                ->addForbidButton() //添加禁用按钮
+                ->addDeleteButton() //添加删除按钮
+                ->setSearch('请输入ID/菜单名称', U('index'))
+                ->addField('id', 'ID', 'text')
+                ->addField('title_show', '标题', 'text')
+                ->addField('url', '链接', 'text')
+                ->addField('icon', '图标', 'icon')
+                ->addField('sort', '排序', 'text')
+                ->addField('status', '状态', 'status')
+                ->addField('right_button', '操作', 'btn')
+                ->dataList($data_list)    //数据列表
+                ->addRightButton('edit')   //添加编辑按钮
+                ->addRightButton('forbid') //添加禁用/启用按钮
+                ->addRightButton('delete') //添加删除按钮
+                ->display();
     }
 
     /**

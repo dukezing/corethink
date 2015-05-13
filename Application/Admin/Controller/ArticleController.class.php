@@ -22,17 +22,38 @@ class ArticleController extends AdminController{
             $map['cid'] = array('eq', $cid);
             $category = D('Category')->getCategoryById($cid);
         }
+
+        //搜索
         $keyword = (string)I('keyword');
         $condition = array('like','%'.$keyword.'%');
         $map['id|title'] = array($condition, $condition, '_multi'=>true);
-        $lists = D('Article')->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))->getAllArticle($map);
+
+        //获取所有文档
+        $map['status'] = array('egt', '0'); //禁用和正常状态
+        $data_list = D('Article')->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))->where($map)->order('sort desc,id desc')->select();
         $page = new \Think\Page(D('Article')->where($map)->count(), C('ADMIN_PAGE_ROWS'));
-        $this->assign('all_category', D('Tree')->toFormatTree(D('Category')->getAllCategory()));
-        $this->assign('volist', $this->int_to_icon($lists));
-        $this->assign('page', $page->show());
-        $this->meta_title = $category['title'];
-        Cookie('__forward__', $_SERVER['REQUEST_URI']);
-        $this->display();
+
+        //使用Builder快速建立列表页面。
+        $builder = new \Admin\Builder\AdminListBuilder();
+        $builder->title($category['title'])  //设置页面标题
+                ->AddNewButton()    //添加新增按钮
+                ->addResumeButton() //添加启用按钮
+                ->addForbidButton() //添加禁用按钮
+                ->addRecycleButton() //添加回收按钮
+                ->setSearch('请输入ID/文档名称', U('index'))
+                ->addField('id', 'UID', 'text')
+                ->addField('title', '标题', 'text')
+                ->addField('ctime', '发布时间', 'time')
+                ->addField('sort', '排序', 'text')
+                ->addField('status', '状态', 'status')
+                ->addField('right_button', '操作', 'btn')
+                ->dataList($data_list)    //数据列表
+                ->addRightButton('edit')   //添加编辑按钮
+                ->addRightButton('forbid') //添加禁用/启用按钮
+                ->addRightButton('recycle') //添加回收按钮
+                ->setPage($page->show())
+                ->setMove(true)
+                ->display();
     }
 
     /**

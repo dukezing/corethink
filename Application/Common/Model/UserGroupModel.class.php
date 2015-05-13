@@ -31,7 +31,6 @@ class UserGroupModel extends Model{
     protected $_auto = array(
         array('ctime', NOW_TIME, self::MODEL_INSERT),
         array('utime', NOW_TIME, self::MODEL_BOTH),
-        array('sort', '0', self::MODEL_INSERT),
         array('status', '1', self::MODEL_INSERT),
     );
 
