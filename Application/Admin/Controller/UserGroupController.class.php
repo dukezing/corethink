@@ -76,7 +76,7 @@ class UserGroupController extends AdminController{
             $all_group = array_merge(array(0 => array('id'=>0, 'title_show'=>'顶级部门')), $all_group);
             $this->assign('all_group', $all_group);
             $this->meta_title = '新增部门';
-            $this->display('edit');
+            $this->display('Public/group');
         }
     }
 
@@ -106,7 +106,7 @@ class UserGroupController extends AdminController{
             $this->assign('all_group', $all_group);
             $this->assign('info', $info);
             $this->meta_title = '编辑部门';
-            $this->display();
+            $this->display('Public/group');
         }
     }
 }

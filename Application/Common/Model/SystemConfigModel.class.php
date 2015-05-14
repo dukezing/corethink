@@ -18,6 +18,8 @@ class SystemConfigModel extends Model{
      * @author jry <598821125@qq.com>
      */
     protected $_validate = array(
+        array('group', 'require', '配置分组不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
+        array('type', 'require', '配置类型不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
         array('name', 'require', '配置名称不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
         array('name', '1,32', '配置名称长度为1-32个字符', self::EXISTS_VALIDATE, 'length', self::MODEL_BOTH),
         array('name', '', '配置名称已经存在', self::VALUE_VALIDATE, 'unique', self::MODEL_BOTH),
@@ -52,20 +54,6 @@ class SystemConfigModel extends Model{
     public function getAllConfig($map, $status = '0,1'){
         $map['status'] = array('in', $status);
         return $this->where($map)->order('id desc')->select();
-    }
-
-    /**
-     * 根据分组获取所有配置
-     * @author jry <598821125@qq.com>
-     */
-    public function getAllConfigByGroup($group, $status = '0,1'){
-        $map['status'] = array('in', $status);
-        $map['group']  = array('eq', $group);
-        $list = $this->where($map)->order('sort asc,id asc')->select();
-        foreach($list as $key => $val){
-            $list[$key]['options'] = $this->parse_attr($val['options']);
-        }
-        return $list;
     }
 
     /**

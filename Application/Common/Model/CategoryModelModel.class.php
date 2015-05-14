@@ -51,6 +51,15 @@ class CategoryModelModel extends Model{
     }
 
     /**
+     * 根据条件获取模型名称
+     * @author jry <598821125@qq.com>
+     */
+    public function getModelNameById($id){
+        $model = $this->getModelById($id);
+        return $model['name'];
+    }
+
+    /**
      * 根据name获取模型
      * @author jry <598821125@qq.com>
      */
@@ -70,14 +79,5 @@ class CategoryModelModel extends Model{
     public function getAllModel($map, $status = '0,1'){
         $map['status'] = array('in', $status);
         return $this->where($map)->order('sort asc,id asc')->select();
-    }
-
-    /**
-     * 根据条件获取模型名称
-     * @author jry <598821125@qq.com>
-     */
-    public function getModelNameById($id){
-        $model = $this->getModelById($id);
-        return $model['name'];
     }
 }

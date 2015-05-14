@@ -72,12 +72,20 @@ class CategoryController extends AdminController{
                 $this->error($category->getError());
             }
         }else{
-            $all_category = D('Tree')->toFormatTree(D('Category')->getAllCategory($map));
-            $all_category = array_merge(array(0 => array('id'=>0, 'title_show'=>'顶级分类')), $all_category);
-            $this->assign('all_category', $all_category);
-            $this->assign('all_model', D('CategoryModel')->getAllModel());
-            $this->meta_title = '新增分类';
-            $this->display('edit');
+            //使用FormBuilder快速建立表单页面。
+            $builder = new \Admin\Builder\AdminFormBuilder();
+            $builder->title('新增分类')  //设置页面标题
+                    ->setUrl(U('add')) //设置表单提交地址
+                    ->addItem('select', '上级分类', '所属的上级分类', 'pid', array_merge(array(0 => '顶级分类'), $this->selectListAsTree('Category')))
+                    ->addItem('text', '分类标题', '分类标题', 'title')
+                    ->addItem('select', '分类内容模型', '分类内容模型', 'model', $this->selectListAsTree('CategoryModel'))
+                    ->addItem('text', '链接', 'U函数解析的URL或者外链', 'url', null, 'hidden')
+                    ->addItem('kindeditor', '内容', '单页模型填写内容', 'content', null, 'hidden')
+                    ->addItem('text', '模版', '单页使用的模版或其他模型文档列表模版', 'template')
+                    ->addItem('icon', '图标', '菜单图标', 'icon')
+                    ->addItem('num', '排序', '用于显示的顺序', 'sort')
+                    ->setExtra('Category')
+                    ->display();
         }
     }
 
@@ -99,14 +107,23 @@ class CategoryController extends AdminController{
                 $this->error($category->getError());
             }
         }else{
-            $info = D('Category')->getCategoryById($id);
-            $all_category = D('Tree')->toFormatTree(D('Category')->getAllCategory());
-            $all_category = array_merge(array(0 => array('id'=>0, 'title_show'=>'顶级分类')), $all_category);
-            $this->assign('all_category', $all_category);
-            $this->assign('all_model', D('CategoryModel')->getAllModel());
-            $this->assign('info', $info);
-            $this->meta_title = '编辑分类';
-            $this->display();
+            $info = D('Category')->find($id);
+            //使用FormBuilder快速建立表单页面。
+            $builder = new \Admin\Builder\AdminFormBuilder();
+            $builder->title('编辑分类')  //设置页面标题
+                    ->setUrl(U('edit')) //设置表单提交地址
+                    ->addItem('hidden', 'ID', 'ID', 'id')
+                    ->addItem('select', '上级分类', '所属的上级分类', 'pid', array_merge(array(0 => '顶级分类'), $this->selectListAsTree('Category')))
+                    ->addItem('text', '分类标题', '分类标题', 'title')
+                    ->addItem('select', '分类内容模型', '分类内容模型', 'model', $this->selectListAsTree('CategoryModel'))
+                    ->addItem('text', '链接', 'U函数解析的URL或者外链', 'url', null, $info['model'] == 1 ? : 'hidden')
+                    ->addItem('kindeditor', '内容', '单页模型填写内容', 'content', null, $info['model'] == 2 ? : 'hidden')
+                    ->addItem('text', '模版', '单页使用的模版或其他模型文档列表模版', 'template')
+                    ->addItem('icon', '图标', '菜单图标', 'icon')
+                    ->addItem('num', '排序', '用于显示的顺序', 'sort')
+                    ->setFormData($info)
+                    ->setExtra('Category')
+                    ->display();
         }
     }
 

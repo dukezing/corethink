@@ -30,7 +30,7 @@ class UserController extends AdminController{
 
         //使用Builder快速建立列表页面。
         $builder = new \Admin\Builder\AdminListBuilder();
-        $builder->title('评论列表')  //设置页面标题
+        $builder->title('用户列表')  //设置页面标题
                 ->AddNewButton()    //添加新增按钮
                 ->addResumeButton() //添加启用按钮
                 ->addForbidButton() //添加禁用按钮
@@ -73,11 +73,17 @@ class UserController extends AdminController{
                 $this->error($user->getError());
             }
         }else{
-            $all_group = D('Tree')->toFormatTree(D('UserGroup')->getAllGroup());
-            $all_group = array_merge(array(0 => array('id'=>0, 'title_show'=>'游荡中')), $all_group);
-            $this->assign('all_group', $all_group);
-            $this->meta_title = '新增用户';
-            $this->display('edit');
+            //使用FormBuilder快速建立表单页面。
+            $builder = new \Admin\Builder\AdminFormBuilder();
+            $builder->title('新增用户')  //设置页面标题
+                    ->setUrl(U('add')) //设置表单提交地址
+                    ->addItem('select', '部门', '所属部门', 'group', array_merge(array(0 => '默认部门'), $this->selectListAsTree('UserGroup')))
+                    ->addItem('text', '用户名', '用户名', 'username')
+                    ->addItem('text', '邮箱', '邮箱', 'email')
+                    ->addItem('text', '手机号码', '手机号码', 'mobile')
+                    ->addItem('password', '密码', '密码', 'password')
+                    ->addItem('picture', '用户头像', '用户头像', 'avatar')
+                    ->display();
         }
     }
 
@@ -102,18 +108,24 @@ class UserController extends AdminController{
                 $_POST['extend'] = json_encode($_POST['extend']);
             }
             if($user->save($_POST)){
-                $user->updateUserCache($_POST['id']);
                 $this->success('更新成功', U('index'));
             }else{
                 $this->error('更新失败', $user->getError());
             }
         }else{
-            $all_group = D('Tree')->toFormatTree(D('UserGroup')->getAllGroup());
-            $all_group = array_merge(array(0 => array('id'=>0, 'title_show'=>'游荡中')), $all_group);
-            $this->assign('all_group', $all_group);
-            $this->assign('info', D('User')->getUserById($id));
-            $this->meta_title = '编辑用户';
-            $this->display();
+            //使用FormBuilder快速建立表单页面。
+            $builder = new \Admin\Builder\AdminFormBuilder();
+            $builder->title('编辑用户')  //设置页面标题
+                    ->setUrl(U('edit')) //设置表单提交地址
+                    ->addItem('hidden', 'ID', 'ID', 'id')
+                    ->addItem('select', '部门', '所属部门', 'group', array_merge(array(0 => '默认部门'), $this->selectListAsTree('UserGroup')))
+                    ->addItem('text', '用户名', '用户名', 'username')
+                    ->addItem('text', '邮箱', '邮箱', 'email')
+                    ->addItem('text', '手机号码', '手机号码', 'mobile')
+                    ->addItem('password', '密码', '密码', 'password')
+                    ->addItem('picture', '用户头像', '用户头像', 'avatar')
+                    ->setFormData(D('User')->find($id))
+                    ->display();
         }
     }
 }

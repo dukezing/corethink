@@ -69,8 +69,13 @@ class PublicTagController extends AdminController{
                 $this->error($Tag->getError());
             }
         }else{
-            $this->meta_title = '新增标签';
-            $this->display('edit');
+            //使用FormBuilder快速建立表单页面。
+            $builder = new \Admin\Builder\AdminFormBuilder();
+            $builder->title('新增标签')  //设置页面标题
+                    ->setUrl(U('add')) //设置表单提交地址
+                    ->addItem('text', '标签名称', '标签名称', 'title')
+                    ->addItem('num', '排序', '用于显示的顺序', 'sort')
+                    ->display();
         }
     }
 
@@ -92,9 +97,15 @@ class PublicTagController extends AdminController{
                 $this->error($Tag->getError());
             }
         }else{
-            $this->assign('info', D('PublicTag')->find($id));
-            $this->meta_title = '编辑标签';
-            $this->display();
+            //使用FormBuilder快速建立表单页面。
+            $builder = new \Admin\Builder\AdminFormBuilder();
+            $builder->title('编辑标签')  //设置页面标题
+                    ->setUrl(U('edit')) //设置表单提交地址
+                    ->addItem('hidden', 'ID', 'ID', 'id')
+                    ->addItem('text', '标签名称', '标签名称', 'title')
+                    ->addItem('num', '排序', '用于显示的顺序', 'sort')
+                    ->setFormData(D('PublicTag')->find($id))
+                    ->display();
         }
     }
 

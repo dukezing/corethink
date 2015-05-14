@@ -84,49 +84,15 @@ class UserModel extends Model{
      * @author jry <598821125@qq.com>
      */
     public function getUserById($id = 0, $field){
-        static $list;
-
-        /* 获取缓存数据 */
-        if(empty($list)){
-            $list = S('sys_user_info_list');
-        }
-
-        /* 查找用户信息 */
-        $key = "u{$id}";
-        if(isset($list[$key])){ //已缓存，直接使用
-            $user_info = $list[$key];
-        }else{ //调用接口获取用户信息
-            $user_info = $this->find($id);
-            if($info !== false){
-                $user_info = $list[$key] = $user_info;
-                /* 缓存用户 */
-                $count = count($list);
-                $max   = 1000;
-                while ($count-- > $max) {
-                    array_shift($list);
-                }
-                S('sys_user_info_list', $list);
-            } else {
-                $user_info = array();
-            }
+        $map['id'] = array('eq', $id);
+        $info = $this->where($map)->find();
+        if($info !== false){
+             $info['extend'] = json_decode($info['extend'], true);
         }
         if($field){
-            return $user_info[$field];
+            return $info[$field];
         }
-        return $user_info;
-    }
-
-    /**
-     * 更新缓存的用户信息
-     * @param  integer $uid 用户ID
-     * @return bool
-     * @author jry <598821125@qq.com>
-     */
-    public function updateUserCache($uid){
-        $list = S('sys_user_info_list');
-        $list['u'.$uid] = $this->find($uid);
-        S('sys_user_info_list', $list);
-        return true;
+        return $info;
     }
 
     /**

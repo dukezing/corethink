@@ -14,8 +14,6 @@
     <title>{$meta_title}｜{:C('WEB_SITE_TITLE')}后台管理</title>
     <link rel="shortcut icon" type="image/x-icon" href="__ROOT__/favicon.ico">
     <link rel="stylesheet" type="text/css" href="__PUBLIC__/zui/css/zui.min.css">
-    <link rel="stylesheet" type="text/css" href="__PUBLIC__/chosen/chosen.min.css">
-    <link rel="stylesheet" type="text/css" href="__PUBLIC__/chosen/chosen.icons.min.css">
     <link rel="stylesheet" type="text/css" href="__PUBLIC__/fontawesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="__CSS__/base.css">
     <block name="style"></block>
@@ -27,14 +25,10 @@
         <script type="text/javascript" src=""__PUBLIC__/ieonly/respond.js" charset="utf-8"></script>
         <script type="text/javascript" src=""__PUBLIC__/ieonly/excanvas.js" charset="utf-8"></script>
     <![endif]-->
-    <script type="text/javascript" src="__PUBLIC__/chosen/chosen.min.js" charset="utf-8"></script>
-    <script type="text/javascript" src="__PUBLIC__/chosen/chosen.icons.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="__PUBLIC__/corethink/js/base.js" charset="utf-8"></script>
     <script type="text/javascript">
         $(function(){
             $("[data-toggle='tooltip']").tooltip(); //启用工具提示
-            $(".form .controls select.form-control").chosen({disable_search_threshold: 10}); //使用chosen插件接管select
-            $('.form .chosen-icon').chosenIcons(); //使用chosen插件选择WebFont
         });
         //iOS Web APP中点击链接跳转到Safari浏览器新标签页的问题
         if (("standalone" in window.navigator) && window.navigator.standalone) {

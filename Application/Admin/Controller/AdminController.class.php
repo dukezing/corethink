@@ -141,6 +141,26 @@ class AdminController extends Controller{
     }
 
     /**
+     * 获取所有数据并转换成一维数组
+     * @author jry <598821125@qq.com>
+     */
+    public function selectListAsTree($model){
+        //获取列表
+        $map['status'] = array('eq', 1);
+        $list = D($model)->where($map)->select();
+
+        //转换成树状列表
+        $tree = new \Org\Util\Tree();
+        $list = $tree->toFormatTree($list);
+
+        //转换成一维数组
+        foreach($list as $val){
+            $result[$val['id']] = $val['title_show'];
+        }
+        return $result;
+    }
+
+    /**
      * 通用分页列表数据集获取方法
      *  可以通过url参数传递where条件,例如:  index.html?name=asdfasdfasdfddds
      *  可以通过url空值排序字段和方式,例如: index.html?_field=id&_order=asc

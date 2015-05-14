@@ -2,23 +2,27 @@
 
 <block name="body">
     <div class="row toolbar">
-        <div class="col-xs-12 col-sm-9">
-            <volist name="button_list" id="button">
-                <a {$button.attr}>{$button.title|htmlspecialchars}</a>
-            </volist>
-            <notempty name="move"><a class="btn" onclick="move()">移 动</a></notempty>
-        </div>
-        <div class="col-xs-12 col-sm-3">
-            <div class="input-group search-form">
-                <input type="text" name="keyword" class="search-input form-control" value="{$_GET.keyword}" placeholder="{$search.title}">
-                <span class="input-group-btn"><a class="btn btn-default" href="javascript:;" id="search" url="{$search.url}"><i class="icon-search"></i></a></span>
+        <notempty name="button_list">
+            <div class="col-xs-12 col-sm-9">
+                <volist name="button_list" id="button">
+                    <a {$button.attr}>{$button.title|htmlspecialchars}</a>
+                </volist>
+                <notempty name="move"><a class="btn" onclick="move()">移 动</a></notempty>
             </div>
-        </div>
+        </notempty>
+        <notempty name="search">
+            <div class="col-xs-12 col-sm-3">
+                <div class="input-group search-form">
+                    <input type="text" name="keyword" class="search-input form-control" value="{$_GET.keyword}" placeholder="{$search.title}">
+                    <span class="input-group-btn"><a class="btn btn-default" href="javascript:;" id="search" url="{$search.url}"><i class="icon-search"></i></a></span>
+                </div>
+            </div>
+        </notempty>
         <notempty name="tab_list">
             <div class="tab">
                 <ul class="nav nav-pills">
                     <volist name="tab_list" id="tab">
-                        <li class="<php>if($current_tab == $key) echo 'active';</php>"><a href="{:U('index', array('tab' => $key))}">{$tab}</a></li>
+                        <li class="<php>if($current_tab == $key) echo 'active';</php>"><a href="{:U('', array('tab' => $key))}">{$tab}</a></li>
                     </volist>
                 </ul>
             </div>

@@ -72,11 +72,16 @@ class SystemMenuController extends AdminController{
                 $this->error($Menu->getError());
             }
         }else{
-            $all_menu = D('Tree')->toFormatTree(D('SystemMenu')->getAllMenu());
-            $all_menu = array_merge(array(0 => array('id'=>0, 'title_show'=>'顶级菜单')), $all_menu);
-            $this->assign('all_menu', $all_menu);
-            $this->meta_title = '新增菜单';
-            $this->display('edit');
+            //使用FormBuilder快速建立表单页面。
+            $builder = new \Admin\Builder\AdminFormBuilder();
+            $builder->title('新增菜单')  //设置页面标题
+                    ->setUrl(U('add')) //设置表单提交地址
+                    ->addItem('select', '上级菜单', '所属的上级菜单', 'pid', array_merge(array(0 => '顶级菜单'), $this->selectListAsTree('SystemMenu')))
+                    ->addItem('text', '标题', '菜单标题', 'title')
+                    ->addItem('text', '链接', 'U函数解析的URL或者外链', 'url')
+                    ->addItem('icon', '图标', '菜单图标', 'icon')
+                    ->addItem('num', '排序', '用于显示的顺序', 'sort')
+                    ->display();
         }
     }
 
@@ -98,13 +103,18 @@ class SystemMenuController extends AdminController{
                 $this->error($Menu->getError());
             }
         }else{
-            $info = D('SystemMenu')->getMenuById($id);
-            $all_menu = D('Tree')->toFormatTree(D('SystemMenu')->getAllMenu());
-            $all_menu = array_merge(array(0 => array('id'=>0, 'title_show'=>'顶级菜单')), $all_menu);
-            $this->assign('all_menu', $all_menu);
-            $this->assign('info', $info);
-            $this->meta_title = '编辑菜单';
-            $this->display();
+            //使用FormBuilder快速建立表单页面。
+            $builder = new \Admin\Builder\AdminFormBuilder();
+            $builder->title('新增菜单')  //设置页面标题
+                    ->setUrl(U('add')) //设置表单提交地址
+                    ->addItem('hidden', 'ID', 'ID', 'id')
+                    ->addItem('select', '上级菜单', '所属的上级菜单', 'pid', array_merge(array(0 => '顶级菜单'), $this->selectListAsTree('SystemMenu')))
+                    ->addItem('text', '标题', '菜单标题', 'title')
+                    ->addItem('text', '链接', 'U函数解析的URL或者外链', 'url')
+                    ->addItem('icon', '图标', '菜单图标', 'icon')
+                    ->addItem('num', '排序', '用于显示的顺序', 'sort')
+                    ->setFormData(D('SystemMenu')->find($id))
+                    ->display();
         }
     }
 }

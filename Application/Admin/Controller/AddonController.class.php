@@ -31,65 +31,70 @@ class AddonController extends AdminController {
      * @author jry <598821125@qq.com>
      */
     public function config(){
-        $id     =   (int)I('id');
-        $addon  =   M('Addon')->find($id);
-        if(!$addon)
-            $this->error('插件未安装');
-        $addon_class = get_addon_class($addon['name']);
-        if(!class_exists($addon_class))
-            trace("插件{$addon['name']}无法实例化,",'ADDONS','ERR');
-        $data  =   new $addon_class;
-        $addon['addon_path'] = $data->addon_path;
-        $addon['custom_config'] = $data->custom_config;
-        $this->meta_title   =   '设置插件-'.$data->info['title'];
-        $db_config = $addon['config'];
-        $addon['config'] = include $data->config_file;
-        if($db_config){
-            $db_config = json_decode($db_config, true);
-            foreach ($addon['config'] as $key => $value) {
-                if($value['type'] != 'group'){
-                    $addon['config'][$key]['value'] = $db_config[$key];
-                }else{
-                    foreach ($value['options'] as $gourp => $options) {
-                        foreach ($options['options'] as $gkey => $value) {
-                            $addon['config'][$key]['options'][$gourp]['options'][$gkey]['value'] = $db_config[$gkey];
+        if(IS_POST){
+            $id     =   (int)I('id');
+            $config =   I('config');
+            $flag = M('Addon')->where("id={$id}")->setField('config', json_encode($config));
+            if($flag !== false){
+                $this->success('保存成功', U('index'));
+            }else{
+                $this->error('保存失败');
+            }
+        }else{
+            $id     =   (int)I('id');
+            $addon  =   M('Addon')->find($id);
+            if(!$addon)
+                $this->error('插件未安装');
+            $addon_class = get_addon_class($addon['name']);
+            if(!class_exists($addon_class))
+                trace("插件{$addon['name']}无法实例化,",'ADDONS','ERR');
+            $data  =   new $addon_class;
+            $addon['addon_path'] = $data->addon_path;
+            $addon['custom_config'] = $data->custom_config;
+            $this->meta_title   =   '设置插件-'.$data->info['title'];
+            $db_config = $addon['config'];
+            $addon['config'] = include $data->config_file;
+            if($db_config){
+                $db_config = json_decode($db_config, true);
+                foreach ($addon['config'] as $key => $value) {
+                    if($value['type'] != 'group'){
+                        $addon['config'][$key]['value'] = $db_config[$key];
+                    }else{
+                        foreach ($value['options'] as $gourp => $options) {
+                            foreach ($options['options'] as $gkey => $value) {
+                                $addon['config'][$key]['options'][$gourp]['options'][$gkey]['value'] = $db_config[$gkey];
+                            }
                         }
                     }
                 }
             }
-        }
-        //构造表单名
-        foreach($addon['config'] as $key => $val){
-            if($val['type'] == 'group'){
-                foreach($val['options'] as $key2 => $val2){
-                    foreach($val2['options'] as $key3 => $val3){
-                        $addon['config'][$key]['options'][$key2]['options'][$key3]['name'] = 'config['.$key3.']';
+            //构造表单名
+            foreach($addon['config'] as $key => $val){
+                if($val['type'] == 'group'){
+                    foreach($val['options'] as $key2 => $val2){
+                        foreach($val2['options'] as $key3 => $val3){
+                            $addon['config'][$key]['options'][$key2]['options'][$key3]['name'] = 'config['.$key3.']';
+                        }
                     }
+                }else{
+                    $addon['config'][$key]['name'] = 'config['.$key.']';
                 }
-            }else{
-                $addon['config'][$key]['name'] = 'config['.$key.']';
             }
-        }
-        $this->assign('data', $addon);
-        $this->assign('form_name_type', 1);
-        $this->assign('form_items', $addon['config']);
-        if($addon['custom_config'])
-            $this->assign('custom_config', $this->fetch($addon['addon_path'].$addon['custom_config']));
-        $this->display();
-    }
-
-    /**
-     * 保存插件设置
-     * @author jry <598821125@qq.com>
-     */
-    public function saveConfig(){
-        $id     =   (int)I('id');
-        $config =   I('config');
-        $flag = M('Addon')->where("id={$id}")->setField('config', json_encode($config));
-        if($flag !== false){
-            $this->success('保存成功', U('index'));
-        }else{
-            $this->error('保存失败');
+            $this->assign('data', $addon);
+            $this->assign('form_items', $addon['config']);
+            if($addon['custom_config']){
+                $this->assign('custom_config', $this->fetch($addon['addon_path'].$addon['custom_config']));
+                $this->display();
+            }else{
+                //使用FormBuilder快速建立表单页面。
+                $builder = new \Admin\Builder\AdminFormBuilder();
+                $builder->title('插件设置')  //设置页面标题
+                        ->setUrl(U('config')) //设置表单提交地址
+                        ->addItem('hidden', 'ID', 'ID', 'id')
+                        ->setExtraItems($addon['config']) //直接设置表单数据
+                        ->setFormData($addon)
+                        ->display();
+            }
         }
     }
 

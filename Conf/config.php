@@ -49,6 +49,7 @@ return array(
         'radio'      => '单选按钮',
         'checkbox'   => '复选框',
         'select'     => '下拉框',
+        'icon'       => '图标',
         'date  '     => '日期',
         'datetime'   => '时间',
         'picture'    => '图片',

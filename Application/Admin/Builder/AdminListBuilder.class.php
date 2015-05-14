@@ -17,13 +17,13 @@ class AdminListBuilder extends AdminController{
     private $_title; //页面标题
     private $_button_list = array(); //工具栏按钮组
     private $_search = array(); //搜索参数
-    private $_tab_list = ''; //Tab按钮列表
+    private $_tab_list; //Tab按钮列表
     private $_current_tab = 0; //当前Tab
     private $_field_list = array(); //表格标题字段
     private $_data_list = array(); //表格数据列表
     private $_right_button_list = array(); //表格右侧操作按钮组
-    private $_page = ''; //分页
-    private $_move = ''; //设置移动（文档模型专用）
+    private $_page; //分页
+    private $_move; //设置移动（文档模型专用）
 
     /**设置页面标题
      * @param $title 标题文本
@@ -149,8 +149,7 @@ class AdminListBuilder extends AdminController{
     }
 
     /**设置搜索参数
-     * @param $title
-     * @param $url
+     * @param $page
      * @return $this
      */
     public function setPage($page){
@@ -245,8 +244,7 @@ class AdminListBuilder extends AdminController{
         $this->assign('page', $this->_page);
         $this->assign('move', $this->_move);
 
-        $template = dirname(__FILE__) . '/View/adminlist.html';
-        parent::display($template);
+        parent::display(dirname(__FILE__) . '/adminlistbuilder.html');
     }
 
     //编译HTML属性

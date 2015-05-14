@@ -69,9 +69,16 @@ class UserCommentController extends AdminController{
                 $this->error($comment->getError());
             }
         }else{
-            $this->assign('all_model', D('CategoryModel')->getAllModel());
-            $this->meta_title = '新增评论';
-            $this->display('edit');
+            //使用FormBuilder快速建立表单页面。
+            $builder = new \Admin\Builder\AdminFormBuilder();
+            $builder->title('新增评论')  //设置页面标题
+                    ->setUrl(U('add')) //设置表单提交地址
+                    ->addItem('select', '内容模型', '内容模型', 'model', $this->selectListAsTree('CategoryModel'))
+                    ->addItem('num', '文档ID', '文档ID', 'title')
+                    ->addItem('textarea', '评论内容', '评论内容', 'content')
+                    ->addItem('num', '父评论ID', '父评论ID', 'pid')
+                    ->addItem('num', '排序', '用于显示的顺序', 'sort')
+                    ->display();
         }
     }
 
@@ -93,10 +100,18 @@ class UserCommentController extends AdminController{
                 $this->error($comment->getError());
             }
         }else{
-            $this->assign('info', D('UserComment')->getCommentById($id));
-            $this->assign('all_model', D('CategoryModel')->getAllModel());
-            $this->meta_title = '编辑评论';
-            $this->display();
+            //使用FormBuilder快速建立表单页面。
+            $builder = new \Admin\Builder\AdminFormBuilder();
+            $builder->title('编辑评论')  //设置页面标题
+                    ->setUrl(U('edit')) //设置表单提交地址
+                    ->addItem('hidden', 'ID', 'ID', 'id')
+                    ->addItem('select', '内容模型', '内容模型', 'model', $this->selectListAsTree('CategoryModel'))
+                    ->addItem('num', '文档ID', '文档ID', 'title')
+                    ->addItem('textarea', '评论内容', '评论内容', 'content')
+                    ->addItem('num', '父评论ID', '父评论ID', 'pid')
+                    ->addItem('num', '排序', '用于显示的顺序', 'sort')
+                    ->setFormData(D('UserComment')->find($id))
+                    ->display();
         }
     }
 }

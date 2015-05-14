@@ -75,12 +75,23 @@ class ArticleController extends AdminController{
                 $this->error($Article->getError());
             }
         }else{
-            $all_category = D('Tree')->toFormatTree(D('Category')->getAllCategory());
-            $this->assign('all_category', $all_category);
-            $info['cid'] = I('get.cid'); //获取当前分类
-            $this->assign('info', $info);
-            $this->meta_title = '新增文章';
-            $this->display('edit');
+            //获取当前分类
+            $info['cid'] = I('get.cid');
+
+            //使用FormBuilder快速建立表单页面。
+            $builder = new \Admin\Builder\AdminFormBuilder();
+            $builder->title('新增文章')  //设置页面标题
+                    ->setUrl(U('add')) //设置表单提交地址
+                    ->addItem('select', '分类', '文章所属的分类', 'cid', $this->selectListAsTree('Category'))
+                    ->addItem('text', '文章标题', '文章标题', 'title')
+                    ->addItem('textarea', '文章摘要', '文章摘要', 'abstract')
+                    ->addItem('tag', '标签', '文章标签', 'tags')
+                    ->addItem('kindeditor', '文章内容', '文章内容', 'content')
+                    ->addItem('picture', '封面图片', '文章封面图片', 'cover')
+                    ->addItem('time', '发布日期', '文章发布日期，默认当前时间', 'ctime')
+                    ->addItem('num', '排序', '用于显示的顺序', 'sort')
+                    ->setFormData($info)
+                    ->display();
         }
     }
 
@@ -103,11 +114,21 @@ class ArticleController extends AdminController{
                 $this->error($Article->getError());
             }
         }else{
-            $all_category = D('Tree')->toFormatTree(D('Category')->getAllCategory());
-            $this->assign('info', D('Article')->getArticleById($id));
-            $this->assign('all_category', $all_category);
-            $this->meta_title = '编辑文章';
-            $this->display();
+            //使用FormBuilder快速建立表单页面。
+            $builder = new \Admin\Builder\AdminFormBuilder();
+            $builder->title('编辑文章')  //设置页面标题
+                    ->setUrl(U('edit')) //设置表单提交地址
+                    ->addItem('hidden', 'ID', 'ID', 'id')
+                    ->addItem('select', '分类', '文章所属的分类', 'cid', $this->selectListAsTree('Category'))
+                    ->addItem('text', '文章标题', '文章标题', 'title')
+                    ->addItem('textarea', '文章摘要', '文章摘要', 'abstract')
+                    ->addItem('tag', '标签', '文章标签', 'tags')
+                    ->addItem('kindeditor', '文章内容', '文章内容', 'content')
+                    ->addItem('picture', '封面图片', '文章封面图片', 'cover')
+                    ->addItem('time', '发布日期', '文章发布日期，默认当前时间', 'ctime')
+                    ->addItem('num', '排序', '用于显示的顺序', 'sort')
+                    ->setFormData(D('Article')->find($id))
+                    ->display();
         }
     }
 }

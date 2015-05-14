@@ -73,11 +73,19 @@ class SystemConfigController extends AdminController{
                 $this->error($Config->getError());
             }
         }else{
-            $this->assign('config_groups', C('CONFIG_GROUP_LIST'));
-            $this->assign('config_types', C('FORM_ITEM_TYPE'));
-            $this->assign('info',null);
-            $this->meta_title = '新增配置';
-            $this->display('edit');
+            //使用FormBuilder快速建立表单页面。
+            $builder = new \Admin\Builder\AdminFormBuilder();
+            $builder->title('新增配置')  //设置页面标题
+                    ->setUrl(U('add')) //设置表单提交地址
+                    ->addItem('select', '配置分组', '配置所属的分组', 'group', C('CONFIG_GROUP_LIST'))
+                    ->addItem('select', '配置类型', '配置类型的分组', 'type', C('FORM_ITEM_TYPE'))
+                    ->addItem('text', '配置名称', '配置名称', 'name')
+                    ->addItem('text', '配置标题', '配置标题', 'title')
+                    ->addItem('textarea', '配置值', '配置值', 'value')
+                    ->addItem('textarea', '配置项', '如果是单选、多选、下拉等类型 需要配置该项', 'options')
+                    ->addItem('textarea', '配置说明', '配置说明', 'tip')
+                    ->addItem('num', '排序', '用于显示的顺序', 'sort')
+                    ->display();
         }
     }
 
@@ -100,12 +108,21 @@ class SystemConfigController extends AdminController{
                 $this->error($Config->getError());
             }
         }else{
-            $info = D('SystemConfig')->getConfigById($id);
-            $this->assign('info', $info);
-            $this->assign('config_groups', C('CONFIG_GROUP_LIST'));
-            $this->assign('config_types', C('FORM_ITEM_TYPE'));
-            $this->meta_title = '编辑配置';
-            $this->display();
+            //使用FormBuilder快速建立表单页面。
+            $builder = new \Admin\Builder\AdminFormBuilder();
+            $builder->title('编辑配置')  //设置页面标题
+                    ->setUrl(U('edit')) //设置表单提交地址
+                    ->addItem('hidden', 'ID', 'ID', 'id')
+                    ->addItem('select', '配置分组', '配置所属的分组', 'group', C('CONFIG_GROUP_LIST'))
+                    ->addItem('select', '配置类型', '配置类型的分组', 'type', C('FORM_ITEM_TYPE'))
+                    ->addItem('text', '配置名称', '配置名称', 'name')
+                    ->addItem('text', '配置标题', '配置标题', 'title')
+                    ->addItem('textarea', '配置值', '配置值', 'value')
+                    ->addItem('textarea', '配置项', '如果是单选、多选、下拉等类型 需要配置该项', 'options')
+                    ->addItem('textarea', '配置说明', '配置说明', 'tip')
+                    ->addItem('num', '排序', '用于显示的顺序', 'sort')
+                    ->setFormData(D('SystemConfig')->find($id))
+                    ->display();
         }
     }
 
@@ -113,16 +130,26 @@ class SystemConfigController extends AdminController{
      * 获取某个分组的配置参数
      * @author jry <598821125@qq.com>
      */
-    public function group($group = 1){
-        $config_list = D('SystemConfig')->getAllConfigByGroup($group);
-        foreach($config_list as $key => $val){
-            $config_list[$key]['name'] = 'config['.$val['name'].']';
+    public function group($tab = 1){
+        //根据分组获取配置
+        $map['status'] = array('egt', '0'); //禁用和正常状态
+        $map['group'] = array('eq', $tab);
+        $data_list = D('SystemConfig')->where($map)->order('sort asc,id asc')->select();
+
+        //构造表单名、解析options
+        foreach($data_list as &$data){
+            $data['name'] = 'config['.$data['name'].']';
+            $data['options'] = D('SystemConfig')->parse_attr($data['options']);
         }
-        $this->assign('form_items', $config_list);
-        $this->assign('config_groups', C('CONFIG_GROUP_LIST'));
-        $this->assign('current_group', $group);
-        $this->meta_title = $config_groups[$group].'设置';
-        $this->display();
+
+        //使用FormBuilder快速建立表单页面。
+        $builder = new \Admin\Builder\AdminFormBuilder();
+        $builder->title('系统设置')  //设置页面标题
+                ->SetTablist(C('CONFIG_GROUP_LIST')) //设置Tab按钮列表
+                ->SetCurrentTab($tab) //设置当前Tab
+                ->setUrl(U('save')) //设置表单提交地址
+                ->setExtraItems($data_list) //直接设置表单数据
+                ->display();
     }
 
     /**

@@ -25,12 +25,12 @@ class SystemDatebaseController extends AdminController{
      * 数据字典
      * @author jry <598821125@qq.com>
      */
-    public function index(){
-        $database   = C('DB_NAME');     //数据库名 
+    public function index($tab = 'ct_addon'){
+        $database   = C('DB_NAME'); //数据库名 
         //取得所有表
         $tables = M()->query('show tables');
         foreach($tables as $key => $val){
-            $tables_result[$key]['name'] = $val['tables_in_'.$database];
+            $tables_result[$val['tables_in_'.$database]]['name'] = $val['tables_in_'.$database];
         }
 
         //获取表信息
@@ -42,6 +42,7 @@ class SystemDatebaseController extends AdminController{
             $sql .= "table_name = '{$val['name']}'  AND table_schema = '{$database}'";
             $table_result = M()->query($sql);
             $tables_result[$key]['title'] = $table_result[0]['table_comment'];
+            $tabs[$key] = $table_result[0]['table_comment'].'('.$key.')';
 
             //获取所有表的字段信息
             $sql  = 'SELECT * FROM ';
@@ -52,9 +53,19 @@ class SystemDatebaseController extends AdminController{
             $tables_result[$key]['fields'] = $field_result;
         }
 
-        $this->assign('volist', $tables_result); 
-        $this->assign('meta_title', "数据字典");
-        $this->display();
+        //使用Builder快速建立列表页面。
+        $builder = new \Admin\Builder\AdminListBuilder();
+        $builder->title('数据字典')  //设置页面标题
+                ->SetTablist($tabs) //设置Tab按钮列表
+                ->SetCurrentTab($tab) //设置当前Tab
+                ->addField('column_name', '字段名', 'text')
+                ->addField('column_type', '数据类型', 'text')
+                ->addField('column_default', '默认值', 'text')
+                ->addField('is_nullable', '允许非空', 'text')
+                ->addField('extra', '自动递增', 'text')
+                ->addField('column_comment', '备注', 'text')
+                ->dataList($tables_result[$tab]['fields'])    //数据列表
+                ->display();
     }
 
     /**

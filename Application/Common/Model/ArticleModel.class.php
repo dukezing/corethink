@@ -18,10 +18,11 @@ class ArticleModel extends Model{
      * @author jry <598821125@qq.com>
      */
     protected $_validate = array(
+        array('cid', 'require', '分类不能为空', self::EXISTS_VALIDATE, 'regex', self::MODEL_BOTH),
+        array('cid', 'check_category_model', '该分类不是文章模型，请选择正确的分类！', self::MUST_VALIDATE , 'callback', self::MODEL_BOTH),
         array('title', 'require', '文章标题不能为空', self::EXISTS_VALIDATE, 'regex', self::MODEL_BOTH),
         array('title', '1,127', '文章标题长度为1-127个字符', self::EXISTS_VALIDATE, 'length', self::MODEL_BOTH),
         array('title', '', '文章标题已经存在', self::VALUE_VALIDATE, 'unique', self::MODEL_BOTH),
-        array('cid', 'check_category_model', '该分类不是文章模型，请选择正确的分类！', self::MUST_VALIDATE , 'callback', self::MODEL_BOTH),
     );
 
     /**
@@ -33,7 +34,6 @@ class ArticleModel extends Model{
         array('abstract', 'getAbstract', self::MODEL_BOTH, 'callback'),
         array('ctime', 'getCreateTime', self::MODEL_BOTH, 'callback'),
         array('utime', NOW_TIME, self::MODEL_BOTH),
-        array('sort', '0', self::MODEL_INSERT),
         array('status', '1', self::MODEL_INSERT),
     );
 
