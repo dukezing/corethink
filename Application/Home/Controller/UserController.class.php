@@ -97,19 +97,19 @@ class UserController extends HomeController{
                 $this->error('验证码错误！');
             }
             $password = I('post.password');
-            $user = D('User');
-            $data = $user->create();
+            $user_model = D('User');
+            $data = $user_model->create();
             if($data){
-                $id = $user->add();
+                $id = $user_model->add();
                 if($id){
                     session('reg_verify', null);
-                    $uid = D('User')->login($username, $password);
+                    $uid = $user_model->login($username, $password);
                     $this->success('注册成功', U('register2'));
                 }else{
                     $this->error('注册失败');
                 }
             }else{
-                $this->error($user->getError());
+                $this->error($user_model->getError());
             }
         }else{
             if(is_login()){
@@ -126,15 +126,15 @@ class UserController extends HomeController{
      */
     public function register2(){
         if(IS_POST){
-            $user = D('User');
+            $user_model = D('User');
             $_POST['id'] = is_login();
-            $result = $user->updateUserInfo($_POST);
+            $result = $user_model->updateUserInfo($_POST);
             if($result){
-                $user_info = $user->getUserById($_POST['id']);
-                $user->autoLogin($user_info);
+                $user_info = $user_model->getUserById($_POST['id']);
+                $user_model->autoLogin($user_info);
                 $this->success('更新成功', U('Index/index'));
             }else{
-                $this->error($user->getError());
+                $this->error($user_model->getError());
             }
         }else{
             if(!is_login()){
@@ -166,13 +166,13 @@ class UserController extends HomeController{
             if(user_md5(I('post.verify'), $username) !== session('reg_verify')){
                 $this->error('验证码错误！');
             }
-            $user = D('User');
-            $data = $user->create($_POST, 5); //调用自动验证
+            $user_model = D('User');
+            $data = $user_model->create($_POST, 5); //调用自动验证
             if(!$data){
-                $this->error($user->getError());
+                $this->error($user_model->getError());
             }
-            $result = $user->where($condition)->setField('password', $data['password']); //重置密码
-            $uid = $user->login($username, I('post.password')); //自动登录
+            $result = $user_model->where($condition)->setField('password', $data['password']); //重置密码
+            $uid = $user_model->login($username, I('post.password')); //自动登录
             if($uid){
                 $this->success('密码重置成功', U('Index/index'));
             }else{
@@ -200,10 +200,10 @@ class UserController extends HomeController{
     public function sendMailVerify(){
         $receiver = I('post.email');
         $title = I('post.title');
-        $user = D('User');
-        $result = $user->create($_POST, 5); //调用自动验证
+        $user_model = D('User');
+        $result = $user_model->create($_POST, 5); //调用自动验证
         if(!$result){
-            $this->error($user->getError());
+            $this->error($user_model->getError());
         }
         $reg_verify = randString(); //生成验证码
         session('reg_verify', user_md5($reg_verify, $receiver));
@@ -224,10 +224,10 @@ class UserController extends HomeController{
      */
     public function sendMobileVerify(){
         $receiver = I('post.mobile');
-        $user = D('User');
-        $result = $user->create($_POST, 5); //调用自动验证
+        $user_model = D('User');
+        $result = $user_model->create($_POST, 5); //调用自动验证
         if(!$result){
-            $this->error($user->getError());
+            $this->error($user_model->getError());
         }
         $reg_verify = randString(); //生成验证码
         session('reg_verify', user_md5($reg_verify, $receiver));

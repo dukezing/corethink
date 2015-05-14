@@ -44,7 +44,7 @@ function get_user_info($id, $field){
  * @author jry <598821125@qq.com>
  */
 function get_cover($id, $type){
-    $url = D('PublicUpload')->getPathOrUrlById($id);
+    $url = D('Upload')->getPathOrUrlById($id);
     if(!$url){
         switch($type){
             case 'avatar' : //用户头像

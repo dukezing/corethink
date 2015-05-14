@@ -56,24 +56,24 @@ class UserCommentController extends AdminController{
      */
     public function add(){
         if(IS_POST){
-            $comment = D('UserComment');
-            $data = $comment->create();
+            $user_comment_model = D('UserComment');
+            $data = $user_comment_model->create();
             if($data){
-                $id = $comment->add();
+                $id = $user_comment_model->add();
                 if($id){
                     $this->success('新增成功', U('index'));
                 }else{
                     $this->error('新增失败');
                 }
             }else{
-                $this->error($comment->getError());
+                $this->error($user_comment_model->getError());
             }
         }else{
             //使用FormBuilder快速建立表单页面。
             $builder = new \Admin\Builder\AdminFormBuilder();
             $builder->title('新增评论')  //设置页面标题
                     ->setUrl(U('add')) //设置表单提交地址
-                    ->addItem('select', '内容模型', '内容模型', 'model', $this->selectListAsTree('CategoryModel'))
+                    ->addItem('select', '内容模型', '内容模型', 'model', $this->selectListAsTree('Type'))
                     ->addItem('num', '文档ID', '文档ID', 'title')
                     ->addItem('textarea', '评论内容', '评论内容', 'content')
                     ->addItem('num', '父评论ID', '父评论ID', 'pid')
@@ -88,16 +88,16 @@ class UserCommentController extends AdminController{
      */
     public function edit($id){
         if(IS_POST){
-            $comment = D('UserComment');
-            $data = $comment->create();
+            $user_comment_model = D('UserComment');
+            $data = $user_comment_model->create();
             if($data){
-                if($comment->save()!== false){
+                if($user_comment_model->save()!== false){
                     $this->success('更新成功', U('index'));
                 }else{
                     $this->error('更新失败');
                 }
             }else{
-                $this->error($comment->getError());
+                $this->error($user_comment_model->getError());
             }
         }else{
             //使用FormBuilder快速建立表单页面。
@@ -105,7 +105,7 @@ class UserCommentController extends AdminController{
             $builder->title('编辑评论')  //设置页面标题
                     ->setUrl(U('edit')) //设置表单提交地址
                     ->addItem('hidden', 'ID', 'ID', 'id')
-                    ->addItem('select', '内容模型', '内容模型', 'model', $this->selectListAsTree('CategoryModel'))
+                    ->addItem('select', '内容模型', '内容模型', 'model', $this->selectListAsTree('Type'))
                     ->addItem('num', '文档ID', '文档ID', 'title')
                     ->addItem('textarea', '评论内容', '评论内容', 'content')
                     ->addItem('num', '父评论ID', '父评论ID', 'pid')

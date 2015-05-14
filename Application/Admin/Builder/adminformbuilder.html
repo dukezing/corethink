@@ -14,7 +14,6 @@
     <script type="text/javascript" src="__PUBLIC__/tokeninput/jquery.tokeninput.min.js"></script>
     <script type="text/javascript">
         $(function(){
-            $("[data-toggle='tooltip']").tooltip(); //启用工具提示
             $(".form .controls select.form-control").chosen({disable_search_threshold: 10}); //使用chosen插件接管select
             $('.form .chosen-icon').chosenIcons(); //使用chosen插件选择WebFont
         });
@@ -205,7 +204,7 @@
                                         });
                                     }
                                 }
-                                tags.tokenInput('{:U("PublicTag/searchTags")}',{
+                                tags.tokenInput('{:U("Tag/searchTags")}',{
                                     propertyToSearch    :   'title',
                                     tokenValue          :   'title',
                                     searchDelay         :   0,
@@ -218,7 +217,7 @@
                                     searchingText       :   "查找中...",
                                     prePopulate         :   tagsPre,
                                     onAdd: function (item){ //新增系统没有的标签时提交到数据库
-                                        $.post('{:U("PublicTag/add")}', {'title': item.title});
+                                        $.post('{:U("Tag/add")}', {'title': item.title});
                                     }
                                 });
                             </script>
@@ -404,7 +403,7 @@
                                                                             });
                                                                         }
                                                                     }
-                                                                    tags.tokenInput('{:U("PublicTag/searchTags")}',{
+                                                                    tags.tokenInput('{:U("Tag/searchTags")}',{
                                                                         propertyToSearch    :   'title',
                                                                         tokenValue          :   'title',
                                                                         searchDelay         :   0,
@@ -417,7 +416,7 @@
                                                                         searchingText       :   "查找中...",
                                                                         prePopulate         :   tagsPre,
                                                                         onAdd: function (item){ //新增系统没有的标签时提交到数据库
-                                                                            $.post('{:U("PublicTag/add")}', {'title': item.title});
+                                                                            $.post('{:U("Tag/add")}', {'title': item.title});
                                                                         }
                                                                     });
                                                                 </script>

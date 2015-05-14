@@ -62,17 +62,17 @@ class ArticleController extends AdminController{
      */
     public function add(){
         if(IS_POST){
-            $Article = D('Article');
-            $data = $Article->create();
+            $article_model = D('Article');
+            $data = $article_model->create();
             if($data){
-                $id = $Article->add();
+                $id = $article_model->add();
                 if($id){
                     $this->success('新增成功', U('index', array('cid' => $_POST['cid'])));
                 }else{
                     $this->error('新增失败');
                 }
             }else{
-                $this->error($Article->getError());
+                $this->error($article_model->getError());
             }
         }else{
             //获取当前分类
@@ -102,16 +102,16 @@ class ArticleController extends AdminController{
     public function edit($id){
         if(IS_POST){
             //更新文章
-            $Article = D('Article');
-            $data = $Article->create();
+            $article_model = D('Article');
+            $data = $article_model->create();
             if($data){
-                if($Article->save()!== false){
+                if($article_model->save()!== false){
                     $this->success('更新成功', Cookie('__forward__') ? : U('index', array('cid' => $_POST['cid'])));
                 }else{
                     $this->error('更新失败');
                 }
             }else{
-                $this->error($Article->getError());
+                $this->error($article_model->getError());
             }
         }else{
             //使用FormBuilder快速建立表单页面。

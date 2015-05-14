@@ -12,7 +12,7 @@ use Think\Controller;
  * 后台标签控制器
  * @author jry <598821125@qq.com>
  */
-class PublicTagController extends AdminController{
+class TagController extends AdminController{
     /**
      * 标签列表
      * @author jry <598821125@qq.com>
@@ -25,8 +25,8 @@ class PublicTagController extends AdminController{
 
         //获取所有标签
         $map['status'] = array('egt', '0'); //禁用和正常状态
-        $data_list = D('PublicTag')->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))->where($map)->order('sort desc,id desc')->select();
-        $page = new \Think\Page(D('PublicTag')->where($map)->count(), C('ADMIN_PAGE_ROWS'));
+        $data_list = D('Tag')->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))->where($map)->order('sort desc,id desc')->select();
+        $page = new \Think\Page(D('Tag')->where($map)->count(), C('ADMIN_PAGE_ROWS'));
 
         //使用Builder快速建立列表页面。
         $builder = new \Admin\Builder\AdminListBuilder();
@@ -56,17 +56,17 @@ class PublicTagController extends AdminController{
      */
     public function add(){
         if(IS_POST){
-            $Tag = D('PublicTag');
-            $data = $Tag->create();
+            $tag_model = D('Tag');
+            $data = $tag_model->create();
             if($data){
-                $id = $Tag->add();
+                $id = $tag_model->add();
                 if($id){
                     $this->success('新增成功', U('index'));
                 }else{
                     $this->error('新增失败');
                 }
             }else{
-                $this->error($Tag->getError());
+                $this->error($tag_model->getError());
             }
         }else{
             //使用FormBuilder快速建立表单页面。
@@ -85,16 +85,16 @@ class PublicTagController extends AdminController{
      */
     public function edit(){
         if(IS_POST){
-            $Tag = D('PublicTag');
-            $data = $Tag->create();
+            $tag_model = D('Tag');
+            $data = $tag_model->create();
             if($data){
-                if($Tag->save()!== false){
+                if($tag_model->save()!== false){
                     $this->success('更新成功', U('index'));
                 }else{
                     $this->error('更新失败');
                 }
             }else{
-                $this->error($Tag->getError());
+                $this->error($tag_model->getError());
             }
         }else{
             //使用FormBuilder快速建立表单页面。
@@ -104,7 +104,7 @@ class PublicTagController extends AdminController{
                     ->addItem('hidden', 'ID', 'ID', 'id')
                     ->addItem('text', '标签名称', '标签名称', 'title')
                     ->addItem('num', '排序', '用于显示的顺序', 'sort')
-                    ->setFormData(D('PublicTag')->find($id))
+                    ->setFormData(D('Tag')->find($id))
                     ->display();
         }
     }
@@ -117,7 +117,7 @@ class PublicTagController extends AdminController{
      */
     public function searchTags(){
         $map["title"] = array("like", "%".I('get.q')."%");
-        $tags = D('PublicTag')->field('id,title')->where($map)->select();
+        $tags = D('Tag')->field('id,title')->where($map)->select();
         foreach($tags as $value){
             $data[] = array('id' => $value['title'], 'title'=> $value['title']);
         }

@@ -27,7 +27,7 @@ class IndexController extends HomeController{
      * @author jry <598821125@qq.com>
      */
     public function upload(){
-        exit(D('PublicUpload')->upload());
+        exit(D('Upload')->upload());
     }
 
     /**
@@ -35,7 +35,7 @@ class IndexController extends HomeController{
      * @author jry <598821125@qq.com>
      */
     public function downremoteimg(){
-        exit(D('PublicUpload')->downremoteimg());
+        exit(D('Upload')->downremoteimg());
     }
 
     /**
@@ -43,6 +43,6 @@ class IndexController extends HomeController{
      * @author jry <598821125@qq.com>
      */
     public function fileManager(){
-        exit(D('PublicUpload')->fileManager());
+        exit(D('Upload')->fileManager());
     }
 }

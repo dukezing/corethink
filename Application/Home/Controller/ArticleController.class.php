@@ -17,7 +17,7 @@ class ArticleController extends HomeController{
     protected function _initialize(){
         parent::_initialize();
         Cookie('__forward__', $_SERVER['REQUEST_URI']);
-        $this->assign('__CURRENT_MODEL_ID__', D('CategoryModel')->getModelByName('article', 'id')); //当前模型ID
+        $this->assign('__CURRENT_MODEL_ID__', D('Type')->getTypeByName('article', 'id')); //当前模型ID
     }
 
     /**
@@ -65,17 +65,17 @@ class ArticleController extends HomeController{
      */
     public function add(){
         if(IS_POST){
-            $Article = D('Article');
-            $data = $Article->create();
+            $article_model = D('Article');
+            $data = $article_model->create();
             if($data){
-                $id = $Article->add();
+                $id = $article_model->add();
                 if($id){
                     $this->success('新增成功', U('index', array('cid' => $_POST['cid'])));
                 }else{
                     $this->error('新增失败');
                 }
             }else{
-                $this->error($Article->getError());
+                $this->error($article_model->getError());
             }
         }else{
             $all_category = D('Tree')->toFormatTree(D('Category')->getAllCategory());
@@ -92,16 +92,16 @@ class ArticleController extends HomeController{
     public function edit($id = 0){
         if(IS_POST){
             //更新文章
-            $Article = D('Article');
-            $data = $Article->create();
+            $article_model = D('Article');
+            $data = $article_model->create();
             if($data){
-                if($Article->save()!== false){
+                if($article_model->save()!== false){
                     $this->success('更新成功', U('index', array('cid' => $_POST['cid'])));
                 }else{
                     $this->error('更新失败');
                 }
             }else{
-                $this->error($Article->getError());
+                $this->error($article_model->getError());
             }
         }else{
             $all_category = D('Tree')->toFormatTree(D('Category')->getAllCategory());

@@ -24,18 +24,18 @@ class UserCommentController extends HomeController{
             if(2 > count($num[0])){
                 $this->error('评论至少包含2个中文字符！');
             }
-            $comment = D('UserComment');
-            $data = $comment->create();
+            $user_comment_model = D('UserComment');
+            $data = $user_comment_model->create();
             if($data){
-                $id = $comment->add();
+                $id = $user_comment_model->add();
                 if($id){
-                    M(D('CategoryModel')->getModelNameById($data['model']))->where(array('id'=> (int)$data['doc_id']))->setInc('comment'); // 更新评论数
+                    M(D('Type')->getTypeNameById($data['model']))->where(array('id'=> (int)$data['doc_id']))->setInc('comment'); // 更新评论数
                     $this->success('评论成功');
                 }else{
                     $this->error('评论失败');
                 }
             }else{
-                $this->error($comment->getError());
+                $this->error($user_comment_model->getError());
             }
         }
     }

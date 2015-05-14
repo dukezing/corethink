@@ -18,7 +18,7 @@ class UserCommentModel extends Model{
      * @author jry <598821125@qq.com>
      */
     protected $_validate = array(
-        array('model', 'require', '内容模型不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
+        array('type', 'require', '内容模型不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
         array('doc_id', 'require', '文档ID不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
         array('content', 'require', '评论内容不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
         array('content', '1,1280', '评论内容长度不多于1280个字符', self::VALUE_VALIDATE, 'length'),

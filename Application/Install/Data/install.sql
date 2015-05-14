@@ -83,7 +83,7 @@ DROP TABLE IF EXISTS `ct_category`;
 CREATE TABLE `ct_category` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '分类ID',
   `pid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '父分类ID',
-  `model` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '分类模型',
+  `type` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '分类模型',
   `title` varchar(32) NOT NULL DEFAULT '' COMMENT '分类名称',
   `url` varchar(128) NOT NULL COMMENT '链接地址',
   `content` text NOT NULL COMMENT '内容',
@@ -108,7 +108,7 @@ CREATE TABLE `ct_user_comment` (
   `pid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '评论父ID',
   `uid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '用户ID',
   `doc_id` int(11) unsigned NOT NULL COMMENT '评论文档ID',
-  `model` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '模型ID',
+  `type` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '模型ID',
   `content` text COMMENT '评论内容',
   `ctime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `utime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
@@ -184,7 +184,7 @@ DROP TABLE IF EXISTS `ct_user_digg`;
 CREATE TABLE `ct_user_digg` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '投票ID',
   `doc_id` int(11) unsigned NOT NULL COMMENT '投票文档ID',
-  `model` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '投票模型ID',
+  `type` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '投票模型ID',
   `good` text COMMENT '赞',
   `bad` text COMMENT '踩',
   `mark` text COMMENT '收藏',
@@ -323,32 +323,31 @@ VALUES
 	(23, 22, '添加', 'SystemConfig/add', '', 1426580628, 1426580628, 1, 1),
 	(24, 22, '编辑', 'SystemConfig/edit', '', 1426580628, 1426580628, 2, 1),
 	(25, 22, '设置状态', 'SystemConfig/setStatus', '', 1426580628, 1426580628, 3, 1),
-	(26, 7, '数据字典', 'SystemDatebase/index', 'icon-table', 1429851071, 1430291185, 4, 1),
+	(26, 7, '数据字典', 'Datebase/index', 'icon-table', 1429851071, 1430291185, 4, 1),
 	(27, 7, '插件列表', 'Addon/index', 'icon-cogs', 1427475588, 1427475588, 5, 1),
 	(28, 27, '安装', 'Addon/install', '', 1427475588, 1427475588, 1, 1),
 	(29, 27, '卸载', 'Addon/uninstall', '', 1427475588, 1427475588, 2, 1),
 	(30, 27, '执行', 'Addon/execute', '', 1427475588, 1427475588, 3, 1),
 	(31, 27, '插件设置', 'Addon/config', '', 1427475588, 1427475588, 4, 1),
-	(32, 27, '修改设置', 'Addon/saveConfig', '', 1427475588, 1427475588, 5, 1),
 	(33, 27, '数据列表', 'Addon/adminList', '', 1427475588, 1427475588, 6, 1),
 	(34, 27, '数据编辑', 'Addon/edit', '', 1427475588, 1427475588, 7, 1),
 	(35, 27, '数据删除', 'Addon/del', '', 1426580628, 1426580628, 8, 1),
-	(36, 8, '数据备份', 'SystemDatebase/export', 'icon-archive', 1426580628, 1426580628, 1, 1),
-	(37, 36, '备份', 'SystemDatebase/do_export', '', 1426580628, 1426580628, 1, 1),
-	(38, 36, '优化表', 'SystemDatebase/optimize', '', 1426580628, 1426580628, 2, 1),
-	(39, 36, '修复表', 'SystemDatebase/repair', '', 1426580628, 1426580628, 3, 1),
-	(40, 8, '数据还原', 'SystemDatebase/import', 'icon-undo', 1426580628, 1426580628, 2, 1),
-	(41, 40, '还原备份', 'SystemDatebase/do_import', '', 1426580628, 1426580628, 1, 1),
-	(42, 40, '删除备份', 'SystemDatebase/del', '', 1426580628, 1426580628, 2, 1),
+	(36, 8, '数据备份', 'Datebase/export', 'icon-archive', 1426580628, 1426580628, 1, 1),
+	(37, 36, '备份', 'Datebase/do_export', '', 1426580628, 1426580628, 1, 1),
+	(38, 36, '优化表', 'Datebase/optimize', '', 1426580628, 1426580628, 2, 1),
+	(39, 36, '修复表', 'Datebase/repair', '', 1426580628, 1426580628, 3, 1),
+	(40, 8, '数据还原', 'Datebase/import', 'icon-undo', 1426580628, 1426580628, 2, 1),
+	(41, 40, '还原备份', 'Datebase/do_import', '', 1426580628, 1426580628, 1, 1),
+	(42, 40, '删除备份', 'Datebase/del', '', 1426580628, 1426580628, 2, 1),
 	(43, 9, '栏目分类', 'Category/index', 'icon-branch', 1426580628, 1430290312, 1, 1),
 	(44, 43, '添加', 'Category/add', '', 1426580628, 1426580628, 1, 1),
 	(45, 43, '编辑', 'Category/edit', '', 1426580628, 1426580628, 2, 1),
 	(46, 43, '设置状态', 'Category/setStatus', '', 1426580628, 1426580628, 3, 1),
 	(47, 43, '删除', 'Category/del', '', 1426580628, 1426580628, 4, 1),
-	(52, 9, '标签列表', 'PublicTag/index', 'icon-tag', 1426580628, 1430290718, 3, 1),
-	(53, 52, '添加', 'PublicTag/add', '', 1426580628, 1426580628, 1, 1),
-	(54, 52, '编辑', 'PublicTag/edit', '', 1426580628, 1426580628, 2, 1),
-	(55, 52, '设置状态', 'PublicTag/setStatus', '', 1426580628, 1426580628, 3, 1),
+	(52, 9, '标签列表', 'Tag/index', 'icon-tag', 1426580628, 1430290718, 3, 1),
+	(53, 52, '添加', 'Tag/add', '', 1426580628, 1426580628, 1, 1),
+	(54, 52, '编辑', 'Tag/edit', '', 1426580628, 1426580628, 2, 1),
+	(55, 52, '设置状态', 'Tag/setStatus', '', 1426580628, 1426580628, 3, 1),
 	(56, 9, '评论列表', 'UserComment/index', 'icon-comments-alt', 1426580628, 1426580628, 4, 1),
 	(57, 56, '添加', 'UserComment/add', '', 1426580628, 1426580628, 1, 1),
 	(58, 56, '编辑', 'UserComment/edit', '', 1426580628, 1426580628, 2, 1),
@@ -372,12 +371,12 @@ VALUES
 UNLOCK TABLES;
 
 
-# Dump of table ct_category_model
+# Dump of table ct_type
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `ct_category_model`;
+DROP TABLE IF EXISTS `ct_type`;
 
-CREATE TABLE `ct_category_model` (
+CREATE TABLE `ct_type` (
   `id` tinyint(4) unsigned NOT NULL AUTO_INCREMENT COMMENT '模型ID',
   `name` char(16) NOT NULL DEFAULT '' COMMENT '模型名称',
   `title` char(16) NOT NULL DEFAULT '' COMMENT '模型标题',
@@ -389,16 +388,16 @@ CREATE TABLE `ct_category_model` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='系统模型信息表';
 
-LOCK TABLES `ct_category_model` WRITE;
-/*!40000 ALTER TABLE `ct_category_model` DISABLE KEYS */;
+LOCK TABLES `ct_type` WRITE;
+/*!40000 ALTER TABLE `ct_type` DISABLE KEYS */;
 
-INSERT INTO `ct_category_model` (`id`, `name`, `title`, `icon`, `ctime`, `utime`, `sort`, `status`)
+INSERT INTO `ct_type` (`id`, `name`, `title`, `icon`, `ctime`, `utime`, `sort`, `status`)
 VALUES
 	(1,'link','链接','icon-link',1426580628,1426580628,0,1),
 	(2,'page','单页','icon-file',1426580628,1426580628,0,1),
 	(3,'article','文章','icon-edit',1426580628,1426580628,0,1);
 
-/*!40000 ALTER TABLE `ct_category_model` ENABLE KEYS */;
+/*!40000 ALTER TABLE `ct_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
@@ -418,12 +417,12 @@ CREATE TABLE `ct_addon_sync_login` (
 
 
 
-# Dump of table ct_public_tag
+# Dump of table ct_tag
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `ct_public_tag`;
+DROP TABLE IF EXISTS `ct_tag`;
 
-CREATE TABLE `ct_public_tag` (
+CREATE TABLE `ct_tag` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `title` varchar(32) NOT NULL COMMENT '标签',
   `count` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '数量',
@@ -437,12 +436,12 @@ CREATE TABLE `ct_public_tag` (
 
 
 
-# Dump of table ct_public_upload
+# Dump of table ct_upload
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `ct_public_upload`;
+DROP TABLE IF EXISTS `ct_upload`;
 
-CREATE TABLE `ct_public_upload` (
+CREATE TABLE `ct_upload` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '上传ID',
   `path` varchar(255) NOT NULL DEFAULT '' COMMENT '文件路径',
   `url` varchar(255) NOT NULL DEFAULT '' COMMENT '文件链接',
@@ -491,6 +490,7 @@ CREATE TABLE `ct_user` (
   UNIQUE KEY `mobile` (`mobile`),
   KEY `status` (`status`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户会员信息表';
+
 
 LOCK TABLES `ct_user` WRITE;
 /*!40000 ALTER TABLE `ct_user` DISABLE KEYS */;

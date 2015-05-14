@@ -92,8 +92,14 @@
 </block>
 
 <block name="script">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/chosen/chosen.min.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/chosen/chosen.icons.min.css">
+    <script type="text/javascript" src="__PUBLIC__/chosen/chosen.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="__PUBLIC__/chosen/chosen.icons.min.js" charset="utf-8"></script>
     <script type="text/javascript">
         $(function(){
+            $(".form .controls select.form-control").chosen({disable_search_threshold: 10}); //使用chosen插件接管select
+            $('.form .chosen-icon').chosenIcons(); //使用chosen插件选择WebFont
             //遍历选中当前权限的子权限
             $('.auth input[type="checkbox"]').on('change',function(){
                 $('.auth'+$(this).val()).find('input').prop('checked',this.checked);

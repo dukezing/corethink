@@ -60,17 +60,17 @@ class SystemConfigController extends AdminController{
      */
     public function add(){
         if(IS_POST){
-            $Config = D('SystemConfig');
-            $data = $Config->create();
+            $config_model = D('SystemConfig');
+            $data = $config_model->create();
             if($data){
-                if($Config->add()){
+                if($config_model->add()){
                     S('DB_CONFIG_DATA',null);
                     $this->success('新增成功', U('index'));
                 }else{
                     $this->error('新增失败');
                 }
             }else{
-                $this->error($Config->getError());
+                $this->error($config_model->getError());
             }
         }else{
             //使用FormBuilder快速建立表单页面。
@@ -95,17 +95,17 @@ class SystemConfigController extends AdminController{
      */
     public function edit($id){
         if(IS_POST){
-            $Config = D('SystemConfig');
-            $data = $Config->create();
+            $config_model = D('SystemConfig');
+            $data = $config_model->create();
             if($data){
-                if($Config->save()){
+                if($config_model->save()){
                     S('DB_CONFIG_DATA',null);
                     $this->success('更新成功', U('index'));
                 }else{
                     $this->error('更新失败');
                 }
             }else{
-                $this->error($Config->getError());
+                $this->error($config_model->getError());
             }
         }else{
             //使用FormBuilder快速建立表单页面。

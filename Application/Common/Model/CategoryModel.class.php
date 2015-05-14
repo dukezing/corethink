@@ -55,7 +55,7 @@ class CategoryModel extends Model{
     public function getAllCategory($map, $status = '0,1'){
         $map['status'] = array('in', $status);
         $list = $this->where($map)->select();
-        return $this->getLinkByCategoryModel($list);
+        return $this->getLinkByModel($list);
     }
 
     /**
@@ -63,9 +63,9 @@ class CategoryModel extends Model{
      * @return array 分类列表
      * @author jry <598821125@qq.com>
      */
-    public function getLinkByCategoryModel($list){
+    public function getLinkByModel($list){
         foreach($list as $key => $val){
-            switch($val['model']){
+            switch($val['type']){
                 case 1:
                     $list[$key]['link'] = '<a target="_blank" href="'.$val['url'].'">'.$val['title'].'</a>';
                     $list[$key]['title_link'] = $val['title'];
@@ -75,8 +75,8 @@ class CategoryModel extends Model{
                     $list[$key]['title_link'] = $val['title'];
                     break;
                 default :
-                    $curent_model = D('CategoryModel')->getModelNameById($val['model']);
-                    $list[$key]['link'] = '<a href="'.U($curent_model.'/index', array('cid' => $val['id'])).'">'.$val['title'].'</a>';
+                    $curent_type = D('Type')->getTypeNameById($val['type']);
+                    $list[$key]['link'] = '<a href="'.U($curent_type.'/index', array('cid' => $val['id'])).'">'.$val['title'].'</a>';
                     $list[$key]['title_link'] = $list[$key]['title_prefix'].$list[$key]['link'];
             }
         }
@@ -109,6 +109,6 @@ class CategoryModel extends Model{
                 break;
             }
         }
-        return $this->getLinkByCategoryModel($res);
+        return $this->getLinkByModel($res);
     }
 }

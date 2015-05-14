@@ -69,7 +69,7 @@ class ArticleModel extends Model{
      */
     function check_category_model($cid){
         $category = D('Category')->getCategoryById($cid);
-        $current_model = D('CategoryModel')->getModelByName(CONTROLLER_NAME);
+        $current_model = D('Type')->getTypeByName(CONTROLLER_NAME);
         return $category['model'] == $current_model['id'];
     }
 

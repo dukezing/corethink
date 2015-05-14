@@ -9,10 +9,10 @@
 namespace Common\Model;
 use Think\Model;
 /**
- * 内容模型
+ * 文档类型
  * @author jry <598821125@qq.com>
  */
-class CategoryModelModel extends Model{
+class TypeModel extends Model{
     /**
      * 自动验证规则
      * @author jry <598821125@qq.com>
@@ -41,7 +41,7 @@ class CategoryModelModel extends Model{
      * 根据ID获取模型
      * @author jry <598821125@qq.com>
      */
-    public function getModelById($id, $field){
+    public function getTypeById($id, $field){
         $map['id'] = array('eq', $id);
         $result = $this->where($map)->find();
         if($field){
@@ -54,8 +54,8 @@ class CategoryModelModel extends Model{
      * 根据条件获取模型名称
      * @author jry <598821125@qq.com>
      */
-    public function getModelNameById($id){
-        $model = $this->getModelById($id);
+    public function getTypeNameById($id){
+        $model = $this->getTypeById($id);
         return $model['name'];
     }
 
@@ -63,7 +63,7 @@ class CategoryModelModel extends Model{
      * 根据name获取模型
      * @author jry <598821125@qq.com>
      */
-    public function getModelByName($name, $field){
+    public function getTypeByName($name, $field){
         $map['name'] = array('eq', $name);
         $result = $this->where($map)->find();
         if($field){
@@ -76,7 +76,7 @@ class CategoryModelModel extends Model{
      * 获取所有模型
      * @author jry <598821125@qq.com>
      */
-    public function getAllModel($map, $status = '0,1'){
+    public function getAllType($map, $status = '0,1'){
         $map['status'] = array('in', $status);
         return $this->where($map)->order('sort asc,id asc')->select();
     }

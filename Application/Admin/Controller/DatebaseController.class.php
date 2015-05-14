@@ -14,7 +14,7 @@ use Org\Util\Database;
  * 数据库管理控制器
  * @author jry <598821125@qq.com>
  */
-class SystemDatebaseController extends AdminController{
+class DatebaseController extends AdminController{
     /**
      * 数据库备份/还原路径
      * @author jry <598821125@qq.com>
