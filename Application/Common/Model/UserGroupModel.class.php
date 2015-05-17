@@ -35,29 +35,6 @@ class UserGroupModel extends Model{
     );
 
     /**
-     * 根据ID获取部门
-     * @author jry <598821125@qq.com>
-     */
-    public function getGroupById($id, $field){
-        $map['id'] = array('eq', $id);
-        $map['status'] = array('eq', 1);
-        $group_info = $this->where($map)->find();
-        if($field){
-            return $group_info[$field];
-        }
-        return $group_info;
-    }
-
-    /**
-     * 获取所有部门
-     * @author jry <598821125@qq.com>
-     */
-    public function getAllGroup($map, $status = '0,1'){
-        $map['status'] = array('in', $status);
-        return $this->where($map)->order('sort asc,id asc')->select();
-    }
-
-    /**
      * 检查部门权限
      * @author jry <598821125@qq.com>
      */
@@ -65,7 +42,8 @@ class UserGroupModel extends Model{
         $current_menu = D('SystemMenu')->getMenuByControllerAndAction(); //当前菜单id
         $user_group = (int)D('User')->getUserById(session('user_auth.uid'), 'group'); //获得当前登录用户信息
         if($user_group !== 1){
-            $group_auth = explode(',', $this->getGroupById($user_group, 'auth')); //获得当前登录用户所属部门的权限列表
+            $group_info = $this->find($user_group);
+            $group_auth = explode(',', $group_info['auth']); //获得当前登录用户所属部门的权限列表
             if(in_array($current_menu['id'], $group_auth)){
                 return true;
             }

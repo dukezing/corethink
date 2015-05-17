@@ -37,7 +37,7 @@ class UploadModel extends Model{
      * 获取上传文件的地址
      * @author jry <598821125@qq.com>
      */
-    public function getPathOrUrlById($id){
+    public function getPath($id){
         $map['id'] = array('eq', $id);
         $map['status'] = array('eq', 1);
         $upload = $this->where($map)->find();

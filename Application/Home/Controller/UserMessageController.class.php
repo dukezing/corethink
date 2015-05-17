@@ -30,6 +30,6 @@ class UserMessageController extends HomeController{
         $this->assign('volist', $message_list);
         $this->assign('__CURRENT_MESSAGE_TYPE', $type);
         $this->assign('meta_title', "消息中心");
-        $this->display();
+        $this->display('User/message');
     }
 }

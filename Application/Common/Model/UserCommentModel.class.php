@@ -18,7 +18,6 @@ class UserCommentModel extends Model{
      * @author jry <598821125@qq.com>
      */
     protected $_validate = array(
-        array('type', 'require', '内容模型不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
         array('doc_id', 'require', '文档ID不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
         array('content', 'require', '评论内容不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
         array('content', '1,1280', '评论内容长度不多于1280个字符', self::VALUE_VALIDATE, 'length'),
@@ -39,33 +38,10 @@ class UserCommentModel extends Model{
     );
 
     /**
-     * 根据ID获取评论
-     * @author jry <598821125@qq.com>
-     */
-    public function getCommentById($id, $field){
-        $map['id'] = array('eq', $id);
-        $comment_info = $this->where($map)->find();
-        if($field){
-            return $comment_info[$field];
-        }
-        return $comment_info;
-    }
-
-    /**
-     * 获取所有评论
-     * @author jry <598821125@qq.com>
-     */
-    public function getAllComment($map, $status = '0,1'){
-        $map['status'] = array('in', $status);
-        return $this->where($map)->order('sort desc,id desc')->select();
-    }
-
-    /**
      * 根据文档获取评论列表
      * @author jry <598821125@qq.com>
      */
-    public function getAllCommentByDocument($model, $doc_id, $map){
-        $map['model'] = $model;
+    public function getAllCommentByDocument($doc_id, $map){
         $map['doc_id'] = $doc_id;
         $map['status'] = 1;
         $comments = $this->where($map)->order('sort desc,id asc')->select();

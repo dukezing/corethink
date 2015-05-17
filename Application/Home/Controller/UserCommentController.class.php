@@ -29,7 +29,7 @@ class UserCommentController extends HomeController{
             if($data){
                 $id = $user_comment_model->add();
                 if($id){
-                    M(D('Type')->getTypeNameById($data['model']))->where(array('id'=> (int)$data['doc_id']))->setInc('comment'); // 更新评论数
+                    D('Document')->where(array('id'=> (int)$data['doc_id']))->setInc('comment'); // 更新评论数
                     $this->success('评论成功');
                 }else{
                     $this->error('评论失败');

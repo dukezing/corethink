@@ -20,7 +20,7 @@ class CoreThink extends TagLib{
     protected $tags = array(
         'breadcrumb'  => array('attr' => 'name,cid', 'close' => 1), //面包屑导航列表
         'category' => array('attr' => 'name,pid', 'close' => 1), //栏目分类列表
-        'comment'  => array('attr' => 'name,model,doc_id', 'close' => 1), //评论列表
+        'comment'  => array('attr' => 'name,doc_id', 'close' => 1), //评论列表
         'article'  => array('attr' => 'name,cid,limit', 'close' => 1), //文章列表
     );
 
@@ -62,10 +62,9 @@ class CoreThink extends TagLib{
      */
     public function _comment($tag, $content){
         $name   = $tag['name'];
-        $model  = $tag['model'];
         $doc_id  = $tag['doc_id'];
         $parse  = '<?php ';
-        $parse .= '$__COMMENT_LIST__ = D(\'UserComment\')->getAllCommentByDocument('.$model.','.$doc_id.');';
+        $parse .= '$__COMMENT_LIST__ = D(\'UserComment\')->getAllCommentByDocument('.$doc_id.');';
         $parse .= ' ?>';
         $parse .= '<volist name="__COMMENT_LIST__" id="'. $name .'">';
         $parse .= $content;

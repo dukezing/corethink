@@ -21,7 +21,7 @@ class CategoryModel extends Model{
         array('title', 'require', '名称不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
         array('title', '1,32', '名称长度为1-32个字符', self::EXISTS_VALIDATE, 'length', self::MODEL_BOTH),
         array('title', '', '名称已经存在', self::VALUE_VALIDATE, 'unique', self::MODEL_BOTH),
-        array('model', 'require', '内容模型不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
+        array('type', 'require', '内容模型不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
     );
 
     /**
@@ -75,8 +75,7 @@ class CategoryModel extends Model{
                     $list[$key]['title_link'] = $val['title'];
                     break;
                 default :
-                    $curent_type = D('Type')->getTypeNameById($val['type']);
-                    $list[$key]['link'] = '<a href="'.U($curent_type.'/index', array('cid' => $val['id'])).'">'.$val['title'].'</a>';
+                    $list[$key]['link'] = '<a href="'.U('Document/index', array('cid' => $val['id'])).'">'.$val['title'].'</a>';
                     $list[$key]['title_link'] = $list[$key]['title_prefix'].$list[$key]['link'];
             }
         }
@@ -93,8 +92,8 @@ class CategoryModel extends Model{
         if(empty($cid)){
             return false;
         }
-        $cates = $this->where(array('status'=>1))->field('id,pid,model,title,url')->order('sort')->select();
-        $child = $this->field('id,pid,model,title,url')->getCategoryById($cid); //获取参数分类的信息
+        $cates = $this->where(array('status'=>1))->field('id,pid,title,url')->order('sort')->select();
+        $child = $this->field('id,pid,title,url')->find($cid); //获取参数分类的信息
         $pid   = $child['pid'];
         $temp  = array();
         $res[] = $child;

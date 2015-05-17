@@ -24,7 +24,7 @@
                         </notempty>
                     </header>
                     <section class="article-content lazy">
-                        {$info.content}|parse_content}
+                        {$info.content|parse_content}
                     </section>
                     <footer>
                         <p class="pull-right text-muted">
@@ -33,18 +33,18 @@
                         <p class="text-important">本文版权所有归<a href="#">@CoreThink</a></p>
                         <ul class="pager pager-justify pager-pills">{$info.previous}{$info.next}</ul>
                         <div class="digg text-center">
-                            <a href="{:U('UserDigg/digg/model/'.$__CURRENT_MODEL_ID__.'/type/good/doc_id/'.$info['id'])}" class="btn digg-good ajax-digg">
+                            <a href="{:U('UserDigg/digg/type/good/doc_id/'.$info['id'])}" class="btn digg-good ajax-digg">
                                 <span class="text"><span class="fa fa-thumbs-o-up"></span> 点赞</span>
                                 <span class="num">{$info.good}</span>
                             </a>
-                            <a href="{:U('UserDigg/digg/model/'.$__CURRENT_MODEL_ID__.'/type/mark/doc_id/'.$info['id'])}" class="btn digg-mark ajax-digg">
+                            <a href="{:U('UserDigg/digg/type/mark/doc_id/'.$info['id'])}" class="btn digg-mark ajax-digg">
                                 <span class="text"><span class="fa fa-star-o"></span> 收藏</span>
                                 <span class="num">{$info.mark}</span>
                             </a>
                         </div>
                     </footer>
                 </article>
-                <include file="UserComment:index" /><!-- 包含评论 -->
+                <include file="Document:comment.html" /><!-- 包含评论 -->
             </div>
             <div class="col-xs-12 col-sm-3">
                 <nav class="menu menu-corethink" data-toggle="menu">
@@ -75,14 +75,14 @@
     <script type="text/javascript">
         $(function(){
             //已赞设置高亮
-            $.get("{:U('UserDigg/getDiggStatus/model/'.$__CURRENT_MODEL_ID__.'/type/good/doc_id/'.$info['id'])}").success(function(data){
+            $.get("{:U('UserDigg/getDiggStatus/type/good/doc_id/'.$info['id'])}").success(function(data){
                 if(data.status == 1){
                     $('.digg-good').addClass('btn-primary');
                 }
             });
 
             //已收藏设置高亮
-            $.get("{:U('UserDigg/getDiggStatus/model/'.$__CURRENT_MODEL_ID__.'/type/mark/doc_id/'.$info['id'])}").success(function(data){
+            $.get("{:U('UserDigg/getDiggStatus/type/mark/doc_id/'.$info['id'])}").success(function(data){
                 if(data.status == 1){
                     $('.digg-mark').addClass('btn-primary');
                 }

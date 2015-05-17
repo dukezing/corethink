@@ -492,7 +492,7 @@
     clear: both;
 }
 .ke-notice{
-    padding: 5px 10px;
+    padding: 2px 10px;
     background: #FEFEE9;
     border-bottom: 1px solid #CDCDCD !important;
     font-size: 12px;
@@ -723,7 +723,7 @@
     height: 16px;
     position: absolute;
     right: 6px;
-    top: 6px;
+    top: 3px;
     cursor: pointer;
 }
 .ke-dialog-body {

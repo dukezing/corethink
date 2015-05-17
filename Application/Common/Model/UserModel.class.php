@@ -96,15 +96,6 @@ class UserModel extends Model{
     }
 
     /**
-     * 获取所有用户
-     * @author jry <598821125@qq.com>
-     */
-    public function getAllUser($map, $status = '0,1'){
-        $map['status'] = array('in', $status);
-        return $this->where($map)->order('sort desc,id desc')->select();
-    }
-
-    /**
      * 获取所有所有用户指定字段值
      * @param string $field 字段
      * @return array

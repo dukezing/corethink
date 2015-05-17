@@ -144,7 +144,7 @@ class AdminController extends Controller{
      * 获取所有数据并转换成一维数组
      * @author jry <598821125@qq.com>
      */
-    public function selectListAsTree($model){
+    public function selectListAsTree($model, $map = null){
         //获取列表
         $map['status'] = array('eq', 1);
         $list = D($model)->where($map)->select();

@@ -4,7 +4,7 @@
     </header>
     <section class="comments-list">
         <!-- 模版标签 -->
-            <corethink:comment name="vo" model="$__CURRENT_MODEL_ID__" doc_id="$info['id']">
+            <corethink:comment name="vo" doc_id="$info['id']">
                 <div class="comment">
                     <a href="{:U('User/index/uid/'.$vo['uid'])}" class="avatar">
                         <img src="{$vo.avatar|get_cover='avatar'}" style="width:40px;height:40px;">
@@ -45,7 +45,6 @@
                             <div class="form-group">
                                 <input type="hidden" name="pid" value="0">
                                 <input type="hidden" name="doc_id" value="{$info.id}">
-                                <input type="hidden" name="model" value="{$__CURRENT_MODEL_ID__}">
                                 <a id="submit" type="submit" class="btn btn-primary ajax-post block-xs" target-form="comment-form"><i class="icon-comment-alt"></i> 发表评论</a>
                             </div>
                         </form>

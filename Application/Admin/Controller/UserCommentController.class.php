@@ -73,8 +73,7 @@ class UserCommentController extends AdminController{
             $builder = new \Admin\Builder\AdminFormBuilder();
             $builder->title('新增评论')  //设置页面标题
                     ->setUrl(U('add')) //设置表单提交地址
-                    ->addItem('select', '内容模型', '内容模型', 'model', $this->selectListAsTree('Type'))
-                    ->addItem('num', '文档ID', '文档ID', 'title')
+                    ->addItem('num', '文档ID', '文档ID', 'doc_id')
                     ->addItem('textarea', '评论内容', '评论内容', 'content')
                     ->addItem('num', '父评论ID', '父评论ID', 'pid')
                     ->addItem('num', '排序', '用于显示的顺序', 'sort')
@@ -105,8 +104,7 @@ class UserCommentController extends AdminController{
             $builder->title('编辑评论')  //设置页面标题
                     ->setUrl(U('edit')) //设置表单提交地址
                     ->addItem('hidden', 'ID', 'ID', 'id')
-                    ->addItem('select', '内容模型', '内容模型', 'model', $this->selectListAsTree('Type'))
-                    ->addItem('num', '文档ID', '文档ID', 'title')
+                    ->addItem('num', '文档ID', '文档ID', 'doc_id')
                     ->addItem('textarea', '评论内容', '评论内容', 'content')
                     ->addItem('num', '父评论ID', '父评论ID', 'pid')
                     ->addItem('num', '排序', '用于显示的顺序', 'sort')

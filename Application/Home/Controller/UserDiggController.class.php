@@ -13,18 +13,15 @@ namespace Home\Controller;
  */
 class UserDiggController extends HomeController{
     /**投票
-     * @param $model   Digg模型标识ID
      * @param $type  Digg类别 good bad mark
      * @param $doc_id    文档内容ID
      * @author jry <598821125@qq.com>
      */
-    public function digg($model, $type, $doc_id){
+    public function digg($type, $doc_id){
         $uid = $this->login();
-        $map['type'] = $model;
         $map['doc_id'] = $doc_id;
         $digg_info = D('UserDigg')->where($map)->find();
         if(!$digg_info){ //创建Digg记录
-            $data['model'] = $model;
             $data['doc_id'] = $doc_id;
             $data[$type] = $uid;
             $status = "yes";
@@ -33,8 +30,7 @@ class UserDiggController extends HomeController{
         }else{
             if(!$digg_info[$type]){
                 $count = 1;
-                M(D('Type')->getTypeNameById($model))->where(array('id'=> (int)$doc_id))->setField($type, $count);
-                $map['type'] = $model;
+                D('Document')->where(array('id'=> (int)$doc_id))->setField($type, $count);
                 $map['doc_id'] = $doc_id;
                 $data[$type] = $uid;
                 $ret = D('UserDigg')->where($map)->save($data);
@@ -50,8 +46,7 @@ class UserDiggController extends HomeController{
                     $status = "yes";
                 }
                 $count = sizeof($digg);
-                M(D('Type')->getTypeNameById($model))->where(array('id' => (int)$doc_id))->setField($type, $count);
-                $map['type'] = $model;
+                D('Document')->where(array('id' => (int)$doc_id))->setField($type, $count);
                 $map['doc_id'] = $doc_id;
                 $data[$type] = trim(implode(',', array_values(array_unique($digg))), ',');
                 $ret = D('UserDigg')->where($map)->save($data);
@@ -65,13 +60,11 @@ class UserDiggController extends HomeController{
     }
 
     /**获取投票信息
-     * @param $model   Digg模型标识ID
      * @param $type  Digg类别 good bad mark
      * @param $doc_id    文档内容ID
      * @author jry <598821125@qq.com>
      */
-    public function getDiggStatus($model, $type, $doc_id){
-        $map['type'] = $model;
+    public function getDiggStatus($type, $doc_id){
         $map['doc_id'] = $doc_id;
         $digg = D('UserDigg')->where($map)->getField($type);
         $digg_info = explode(',', $digg);

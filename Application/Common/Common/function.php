@@ -8,6 +8,30 @@
 // +----------------------------------------------------------------------
 
 /**
+ * 根据配置类型解析配置
+ * @param  string $type  配置类型
+ * @param  string  $value 配置值
+ * @author jry <598821125@qq.com>
+ */
+function parse_attr($value, $type){
+    switch ($type) {
+        default: //解析"1:1\r\n2:3"格式字符串为数组
+            $array = preg_split('/[,;\r\n]+/', trim($value, ",;\r\n"));
+            if(strpos($value,':')){
+                $value  = array();
+                foreach ($array as $val) {
+                    list($k, $v) = explode(':', $val);
+                    $value[$k]   = $v;
+                }
+            }else{
+                $value = $array;
+            }
+            break;
+    }
+    return $value;
+}
+
+/**
  * 检测用户是否登录
  * @return integer 0-未登录，大于0-当前登录用户ID
  * @author jry <598821125@qq.com>
@@ -44,7 +68,7 @@ function get_user_info($id, $field){
  * @author jry <598821125@qq.com>
  */
 function get_cover($id, $type){
-    $url = D('Upload')->getPathOrUrlById($id);
+    $url = D('Upload')->getPath($id);
     if(!$url){
         switch($type){
             case 'avatar' : //用户头像
