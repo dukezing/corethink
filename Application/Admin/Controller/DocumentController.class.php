@@ -18,6 +18,11 @@ class DocumentController extends AdminController{
      * @author jry <598821125@qq.com>
      */
     public function index($cid = null){
+        //搜索
+        $keyword = (string)I('keyword');
+        $condition = array('like','%'.$keyword.'%');
+        $map['id|title'] = array($condition, $condition,'_multi'=>true);
+
         if($cid){
             $map['cid'] = $cid;
         }
@@ -61,6 +66,9 @@ class DocumentController extends AdminController{
         //获取当前分类
         $cid = I('get.cid');
         $category_info = D('Category')->find($cid);
+        $doc_type = D('Type')->find($category_info['doc_type']);
+        $field_sort = json_decode($doc_type['field_sort'], true);
+        $field_group = parse_attr($doc_type['field_group']);
 
         //获取文档字段
         $map['status'] = array('eq', '1');
@@ -69,7 +77,8 @@ class DocumentController extends AdminController{
         $attribute_list = D('Attribute')->where($map)->select();
 
         //解析字段options
-        foreach($attribute_list as &$attr){
+        $new_attribute_list = array();
+        foreach($attribute_list as $attr){
             if($attr['name'] == 'cid'){
                 $con['doc_type'] = $category_info['doc_type'];
                 $attr['value'] = $cid;
@@ -77,13 +86,27 @@ class DocumentController extends AdminController{
             }else{
                 $attr['options'] = parse_attr($attr['options']);
             }
+            $new_attribute_list[$attr['id']] = $attr;
+        }
+
+        //表单字段排序及分组
+        if($field_sort){
+            $new_attribute_list_sort = array();
+            foreach($field_sort as $k1 => &$v1){
+                $new_attribute_list_sort[0]['type'] = 'group';
+                $new_attribute_list_sort[0]['options']['group'.$k1]['title'] = $field_group[$k1];
+                foreach($v1 as $k2 => $v2){
+                    $new_attribute_list_sort[0]['options']['group'.$k1]['options'][] = $new_attribute_list[$v2];
+                }
+            }
+            $new_attribute_list = $new_attribute_list_sort;
         }
 
         //使用FormBuilder快速建立表单页面。
         $builder = new \Admin\Builder\AdminFormBuilder();
         $builder->title('新增文章')  //设置页面标题
                 ->setUrl(U('update')) //设置表单提交地址
-                ->setExtraItems($attribute_list)
+                ->setExtraItems($new_attribute_list)
                 ->display();
     }
 
@@ -97,6 +120,9 @@ class DocumentController extends AdminController{
 
         //获取当前分类
         $category_info = D('Category')->find($document_info['cid']);
+        $doc_type = D('Type')->find($category_info['doc_type']);
+        $field_sort = json_decode($doc_type['field_sort'], true);
+        $field_group = parse_attr($doc_type['field_group']);
 
         //获取文档字段
         $map['status'] = array('eq', '1');
@@ -105,14 +131,29 @@ class DocumentController extends AdminController{
         $attribute_list = D('Attribute')->where($map)->select();
 
         //解析字段options
-        foreach($attribute_list as &$attr){
+        $new_attribute_list = array();
+        foreach($attribute_list as $attr){
             if($attr['name'] == 'cid'){
                 $con['doc_type'] = $category_info['doc_type'];
                 $attr['options'] = $this->selectListAsTree('Category', $con);
             }else{
                 $attr['options'] = parse_attr($attr['options']);
             }
-            $attr['value'] = $document_info[$attr['name']];
+            $new_attribute_list[$attr['id']] = $attr;
+            $new_attribute_list[$attr['id']]['value'] = $document_info[$attr['name']];
+        }
+
+        //表单字段排序及分组
+        if($field_sort){
+            $new_attribute_list_sort = array();
+            foreach($field_sort as $k1 => &$v1){
+                $new_attribute_list_sort[0]['type'] = 'group';
+                $new_attribute_list_sort[0]['options']['group'.$k1]['title'] = $field_group[$k1];
+                foreach($v1 as $k2 => $v2){
+                    $new_attribute_list_sort[0]['options']['group'.$k1]['options'][] = $new_attribute_list[$v2];
+                }
+            }
+            $new_attribute_list = $new_attribute_list_sort;
         }
 
         //使用FormBuilder快速建立表单页面。
@@ -120,7 +161,7 @@ class DocumentController extends AdminController{
         $builder->title('新增文章')  //设置页面标题
                 ->setUrl(U('update')) //设置表单提交地址
                 ->addItem('hidden', 'ID', 'ID', 'id')
-                ->setExtraItems($attribute_list)
+                ->setExtraItems($new_attribute_list)
                 ->setFormData($document_info)
                 ->display();
     }

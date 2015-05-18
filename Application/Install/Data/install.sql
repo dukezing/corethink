@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.21)
 # Database: corethink
-# Generation Time: 2015-05-17 18:31:11 +0000
+# Generation Time: 2015-05-18 05:21:25 +0000
 # ************************************************************
 
 
@@ -122,7 +122,7 @@ VALUES
 	(1,'cid','分类','int(11) unsigned NOT NULL ','select','','所属分类',1,'',0,1383891233,1384508336,1),
 	(2,'uid','用户ID','int(11) unsigned NOT NULL ','num','','用户ID',0,'',0,1383891233,1384508336,1),
 	(3,'doc_type','文档类型ID','int(10) unsigned NOT NULL ','num','0','文档类型ID',0,'',0,1383891233,1384508323,1),
-	(4,'title','标题','char(80) NOT NULL ','text','','文档标题（商品名称等等）',1,'',0,1383891233,1383894778,1),
+	(4,'title','标题','char(80) NOT NULL ','text','','文档标题',1,'',0,1383891233,1383894778,1),
 	(5,'view','阅读量','varchar(255) NOT NULL','num','','标签',0,'',0,1413303715,1413303715,1),
 	(6,'comment','评论数','int(11) unsigned NOT NULL ','num','','评论数',0,'',0,1383891233,1383894927,1),
 	(7,'good','赞数','int(11) unsigned NOT NULL ','num','0','赞数',0,'',0,1383891233,1384147827,1),
@@ -132,7 +132,9 @@ VALUES
 	(11,'sort','排序','int(11) unsigned NOT NULL ','num','0','用于显示的顺序',1,'',0,1383891233,1383895757,1),
 	(12,'status','数据状态','tinyint(4) NOT NULL ','radio','1','',0,'-1:删除\r\n0:禁用\r\n1:正常',0,1383891233,1384508496,1),
 	(13,'abstract','简介','vachar(255) NOT NULL','textarea','','文档简介',1,'',3,1383891233,1384508496,1),
-	(14,'content','正文内容','text','kindeditor','','文章正文内容',1,'',3,1383891233,1384508496,1);
+	(14,'content','正文内容','text','kindeditor','','文章正文内容',1,'',3,1383891233,1384508496,1),
+	(15,'tags','文章标签','vachar(128) NOT NULL','tag','','标签',1,'',3,1383891233,1384508496,1),
+	(16,'cover','封面','int(11) unsigned NOT NULL ','picture','','文档封面',1,'',3,1383891233,1384508496,1);
 
 /*!40000 ALTER TABLE `ct_attribute` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -159,6 +161,15 @@ CREATE TABLE `ct_category` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='栏目分类表';
 
+LOCK TABLES `ct_category` WRITE;
+/*!40000 ALTER TABLE `ct_category` DISABLE KEYS */;
+
+INSERT INTO `ct_category` (`id`, `pid`, `doc_type`, `title`, `url`, `content`, `template`, `icon`, `ctime`, `utime`, `sort`, `status`)
+VALUES
+	(1,0,3,'默认','','','','icon-location-arrow',1431926468,1431926468,0,1);
+
+/*!40000 ALTER TABLE `ct_category` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table ct_document
@@ -378,6 +389,8 @@ CREATE TABLE `ct_type` (
   `name` char(16) NOT NULL DEFAULT '' COMMENT '模型名称',
   `title` char(16) NOT NULL DEFAULT '' COMMENT '模型标题',
   `icon` varchar(32) NOT NULL DEFAULT '' COMMENT '缩略图',
+  `field_sort` text NOT NULL COMMENT '表单字段排序',
+  `field_group` varchar(255) NOT NULL DEFAULT '1:基础,2:扩展',
   `ctime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `utime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改时间',
   `sort` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
@@ -388,11 +401,11 @@ CREATE TABLE `ct_type` (
 LOCK TABLES `ct_type` WRITE;
 /*!40000 ALTER TABLE `ct_type` DISABLE KEYS */;
 
-INSERT INTO `ct_type` (`id`, `name`, `title`, `icon`, `ctime`, `utime`, `sort`, `status`)
+INSERT INTO `ct_type` (`id`, `name`, `title`, `icon`, `field_sort`, `field_group`, `ctime`, `utime`, `sort`, `status`)
 VALUES
-	(1,'link','链接','icon-link',1426580628,1426580628,0,1),
-	(2,'page','单页','icon-file',1426580628,1426580628,0,1),
-	(3,'Article','文章','icon-edit',1426580628,1426580628,0,1);
+	(1,'Link','链接','icon-link','','',1426580628,1426580628,0,1),
+	(2,'Page','单页','icon-file','','',1426580628,1426580628,0,1),
+	(3,'Article','文章','icon-edit','{\"1\":[\"1\",\"4\",\"13\",\"14\",\"15\",\"16\"],\"2\":[\"11\",\"9\"]}','1:基础\n2:扩展',1426580628,1426580628,0,1);
 
 /*!40000 ALTER TABLE `ct_type` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -458,7 +471,7 @@ LOCK TABLES `ct_user` WRITE;
 
 INSERT INTO `ct_user` (`id`, `username`, `email`, `mobile`, `password`, `group`, `avatar`, `score`, `money`, `sex`, `age`, `birthday`, `summary`, `extend`, `login`, `last_login_time`, `last_login_ip`, `reg_ip`, `ctime`, `utime`, `sort`, `status`)
 VALUES
-	(1,'admin','598821125@qq.com','15005173785','79cc780bd21b161230268824080b8476',1,0,0,0,'0',0,0,'','',2,1431881023,2130706433,0,0,0,0,1);
+	(1,'admin','598821125@qq.com','15005173785','79cc780bd21b161230268824080b8476',1,0,0,0,'0',0,0,'','',3,1431919185,2130706433,0,0,0,0,1);
 
 /*!40000 ALTER TABLE `ct_user` ENABLE KEYS */;
 UNLOCK TABLES;
