@@ -79,7 +79,7 @@ class CategoryController extends AdminController{
                     ->setUrl(U('add')) //设置表单提交地址
                     ->addItem('select', '上级分类', '所属的上级分类', 'pid', array_merge(array(0 => '顶级分类'), $this->selectListAsTree('Category')))
                     ->addItem('text', '分类标题', '分类标题', 'title')
-                    ->addItem('select', '分类内容模型', '分类内容模型', 'type', $this->selectListAsTree('Type'))
+                    ->addItem('select', '分类内容模型', '分类内容模型', 'doc_type', $this->selectListAsTree('Type'))
                     ->addItem('text', '链接', 'U函数解析的URL或者外链', 'url', null, 'hidden')
                     ->addItem('kindeditor', '内容', '单页模型填写内容', 'content', null, 'hidden')
                     ->addItem('text', '模版', '单页使用的模版或其他模型文档列表模版', 'template')
@@ -116,7 +116,7 @@ class CategoryController extends AdminController{
                     ->addItem('hidden', 'ID', 'ID', 'id')
                     ->addItem('select', '上级分类', '所属的上级分类', 'pid', array_merge(array(0 => '顶级分类'), $this->selectListAsTree('Category')))
                     ->addItem('text', '分类标题', '分类标题', 'title')
-                    ->addItem('select', '分类内容模型', '分类内容模型', 'type', $this->selectListAsTree('Type'))
+                    ->addItem('select', '分类内容模型', '分类内容模型', 'doc_type', $this->selectListAsTree('Type'))
                     ->addItem('text', '链接', 'U函数解析的URL或者外链', 'url', null, $info['model'] == 1 ? : 'hidden')
                     ->addItem('kindeditor', '内容', '单页模型填写内容', 'content', null, $info['model'] == 2 ? : 'hidden')
                     ->addItem('text', '模版', '单页使用的模版或其他模型文档列表模版', 'template')
