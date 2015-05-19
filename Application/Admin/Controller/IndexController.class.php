@@ -39,23 +39,6 @@ class IndexController extends AdminController{
     }
 
     /**
-     * 回收站
-     * @author jry <598821125@qq.com>
-     */
-    public function recycle($model = 3){
-        $map['status'] = array('eq', '-1');
-        $current_model = D('Type')->getTypeById($model);
-        $volist = D($current_model['name'])->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))->where($map)->select();
-        $page = new \Think\Page(D($current_model['name'])->where($map)->count(), C('ADMIN_PAGE_ROWS'));
-        $this->assign('page', $page->show());
-        $this->assign('volist', $this->int_to_icon($volist));
-        $this->assign('__MODEL_LIST__', D('Type')->getAllType(array('id' => array('egt', '3'))));
-        $this->assign('__CURRENT_MODEL_', $current_model);
-        $this->meta_title = '回收站';
-        $this->display();
-    }
-
-    /**
      * 完全删除指定文件目录
      * @author jry <598821125@qq.com>
      */

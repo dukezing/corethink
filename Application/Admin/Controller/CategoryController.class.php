@@ -123,7 +123,7 @@ class CategoryController extends AdminController{
                     ->addItem('icon', '图标', '菜单图标', 'icon')
                     ->addItem('num', '排序', '用于显示的顺序', 'sort')
                     ->setFormData($info)
-                    ->setExtra('Category')
+                    ->setExtra('category')
                     ->display();
         }
     }
@@ -145,36 +145,6 @@ class CategoryController extends AdminController{
             }
         }else{
             $this->error('请先删除或移动该分类下文档');
-        }
-    }
-
-    /**
-     * 移动文档
-     * @author jry <598821125@qq.com>
-     */
-    public function move(){
-        if(IS_POST){
-            $ids = I('post.ids');
-            $from_cid = I('post.from_cid');
-            $to_cid = I('post.to_cid');
-            if($from_cid === $to_cid){
-                $this->error('目标分类与当前分类相同');
-            }
-            if($to_cid){
-                $category_model = D('Category');
-                $form_category_type = $category_model->getCategoryById($from_cid, 'type');
-                $to_category_type = $category_model->getCategoryById($to_cid, 'type');
-                if($form_category_type === $to_category_type){
-                    $map['id'] = array('in',$ids);
-                    $data = array('cid' => $to_cid);
-                    $category_type_name = D('Type')->getTypeNameById($to_category_type);
-                    $this->editRow($category_type_name, $data, $map, array('success'=>'移动成功','error'=>'移动失败'));
-                }else{
-                    $this->error('该分类模型不匹配');
-                }
-            }else{
-                $this->error('请选择目标分类');
-            }
         }
     }
 }

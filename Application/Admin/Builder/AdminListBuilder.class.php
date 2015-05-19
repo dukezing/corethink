@@ -23,7 +23,7 @@ class AdminListBuilder extends AdminController{
     private $_data_list = array(); //表格数据列表
     private $_right_button_list = array(); //表格右侧操作按钮组
     private $_page; //分页
-    private $_move; //设置移动（文档模型专用）
+    private $_extra; //额外参数
 
     /**设置页面标题
      * @param $title 标题文本
@@ -157,9 +157,12 @@ class AdminListBuilder extends AdminController{
         return $this;
     }
 
-    //设置移动（文档模型专用）
-    public function setMove($move){
-        $this->_move = $move;
+    /**设置额外参数
+     * @param $extra  额外参数
+     * @return $this
+     */
+    public function setExtra($extra){
+        $this->_extra = $extra;
         return $this;
     }
 
@@ -198,7 +201,7 @@ class AdminListBuilder extends AdminController{
                         $right_button['link'] = ' <a href="'.U(CONTROLLER_NAME.'/setStatus', array('status'=>'recycle', 'ids' => $data['id'])).'" class="ajax-get confirm">回收</a>';
                         break;
                     case 'self':
-                        $right_button['link'] = ' <a href="'.U($right_button['url'], array('id' => $data['id'])).'" class="ajax-get confirm">删除</a>';
+                        $right_button['link'] = ' <a href="'.U($right_button['url'], array('id' => $data['id'])).'" class="ajax-get confirm">'.$right_button['title'].'</a>';
                         break;
                 }
                 $data['right_button'] .= $right_button['link'];
@@ -242,7 +245,7 @@ class AdminListBuilder extends AdminController{
         $this->assign('data_list', $this->_data_list);
         $this->assign('right_button_list', $this->_right_button_list);
         $this->assign('page', $this->_page);
-        $this->assign('move', $this->_move);
+        $this->assign('extra', $this->_extra);
 
         parent::display(dirname(__FILE__) . '/adminlistbuilder.html');
     }

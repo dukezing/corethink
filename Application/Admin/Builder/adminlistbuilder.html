@@ -7,7 +7,6 @@
                 <volist name="button_list" id="button">
                     <a {$button.attr}>{$button.title|htmlspecialchars}</a>
                 </volist>
-                <notempty name="move"><a class="btn" onclick="move()">移 动</a></notempty>
             </div>
         </notempty>
         <notempty name="search">
@@ -27,57 +26,59 @@
                 </ul>
             </div>
         </notempty>
-        <!-- 设置移动（文档模型专用） -->
-        <notempty name="move">
-            <div class="modal fade" id="moveModal">
-                <div class="modal-dialog modal-sm">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
-                            <p class="modal-title">移动至</p>
-                        </div>
-                        <div class="modal-body">
-                            <php>
-                                $category_list = D('Category')->getAllCategory();
-                                $tree = new \Org\Util\Tree();
-                                $category_list = $tree->toFormatTree($category_list);
-                            </php>
-                            <form action="{:U('Category/move')}" method="post" class="form">
-                                <div class="form-group">
-                                    <select name="to_cid" class="form-control">
-                                        <volist name="category_list" id="vo">
-                                            <option value="{$vo.id}">{$vo.title_show}</option>
-                                        </volist>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <input type="hidden" name="ids">
-                                    <input type="hidden" name="from_cid" value="{$_GET.cid}">
-                                    <button class="btn btn-primary btn-block submit ajax-post" type="submit" target-form="form">确 定</button>
-                                </div>
-                            </form>
+        <!-- 额外参数 -->
+        <switch name="extra">
+            <case value="move"><!-- 设置移动（文档模型专用） -->
+                <div class="modal fade" id="moveModal">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+                                <p class="modal-title">移动至</p>
+                            </div>
+                            <div class="modal-body">
+                                <php>
+                                    $category_list = D('Category')->getAllCategory();
+                                    $tree = new \Org\Util\Tree();
+                                    $category_list = $tree->toFormatTree($category_list);
+                                </php>
+                                <form action="{:U('Document/move')}" method="post" class="form">
+                                    <div class="form-group">
+                                        <select name="to_cid" class="form-control">
+                                            <volist name="category_list" id="vo">
+                                                <option value="{$vo.id}">{$vo.title_show}</option>
+                                            </volist>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="hidden" name="ids">
+                                        <input type="hidden" name="from_cid" value="{$_GET.cid}">
+                                        <button class="btn btn-primary btn-block submit ajax-post" type="submit" target-form="form">确 定</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <script type="text/javascript">
-                function move(){
-                    var ids = '';
-                    $('input[name="ids[]"]:checked').each(function(){
-                       ids += ',' + $(this).val();
-                    });
-                    if(ids != ''){
-                        ids = ids.substr(1);
-                        $('input[name="ids"]').val(ids);
-                        $('.modal-title').html('移动选中的的文章至：');
-                        $('#moveModal').modal('show', 'fit')
-                    }else{
-                        alertMessager('请选择需要移动的文章', 'danger');
+                <script type="text/javascript">
+                    function move(){
+                        var ids = '';
+                        $('input[name="ids[]"]:checked').each(function(){
+                           ids += ',' + $(this).val();
+                        });
+                        if(ids != ''){
+                            ids = ids.substr(1);
+                            $('input[name="ids"]').val(ids);
+                            $('.modal-title').html('移动选中的的文章至：');
+                            $('#moveModal').modal('show', 'fit')
+                        }else{
+                            alertMessager('请选择需要移动的文章', 'danger');
+                        }
                     }
-                }
-            </script>
-        </notempty>
-        <!-- 设置移动（文档模型专用） -->
+                </script>
+            </case>
+        </switch>
+        <!-- 额外参数 -->
     </div>
     <div class="data-table">
         <table class="table table-hover">

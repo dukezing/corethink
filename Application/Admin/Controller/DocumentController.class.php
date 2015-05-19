@@ -32,16 +32,21 @@ class DocumentController extends AdminController{
         $page = new \Think\Page(D('Document')->where($map)->count(), C('ADMIN_PAGE_ROWS'));
 
         //新增按钮属性
-        $attr['class'] = 'btn';
-        $attr['href'] = U('add', array('cid' => $cid));
+        $add_attr['class'] = 'btn';
+        $add_attr['href'] = U('add', array('cid' => $cid));
+
+        //移动按钮属性
+        $move_attr['class'] = 'btn';
+        $move_attr['onclick'] = 'move()';
 
         //使用Builder快速建立列表页面。
         $builder = new \Admin\Builder\AdminListBuilder();
         $builder->title($category['title'])  //设置页面标题
-                ->AddButton('新增', $attr)    //添加新增按钮
+                ->AddButton('新增', $add_attr)    //添加新增按钮
                 ->addResumeButton() //添加启用按钮
                 ->addForbidButton() //添加禁用按钮
                 ->addRecycleButton() //添加回收按钮
+                ->AddButton('移动', $move_attr) //添加移动按钮
                 ->setSearch('请输入ID/文档名称', U('index'))
                 ->addField('id', 'UID', 'text')
                 ->addField('title', '标题', 'text')
@@ -54,7 +59,7 @@ class DocumentController extends AdminController{
                 ->addRightButton('forbid') //添加禁用/启用按钮
                 ->addRightButton('recycle') //添加回收按钮
                 ->setPage($page->show())
-                ->setMove(true)
+                ->setExtra('move')
                 ->display();
     }
 
@@ -178,5 +183,62 @@ class DocumentController extends AdminController{
         }else{
             $this->success($result['id']?'更新成功':'新增成功', U('index', array('cid' => $cid)));
         }
+    }
+
+    /**
+     * 移动文档
+     * @author jry <598821125@qq.com>
+     */
+    public function move(){
+        if(IS_POST){
+            $ids = I('post.ids');
+            $from_cid = I('post.from_cid');
+            $to_cid = I('post.to_cid');
+            if($from_cid === $to_cid){
+                $this->error('目标分类与当前分类相同');
+            }
+            if($to_cid){
+                $category_model = D('Category');
+                $form_category_type = $category_model->getCategoryById($from_cid, 'doc_type');
+                $to_category_type = $category_model->getCategoryById($to_cid, 'doc_type');
+                if($form_category_type === $to_category_type){
+                    $map['id'] = array('in',$ids);
+                    $data = array('cid' => $to_cid);
+                    $this->editRow('Document', $data, $map, array('success'=>'移动成功','error'=>'移动失败'));
+                }else{
+                    $this->error('该分类模型不匹配');
+                }
+            }else{
+                $this->error('请选择目标分类');
+            }
+        }
+    }
+
+    /**
+     * 回收站
+     * @author jry <598821125@qq.com>
+     */
+    public function recycle(){
+        $map['status'] = array('eq', '-1');
+        $document_list = D('Document')->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))->where($map)->select();
+        $page = new \Think\Page(D('Document')->where($map)->count(), C('ADMIN_PAGE_ROWS'));
+
+        //使用Builder快速建立列表页面。
+        $builder = new \Admin\Builder\AdminListBuilder();
+        $builder->title('回收站')  //设置页面标题
+                ->addDeleteButton() //添加删除按钮
+                ->addRestoreButton() //添加还原按钮
+                ->setSearch('请输入ID/文档名称', U('recycle'))
+                ->addField('id', 'UID', 'text')
+                ->addField('title', '标题', 'text')
+                ->addField('ctime', '发布时间', 'time')
+                ->addField('sort', '排序', 'text')
+                ->addField('status', '状态', 'status')
+                ->addField('right_button', '操作', 'btn')
+                ->dataList($document_list)    //数据列表
+                ->addRightButton('forbid') //添加禁用/启用按钮
+                ->addRightButton('delete') //添加删除按钮
+                ->setPage($page->show())
+                ->display();
     }
 }
