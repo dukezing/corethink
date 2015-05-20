@@ -97,12 +97,11 @@
                             return;
                         }
                         backup(data.tab, tab.id != data.tab.id);
-                    } else {
+                    }else{
                         alertMessager(data.info, 'danger');
                         $export.parent().children().removeClass("disabled");
                         $export.html("立即备份");
                         setTimeout(function(){
-                            $('#top-alert').find('button').click();
                             $(that).removeClass('disabled').prop('disabled',false);
                         },2000);
                     }

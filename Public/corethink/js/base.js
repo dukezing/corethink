@@ -150,6 +150,5 @@
 
 //弹窗提醒
 function alertMessager(message,type){
-    var msg = new $.Messager(message, {type: type, placement: 'top', time: 2000, close: false, fade: true, scale: false});
-    msg.show();
+    var msg = new $.zui.showMessager(message, {type: type, placement: 'top', time: 2000, close: false, fade: true, scale: false});
 }

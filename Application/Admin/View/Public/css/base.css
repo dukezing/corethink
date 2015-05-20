@@ -199,6 +199,7 @@
 @media (min-width: 768px){
     .right .form .controls>input[type=text],
     .right .form .controls>input[type=password],
+    .right .form .controls .chosen-container,
     .right .form .controls .token-input-list,
     .right .form .controls>textarea,
     .right .form .controls>select,

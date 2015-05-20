@@ -1,8 +1,8 @@
 /*!
- * ZUI - v1.2.0 - 2014-11-18
+ * ZUI - v1.3.1 - 2015-05-19
  * http://zui.sexy
  * GitHub: https://github.com/easysoft/zui.git 
- * Copyright (c) 2014 cnezsoft.com; Licensed MIT
+ * Copyright (c) 2015 cnezsoft.com; Licensed MIT
  */
 
 /* ========================================================================
@@ -93,6 +93,7 @@
         {
             placeholder_text: ' ',
             disable_search: true,
+            width: '100%',
             inherit_select_classes: true
         });
 

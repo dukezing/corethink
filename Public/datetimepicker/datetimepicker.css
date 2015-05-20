@@ -1,8 +1,8 @@
 /*!
- * ZUI - v1.2.0 - 2014-11-18
+ * ZUI - v1.3.1 - 2015-05-19
  * http://zui.sexy
  * GitHub: https://github.com/easysoft/zui.git 
- * Copyright (c) 2014 cnezsoft.com; Licensed MIT
+ * Copyright (c) 2015 cnezsoft.com; Licensed MIT
  */
 
 
@@ -185,8 +185,8 @@
 }
 .datetimepicker td.day.today {
   color: #fff;
-  background-color: #e48600;
-  border-color: #e48600;
+  background-color: #f1a325;
+  border-color: #f1a325;
   border-color: rgba(0, 0, 0, .1) rgba(0, 0, 0, .1) rgba(0, 0, 0, .25);
 }
 .datetimepicker td.day.active {
@@ -201,7 +201,7 @@
 }
 .datetimepicker td.day.today:hover,
 .datetimepicker td.day.today.active:hover {
-  background-color: #b16800;
+  background-color: #d5890e;
 }
 .datetimepicker .datetimepicker-hours td span.hour_am,
 .datetimepicker .datetimepicker-hours td span.hour_pm {

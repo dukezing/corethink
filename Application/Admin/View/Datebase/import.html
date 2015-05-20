@@ -48,7 +48,7 @@
                             data.info += status;
                             if(status.length === 5){
                                 status = ".";
-                            } else {
+                            }else{
                                 status += ".";
                             }
                         }
@@ -59,13 +59,11 @@
                                 success,
                                 "json"
                             );
-                        }  else {
+                        }else{
                             window.onbeforeunload = function(){ return null; }
                         }
-                    } else {
-                        message = data.info;
-                        var msg = new $.Messager(message, {placement: 'top', type: 'danger', time: 2000});
-                        msg.show();
+                    }else{
+                        alertMessager(data.info, 'danger');
                     }
                 }
             });

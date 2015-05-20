@@ -16,8 +16,9 @@
         <div id="dashboard" class="dashboard dashboard-draggable" data-height="300">
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-4 " data-id="1">
-                    <div class="panel" data-url="http://baidu.com" id="panel1" data-id="1">
+                    <div class="panel" id="panel1" data-id="1">
                         <div class="panel-heading">
+                            <div class="panel-actions"></div>
                             <i class="icon-list-ul"></i> 关于CoreThink
                         </div>
                         <div class="panel-body">
@@ -30,6 +31,7 @@
                 <div class="col-xs-12 col-sm-6 col-md-4 " data-id="2">
                     <div class="panel" id="panel2" data-id="2">
                         <div class="panel-heading">
+                            <div class="panel-actions"></div>
                             <i class="icon-list-ul"></i> 系统信息
                         </div>
                         <div class="panel-body">
@@ -67,6 +69,7 @@
                 <div class="col-xs-12 col-sm-6 col-md-4 " data-id="3">
                     <div class="panel" id="panel3" data-id="3">
                         <div class="panel-heading">
+                            <div class="panel-actions"></div>
                             <i class="icon-list-ul"></i> 产品团队
                         </div>
                         <div class="panel-body">
@@ -104,6 +107,14 @@
                 <div class="col-xs-12 col-sm-6 col-md-12 " data-id="4">
                     <div class="panel" id="panel4" data-id="4">
                         <div class="panel-heading">
+                            <div class="panel-actions">
+                                <div class="dropdown">
+                                    <button role="button" class="btn btn-mini" data-toggle="dropdown"><span class="caret"></span></button>
+                                    <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
+                                        <li><a href="#"><i class="icon-pencil"></i> 设置</a></li>
+                                    </ul>
+                                </div>
+                            </div>
                             <i class="icon-user"></i> 用户增长统计
                         </div>
                         <div class="panel-body" id="user-chart"></div>
@@ -117,7 +128,10 @@
 <block name="script">
     <script type="text/javascript" src="__PUBLIC__/highcharts/highcharts.js" charset="utf-8"></script>
     <script>
-        $(function () {
+        $(function (){
+            //dashboard
+            if($.fn.dashboard) $('#dashboard').dashboard({shadowType: 'normal'});
+
             $('#user-chart').highcharts({
                 chart: {
                     type: "spline",
