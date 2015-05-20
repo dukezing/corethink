@@ -85,7 +85,7 @@ class CategoryController extends AdminController{
                     ->addItem('text', '模版', '单页使用的模版或其他模型文档列表模版', 'template')
                     ->addItem('icon', '图标', '菜单图标', 'icon')
                     ->addItem('num', '排序', '用于显示的顺序', 'sort')
-                    ->setExtra('Category')
+                    ->setExtra('category')
                     ->display();
         }
     }
