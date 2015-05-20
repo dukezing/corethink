@@ -77,14 +77,14 @@ class SystemConfigController extends AdminController{
             $builder = new \Admin\Builder\AdminFormBuilder();
             $builder->title('新增配置')  //设置页面标题
                     ->setUrl(U('add')) //设置表单提交地址
-                    ->addItem('select', '配置分组', '配置所属的分组', 'group', C('CONFIG_GROUP_LIST'))
-                    ->addItem('select', '配置类型', '配置类型的分组', 'type', C('FORM_ITEM_TYPE'))
-                    ->addItem('text', '配置名称', '配置名称', 'name')
-                    ->addItem('text', '配置标题', '配置标题', 'title')
-                    ->addItem('textarea', '配置值', '配置值', 'value')
-                    ->addItem('textarea', '配置项', '如果是单选、多选、下拉等类型 需要配置该项', 'options')
-                    ->addItem('textarea', '配置说明', '配置说明', 'tip')
-                    ->addItem('num', '排序', '用于显示的顺序', 'sort')
+                    ->addItem('group', 'select', '配置分组', '配置所属的分组', C('CONFIG_GROUP_LIST'))
+                    ->addItem('type', 'select', '配置类型', '配置类型的分组', C('FORM_ITEM_TYPE'))
+                    ->addItem('name', 'text', '配置名称', '配置名称')
+                    ->addItem('title', 'text', '配置标题', '配置标题')
+                    ->addItem('value', 'textarea', '配置值', '配置值')
+                    ->addItem('options', 'textarea', '配置项', '如果是单选、多选、下拉等类型 需要配置该项')
+                    ->addItem('tip', 'textarea', '配置说明', '配置说明')
+                    ->addItem('sort', 'num', '排序', '用于显示的顺序')
                     ->display();
         }
     }
@@ -112,15 +112,15 @@ class SystemConfigController extends AdminController{
             $builder = new \Admin\Builder\AdminFormBuilder();
             $builder->title('编辑配置')  //设置页面标题
                     ->setUrl(U('edit')) //设置表单提交地址
-                    ->addItem('hidden', 'ID', 'ID', 'id')
-                    ->addItem('select', '配置分组', '配置所属的分组', 'group', C('CONFIG_GROUP_LIST'))
-                    ->addItem('select', '配置类型', '配置类型的分组', 'type', C('FORM_ITEM_TYPE'))
-                    ->addItem('text', '配置名称', '配置名称', 'name')
-                    ->addItem('text', '配置标题', '配置标题', 'title')
-                    ->addItem('textarea', '配置值', '配置值', 'value')
-                    ->addItem('textarea', '配置项', '如果是单选、多选、下拉等类型 需要配置该项', 'options')
-                    ->addItem('textarea', '配置说明', '配置说明', 'tip')
-                    ->addItem('num', '排序', '用于显示的顺序', 'sort')
+                    ->addItem('id', 'hidden', 'ID', 'ID')
+                    ->addItem('group', 'select', '配置分组', '配置所属的分组', C('CONFIG_GROUP_LIST'))
+                    ->addItem('type', 'select', '配置类型', '配置类型的分组', C('FORM_ITEM_TYPE'))
+                    ->addItem('name', 'text', '配置名称', '配置名称')
+                    ->addItem('title', 'text', '配置标题', '配置标题')
+                    ->addItem('value', 'textarea', '配置值', '配置值')
+                    ->addItem('options', 'textarea', '配置项', '如果是单选、多选、下拉等类型 需要配置该项')
+                    ->addItem('tip', 'textarea', '配置说明', '配置说明')
+                    ->addItem('sort', 'num', '排序', '用于显示的顺序')
                     ->setFormData(D('SystemConfig')->find($id))
                     ->display();
         }

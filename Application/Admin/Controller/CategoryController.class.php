@@ -77,14 +77,14 @@ class CategoryController extends AdminController{
             $builder = new \Admin\Builder\AdminFormBuilder();
             $builder->title('新增分类')  //设置页面标题
                     ->setUrl(U('add')) //设置表单提交地址
-                    ->addItem('select', '上级分类', '所属的上级分类', 'pid', array_merge(array(0 => '顶级分类'), $this->selectListAsTree('Category')))
-                    ->addItem('text', '分类标题', '分类标题', 'title')
-                    ->addItem('select', '分类内容模型', '分类内容模型', 'doc_type', $this->selectListAsTree('Type'))
-                    ->addItem('text', '链接', 'U函数解析的URL或者外链', 'url', null, 'hidden')
-                    ->addItem('kindeditor', '内容', '单页模型填写内容', 'content', null, 'hidden')
-                    ->addItem('text', '模版', '单页使用的模版或其他模型文档列表模版', 'template')
-                    ->addItem('icon', '图标', '菜单图标', 'icon')
-                    ->addItem('num', '排序', '用于显示的顺序', 'sort')
+                    ->addItem('pid', 'select', '上级分类', '所属的上级分类', array_merge(array(0 => '顶级分类'), $this->selectListAsTree('Category')))
+                    ->addItem('title', 'text', '分类标题', '分类标题')
+                    ->addItem('doc_type', 'select', '分类内容模型', '分类内容模型', $this->selectListAsTree('Type'))
+                    ->addItem('url', 'text', '链接', 'U函数解析的URL或者外链', null, 'hidden')
+                    ->addItem('content', 'kindeditor', '内容', '单页模型填写内容', null, 'hidden')
+                    ->addItem('template', 'text', '模版', '单页使用的模版或其他模型文档列表模版')
+                    ->addItem('icon', 'icon', '图标', '菜单图标')
+                    ->addItem('sort', 'num', '排序', '用于显示的顺序')
                     ->setExtra('category')
                     ->display();
         }
@@ -113,15 +113,15 @@ class CategoryController extends AdminController{
             $builder = new \Admin\Builder\AdminFormBuilder();
             $builder->title('编辑分类')  //设置页面标题
                     ->setUrl(U('edit')) //设置表单提交地址
-                    ->addItem('hidden', 'ID', 'ID', 'id')
-                    ->addItem('select', '上级分类', '所属的上级分类', 'pid', array_merge(array(0 => '顶级分类'), $this->selectListAsTree('Category')))
-                    ->addItem('text', '分类标题', '分类标题', 'title')
-                    ->addItem('select', '分类内容模型', '分类内容模型', 'doc_type', $this->selectListAsTree('Type'))
-                    ->addItem('text', '链接', 'U函数解析的URL或者外链', 'url', null, $info['model'] == 1 ? : 'hidden')
-                    ->addItem('kindeditor', '内容', '单页模型填写内容', 'content', null, $info['model'] == 2 ? : 'hidden')
-                    ->addItem('text', '模版', '单页使用的模版或其他模型文档列表模版', 'template')
-                    ->addItem('icon', '图标', '菜单图标', 'icon')
-                    ->addItem('num', '排序', '用于显示的顺序', 'sort')
+                    ->addItem('id', 'hidden', 'ID', 'ID')
+                    ->addItem('pid', 'select', '上级分类', '所属的上级分类', array_merge(array(0 => '顶级分类'), $this->selectListAsTree('Category')))
+                    ->addItem('title', 'text', '分类标题', '分类标题')
+                    ->addItem('doc_type', 'select', '分类内容模型', '分类内容模型', $this->selectListAsTree('Type'))
+                    ->addItem('url', 'text', '链接', 'U函数解析的URL或者外链', null, $info['model'] == 1 ? : 'hidden')
+                    ->addItem('content', 'kindeditor', '内容', '单页模型填写内容', null, $info['model'] == 2 ? : 'hidden')
+                    ->addItem('template', 'text', '模版', '单页使用的模版或其他模型文档列表模版')
+                    ->addItem('icon', 'icon', '图标', '菜单图标')
+                    ->addItem('sort', 'num', '排序', '用于显示的顺序')
                     ->setFormData($info)
                     ->setExtra('category')
                     ->display();

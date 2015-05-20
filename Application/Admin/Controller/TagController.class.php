@@ -73,8 +73,8 @@ class TagController extends AdminController{
             $builder = new \Admin\Builder\AdminFormBuilder();
             $builder->title('新增标签')  //设置页面标题
                     ->setUrl(U('add')) //设置表单提交地址
-                    ->addItem('text', '标签名称', '标签名称', 'title')
-                    ->addItem('num', '排序', '用于显示的顺序', 'sort')
+                    ->addItem('title', 'text', '标签名称', '标签名称')
+                    ->addItem('sort', 'num', '排序', '用于显示的顺序')
                     ->display();
         }
     }
@@ -101,9 +101,9 @@ class TagController extends AdminController{
             $builder = new \Admin\Builder\AdminFormBuilder();
             $builder->title('编辑标签')  //设置页面标题
                     ->setUrl(U('edit')) //设置表单提交地址
-                    ->addItem('hidden', 'ID', 'ID', 'id')
-                    ->addItem('text', '标签名称', '标签名称', 'title')
-                    ->addItem('num', '排序', '用于显示的顺序', 'sort')
+                    ->addItem('id', 'hidden', 'ID', 'ID')
+                    ->addItem('title', 'text', '标签名称', '标签名称')
+                    ->addItem('sort', 'num', '排序', '用于显示的顺序')
                     ->setFormData(D('Tag')->find($id))
                     ->display();
         }

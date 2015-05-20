@@ -77,12 +77,12 @@ class UserController extends AdminController{
             $builder = new \Admin\Builder\AdminFormBuilder();
             $builder->title('新增用户')  //设置页面标题
                     ->setUrl(U('add')) //设置表单提交地址
-                    ->addItem('select', '部门', '所属部门', 'group', array_merge(array(0 => '默认部门'), $this->selectListAsTree('UserGroup')))
-                    ->addItem('text', '用户名', '用户名', 'username')
-                    ->addItem('text', '邮箱', '邮箱', 'email')
-                    ->addItem('text', '手机号码', '手机号码', 'mobile')
-                    ->addItem('password', '密码', '密码', 'password')
-                    ->addItem('picture', '用户头像', '用户头像', 'avatar')
+                    ->addItem('group', 'select', '部门', '所属部门', array_merge(array(0 => '默认部门'), $this->selectListAsTree('UserGroup')))
+                    ->addItem('username', 'text', '用户名', '用户名')
+                    ->addItem('email', 'text', '邮箱', '邮箱')
+                    ->addItem('mobile', 'text', '手机号码', '手机号码')
+                    ->addItem('password', 'password', '密码', '密码')
+                    ->addItem('avatar', 'picture', '用户头像', '用户头像')
                     ->display();
         }
     }
@@ -117,13 +117,13 @@ class UserController extends AdminController{
             $builder = new \Admin\Builder\AdminFormBuilder();
             $builder->title('编辑用户')  //设置页面标题
                     ->setUrl(U('edit')) //设置表单提交地址
-                    ->addItem('hidden', 'ID', 'ID', 'id')
-                    ->addItem('select', '部门', '所属部门', 'group', array_merge(array(0 => '默认部门'), $this->selectListAsTree('UserGroup')))
-                    ->addItem('text', '用户名', '用户名', 'username')
-                    ->addItem('text', '邮箱', '邮箱', 'email')
-                    ->addItem('text', '手机号码', '手机号码', 'mobile')
-                    ->addItem('password', '密码', '密码', 'password')
-                    ->addItem('picture', '用户头像', '用户头像', 'avatar')
+                    ->addItem('id', 'hidden', 'ID', 'ID')
+                    ->addItem('group', 'select', '部门', '所属部门', array_merge(array(0 => '默认部门'), $this->selectListAsTree('UserGroup')))
+                    ->addItem('username', 'text', '用户名', '用户名')
+                    ->addItem('email', 'text', '邮箱', '邮箱')
+                    ->addItem('mobile', 'text', '手机号码', '手机号码')
+                    ->addItem('password', 'password', '密码', '密码')
+                    ->addItem('avatar', 'picture', '用户头像', '用户头像')
                     ->setFormData(D('User')->find($id))
                     ->display();
         }

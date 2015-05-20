@@ -76,11 +76,11 @@ class SystemMenuController extends AdminController{
             $builder = new \Admin\Builder\AdminFormBuilder();
             $builder->title('新增菜单')  //设置页面标题
                     ->setUrl(U('add')) //设置表单提交地址
-                    ->addItem('select', '上级菜单', '所属的上级菜单', 'pid', array_merge(array(0 => '顶级菜单'), $this->selectListAsTree('SystemMenu')))
-                    ->addItem('text', '标题', '菜单标题', 'title')
-                    ->addItem('text', '链接', 'U函数解析的URL或者外链', 'url')
-                    ->addItem('icon', '图标', '菜单图标', 'icon')
-                    ->addItem('num', '排序', '用于显示的顺序', 'sort')
+                    ->addItem('pid', 'select', '上级菜单', '所属的上级菜单', array_merge(array(0 => '顶级菜单'), $this->selectListAsTree('SystemMenu')))
+                    ->addItem('title', 'text', '标题', '菜单标题')
+                    ->addItem('url', 'text', '链接', 'U函数解析的URL或者外链')
+                    ->addItem('icon', 'icon', '图标', '菜单图标')
+                    ->addItem('sort', 'num', '排序', '用于显示的顺序')
                     ->display();
         }
     }
@@ -107,12 +107,12 @@ class SystemMenuController extends AdminController{
             $builder = new \Admin\Builder\AdminFormBuilder();
             $builder->title('新增菜单')  //设置页面标题
                     ->setUrl(U('edit')) //设置表单提交地址
-                    ->addItem('hidden', 'ID', 'ID', 'id')
-                    ->addItem('select', '上级菜单', '所属的上级菜单', 'pid', array_merge(array(0 => '顶级菜单'), $this->selectListAsTree('SystemMenu')))
-                    ->addItem('text', '标题', '菜单标题', 'title')
-                    ->addItem('text', '链接', 'U函数解析的URL或者外链', 'url')
-                    ->addItem('icon', '图标', '菜单图标', 'icon')
-                    ->addItem('num', '排序', '用于显示的顺序', 'sort')
+                    ->addItem('id', 'hidden', 'ID', 'ID')
+                    ->addItem('pid', 'select', '上级菜单', '所属的上级菜单', array_merge(array(0 => '顶级菜单'), $this->selectListAsTree('SystemMenu')))
+                    ->addItem('title', 'text', '标题', '菜单标题')
+                    ->addItem('url', 'text', '链接', 'U函数解析的URL或者外链')
+                    ->addItem('icon', 'icon', '图标', '菜单图标')
+                    ->addItem('sort', 'num', '排序', '用于显示的顺序')
                     ->setFormData(D('SystemMenu')->find($id))
                     ->display();
         }

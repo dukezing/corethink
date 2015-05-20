@@ -90,7 +90,7 @@ class AddonController extends AdminController {
                 $builder = new \Admin\Builder\AdminFormBuilder();
                 $builder->title('插件设置')  //设置页面标题
                         ->setUrl(U('config')) //设置表单提交地址
-                        ->addItem('hidden', 'ID', 'ID', 'id')
+                        ->addItem('id', 'hidden', 'ID', 'ID')
                         ->setExtraItems($addon['config']) //直接设置表单数据
                         ->setFormData($addon)
                         ->display();

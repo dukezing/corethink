@@ -86,11 +86,11 @@ class AdminFormBuilder extends AdminController{
      * @param $extra_class 表单额外CSS类名
      * @return $this
      */
-    public function addItem($type, $title, $tip, $name, $options = array(), $extra_class = ''){
+    public function addItem($name, $type, $title, $tip, $options = array(), $extra_class = ''){
+        $item['name'] = $name;
         $item['type'] = $type;
         $item['title'] = $title;
         $item['tip'] = $tip;
-        $item['name'] = $name;
         $item['options'] = $options;
         $item['extra_class'] = $extra_class;
         $this->_form_items[] = $item;

@@ -165,7 +165,7 @@ class DocumentController extends AdminController{
         $builder = new \Admin\Builder\AdminFormBuilder();
         $builder->title('新增文章')  //设置页面标题
                 ->setUrl(U('update')) //设置表单提交地址
-                ->addItem('hidden', 'ID', 'ID', 'id')
+                ->addItem('id', 'hidden', 'ID', 'ID')
                 ->setExtraItems($new_attribute_list)
                 ->setFormData($document_info)
                 ->display();
@@ -229,7 +229,7 @@ class DocumentController extends AdminController{
                 ->addDeleteButton() //添加删除按钮
                 ->addRestoreButton() //添加还原按钮
                 ->setSearch('请输入ID/文档名称', U('recycle'))
-                ->addField('id', 'UID', 'text')
+                ->addField('id', 'ID', 'text')
                 ->addField('title', '标题', 'text')
                 ->addField('ctime', '发布时间', 'time')
                 ->addField('sort', '排序', 'text')

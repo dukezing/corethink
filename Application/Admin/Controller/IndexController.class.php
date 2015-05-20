@@ -35,7 +35,7 @@ class IndexController extends AdminController{
         $this->assign('user_reg_date', json_encode($user_reg_date));
         $this->assign('user_reg_count', json_encode($user_reg_count));
         $this->assign('meta_title', "首页");
-        $this->display();
+        $this->display('Public/index');
     }
 
     /**
