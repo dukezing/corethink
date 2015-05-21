@@ -4,7 +4,7 @@ class WeixinSDK extends ThinkOauth{
      * 获取requestCode的api接口
      * @var string
      */
-    protected $GetRequestCodeURL = 'https://open.weixin.qq.com/connect/qrconnect';
+    protected $GetRequestCodeURL = 'https://open.weixin.qq.com/connect/oauth2/authorize';
 
     /**
      * 获取access_token的api接口
@@ -24,7 +24,7 @@ class WeixinSDK extends ThinkOauth{
                 'appid' => $this->AppKey,
                 'redirect_uri'=>$this->Callback,
                 'response_type'=>'code',
-                'scope'=>'snsapi_login'
+                'scope'=>'snsapi_userinfo'
         );
         return $this->GetRequestCodeURL . '?' . http_build_query($params);
     }

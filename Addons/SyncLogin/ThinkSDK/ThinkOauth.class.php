@@ -124,7 +124,7 @@ abstract class ThinkOauth {
     /**
      * 初始化配置
      */
-    private function config(){
+    public function config(){
         $this->Callback = "http://".$_SERVER ['HTTP_HOST'].addons_url('SyncLogin://Login/callback',array('type'=>strtolower($this->Type)));
     }
 
