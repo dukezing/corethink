@@ -28,7 +28,7 @@ class SystemConfigController extends AdminController{
         $map['status'] = array('egt', '0'); //禁用和正常状态
         $map['group'] = array('eq', $tab);
         $data_list = D('SystemConfig')->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))->where($map)->order('sort asc,id asc')->select();
-        $page = new \Think\Page(D('SystemConfig')->where($map)->count(), C('ADMIN_PAGE_ROWS'));
+        $page = new \Common\Util\Page(D('SystemConfig')->where($map)->count(), C('ADMIN_PAGE_ROWS'));
 
         //使用Builder快速建立列表页面。
         $builder = new \Admin\Builder\AdminListBuilder();

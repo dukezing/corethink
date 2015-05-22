@@ -8,8 +8,9 @@
 // +----------------------------------------------------------------------
 // | Author: 麦当苗儿 <zuojiazi@vip.qq.com> <http://www.zjzit.cn>
 // +----------------------------------------------------------------------
+
 namespace Think\Upload\Driver;
-class Upyun {
+class Upyun{
     /**
      * 上传文件根目录
      * @var string
@@ -77,7 +78,7 @@ class Upyun {
      */
     public function save($file, $replace = true) {
         $header['Content-Type'] = $file['type'];
-        $header['Content-MD5']     = $file['md5'];
+        $header['Content-MD5'] 	= $file['md5'];
         $header['Mkdir'] = 'true';
         $resource = fopen($file['tmp_name'], 'r');
 
@@ -213,4 +214,5 @@ class Upyun {
         $message = is_null($message) ? 'File Not Found' : "[{$status}]:{$message}";
         $this->error = $message;
     }
+
 }

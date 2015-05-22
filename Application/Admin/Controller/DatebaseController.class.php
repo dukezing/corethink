@@ -9,7 +9,7 @@
 namespace Admin\Controller;
 use Think\Controller;
 use Think\Db;
-use Org\Util\Database;
+use Common\Util\Database;
 /**
  * 数据库管理控制器
  * @author jry <598821125@qq.com>

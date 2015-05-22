@@ -8,14 +8,17 @@
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
+
 namespace Think\Db\Driver;
 use Think\Db\Driver;
+
 /**
  * Oracle数据库驱动
  */
-class Oracle extends Driver {
-    private   $table     = '';
-    protected $selectSql = 'SELECT * FROM (SELECT thinkphp.*, rownum AS numrow FROM (SELECT  %DISTINCT% %FIELD% FROM %TABLE%%JOIN%%WHERE%%GROUP%%HAVING%%ORDER%) thinkphp ) %LIMIT%%COMMENT%';
+class Oracle extends Driver{
+
+    private     $table        = '';
+    protected   $selectSql    = 'SELECT * FROM (SELECT thinkphp.*, rownum AS numrow FROM (SELECT  %DISTINCT% %FIELD% FROM %TABLE%%JOIN%%WHERE%%GROUP%%HAVING%%ORDER%) thinkphp ) %LIMIT%%COMMENT%';
 
     /**
      * 解析pdo连接的dsn信息
@@ -35,7 +38,7 @@ class Oracle extends Driver {
      * 执行语句
      * @access public
      * @param string $str  sql指令
-     * @param boolean $fetchSql  不执行只是获取SQL
+     * @param boolean $fetchSql  不执行只是获取SQL     
      * @return integer
      */
     public function execute($str,$fetchSql=false) {
@@ -57,10 +60,10 @@ class Oracle extends Driver {
         //释放前次的查询结果
         if ( !empty($this->PDOStatement) ) $this->free();
         $this->executeTimes++;
-        N('db_write',1); // 兼容代码
+        N('db_write',1); // 兼容代码        
         // 记录开始执行时间
         $this->debug(true);
-        $this->PDOStatement    =    $this->_linkID->prepare($str);
+        $this->PDOStatement	=	$this->_linkID->prepare($str);
         if(false === $this->PDOStatement) {
             $this->error();
             return false;
@@ -72,8 +75,8 @@ class Oracle extends Driver {
                 $this->PDOStatement->bindValue($key, $val);
             }
         }
-        $this->bind =   array();
-        $result    =    $this->PDOStatement->execute();
+        $this->bind =   array();        
+        $result	=	$this->PDOStatement->execute();
         $this->debug(false);
         if ( false === $result) {
             $this->error();
@@ -141,10 +144,10 @@ class Oracle extends Driver {
      * @access public
      * @return string
      */
-    public function parseLimit($limit) {
-        $limitStr = '';
+	public function parseLimit($limit) {
+        $limitStr    = '';
         if(!empty($limit)) {
-            $limit = explode(',',$limit);
+            $limit	=	explode(',',$limit);
             if(count($limit)>1)
                 $limitStr = "(numrow>" . $limit[0] . ") AND (numrow<=" . ($limit[0]+$limit[1]) . ")";
             else

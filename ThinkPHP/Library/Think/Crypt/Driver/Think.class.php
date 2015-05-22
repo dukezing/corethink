@@ -13,11 +13,12 @@ namespace Think\Crypt\Driver;
  * Base64 加密实现类
  */
 class Think {
+
     /**
      * 加密字符串
      * @param string $str 字符串
      * @param string $key 加密key
-     * @param integer $expire 有效期（秒）
+     * @param integer $expire 有效期（秒）     
      * @return string
      */
     public static function encrypt($data,$key,$expire=0) {

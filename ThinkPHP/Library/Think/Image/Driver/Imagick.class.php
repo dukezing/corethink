@@ -12,7 +12,7 @@
 // +----------------------------------------------------------------------
 namespace Think\Image\Driver;
 use Think\Image;
-class Imagick {
+class Imagick{
     /**
      * 图像资源对象
      * @var resource
@@ -60,7 +60,7 @@ class Imagick {
      * 保存图像
      * @param  string  $imgname   图像保存名称
      * @param  string  $type      图像类型
-     * @param  integer $quality   JPEG图像质量
+     * @param  integer $quality   JPEG图像质量      
      * @param  boolean $interlace 是否对JPEG类型图像设置隔行扫描
      */
     public function save($imgname, $type = null, $quality=80,$interlace = true){
@@ -80,7 +80,7 @@ class Imagick {
         }
 
         // 设置图像质量
-        $this->img->setImageCompressionQuality($quality);
+        $this->img->setImageCompressionQuality($quality); 
 
         //去除图像配置信息
         $this->img->stripImage();
@@ -164,7 +164,7 @@ class Imagick {
             do {
                 $this->_crop($w, $h, $x, $y, $width, $height, $img);
             } while ($img->nextImage());
-
+            
             //压缩图片
             $this->img = $img->deconstructImages();
             $img->destroy(); //销毁零时图片
@@ -183,7 +183,7 @@ class Imagick {
             $img->cropImage($w, $h, $x, $y);
             $img->setImagePage($w, $h, 0, 0); //调整画布和图片一致
         }
-
+        
         //调整大小
         if($w != $width || $h != $height){
             $img->sampleImage($width, $height);
@@ -216,7 +216,7 @@ class Imagick {
 
                 //计算缩放比例
                 $scale = min($width/$w, $height/$h);
-
+                
                 //设置缩略图的坐标及宽度和高度
                 $x = $y = 0;
                 $width  = $w * $scale;
@@ -287,7 +287,7 @@ class Imagick {
                     do {
                         //填充图像
                         $image = $this->_fill($newimg, $posx, $posy, $neww, $newh, $imgs);
-
+                        
                         $img->addImage($image);
                         $img->setImageDelay($imgs->getImageDelay());
                         $img->setImagePage($width, $height, 0, 0);
@@ -424,7 +424,7 @@ class Imagick {
         //创建绘图资源
         $draw = new \ImagickDraw();
         $draw->composite($water->getImageCompose(), $x, $y, $info[0], $info[1], $water);
-
+        
         if('gif' == $this->info['type']){
             $img = $this->img->coalesceImages();
             $this->img->destroy(); //销毁原图
@@ -458,7 +458,7 @@ class Imagick {
      * @param  integer $offset 文字相对当前位置的偏移量
      * @param  integer $angle  文字倾斜角度
      */
-    public function text($text, $font, $size, $color = '#00000000',
+    public function text($text, $font, $size, $color = '#00000000', 
         $locate = Image::IMAGE_WATER_SOUTHEAST, $offset = 0, $angle = 0){
         //资源检测
         if(empty($this->img)) E('没有可以被写入文字的图像资源');
@@ -476,7 +476,7 @@ class Imagick {
         }
         $col = substr($color, 0, 7);
         $alp = strlen($color) == 9 ? substr($color, -2) : 0;
-
+        
 
         //获取文字信息
         $draw = new \ImagickDraw();
@@ -486,7 +486,7 @@ class Imagick {
         $draw->setFillAlpha(1-hexdec($alp)/127);
         $draw->setTextAntialias(true);
         $draw->setStrokeAntialias(true);
-
+        
         $metrics = $this->img->queryFontMetrics($draw, $text);
 
         /* 计算文字初始坐标和尺寸 */

@@ -12,9 +12,10 @@ namespace Think\Cache\Driver;
 use Think\Cache;
 defined('THINK_PATH') or exit();
 /**
- * Shmop缓存驱动
+ * Shmop缓存驱动 
  */
 class Shmop extends Cache {
+
     /**
      * 架构函数
      * @param array $options 缓存参数
@@ -33,8 +34,8 @@ class Shmop extends Cache {
                 );
         }
         $this->options = $options;
-        $this->options['prefix'] = isset($options['prefix'])?  $options['prefix'] : C('DATA_CACHE_PREFIX');
-        $this->options['length'] = isset($options['length'])?  $options['length'] : 0;
+        $this->options['prefix'] =  isset($options['prefix'])?  $options['prefix']  :   C('DATA_CACHE_PREFIX');        
+        $this->options['length'] =  isset($options['length'])?  $options['length']  :   0;        
         $this->handler = $this->_ftok($this->options['project']);
     }
 

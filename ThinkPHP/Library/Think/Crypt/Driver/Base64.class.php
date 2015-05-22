@@ -13,11 +13,12 @@ namespace Think\Crypt\Driver;
  * Base64 加密实现类
  */
 class Base64 {
+
     /**
      * 加密字符串
      * @param string $str 字符串
      * @param string $key 加密key
-     * @param integer $expire 有效期（秒）
+     * @param integer $expire 有效期（秒）     
      * @return string
      */
     public static function encrypt($data,$key,$expire=0) {
@@ -25,8 +26,8 @@ class Base64 {
         $key    =   md5($key);
         $data   =   base64_encode($expire.$data);
         $x=0;
-        $len = strlen($data);
-        $l = strlen($key);
+		$len = strlen($data);
+		$l = strlen($key);
         for ($i=0;$i< $len;$i++) {
             if ($x== $l) $x=0;
             $char   .=substr($key,$x,1);

@@ -135,7 +135,7 @@ function G($start,$end='',$dec=4) {
 
     }else{ // 记录时间和内存使用
         $_info[$start]  =  microtime(TRUE);
-        if(MEMORY_LIMIT_ON) $_mem[$start]          =  memory_get_usage();
+        if(MEMORY_LIMIT_ON) $_mem[$start]           =  memory_get_usage();
     }
     return null;
 }
@@ -163,7 +163,7 @@ function L($name=null, $value=null) {
             foreach($replace as &$v){
                 $v = '{$'.$v.'}';
             }
-            return str_replace($replace,$value,isset($_lang[$name]) ? $_lang[$name] : $name);
+            return str_replace($replace,$value,isset($_lang[$name]) ? $_lang[$name] : $name);        
         }
         $_lang[$name] = $value; // 语言定义
         return null;
@@ -269,10 +269,10 @@ function T($template='',$layer=''){
  * @return mixed
  */
 function I($name,$default='',$filter=null,$datas=null) {
-    static $_PUT    =    null;
-    if(strpos($name,'/')){ // 指定修饰符
-        list($name,$type)     =    explode('/',$name,2);
-    }elseif(C('VAR_AUTO_STRING')){ // 默认强制转换为字符串
+	static $_PUT	=	null;
+	if(strpos($name,'/')){ // 指定修饰符
+		list($name,$type) 	=	explode('/',$name,2);
+	}elseif(C('VAR_AUTO_STRING')){ // 默认强制转换为字符串
         $type   =   's';
     }
     if(strpos($name,'.')) { // 指定参数来源
@@ -282,27 +282,27 @@ function I($name,$default='',$filter=null,$datas=null) {
     }
     switch(strtolower($method)) {
         case 'get'     :   
-            $input =& $_GET;
-            break;
+        	$input =& $_GET;
+        	break;
         case 'post'    :   
-            $input =& $_POST;
-            break;
+        	$input =& $_POST;
+        	break;
         case 'put'     :   
-            if(is_null($_PUT)){
-                parse_str(file_get_contents('php://input'), $_PUT);
-            }
-            $input     =    $_PUT;        
-            break;
+        	if(is_null($_PUT)){
+            	parse_str(file_get_contents('php://input'), $_PUT);
+        	}
+        	$input 	=	$_PUT;        
+        	break;
         case 'param'   :
             switch($_SERVER['REQUEST_METHOD']) {
                 case 'POST':
                     $input  =  $_POST;
                     break;
                 case 'PUT':
-                    if(is_null($_PUT)){
-                        parse_str(file_get_contents('php://input'), $_PUT);
-                    }
-                    $input     =    $_PUT;
+                	if(is_null($_PUT)){
+                    	parse_str(file_get_contents('php://input'), $_PUT);
+                	}
+                	$input 	=	$_PUT;
                     break;
                 default:
                     $input  =  $_GET;
@@ -316,23 +316,23 @@ function I($name,$default='',$filter=null,$datas=null) {
             }
             break;
         case 'request' :   
-            $input =& $_REQUEST;   
-            break;
+        	$input =& $_REQUEST;   
+        	break;
         case 'session' :   
-            $input =& $_SESSION;   
-            break;
+        	$input =& $_SESSION;   
+        	break;
         case 'cookie'  :   
-            $input =& $_COOKIE;    
-            break;
+        	$input =& $_COOKIE;    
+        	break;
         case 'server'  :   
-            $input =& $_SERVER;    
-            break;
+        	$input =& $_SERVER;    
+        	break;
         case 'globals' :   
-            $input =& $GLOBALS;    
-            break;
+        	$input =& $GLOBALS;    
+        	break;
         case 'data'    :   
-            $input =& $datas;      
-            break;
+        	$input =& $datas;      
+        	break;
         default:
             return null;
     }
@@ -378,23 +378,23 @@ function I($name,$default='',$filter=null,$datas=null) {
             }
         }
         if(!empty($type)){
-            switch(strtolower($type)){
-                case 'a':    // 数组
-                    $data     =    (array)$data;
-                    break;
-                case 'd':    // 数字
-                    $data     =    (int)$data;
-                    break;
-                case 'f':    // 浮点
-                    $data     =    (float)$data;
-                    break;
-                case 'b':    // 布尔
-                    $data     =    (boolean)$data;
-                    break;
+        	switch(strtolower($type)){
+        		case 'a':	// 数组
+        			$data 	=	(array)$data;
+        			break;
+        		case 'd':	// 数字
+        			$data 	=	(int)$data;
+        			break;
+        		case 'f':	// 浮点
+        			$data 	=	(float)$data;
+        			break;
+        		case 'b':	// 布尔
+        			$data 	=	(boolean)$data;
+        			break;
                 case 's':   // 字符串
                 default:
                     $data   =   (string)$data;
-            }
+        	}
         }
     }else{ // 变量默认值
         $data       =    isset($default)?$default:null;
@@ -1322,20 +1322,20 @@ function session($name='',$value='') {
             }
         }
     }else{ // 设置session
-        if(strpos($name,'.')){
-            list($name1,$name2) =   explode('.',$name);
-            if($prefix){
-                $_SESSION[$prefix][$name1][$name2]   =  $value;
-            }else{
-                $_SESSION[$name1][$name2]  =  $value;
-            }
-        }else{
-            if($prefix){
-                $_SESSION[$prefix][$name]   =  $value;
-            }else{
-                $_SESSION[$name]  =  $value;
-            }
-        }
+		if(strpos($name,'.')){
+			list($name1,$name2) =   explode('.',$name);
+			if($prefix){
+				$_SESSION[$prefix][$name1][$name2]   =  $value;
+			}else{
+				$_SESSION[$name1][$name2]  =  $value;
+			}
+		}else{
+			if($prefix){
+				$_SESSION[$prefix][$name]   =  $value;
+			}else{
+				$_SESSION[$name]  =  $value;
+			}
+		}
     }
     return null;
 }
@@ -1536,9 +1536,9 @@ function send_http_status($code) {
 }
 
 function think_filter(&$value){
-    // TODO 其他安全过滤
+	// TODO 其他安全过滤
 
-    // 过滤查询特殊字符
+	// 过滤查询特殊字符
     if(preg_match('/^(EXP|NEQ|GT|EGT|LT|ELT|OR|XOR|LIKE|NOTLIKE|NOT BETWEEN|NOTBETWEEN|BETWEEN|NOTIN|NOT IN|IN)$/i',$value)){
         $value .= ' ';
     }

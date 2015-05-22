@@ -8,20 +8,22 @@
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
+
 namespace Think\Db\Driver;
 use Think\Db\Driver;
 use PDO;
+
 /**
  * Sqlsrv数据库驱动
  */
 class Sqlsrv extends Driver{
-    protected $selectSql  =     'SELECT T1.* FROM (SELECT thinkphp.*, ROW_NUMBER() OVER (%ORDER%) AS ROW_NUMBER FROM (SELECT %DISTINCT% %FIELD% FROM %TABLE%%JOIN%%WHERE%%GROUP%%HAVING%) AS thinkphp) AS T1 %LIMIT%%COMMENT%';
+    protected $selectSql  =     'SELECT T1.* FROM (SELECT thinkphp.*, ROW_NUMBER() OVER (%ORDER%) AS ROW_NUMBER FROM (SELECT %DISTINCT% %FIELD% FROM %TABLE%%JOIN%%WHERE%%GROUP%%HAVING% %UNION%) AS thinkphp) AS T1 %LIMIT%%COMMENT%';
     // PDO连接参数
     protected $options = array(
-        PDO::ATTR_CASE              => PDO::CASE_LOWER,
-        PDO::ATTR_ERRMODE           => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_STRINGIFY_FETCHES => false,
-        PDO::SQLSRV_ATTR_ENCODING   => PDO::SQLSRV_ENCODING_UTF8,
+        PDO::ATTR_CASE              =>  PDO::CASE_LOWER,
+        PDO::ATTR_ERRMODE           =>  PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_STRINGIFY_FETCHES =>  false,
+        PDO::SQLSRV_ATTR_ENCODING   =>  PDO::SQLSRV_ENCODING_UTF8,
     );
 
     /**
@@ -45,14 +47,14 @@ class Sqlsrv extends Driver{
      */
     public function getFields($tableName) {
         list($tableName) = explode(' ', $tableName);
-        $result =   $this->query("SELECT column_name, data_type, column_default, is_nullable
-        FROM information_schema.tables AS t
-        JOIN information_schema.columns AS c
+        $result =   $this->query("SELECT   column_name,   data_type,   column_default,   is_nullable
+        FROM    information_schema.tables AS t
+        JOIN    information_schema.columns AS c
         ON  t.table_catalog = c.table_catalog
         AND t.table_schema  = c.table_schema
         AND t.table_name    = c.table_name
-        WHERE t.table_name  = '$tableName'");
-        $info = array();
+        WHERE   t.table_name = '$tableName'");
+        $info   =   array();
         if($result) {
             foreach ($result as $key => $val) {
                 $info[$val['column_name']] = array(
@@ -85,7 +87,7 @@ class Sqlsrv extends Driver{
         return $info;
     }
 
-    /**
+	/**
      * order分析
      * @access protected
      * @param mixed $order
@@ -106,7 +108,7 @@ class Sqlsrv extends Driver{
         if(!is_numeric($key) && !preg_match('/[,\'\"\*\(\)\[.\s]/',$key)) {
            $key = '['.$key.']';
         }
-        return $key;
+        return $key;   
     }
 
     /**
@@ -117,9 +119,9 @@ class Sqlsrv extends Driver{
      */
     public function parseLimit($limit) {
         if(empty($limit)) return '';
-        $limit    =    explode(',',$limit);
+        $limit	=	explode(',',$limit);
         if(count($limit)>1)
-            $limitStr    =    '(T1.ROW_NUMBER BETWEEN '.$limit[0].' + 1 AND '.$limit[0].' + '.$limit[1].')';
+            $limitStr	=	'(T1.ROW_NUMBER BETWEEN '.$limit[0].' + 1 AND '.$limit[0].' + '.$limit[1].')';
         else
             $limitStr = '(T1.ROW_NUMBER BETWEEN 1 AND '.$limit[0].")";
         return 'WHERE '.$limitStr;
@@ -160,4 +162,5 @@ class Sqlsrv extends Driver{
             .$this->parseComment(!empty($options['comment'])?$options['comment']:'');
         return $this->execute($sql,!empty($options['fetch_sql']) ? true : false);
     }
+
 }

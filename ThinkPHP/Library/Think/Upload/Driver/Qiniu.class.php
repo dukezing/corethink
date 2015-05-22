@@ -8,9 +8,11 @@
 // +----------------------------------------------------------------------
 // | Author: yangweijie <yangweijiester@gmail.com> <http://www.code-tech.diandian.com>
 // +----------------------------------------------------------------------
+
 namespace Think\Upload\Driver;
 use Think\Upload\Driver\Qiniu\QiniuStorage;
-class Qiniu {
+
+class Qiniu{
     /**
      * 上传文件根目录
      * @var string
@@ -24,11 +26,11 @@ class Qiniu {
     private $error = '';
 
     private $config = array(
-        'secrectKey' => '', //七牛服务器
-        'accessKey'  => '', //七牛用户
-        'domain'     => '', //七牛密码
-        'bucket'     => '', //空间名称
-        'timeout'    => 300, //超时时间
+        'secretKey'      => '', //七牛服务器
+        'accessKey'      => '', //七牛用户
+        'domain'         => '', //七牛密码
+        'bucket'         => '', //空间名称
+        'timeout'        => 300, //超时时间
     );
 
     /**

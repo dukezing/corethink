@@ -13,12 +13,13 @@ namespace Think;
  * 加密解密类
  */
 class Crypt {
-    private static $handler = '';
+
+    private static $handler    =   '';
 
     public static function init($type=''){
-        $type  = $type?:C('DATA_CRYPT_TYPE');
-        $class = strpos($type,'\\')? $type: 'Think\\Crypt\\Driver\\'. ucwords(strtolower($type));
-        self::$handler = $class;
+        $type   =   $type?:C('DATA_CRYPT_TYPE');
+        $class  =   strpos($type,'\\')? $type: 'Think\\Crypt\\Driver\\'. ucwords(strtolower($type));
+        self::$handler  =    $class;
     }
 
     /**
@@ -32,7 +33,7 @@ class Crypt {
         if(empty(self::$handler)){
             self::init();
         }
-        $class  =   self::$handler;
+        $class  =   self::$handler; 
         return $class::encrypt($data,$key,$expire);
     }
 
@@ -46,7 +47,7 @@ class Crypt {
         if(empty(self::$handler)){
             self::init();
         }
-        $class = self::$handler;
+        $class  =   self::$handler;         
         return $class::decrypt($data,$key);
     }
 }

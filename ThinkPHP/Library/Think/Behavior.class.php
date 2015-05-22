@@ -20,4 +20,5 @@ abstract class Behavior {
      * @return void
      */
     abstract public function run(&$params);
+
 }

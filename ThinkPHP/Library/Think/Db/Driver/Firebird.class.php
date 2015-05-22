@@ -10,10 +10,11 @@
 // +----------------------------------------------------------------------
 namespace Think\Db\Driver;
 use Think\Db\Driver;
+
 /**
- * Firebird数据库驱动
+ * Firebird数据库驱动 
  */
-class Firebird extends Driver {
+class Firebird extends Driver{
     protected $selectSql  =     'SELECT %LIMIT% %DISTINCT% %FIELD% FROM %TABLE%%JOIN%%WHERE%%GROUP%%HAVING%%ORDER%';
 
     /**
@@ -26,7 +27,7 @@ class Firebird extends Driver {
        $dsn  =   'firebird:dbname='.$config['hostname'].'/'.($config['hostport']?:3050).':'.$config['database'];
        return $dsn;
     }
-
+    
     /**
      * 执行语句
      * @access public
@@ -73,7 +74,7 @@ class Firebird extends Driver {
             return $this->numRows;
         }
     }
-
+    
     /**
      * 取得数据表的字段信息
      * @access public
@@ -104,7 +105,7 @@ class Firebird extends Driver {
         }
         return $info;
     }
-
+    
     /**
      * 取得数据库的表信息
      * @access public
@@ -118,7 +119,7 @@ class Firebird extends Driver {
         }
         return $info;
     }
-
+    
     /**
      * SQL指令安全过滤
      * @access public

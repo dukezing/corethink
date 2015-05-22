@@ -159,4 +159,5 @@ class Ftp {
     public function __destruct() {
         ftp_close($this->link);
     }
+
 }

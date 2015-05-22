@@ -8,13 +8,17 @@
 // +----------------------------------------------------------------------
 // | Author: 何辉 <runphp@qq.com>
 // +----------------------------------------------------------------------
+
 namespace Think\Cache\Driver;
+
 use Memcached as MemcachedResource;
 use Think\Cache;
+
 /**
  * Memcached缓存驱动
  */
 class Memcached extends Cache {
+
     /**
      *
      * @param array $options
@@ -25,16 +29,16 @@ class Memcached extends Cache {
         }
 
         $options = array_merge(array(
-            'servers' => C('MEMCACHED_SERVER') ? : null,
-            'lib_options' => C('MEMCACHED_LIB') ? : null
+            'servers'       =>  C('MEMCACHED_SERVER') ? : null,
+            'lib_options'   =>  C('MEMCACHED_LIB') ? : null
         ), $options);
 
-        $this->options = $options;
-        $this->options['expire'] = isset($options['expire'])?  $options['expire']  :   C('DATA_CACHE_TIME');
-        $this->options['prefix'] = isset($options['prefix'])?  $options['prefix']  :   C('DATA_CACHE_PREFIX');
-        $this->options['length'] = isset($options['length'])?  $options['length']  :   0;
+        $this->options      =   $options;
+        $this->options['expire'] =  isset($options['expire'])?  $options['expire']  :   C('DATA_CACHE_TIME');
+        $this->options['prefix'] =  isset($options['prefix'])?  $options['prefix']  :   C('DATA_CACHE_PREFIX');
+        $this->options['length'] =  isset($options['length'])?  $options['length']  :   0;
 
-        $this->handler = new MemcachedResource;
+        $this->handler      =   new MemcachedResource;
         $options['servers'] && $this->handler->addServers($options['servers']);
         $options['lib_options'] && $this->handler->setOptions($options['lib_options']);
     }

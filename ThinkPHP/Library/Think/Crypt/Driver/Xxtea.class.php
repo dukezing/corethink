@@ -13,11 +13,12 @@ namespace Think\Crypt\Driver;
  * Xxtea 加密实现类
  */
 class Xxtea {
+
     /**
      * 加密字符串
      * @param string $str 字符串
      * @param string $key 加密key
-     * @param integer $expire 有效期（秒）
+     * @param integer $expire 有效期（秒）     
      * @return string
      */
     public static function encrypt($str, $key,$expire=0) {
@@ -111,4 +112,5 @@ class Xxtea {
         while ($n <= -2147483649) $n += 4294967296;
         return (int)$n;
     }
+
 }

@@ -17,11 +17,12 @@ namespace Think\Crypt\Driver;
  * @author    liu21st <liu21st@gmail.com>
  */
 class Crypt {
+
     /**
      * 加密字符串
      * @param string $str 字符串
      * @param string $key 加密key
-     * @param integer $expire 有效期（秒）
+     * @param integer $expire 有效期（秒）     
      * @return string
      */
     public static function encrypt($str,$key,$expire=0){
@@ -30,8 +31,8 @@ class Crypt {
         $c=0;
         $v = "";
         $str    =   $expire.$str;
-        $len = strlen($str);
-        $l = strlen($r);
+		$len = strlen($str);
+		$l = strlen($r);
         for ($i=0;$i<$len;$i++){
          if ($c== $l) $c=0;
          $v.= substr($r,$c,1) .
@@ -50,7 +51,7 @@ class Crypt {
     public static function decrypt($str,$key) {
         $str = self::ed($str,$key);
         $v = "";
-        $len = strlen($str);
+		$len = strlen($str);
         for ($i=0;$i<$len;$i++){
          $md5 = substr($str,$i,1);
          $i++;
@@ -65,17 +66,18 @@ class Crypt {
         return $data;
     }
 
-    function ed($str,$key) {
-        $r = md5($key);
-        $c=0;
-        $v = "";
-        $len = strlen($str);
-        $l = strlen($r);
-        for ($i=0;$i<$len;$i++) {
-           if ($c==$l) $c=0;
-           $v.= substr($str,$i,1) ^ substr($r,$c,1);
-           $c++;
-        }
-        return $v;
-    }
+
+   function ed($str,$key) {
+      $r = md5($key);
+      $c=0;
+      $v = "";
+	  $len = strlen($str);
+	  $l = strlen($r);
+      for ($i=0;$i<$len;$i++) {
+         if ($c==$l) $c=0;
+         $v.= substr($str,$i,1) ^ substr($r,$c,1);
+         $c++;
+      }
+      return $v;
+   }
 }

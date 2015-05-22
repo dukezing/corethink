@@ -29,7 +29,7 @@ class DocumentController extends AdminController{
         $map['status'] = array('egt', 0);
         $document_list = D('Document')->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))
                                       ->order('sort desc,id desc')->where($map)->select();
-        $page = new \Think\Page(D('Document')->where($map)->count(), C('ADMIN_PAGE_ROWS'));
+        $page = new \Common\Util\Page(D('Document')->where($map)->count(), C('ADMIN_PAGE_ROWS'));
 
         //新增按钮属性
         $add_attr['class'] = 'btn';
@@ -221,7 +221,7 @@ class DocumentController extends AdminController{
     public function recycle(){
         $map['status'] = array('eq', '-1');
         $document_list = D('Document')->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))->where($map)->select();
-        $page = new \Think\Page(D('Document')->where($map)->count(), C('ADMIN_PAGE_ROWS'));
+        $page = new \Common\Util\Page(D('Document')->where($map)->count(), C('ADMIN_PAGE_ROWS'));
 
         //使用Builder快速建立列表页面。
         $builder = new \Admin\Builder\AdminListBuilder();

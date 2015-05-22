@@ -26,7 +26,7 @@ class UserCommentController extends AdminController{
         //获取所有评论
         $map['status'] = array('egt', '0'); //禁用和正常状态
         $data_list = D('UserComment')->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))->where($map)->order('sort desc,id desc')->select();
-        $page = new \Think\Page(D('UserComment')->where($map)->count(), C('ADMIN_PAGE_ROWS'));
+        $page = new \Common\Util\Page(D('UserComment')->where($map)->count(), C('ADMIN_PAGE_ROWS'));
 
         //使用Builder快速建立列表页面。
         $builder = new \Admin\Builder\AdminListBuilder();

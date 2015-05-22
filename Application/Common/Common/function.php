@@ -7,6 +7,10 @@
 // | Author: jry <598821125@qq.com> <http://www.corethink.cn>
 // +----------------------------------------------------------------------
 
+require_once(APP_PATH . '/Common/Common/text.php');
+require_once(APP_PATH . '/Common/Common/time.php');
+require_once(APP_PATH . '/Common/Common/addon.php');
+
 /**
  * 根据配置类型解析配置
  * @param  string $type  配置类型
@@ -82,113 +86,6 @@ function get_cover($id, $type){
 }
 
 /**
- * 时间戳格式化
- * @param int $time
- * @return string 完整的时间显示
- * @author jry <598821125@qq.com>
- */
-function time_format($time = NULL, $format='Y-m-d H:i'){
-    $time = $time === NULL ? NOW_TIME : intval($time);
-    return date($format, $time);
-}
-
-/**
- * 时间戳格式化
- * @param int $time
- * @return string 友好的时间显示
- * @author jry <598821125@qq.com>
- */
-function friendly_date($time){
-    return \Org\Util\Date::friendly_date($time);
-}
-
-/**
- * 过滤标签，输出纯文本
- * @param string $str 文本内容
- * @return string 处理后内容
- * @author jry <598821125@qq.com>
- */
-function html2text($str){
-    return \Org\Util\String::html2text($str);
-}
-
-/**
- * 插件显示内容里生成访问插件的url
- * @param string $str 字符串
- * @param string $length 截取长度
- * @author jry <598821125@qq.com>
- */
-function get_str($str, $length){
-    return \Org\Util\String::get_str($str, 0, $length, $charset='utf-8', $suffix=true);
-}
-
-/**
- *  带格式生成随机字符 支持批量生成
- *  但可能存在重复
- * @param string $format 字符格式
- *     # 表示数字 * 表示字母和数字 $ 表示字母
- * @param integer $number 生成数量
- * @return string | array
- * @author jry <598821125@qq.com>
- */
-function randString($len = 6, $type){
-    return \Org\Util\String::randString($len, $type);
-}
-
-/**
- * 敏感词过滤
- * @param  string $text 待检测内容
- * @param  array $sensitive 待过滤替换内容
- * @param  string $suffix 替换后内容
- * @return bool
- * @author jry <598821125@qq.com>
- */
-function sensitive_filter($text){
-    $string = new \Org\Util\String();
-    $sensitive = C('SENSITIVE_WORDS');
-    return $string->sensitive_filter($text, $sensitive, $suffix = '**');
-}
-
-/**
- * 处理插件钩子
- * @param string $hook   钩子名称
- * @param mixed $params 传入参数
- * @return void
- * @author jry <598821125@qq.com>
- */
-function hook($hook, $params = array()){
-    \Think\Hook::listen($hook,$params);
-}
-
-/**
- * 获取插件类的类名
- * @param strng $name 插件名
- * @author jry <598821125@qq.com>
- */
-function get_addon_class($name){
-    $class = "Addons\\{$name}\\{$name}Addon";
-    return $class;
-}
-
-/**
- * 插件显示内容里生成访问插件的url
- * @param string $url url
- * @param array $param 参数
- * @author jry <598821125@qq.com>
- */
-function addons_url($url, $param = array()){
-    return D('Addon')->getAddonUrl($url, $param);
-}
-
-/**
- * 解析插件数据列表定义规则
- * @author jry <598821125@qq.com>
- */
-function get_addon_adminlist_field($data, $grid, $addon){
-    return D('Addon')->getAddonAdminlistField($data, $grid, $addon);
-}
-
-/**
  * 系统邮件发送函数
  * @param string $receiver 收件人
  * @param string $subject 邮件主题
@@ -210,14 +107,4 @@ function send_mail($receiver, $subject, $body, $attachment){
  */
 function send_mobile_message($receiver, $body){
     return false; //短信功能待开发
-}
-
-/**
- * 解析文档内容
- * @param string $str 待解析内容
- * @return string
- * @author jry <598821125@qq.com>
- */
-function parse_content($str){
-    return preg_replace('/(<img.*?)src=/i', "$1 data-original=", $str);//将img标签的src改为data-origin用户前台图片lazyload加载
 }

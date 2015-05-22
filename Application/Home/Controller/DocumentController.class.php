@@ -35,7 +35,7 @@ class DocumentController extends HomeController{
         $this->assign('volist', $document_list);
 
         //分页
-        $page = new \Think\Page(D('Document')->where($map)->count(), C('ADMIN_PAGE_ROWS'));
+        $page = new \Common\Util\Page(D('Document')->where($map)->count(), C('ADMIN_PAGE_ROWS'));
         $this->assign('page', $page->show());
 
         $this->assign('__CURRENT_CATEGORY__', $category['id']);

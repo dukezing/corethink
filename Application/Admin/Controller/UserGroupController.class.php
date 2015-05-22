@@ -28,7 +28,7 @@ class UserGroupController extends AdminController{
         $data_list = D('UserGroup')->where($map)->order('sort asc, id asc')->select();
 
         //转换成树状列表
-        $tree = new \Org\Util\Tree();
+        $tree = new \Common\Util\Tree();
         $data_list = $tree->toFormatTree($data_list);
 
         //使用Builder快速建立列表页面。

@@ -43,7 +43,7 @@ class IndexController extends AdminController{
      * @author jry <598821125@qq.com>
      */
     public function rmdirr($dirname = RUNTIME_PATH){
-        $file = new \Org\Util\File();
+        $file = new \Common\Util\File();
         $result = $file->del_dir($dirname);
         if($result){
             $this->success("缓存清理成功");

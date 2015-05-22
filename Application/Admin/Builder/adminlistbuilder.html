@@ -39,7 +39,7 @@
                             <div class="modal-body">
                                 <php>
                                     $category_list = D('Category')->getAllCategory();
-                                    $tree = new \Org\Util\Tree();
+                                    $tree = new \Common\Util\Tree();
                                     $category_list = $tree->toFormatTree($category_list);
                                 </php>
                                 <form action="{:U('Document/move')}" method="post" class="form">

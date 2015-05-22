@@ -15,6 +15,7 @@ defined('THINK_PATH') or exit();
  * Sqlite缓存驱动
  */
 class Sqlite extends Cache {
+
     /**
      * 架构函数
      * @param array $options 缓存参数
@@ -26,15 +27,15 @@ class Sqlite extends Cache {
         }
         if(empty($options)) {
             $options = array (
-                'db'    => ':memory:',
-                'table' => 'sharedmemory',
+                'db'        =>  ':memory:',
+                'table'     =>  'sharedmemory',
             );
         }
-        $this->options  =   $options;
-        $this->options['prefix'] = isset($options['prefix'])?  $options['prefix'] : C('DATA_CACHE_PREFIX');
-        $this->options['length'] = isset($options['length'])?  $options['length'] : 0;
-        $this->options['expire'] = isset($options['expire'])?  $options['expire'] : C('DATA_CACHE_TIME');
-
+        $this->options  =   $options;      
+        $this->options['prefix']    =   isset($options['prefix'])?  $options['prefix']  :   C('DATA_CACHE_PREFIX');
+        $this->options['length']    =   isset($options['length'])?  $options['length']  :   0;        
+        $this->options['expire']    =   isset($options['expire'])?  $options['expire']  :   C('DATA_CACHE_TIME');
+        
         $func = $this->options['persistent'] ? 'sqlite_popen' : 'sqlite_open';
         $this->handler      = $func($this->options['db']);
     }
@@ -47,7 +48,7 @@ class Sqlite extends Cache {
      */
     public function get($name) {
         N('cache_read',1);
-        $name   = $this->options['prefix'].sqlite_escape_string($name);
+		$name   = $this->options['prefix'].sqlite_escape_string($name);
         $sql    = 'SELECT value FROM '.$this->options['table'].' WHERE var=\''.$name.'\' AND (expire=0 OR expire >'.time().') LIMIT 1';
         $result = sqlite_query($this->handler, $sql);
         if (sqlite_num_rows($result)) {
@@ -76,7 +77,7 @@ class Sqlite extends Cache {
         if(is_null($expire)) {
             $expire  =  $this->options['expire'];
         }
-        $expire    =    ($expire==0)?0: (time()+$expire) ;//缓存有效期为0表示永久缓存
+        $expire	=	($expire==0)?0: (time()+$expire) ;//缓存有效期为0表示永久缓存
         if( C('DATA_CACHE_COMPRESS') && function_exists('gzcompress')) {
             //数据压缩
             $value   =   gzcompress($value,3);

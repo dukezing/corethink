@@ -19,7 +19,7 @@ class AddonController extends AdminController {
     public function index(){
         $addons = D('Addon')->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))->getAllAddon();
         $addons = $this->int_to_icon($addons, array('status'=>array(-1=>'损坏', 0=>'<i class="icon-ban-circle" style="color:red"></i>', 1=>'<i class="icon-ok" style="color:green"></i>', null=>'未安装')));
-        $page = new \Think\Page(D('Addon')->count(), C('ADMIN_PAGE_ROWS'));
+        $page = new \Common\Util\Page(D('Addon')->count(), C('ADMIN_PAGE_ROWS'));
         $this->assign('page', $page->show());
         $this->assign('volist', $addons);
         $this->meta_title = '插件列表';

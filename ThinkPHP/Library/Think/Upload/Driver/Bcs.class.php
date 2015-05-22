@@ -25,7 +25,7 @@ class Bcs {
     private $error = '';
 
     public $config = array(
-        'AccessKey'=> '',
+    	'AccessKey'=> '',
         'SecretKey'=> '', //百度云服务器
         'bucket'   => '', //空间名称
         'rename'   => false,
@@ -41,7 +41,7 @@ class Bcs {
     public function __construct($config){
         /* 默认FTP配置 */
         $this->config = array_merge($this->config, $config);
-
+        
         $bcsClass = dirname(__FILE__). "/Bcs/bcs.class.php";
         if(is_file($bcsClass))
             require_once($bcsClass);
@@ -56,7 +56,7 @@ class Bcs {
     public function checkRootPath($rootpath){
         /* 设置根目录 */
         $this->rootPath = str_replace('./', '/', $rootpath);
-        return true;
+    	return true;
     }
 
     /**
@@ -64,8 +64,8 @@ class Bcs {
      * @param  string $savepath 上传目录
      * @return boolean          检测结果，true-通过，false-失败
      */
-    public function checkSavePath($savepath){
-        return true;
+	public function checkSavePath($savepath){
+		return true;
     }
 
     /**
@@ -74,7 +74,7 @@ class Bcs {
      * @return boolean          true-创建成功，false-创建失败
      */
     public function mkdir($savepath){
-        return true;
+    	return true;
     }
 
     /**
@@ -223,6 +223,7 @@ class Bcs {
         return $response['content'][$method];
     }
 
+
     /**
      * 获取请求错误信息
      * @param  string $header 请求返回头信息
@@ -233,4 +234,5 @@ class Bcs {
         $message = is_null($message) ? 'File Not Found' : "[{$status}]:{$message}";
         $this->error = $message;
     }
+
 }

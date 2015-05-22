@@ -15,6 +15,7 @@ defined('THINK_PATH') or exit();
  * Apachenote缓存驱动
  */
 class Apachenote extends Cache {
+
     /**
      * 架构函数
      * @param array $options 缓存参数
@@ -69,7 +70,7 @@ class Apachenote extends Cache {
         N('cache_write',1);
         $this->open();
         $value  =   serialize($value);
-        $name   =   $this->options['prefix'].$name;
+        $name   =   $this->options['prefix'].$name;        
         $s      =   'S' . pack('NN', strlen($name), strlen($value)) . $name . $value;
 
         fwrite($this->handler, $s);
@@ -93,7 +94,7 @@ class Apachenote extends Cache {
      */
      public function rm($name) {
         $this->open();
-        $name   =   $this->options['prefix'].$name;
+        $name   =   $this->options['prefix'].$name;         
         $s      =   'D' . pack('N', strlen($name)) . $name;
         fwrite($this->handler, $s);
         $ret    = fgets($this->handler);
@@ -119,4 +120,5 @@ class Apachenote extends Cache {
              $this->handler = fsockopen($this->options['host'], $this->options['port'], $_, $_, $this->options['timeout']);
          }
      }
+
 }

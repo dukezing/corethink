@@ -22,6 +22,7 @@ defined('THINK_PATH') or exit();
  *    );
  */
 class Db extends Cache {
+
     /**
      * 架构函数
      * @param array $options 缓存参数
@@ -33,9 +34,9 @@ class Db extends Cache {
                 'table'     =>  C('DATA_CACHE_TABLE'),
             );
         }
-        $this->options  =   $options;
+        $this->options  =   $options;   
         $this->options['prefix']    =   isset($options['prefix'])?  $options['prefix']  :   C('DATA_CACHE_PREFIX');
-        $this->options['length']    =   isset($options['length'])?  $options['length']  :   0;
+        $this->options['length']    =   isset($options['length'])?  $options['length']  :   0;        
         $this->options['expire']    =   isset($options['expire'])?  $options['expire']  :   C('DATA_CACHE_TIME');
         $this->handler   = \Think\Db::getInstance();
     }
@@ -94,13 +95,13 @@ class Db extends Cache {
         if(is_null($expire)) {
             $expire  =  $this->options['expire'];
         }
-        $expire        =   ($expire==0)?0: (time()+$expire) ;//缓存有效期为0表示永久缓存
+        $expire	    =   ($expire==0)?0: (time()+$expire) ;//缓存有效期为0表示永久缓存
         $result     =   $this->handler->query('select `cachekey` from `'.$this->options['table'].'` where `cachekey`=\''.$name.'\' limit 0,1');
         if(!empty($result) ) {
-            //更新记录
+        	//更新记录
             $result  =  $this->handler->execute('UPDATE '.$this->options['table'].' SET data=\''.$data.'\' ,datacrc=\''.$crc.'\',expire='.$expire.' WHERE `cachekey`=\''.$name.'\'');
         }else {
-            //新增记录
+        	//新增记录
              $result  =  $this->handler->execute('INSERT INTO '.$this->options['table'].' (`cachekey`,`data`,`datacrc`,`expire`) VALUES (\''.$name.'\',\''.$data.'\',\''.$crc.'\','.$expire.')');
         }
         if($result) {
@@ -133,4 +134,5 @@ class Db extends Cache {
     public function clear() {
         return $this->handler->execute('TRUNCATE TABLE `'.$this->options['table'].'`');
     }
+
 }

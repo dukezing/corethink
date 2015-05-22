@@ -15,6 +15,7 @@ defined('THINK_PATH') or exit();
  * Memcache缓存驱动
  */
 class Memcache extends Cache {
+
     /**
      * 架构函数
      * @param array $options 缓存参数
@@ -34,8 +35,8 @@ class Memcache extends Cache {
 
         $this->options      =   $options;
         $this->options['expire'] =  isset($options['expire'])?  $options['expire']  :   C('DATA_CACHE_TIME');
-        $this->options['prefix'] =  isset($options['prefix'])?  $options['prefix']  :   C('DATA_CACHE_PREFIX');
-        $this->options['length'] =  isset($options['length'])?  $options['length']  :   0;
+        $this->options['prefix'] =  isset($options['prefix'])?  $options['prefix']  :   C('DATA_CACHE_PREFIX');        
+        $this->options['length'] =  isset($options['length'])?  $options['length']  :   0;        
         $func               =   $options['persistent'] ? 'pconnect' : 'connect';
         $this->handler      =   new \Memcache;
         $options['timeout'] === false ?

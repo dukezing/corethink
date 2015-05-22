@@ -8,29 +8,30 @@
 // +----------------------------------------------------------------------
 // | Author: luofei614<weibo.com/luofei614>
 // +----------------------------------------------------------------------
+
 namespace Think\Upload\Driver;
-class Sae {
+class Sae{
     /**
      * Storage的Domain
      * @var string
      */
-    private $domain = '';
+    private $domain     =   '';
 
-    private $rootPath = '';
+    private $rootPath   =   '';
 
     /**
      * 本地上传错误信息
      * @var string
      */
-    private $error = '';
+    private $error      =   ''; 
 
     /**
-     * 构造函数，设置storage的domain， 如果有传配置，则domain为配置项，如果没有传domain为第一个路径的目录名称。
-     * @param mixed $config 上传配置
+     * 构造函数，设置storage的domain， 如果有传配置，则domain为配置项，如果没有传domain为第一个路径的目录名称。 
+     * @param mixed $config 上传配置     
      */
     public function __construct($config = null){
         if(is_array($config) && !empty($config['domain'])){
-            $this->domain = strtolower($config['domain']);
+            $this->domain   =   strtolower($config['domain']);
         }
     }
 
@@ -48,9 +49,9 @@ class Sae {
         }
 
         $this->rootPath =  $rootpath;
-        $st = new \SaeStorage();
+        $st =   new \SaeStorage();
         if(false===$st->getDomainCapacity($this->domain)){
-          $this->error = '您好像没有建立Storage的domain['.$this->domain.']';
+          $this->error  =   '您好像没有建立Storage的domain['.$this->domain.']';
           return false;
         }
         return true;
@@ -74,7 +75,7 @@ class Sae {
     public function save(&$file, $replace=true) {
         $filename = ltrim($this->rootPath .'/'. $file['savepath'] . $file['savename'],'/');
         $st =   new \SaeStorage();
-        /* 不覆盖同名文件 */
+        /* 不覆盖同名文件 */ 
         if (!$replace && $st->fileExists($this->domain,$filename)) {
             $this->error = '存在同名文件' . $file['savename'];
             return false;
@@ -101,4 +102,5 @@ class Sae {
     public function getError(){
         return $this->error;
     }
+
 }

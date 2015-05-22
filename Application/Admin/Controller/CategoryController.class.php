@@ -29,7 +29,7 @@ class CategoryController extends AdminController{
         $data_list = D('Category')->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))->where($map)->order('sort asc,id asc')->select();
 
         //转换成树状列表
-        $tree = new \Org\Util\Tree();
+        $tree = new \Common\Util\Tree();
         $data_list = $tree->toFormatTree($data_list);
         $data_list = D('Category')->getLinkByModel($data_list);
 

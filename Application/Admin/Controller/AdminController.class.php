@@ -150,7 +150,7 @@ class AdminController extends Controller{
         $list = D($model)->where($map)->select();
 
         //转换成树状列表
-        $tree = new \Org\Util\Tree();
+        $tree = new \Common\Util\Tree();
         $list = $tree->toFormatTree($list);
 
         //转换成一维数组
@@ -210,7 +210,7 @@ class AdminController extends Controller{
         }else{
             $listRows = C('ADMIN_PAGE_ROWS') > 0 ? C('ADMIN_PAGE_ROWS') : 10;
         }
-        $page = new \Think\Page($total, $listRows, $REQUEST);
+        $page = new \Common\Util\Page($total, $listRows, $REQUEST);
         if($total>$listRows){
             $page->setConfig('theme','%FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END% %HEADER%');
         }

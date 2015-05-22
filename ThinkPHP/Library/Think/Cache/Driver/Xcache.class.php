@@ -15,6 +15,7 @@ defined('THINK_PATH') or exit();
  * Xcache缓存驱动
  */
 class Xcache extends Cache {
+
     /**
      * 架构函数
      * @param array $options 缓存参数
@@ -24,9 +25,9 @@ class Xcache extends Cache {
         if ( !function_exists('xcache_info') ) {
             E(L('_NOT_SUPPORT_').':Xcache');
         }
-        $this->options['expire'] = isset($options['expire']) ? $options['expire'] : C('DATA_CACHE_TIME');
-        $this->options['prefix'] = isset($options['prefix']) ? $options['prefix'] : C('DATA_CACHE_PREFIX');
-        $this->options['length'] = isset($options['length']) ? $options['length'] : 0;
+        $this->options['expire']    =   isset($options['expire'])?$options['expire']:C('DATA_CACHE_TIME');
+        $this->options['prefix']    =   isset($options['prefix'])?$options['prefix']:C('DATA_CACHE_PREFIX');
+        $this->options['length']    =   isset($options['length'])?$options['length']:0;
     }
 
     /**

@@ -8,12 +8,15 @@
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
+
 namespace Think\Db\Driver;
 use Think\Db\Driver;
+
 /**
  * Sqlite数据库驱动
  */
 class Sqlite extends Driver {
+
     /**
      * 解析pdo连接的dsn信息
      * @access public

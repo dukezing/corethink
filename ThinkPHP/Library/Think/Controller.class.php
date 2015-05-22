@@ -134,7 +134,7 @@ abstract class Controller {
      * @return mixed
      */
     public function get($name='') {
-        return $this->view->get($name);
+        return $this->view->get($name);      
     }
 
     public function __get($name) {

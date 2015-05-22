@@ -33,7 +33,7 @@ class EmailController extends AddonController{
             }else{
                 $mail_body_template = $addon_config['default']; //获取邮件模版配置
                 $mail_body = str_replace("[MAILBODY]", $body, $mail_body_template); //使用邮件模版
-                $mail = new \Org\Net\Email();
+                $mail = new \Common\Util\Email();
                 $mail->setServer($addon_config['MAIL_SMTP_HOST'], $addon_config['MAIL_SMTP_USER'], $addon_config['MAIL_SMTP_PASS'], $addon_config['MAIL_SMTP_PORT'], $addon_config['MAIL_SMTP_SECURE']); //设置smtp服务器
                 $mail->setFrom($addon_config['MAIL_SMTP_USER']); //设置发件人
                 $mail->setReceiver($receiver); //设置收件人，多个收件人，调用多次

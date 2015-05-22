@@ -45,7 +45,7 @@ class Hook {
         }else{ // 合并导入
             foreach ($data as $tag=>$val){
                 if(!isset(self::$tags[$tag]))
-                    self::$tags[$tag]   =   array();
+                    self::$tags[$tag]   =   array();            
                 if(!empty($val['_overlay'])){
                     // 可以针对某个标签指定覆盖模式
                     unset($val['_overlay']);
@@ -54,7 +54,7 @@ class Hook {
                     // 合并模式
                     self::$tags[$tag]   =   array_merge(self::$tags[$tag],$val);
                 }
-            }
+            }            
         }
     }
 
@@ -106,7 +106,7 @@ class Hook {
     /**
      * 执行某个插件
      * @param string $name 插件名称
-     * @param string $tag 方法名（标签名）
+     * @param string $tag 方法名（标签名）     
      * @param Mixed $params 传入的参数
      * @return void
      */

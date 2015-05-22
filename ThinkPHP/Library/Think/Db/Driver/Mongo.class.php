@@ -8,18 +8,21 @@
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
+
 namespace Think\Db\Driver;
 use Think\Db\Driver;
+
 /**
  * Mongo数据库驱动
  */
 class Mongo extends Driver {
-    protected $_mongo          = null; // MongoDb Object
-    protected $_collection     = null; // MongoCollection Object
-    protected $_dbName         = ''; // dbName
-    protected $_collectionName = ''; // collectionName
-    protected $_cursor         = null; // MongoCursor Object
-    protected $comparison      = array('neq'=>'ne','ne'=>'ne','gt'=>'gt','egt'=>'gte','gte'=>'gte','lt'=>'lt','elt'=>'lte','lte'=>'lte','in'=>'in','not in'=>'nin','nin'=>'nin');
+
+    protected $_mongo           =   null; // MongoDb Object
+    protected $_collection      =   null; // MongoCollection Object
+    protected $_dbName          =   ''; // dbName
+    protected $_collectionName  =   ''; // collectionName
+    protected $_cursor          =   null; // MongoCursor Object
+    protected $comparison       =   array('neq'=>'ne','ne'=>'ne','gt'=>'gt','egt'=>'gte','gte'=>'gte','lt'=>'lt','elt'=>'lte','lte'=>'lte','in'=>'in','not in'=>'nin','nin'=>'nin');
 
     /**
      * 架构函数 读取数据库配置信息
@@ -31,10 +34,10 @@ class Mongo extends Driver {
             E(L('_NOT_SUPPORT_').':Mongo');
         }
         if(!empty($config)) {
-            $this->config = array_merge($this->config,$config);
+            $this->config           =   array_merge($this->config,$config);
             if(empty($this->config['params'])){
                 $this->config['params'] =   array();
-            }
+            }            
         }
     }
 
@@ -78,7 +81,7 @@ class Mongo extends Driver {
             }
             if($this->_collectionName != $collection) {
                 $this->queryTimes++;
-                N('db_query',1); // 兼容代码
+                N('db_query',1); // 兼容代码                
                 $this->debug(true);
                 $this->_collection =  $this->_mongo->selectCollection($collection);
                 $this->debug(false);
@@ -123,7 +126,7 @@ class Mongo extends Driver {
             $this->debug(true);
             $result   = $this->_mongo->command($command);
             $this->debug(false);
-
+            
             if($cache && $result['ok']) { // 查询缓存写入
                 S($key,$result,$cache['expire'],$cache['type']);
             }
@@ -193,7 +196,7 @@ class Mongo extends Driver {
         }
         $this->model  =   $options['model'];
         $this->executeTimes++;
-        N('db_write',1); // 兼容代码
+        N('db_write',1); // 兼容代码        
         if($this->config['debug']) {
             $this->queryStr   =  $this->_dbName.'.'.$this->_collectionName.'.insert(';
             $this->queryStr   .= $data?json_encode($data):'{}';
@@ -229,7 +232,7 @@ class Mongo extends Driver {
         }
         $this->model  =   $options['model'];
         $this->executeTimes++;
-        N('db_write',1); // 兼容代码
+        N('db_write',1); // 兼容代码        
         try{
             $this->debug(true);
             $result =  $this->_collection->batchInsert($dataList);
@@ -273,7 +276,7 @@ class Mongo extends Driver {
             $this->switchCollection($options['table']);
         }
         $this->executeTimes++;
-        N('db_write',1); // 兼容代码
+        N('db_write',1); // 兼容代码        
         $this->model  =   $options['model'];
         $query   = $this->parseWhere(isset($options['where'])?$options['where']:array());
         $set  =  $this->parseSet($data);
@@ -310,7 +313,7 @@ class Mongo extends Driver {
         $query   = $this->parseWhere(isset($options['where'])?$options['where']:array());
         $this->model  =   $options['model'];
         $this->executeTimes++;
-        N('db_write',1); // 兼容代码
+        N('db_write',1); // 兼容代码        
         if($this->config['debug']) {
             $this->queryStr   =  $this->_dbName.'.'.$this->_collectionName.'.remove('.json_encode($query).')';
         }
@@ -336,7 +339,7 @@ class Mongo extends Driver {
         }
         $this->model  =   $options['model'];
         $this->executeTimes++;
-        N('db_write',1); // 兼容代码
+        N('db_write',1); // 兼容代码        
         if($this->config['debug']) {
             $this->queryStr   =  $this->_dbName.'.'.$this->_collectionName.'.remove({})';
         }
@@ -362,7 +365,7 @@ class Mongo extends Driver {
         }
         $this->model  =   $options['model'];
         $this->queryTimes++;
-        N('db_query',1); // 兼容代码
+        N('db_query',1); // 兼容代码        
         $query  =  $this->parseWhere(isset($options['where'])?$options['where']:array());
         $field  =  $this->parseField(isset($options['field'])?$options['field']:array());
         try{
@@ -439,7 +442,7 @@ class Mongo extends Driver {
         }
         $this->model  =   $options['model'];
         $this->queryTimes++;
-        N('db_query',1); // 兼容代码
+        N('db_query',1); // 兼容代码        
         $query  =  $this->parseWhere(isset($options['where'])?$options['where']:array());
         if($this->config['debug']) {
             $this->queryStr   =  $this->_dbName.'.'.$this->_collectionName;
@@ -460,7 +463,7 @@ class Mongo extends Driver {
         if(isset($options['table']) && $this->_collectionName != $options['table']) {
             $this->switchCollection($options['table'],'',false);
         }
-
+        
         $cache  =  isset($options['cache'])?$options['cache']:false;
         if($cache) {
             $key    =  is_string($cache['key'])?$cache['key']:md5(serialize($options));
@@ -469,12 +472,12 @@ class Mongo extends Driver {
                 return $value;
             }
         }
-
+        
         $this->model  =   $options['model'];
         $this->queryTimes++;
-        N('db_query',1); // 兼容代码
+        N('db_query',1); // 兼容代码        
         $query  =  $this->parseWhere(isset($options['where'])?$options['where']:array());
-
+        
         if($this->config['debug']) {
             $this->queryStr   =  $this->_dbName.'.'.$this->_collectionName.'.group({key:'.json_encode($keys).',cond:'.
             json_encode($options['condition']) . ',reduce:' .
@@ -486,10 +489,10 @@ class Mongo extends Driver {
             $option = array('condition'=>$options['condition'], 'finalize'=>$options['finalize'], 'maxTimeMS'=>$options['maxTimeMS']);
             $group = $this->_collection->group($keys,$initial,$reduce,$options);
             $this->debug(false);
-
+            
             if($cache && $group['ok'])
                 S($key,$group,$cache['expire'],$cache['type']);
-
+            
             return $group;
         } catch (\MongoCursorException $e) {
             E($e->getMessage());
@@ -506,7 +509,7 @@ class Mongo extends Driver {
             $this->switchCollection($collection,'',false);
         }
         $this->queryTimes++;
-        N('db_query',1); // 兼容代码
+        N('db_query',1); // 兼容代码        
         if($this->config['debug']) {
             $this->queryStr   =  $this->_dbName.'.'.$this->_collectionName.'.findOne()';
         }
@@ -540,7 +543,7 @@ class Mongo extends Driver {
             $this->queryStr   =  $this->_dbName.'.getCollenctionNames()';
         }
         $this->queryTimes++;
-        N('db_query',1); // 兼容代码
+        N('db_query',1); // 兼容代码        
         $this->debug(true);
         $list   = $this->_mongo->listCollections();
         $this->debug(false);
@@ -559,7 +562,7 @@ class Mongo extends Driver {
     public function getDB(){
         return $this->_mongo;
     }
-
+    
     /**
      * 取得当前集合的对象
      * @access public
@@ -717,7 +720,7 @@ class Mongo extends Driver {
         }
         if($_logic == '$and')
             return $query;
-
+        
         foreach($query as $key=>$val)
             $return[$_logic][]  = array($key=>$val);
 
@@ -733,6 +736,8 @@ class Mongo extends Driver {
      */
     protected function parseThinkWhere($key,$val) {
         $query   = array();
+        $_logic = array('or','xor','nor', 'and');
+        
         switch($key) {
             case '_query': // 字符串模式查询条件
                 parse_str($val,$query);
@@ -778,7 +783,7 @@ class Mongo extends Driver {
                     $k = '$'.$this->comparison[$con];
                     $query[$key]  =  array($k=>$val[1]);
                 }elseif('like'== $con){ // 模糊查询 采用正则方式
-                    $query[$key]  =  new \MongoRegex("/".$val[1]."/");
+                    $query[$key]  =  new \MongoRegex("/".$val[1]."/");  
                 }elseif('mod'==$con){ // mod 查询
                     $query[$key]   =  array('$mod'=>$val[1]);
                 }elseif('regex'==$con){ // 正则查询

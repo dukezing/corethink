@@ -17,11 +17,12 @@ namespace Think\Crypt\Driver;
  */
 
 class Des {
+
     /**
      * 加密字符串
      * @param string $str 字符串
      * @param string $key 加密key
-     * @param integer $expire 有效期（秒）
+     * @param integer $expire 有效期（秒）     
      * @return string
      */
     public static function encrypt($str, $key,$expire=0) {
@@ -236,4 +237,5 @@ class Des {
       //return the keys we've created
       return $keys;
     } //end of des_createKeys
+
 }

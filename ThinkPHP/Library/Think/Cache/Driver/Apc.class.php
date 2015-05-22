@@ -15,6 +15,7 @@ defined('THINK_PATH') or exit();
  * Apc缓存驱动
  */
 class Apc extends Cache {
+
     /**
      * 架构函数
      * @param array $options 缓存参数
@@ -25,7 +26,7 @@ class Apc extends Cache {
             E(L('_NOT_SUPPORT_').':Apc');
         }
         $this->options['prefix']    =   isset($options['prefix'])?  $options['prefix']  :   C('DATA_CACHE_PREFIX');
-        $this->options['length']    =   isset($options['length'])?  $options['length']  :   0;
+        $this->options['length']    =   isset($options['length'])?  $options['length']  :   0;        
         $this->options['expire']    =   isset($options['expire'])?  $options['expire']  :   C('DATA_CACHE_TIME');
     }
 
@@ -81,4 +82,5 @@ class Apc extends Cache {
     public function clear() {
         return apc_clear_cache();
     }
+
 }
