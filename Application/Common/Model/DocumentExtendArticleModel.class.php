@@ -12,7 +12,7 @@ use Think\Model;
  * 文档子模型－文章模型
  * @author jry <598821125@qq.com>
  */
-class DocumentArticleModel extends Model{
+class DocumentExtendArticleModel extends Model{
     /**
      * 自动验证规则
      * @author jry <598821125@qq.com>

@@ -60,17 +60,17 @@ class UserController extends AdminController{
      */
     public function add(){
         if(IS_POST){
-            $user_model = D('User');
-            $data = $user_model->create();
+            $user_object = D('User');
+            $data = $user_object->create();
             if($data){
-                $id = $user_model->add();
+                $id = $user_object->add();
                 if($id){
                     $this->success('新增成功', U('index'));
                 }else{
                     $this->error('新增失败');
                 }
             }else{
-                $this->error($user_model->getError());
+                $this->error($user_object->getError());
             }
         }else{
             //使用FormBuilder快速建立表单页面。
@@ -93,7 +93,7 @@ class UserController extends AdminController{
      */
     public function edit($id){
         if(IS_POST){
-            $user_model = D('User');
+            $user_object = D('User');
             //不修改密码时销毁变量
             if($_POST['password'] == ''){
                 unset($_POST['password']);
@@ -107,10 +107,10 @@ class UserController extends AdminController{
             if($_POST['extend']){
                 $_POST['extend'] = json_encode($_POST['extend']);
             }
-            if($user_model->save($_POST)){
+            if($user_object->save($_POST)){
                 $this->success('更新成功', U('index'));
             }else{
-                $this->error('更新失败', $user_model->getError());
+                $this->error('更新失败', $user_object->getError());
             }
         }else{
             //使用FormBuilder快速建立表单页面。

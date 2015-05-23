@@ -55,18 +55,18 @@ class DocumentModel extends Model{
             //获取当前分类
             $cid = I('post.cid');
             $category_info = D('Category')->find($cid);
-            $doc_type = D('Type')->where(array('id' => $category_info['doc_type']))->getField('name');
-            $extend_document_model = D('Document'.$doc_type);
-            $extend_data = $extend_document_model->create(); //子模型数据验证
+            $doc_type = D('DocumentType')->where(array('id' => $category_info['doc_type']))->getField('name');
+            $document_extend_object = D('DocumentExtend'.$doc_type);
+            $extend_data = $document_extend_object->create(); //子模型数据验证
             if(!$extend_data){
-                $this->error = $extend_document_model->getError();
+                $this->error = $document_extend_object->getError();
             }
             if($extend_data){
                 if(empty($base_data['id'])){ //新增基础内容
                     $base_id = $this->add();
                     if($base_id){
                         $extend_data['id'] = $base_id;
-                        $extend_id = $extend_document_model->add($extend_data);
+                        $extend_id = $document_extend_object->add($extend_data);
                         if(!$extend_id){
                             $this->delete($base_id);
                             $this->error = '新增扩展内容出错！';
@@ -80,7 +80,7 @@ class DocumentModel extends Model{
                 }else{
                     $status = $this->save(); //更新基础内容
                     if($status){
-                        $status = $extend_document_model->save(); //更新基础内容
+                        $status = $document_extend_object->save(); //更新基础内容
                         if(false === $status){
                             $this->error = '更新扩展内容出错！';
                             return false;
@@ -103,9 +103,9 @@ class DocumentModel extends Model{
             return false;
         }
         $category_info = D('Category')->find($info['cid']);
-        $doc_type = D('Type')->where(array('id' => $category_info['doc_type']))->getField('name');
-        $extend_document_model = D('Document'.$doc_type);
-        $extend_data = $extend_document_model->find($id);
+        $doc_type = D('DocumentType')->where(array('id' => $category_info['doc_type']))->getField('name');
+        $document_extend_object = D('DocumentExtend'.$doc_type);
+        $extend_data = $document_extend_object->find($id);
         if(is_array($extend_data)){
             $info = array_merge($info, $extend_data);
         }

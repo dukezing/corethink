@@ -56,17 +56,17 @@ class UserCommentController extends AdminController{
      */
     public function add(){
         if(IS_POST){
-            $user_comment_model = D('UserComment');
-            $data = $user_comment_model->create();
+            $user_comment_object = D('UserComment');
+            $data = $user_comment_object->create();
             if($data){
-                $id = $user_comment_model->add();
+                $id = $user_comment_object->add();
                 if($id){
                     $this->success('新增成功', U('index'));
                 }else{
                     $this->error('新增失败');
                 }
             }else{
-                $this->error($user_comment_model->getError());
+                $this->error($user_comment_object->getError());
             }
         }else{
             //使用FormBuilder快速建立表单页面。
@@ -87,16 +87,16 @@ class UserCommentController extends AdminController{
      */
     public function edit($id){
         if(IS_POST){
-            $user_comment_model = D('UserComment');
-            $data = $user_comment_model->create();
+            $user_comment_object = D('UserComment');
+            $data = $user_comment_object->create();
             if($data){
-                if($user_comment_model->save()!== false){
+                if($user_comment_object->save()!== false){
                     $this->success('更新成功', U('index'));
                 }else{
                     $this->error('更新失败');
                 }
             }else{
-                $this->error($user_comment_model->getError());
+                $this->error($user_comment_object->getError());
             }
         }else{
             //使用FormBuilder快速建立表单页面。

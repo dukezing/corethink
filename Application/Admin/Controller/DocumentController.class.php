@@ -71,7 +71,7 @@ class DocumentController extends AdminController{
         //获取当前分类
         $cid = I('get.cid');
         $category_info = D('Category')->find($cid);
-        $doc_type = D('Type')->find($category_info['doc_type']);
+        $doc_type = D('DocumentType')->find($category_info['doc_type']);
         $field_sort = json_decode($doc_type['field_sort'], true);
         $field_group = parse_attr($doc_type['field_group']);
 
@@ -79,7 +79,7 @@ class DocumentController extends AdminController{
         $map['status'] = array('eq', '1');
         $map['show'] = array('eq', '1');
         $map['doc_type'] = array('in', '0,'.$category_info['doc_type']);
-        $attribute_list = D('Attribute')->where($map)->select();
+        $attribute_list = D('DocumentAttribute')->where($map)->select();
 
         //解析字段options
         $new_attribute_list = array();
@@ -125,7 +125,7 @@ class DocumentController extends AdminController{
 
         //获取当前分类
         $category_info = D('Category')->find($document_info['cid']);
-        $doc_type = D('Type')->find($category_info['doc_type']);
+        $doc_type = D('DocumentType')->find($category_info['doc_type']);
         $field_sort = json_decode($doc_type['field_sort'], true);
         $field_group = parse_attr($doc_type['field_group']);
 
@@ -133,7 +133,7 @@ class DocumentController extends AdminController{
         $map['status'] = array('eq', '1');
         $map['show'] = array('eq', '1');
         $map['doc_type'] = array('in', '0,'.$category_info['doc_type']);
-        $attribute_list = D('Attribute')->where($map)->select();
+        $attribute_list = D('DocumentAttribute')->where($map)->select();
 
         //解析字段options
         $new_attribute_list = array();
@@ -176,10 +176,10 @@ class DocumentController extends AdminController{
      * @author jry <598821125@qq.com>
      */
     public function update(){
-        $document_model = D('Document');
-        $result = $document_model->update();
+        $document_object = D('Document');
+        $result = $document_object->update();
         if(!$result){
-            $this->error($document_model->getError());
+            $this->error($document_object->getError());
         }else{
             $this->success($result['id']?'更新成功':'新增成功', U('index', array('cid' => $cid)));
         }

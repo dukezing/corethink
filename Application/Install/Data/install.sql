@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.6.21)
 # Database: corethink
-# Generation Time: 2015-05-18 05:21:25 +0000
+# Generation Time: 2015-05-23 11:19:04 +0000
 # ************************************************************
 
 
@@ -92,54 +92,6 @@ CREATE TABLE `ct_addon_sync_login` (
 
 
 
-# Dump of table ct_attribute
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `ct_attribute`;
-
-CREATE TABLE `ct_attribute` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(30) NOT NULL DEFAULT '' COMMENT '字段名',
-  `title` varchar(100) NOT NULL DEFAULT '' COMMENT '字段标题',
-  `field` varchar(100) NOT NULL DEFAULT '' COMMENT '字段定义',
-  `type` varchar(20) NOT NULL DEFAULT '' COMMENT '数据类型',
-  `value` varchar(100) NOT NULL DEFAULT '' COMMENT '字段默认值',
-  `tip` varchar(100) NOT NULL DEFAULT '' COMMENT '备注',
-  `show` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '是否显示',
-  `options` varchar(255) NOT NULL DEFAULT '' COMMENT '参数',
-  `doc_type` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '模型id',
-  `ctime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
-  `utime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
-  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='文档属性字段表';
-
-LOCK TABLES `ct_attribute` WRITE;
-/*!40000 ALTER TABLE `ct_attribute` DISABLE KEYS */;
-
-INSERT INTO `ct_attribute` (`id`, `name`, `title`, `field`, `type`, `value`, `tip`, `show`, `options`, `doc_type`, `ctime`, `utime`, `status`)
-VALUES
-	(1,'cid','分类','int(11) unsigned NOT NULL ','select','','所属分类',1,'',0,1383891233,1384508336,1),
-	(2,'uid','用户ID','int(11) unsigned NOT NULL ','num','','用户ID',0,'',0,1383891233,1384508336,1),
-	(3,'doc_type','文档类型ID','int(10) unsigned NOT NULL ','num','0','文档类型ID',0,'',0,1383891233,1384508323,1),
-	(4,'title','标题','char(80) NOT NULL ','text','','文档标题',1,'',0,1383891233,1383894778,1),
-	(5,'view','阅读量','varchar(255) NOT NULL','num','','标签',0,'',0,1413303715,1413303715,1),
-	(6,'comment','评论数','int(11) unsigned NOT NULL ','num','','评论数',0,'',0,1383891233,1383894927,1),
-	(7,'good','赞数','int(11) unsigned NOT NULL ','num','0','赞数',0,'',0,1383891233,1384147827,1),
-	(8,'bad','踩数','int(11) unsigned NOT NULL ','num','','踩数',0,'',0,1407646362,1407646362,1),
-	(9,'ctime','创建时间','int(11) unsigned NOT NULL ','time','','创建时间',1,'',0,1383891233,1383895903,1),
-	(10,'utime','更新时间','int(11) unsigned NOT NULL ','time','','更新时间',0,'',0,1383891233,1384508277,1),
-	(11,'sort','排序','int(11) unsigned NOT NULL ','num','0','用于显示的顺序',1,'',0,1383891233,1383895757,1),
-	(12,'status','数据状态','tinyint(4) NOT NULL ','radio','1','',0,'-1:删除\r\n0:禁用\r\n1:正常',0,1383891233,1384508496,1),
-	(13,'abstract','简介','vachar(255) NOT NULL','textarea','','文档简介',1,'',3,1383891233,1384508496,1),
-	(14,'content','正文内容','text','kindeditor','','文章正文内容',1,'',3,1383891233,1384508496,1),
-	(15,'tags','文章标签','vachar(128) NOT NULL','tag','','标签',1,'',3,1383891233,1384508496,1),
-	(16,'cover','封面','int(11) unsigned NOT NULL ','picture','','文档封面',1,'',3,1383891233,1384508496,1);
-
-/*!40000 ALTER TABLE `ct_attribute` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
 # Dump of table ct_category
 # ------------------------------------------------------------
 
@@ -196,12 +148,59 @@ CREATE TABLE `ct_document` (
 
 
 
-# Dump of table ct_document_article
+# Dump of table ct_document_attribute
 # ------------------------------------------------------------
 
-DROP TABLE IF EXISTS `ct_document_article`;
+DROP TABLE IF EXISTS `ct_document_attribute`;
 
-CREATE TABLE `ct_document_article` (
+CREATE TABLE `ct_document_attribute` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL DEFAULT '' COMMENT '字段名',
+  `title` varchar(100) NOT NULL DEFAULT '' COMMENT '字段标题',
+  `field` varchar(100) NOT NULL DEFAULT '' COMMENT '字段定义',
+  `type` varchar(20) NOT NULL DEFAULT '' COMMENT '数据类型',
+  `value` varchar(100) NOT NULL DEFAULT '' COMMENT '字段默认值',
+  `tip` varchar(100) NOT NULL DEFAULT '' COMMENT '备注',
+  `show` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '是否显示',
+  `options` varchar(255) NOT NULL DEFAULT '' COMMENT '参数',
+  `doc_type` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '文档模型',
+  `ctime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `utime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='文档属性字段表';
+
+LOCK TABLES `ct_document_attribute` WRITE;
+/*!40000 ALTER TABLE `ct_document_attribute` DISABLE KEYS */;
+
+INSERT INTO `ct_document_attribute` (`id`, `name`, `title`, `field`, `type`, `value`, `tip`, `show`, `options`, `doc_type`, `ctime`, `utime`, `status`)
+VALUES
+	(1,'cid','分类','int(11) unsigned NOT NULL ','select','','所属分类',1,'',0,1383891233,1384508336,1),
+	(2,'uid','用户ID','int(11) unsigned NOT NULL ','num','','用户ID',0,'',0,1383891233,1384508336,1),
+	(3,'title','标题','char(80) NOT NULL ','text','','文档标题',1,'',0,1383891233,1383894778,1),
+	(4,'view','阅读量','varchar(255) NOT NULL','num','','标签',0,'',0,1413303715,1413303715,1),
+	(5,'comment','评论数','int(11) unsigned NOT NULL ','num','','评论数',0,'',0,1383891233,1383894927,1),
+	(6,'good','赞数','int(11) unsigned NOT NULL ','num','0','赞数',0,'',0,1383891233,1384147827,1),
+	(7,'bad','踩数','int(11) unsigned NOT NULL ','num','','踩数',0,'',0,1407646362,1407646362,1),
+	(8,'ctime','创建时间','int(11) unsigned NOT NULL ','time','','创建时间',1,'',0,1383891233,1383895903,1),
+	(9,'utime','更新时间','int(11) unsigned NOT NULL ','time','','更新时间',0,'',0,1383891233,1384508277,1),
+	(10,'sort','排序','int(11) unsigned NOT NULL ','num','0','用于显示的顺序',1,'',0,1383891233,1383895757,1),
+	(11,'status','数据状态','tinyint(4) NOT NULL ','radio','1','',0,'-1:删除\r\n0:禁用\r\n1:正常',0,1383891233,1384508496,1),
+	(12,'abstract','简介','vachar(255) NOT NULL','textarea','','文档简介',1,'',3,1383891233,1384508496,1),
+	(13,'content','正文内容','text','kindeditor','','文章正文内容',1,'',3,1383891233,1384508496,1),
+	(14,'tags','文章标签','vachar(128) NOT NULL','tag','','标签',1,'',3,1383891233,1384508496,1),
+	(15,'cover','封面','int(11) unsigned NOT NULL ','picture','','文档封面',1,'',3,1383891233,1384508496,1);
+
+/*!40000 ALTER TABLE `ct_document_attribute` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# Dump of table ct_document_extend_article
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `ct_document_extend_article`;
+
+CREATE TABLE `ct_document_extend_article` (
   `id` int(11) unsigned NOT NULL COMMENT '文档ID',
   `tags` varchar(128) NOT NULL DEFAULT '' COMMENT '标签',
   `abstract` varchar(255) NOT NULL DEFAULT '' COMMENT '简介',
@@ -210,6 +209,38 @@ CREATE TABLE `ct_document_article` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='文章类型扩展表';
 
+
+
+# Dump of table ct_document_type
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `ct_document_type`;
+
+CREATE TABLE `ct_document_type` (
+  `id` tinyint(4) unsigned NOT NULL AUTO_INCREMENT COMMENT '模型ID',
+  `name` char(16) NOT NULL DEFAULT '' COMMENT '模型名称',
+  `title` char(16) NOT NULL DEFAULT '' COMMENT '模型标题',
+  `icon` varchar(32) NOT NULL DEFAULT '' COMMENT '缩略图',
+  `field_sort` text NOT NULL COMMENT '表单字段排序',
+  `field_group` varchar(255) NOT NULL DEFAULT '' COMMENT '表单字段分组',
+  `ctime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `utime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改时间',
+  `sort` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='文档模型表';
+
+LOCK TABLES `ct_document_type` WRITE;
+/*!40000 ALTER TABLE `ct_document_type` DISABLE KEYS */;
+
+INSERT INTO `ct_document_type` (`id`, `name`, `title`, `icon`, `field_sort`, `field_group`, `ctime`, `utime`, `sort`, `status`)
+VALUES
+	(1,'Link','链接','icon-link','','',1426580628,1426580628,0,1),
+	(2,'Page','单页','icon-file','','',1426580628,1426580628,0,1),
+	(3,'Article','文章','icon-edit','{\"1\":[\"1\",\"3\",\"12\",\"13\",\"14\",\"15\"],\"2\":[\"10\",\"8\"]}','1:基础\n2:扩展',1426580628,1426580628,0,1);
+
+/*!40000 ALTER TABLE `ct_document_type` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table ct_system_config
@@ -354,8 +385,8 @@ VALUES
 	(73,43,'文档列表','Document/index','',1427475588,1427475588,4,1),
 	(74,73,'添加','Document/add','',1426580628,1426580628,1,1),
 	(75,73,'编辑','Document/edit','',1426580628,1426580628,2,1),
-	(76,73,'移动','Document/move','',1426580628,1426580628,3,1),
-	(77,73,'设置状态','Document/setStatus','',1426580628,1426580628,3,1);
+	(76,73,'设置状态','Document/setStatus','',1426580628,1426580628,3,1),
+	(78,7,'模型管理','DocumentType/index','icon-th',1432053257,1432053315,2,1);
 
 /*!40000 ALTER TABLE `ct_system_menu` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -378,38 +409,6 @@ CREATE TABLE `ct_tag` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='标签表';
 
-
-
-# Dump of table ct_type
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `ct_type`;
-
-CREATE TABLE `ct_type` (
-  `id` tinyint(4) unsigned NOT NULL AUTO_INCREMENT COMMENT '模型ID',
-  `name` char(16) NOT NULL DEFAULT '' COMMENT '模型名称',
-  `title` char(16) NOT NULL DEFAULT '' COMMENT '模型标题',
-  `icon` varchar(32) NOT NULL DEFAULT '' COMMENT '缩略图',
-  `field_sort` text NOT NULL COMMENT '表单字段排序',
-  `field_group` varchar(255) NOT NULL DEFAULT '1:基础,2:扩展',
-  `ctime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
-  `utime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改时间',
-  `sort` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
-  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='文档模型表';
-
-LOCK TABLES `ct_type` WRITE;
-/*!40000 ALTER TABLE `ct_type` DISABLE KEYS */;
-
-INSERT INTO `ct_type` (`id`, `name`, `title`, `icon`, `field_sort`, `field_group`, `ctime`, `utime`, `sort`, `status`)
-VALUES
-	(1,'Link','链接','icon-link','','',1426580628,1426580628,0,1),
-	(2,'Page','单页','icon-file','','',1426580628,1426580628,0,1),
-	(3,'Article','文章','icon-edit','{\"1\":[\"1\",\"4\",\"13\",\"14\",\"15\",\"16\"],\"2\":[\"11\",\"9\"]}','1:基础\n2:扩展',1426580628,1426580628,0,1);
-
-/*!40000 ALTER TABLE `ct_type` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump of table ct_upload
@@ -472,7 +471,7 @@ LOCK TABLES `ct_user` WRITE;
 
 INSERT INTO `ct_user` (`id`, `username`, `email`, `mobile`, `password`, `group`, `avatar`, `score`, `money`, `sex`, `age`, `birthday`, `summary`, `extend`, `login`, `last_login_time`, `last_login_ip`, `reg_ip`, `ctime`, `utime`, `sort`, `status`)
 VALUES
-	(1,'admin','598821125@qq.com','15005173785','79cc780bd21b161230268824080b8476',1,0,0,0,'0',0,0,'','',3,1431919185,2130706433,0,0,0,0,1);
+	(1,'admin','598821125@qq.com','15005173785','79cc780bd21b161230268824080b8476',1,0,0,0,'0',0,0,'','',7,1432362010,2130706433,0,0,0,0,1);
 
 /*!40000 ALTER TABLE `ct_user` ENABLE KEYS */;
 UNLOCK TABLES;

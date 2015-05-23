@@ -20,7 +20,7 @@ class IndexController extends AdminController{
     public function index(){
         $today = strtotime(date('Y-m-d', time())); //今天
         $count_day = 15; //查询最近n天
-        $user_model = D('User');
+        $user_object = D('User');
         for($i = $count_day; $i--; $i >= 0){
             $day = $today - $i * 86400; //n天前日期
             $day_after = $today - ($i - 1) * 86400; //n-1天前日期
@@ -29,7 +29,7 @@ class IndexController extends AdminController{
                 array('lt', $day_after)
             );
             $user_reg_date[] = date('m月d日', $day);
-            $user_reg_count[] = (int)$user_model->where($map)->count();
+            $user_reg_count[] = (int)$user_object->where($map)->count();
         }
         $this->assign('count_day', $count_day);
         $this->assign('user_reg_date', json_encode($user_reg_date));

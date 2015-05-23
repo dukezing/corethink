@@ -59,17 +59,17 @@ class SystemMenuController extends AdminController{
      */
     public function add(){
         if(IS_POST){
-            $menu_model = D('SystemMenu');
-            $data = $menu_model->create();
+            $menu_object = D('SystemMenu');
+            $data = $menu_object->create();
             if($data){
-                $id = $menu_model->add();
+                $id = $menu_object->add();
                 if($id){
                     $this->success('新增成功', U('index'));
                 }else{
                     $this->error('新增失败');
                 }
             }else{
-                $this->error($menu_model->getError());
+                $this->error($menu_object->getError());
             }
         }else{
             //使用FormBuilder快速建立表单页面。
@@ -91,16 +91,16 @@ class SystemMenuController extends AdminController{
      */
     public function edit($id){
         if(IS_POST){
-            $menu_model = D('SystemMenu');
-            $data = $menu_model->create();
+            $menu_object = D('SystemMenu');
+            $data = $menu_object->create();
             if($data){
-                if($menu_model->save()!== false){
+                if($menu_object->save()!== false){
                     $this->success('更新成功', U('index'));
                 }else{
                     $this->error('更新失败');
                 }
             }else{
-                $this->error($menu_model->getError());
+                $this->error($menu_object->getError());
             }
         }else{
             //使用FormBuilder快速建立表单页面。

@@ -60,17 +60,17 @@ class SystemConfigController extends AdminController{
      */
     public function add(){
         if(IS_POST){
-            $config_model = D('SystemConfig');
-            $data = $config_model->create();
+            $config_object = D('SystemConfig');
+            $data = $config_object->create();
             if($data){
-                if($config_model->add()){
+                if($config_object->add()){
                     S('DB_CONFIG_DATA',null);
                     $this->success('新增成功', U('index'));
                 }else{
                     $this->error('新增失败');
                 }
             }else{
-                $this->error($config_model->getError());
+                $this->error($config_object->getError());
             }
         }else{
             //使用FormBuilder快速建立表单页面。
@@ -95,17 +95,17 @@ class SystemConfigController extends AdminController{
      */
     public function edit($id){
         if(IS_POST){
-            $config_model = D('SystemConfig');
-            $data = $config_model->create();
+            $config_object = D('SystemConfig');
+            $data = $config_object->create();
             if($data){
-                if($config_model->save()){
+                if($config_object->save()){
                     S('DB_CONFIG_DATA',null);
                     $this->success('更新成功', U('index'));
                 }else{
                     $this->error('更新失败');
                 }
             }else{
-                $this->error($config_model->getError());
+                $this->error($config_object->getError());
             }
         }else{
             //使用FormBuilder快速建立表单页面。
@@ -158,10 +158,10 @@ class SystemConfigController extends AdminController{
      */
     public function save($config){
         if($config && is_array($config)){
-            $config_model = D('SystemConfig');
+            $config_object = D('SystemConfig');
             foreach ($config as $name => $value){
                 $map = array('name' => $name);
-                $config_model->where($map)->setField('value', $value);
+                $config_object->where($map)->setField('value', $value);
             }
         }
         S('DB_CONFIG_DATA',null);

@@ -60,17 +60,17 @@ class CategoryController extends AdminController{
      */
     public function add(){
         if(IS_POST){
-            $category_model = D('Category');
-            $data = $category_model->create();
+            $category_object = D('Category');
+            $data = $category_object->create();
             if($data){
-                $id = $category_model->add();
+                $id = $category_object->add();
                 if($id){
                     $this->success('新增成功', U('index'));
                 }else{
                     $this->error('新增失败');
                 }
             }else{
-                $this->error($category_model->getError());
+                $this->error($category_object->getError());
             }
         }else{
             //使用FormBuilder快速建立表单页面。
@@ -79,7 +79,7 @@ class CategoryController extends AdminController{
                     ->setUrl(U('add')) //设置表单提交地址
                     ->addItem('pid', 'select', '上级分类', '所属的上级分类', array_merge(array(0 => '顶级分类'), $this->selectListAsTree('Category')))
                     ->addItem('title', 'text', '分类标题', '分类标题')
-                    ->addItem('doc_type', 'select', '分类内容模型', '分类内容模型', $this->selectListAsTree('Type'))
+                    ->addItem('doc_type', 'select', '分类内容模型', '分类内容模型', $this->selectListAsTree('DocumentType'))
                     ->addItem('url', 'text', '链接', 'U函数解析的URL或者外链', null, 'hidden')
                     ->addItem('content', 'kindeditor', '内容', '单页模型填写内容', null, 'hidden')
                     ->addItem('template', 'text', '模版', '单页使用的模版或其他模型文档列表模版')
@@ -96,16 +96,16 @@ class CategoryController extends AdminController{
      */
     public function edit($id){
         if(IS_POST){
-            $category_model = D('Category');
-            $data = $category_model->create();
+            $category_object = D('Category');
+            $data = $category_object->create();
             if($data){
-                if($category_model->save()!== false){
+                if($category_object->save()!== false){
                     $this->success('更新成功', U('index'));
                 }else{
                     $this->error('更新失败');
                 }
             }else{
-                $this->error($category_model->getError());
+                $this->error($category_object->getError());
             }
         }else{
             $info = D('Category')->find($id);
@@ -116,7 +116,7 @@ class CategoryController extends AdminController{
                     ->addItem('id', 'hidden', 'ID', 'ID')
                     ->addItem('pid', 'select', '上级分类', '所属的上级分类', array_merge(array(0 => '顶级分类'), $this->selectListAsTree('Category')))
                     ->addItem('title', 'text', '分类标题', '分类标题')
-                    ->addItem('doc_type', 'select', '分类内容模型', '分类内容模型', $this->selectListAsTree('Type'))
+                    ->addItem('doc_type', 'select', '分类内容模型', '分类内容模型', $this->selectListAsTree('DocumentType'))
                     ->addItem('url', 'text', '链接', 'U函数解析的URL或者外链', null, $info['model'] == 1 ? : 'hidden')
                     ->addItem('content', 'kindeditor', '内容', '单页模型填写内容', null, $info['model'] == 2 ? : 'hidden')
                     ->addItem('template', 'text', '模版', '单页使用的模版或其他模型文档列表模版')
@@ -133,13 +133,13 @@ class CategoryController extends AdminController{
      * @author jry <598821125@qq.com>
      */
     public function del($id){
-        $category_model = D('Category');
-        $category_type = $category_model->getCategoryById($id, 'type');
-        $category_type_name = D('Type')->getTypeNameById($category_type);
+        $category_object = D('Category');
+        $category_type = $category_object->getCategoryById($id, 'type');
+        $category_type_name = D('DocumentType')->getTypeNameById($category_type);
         $condition['cid'] = $id;
         $count = D($category_type_name)->where($condition)->count();
         if($count == 0){
-            $result = $category_model->delete($id);
+            $result = $category_object->delete($id);
             if($result){
                 $this->success('删除分类成功');
             }

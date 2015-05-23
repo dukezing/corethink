@@ -58,18 +58,18 @@ class UserGroupController extends AdminController{
      */
     public function add(){
         if(IS_POST){
-            $group_model = D('UserGroup');
+            $user_group_object = D('UserGroup');
             $_POST['auth']= implode(',', I('post.auth'));
-            $data = $group_model->create();
+            $data = $user_group_object->create();
             if($data){
-                $id = $group_model->add();
+                $id = $user_group_object->add();
                 if($id){
                     $this->success('新增成功', U('index'));
                 }else{
                     $this->error('新增失败');
                 }
             }else{
-                $this->error($group_model->getError());
+                $this->error($user_group_object->getError());
             }
         }else{
             $map['status'] = array('egt', 0);
@@ -87,17 +87,17 @@ class UserGroupController extends AdminController{
      */
     public function edit($id){
         if(IS_POST){
-            $group_model = D('UserGroup');
+            $user_group_object = D('UserGroup');
             $_POST['auth']= implode(',', I('post.auth'));
-            $data = $group_model->create();
+            $data = $user_group_object->create();
             if($data){
-                if($group_model->save()!== false){
+                if($user_group_object->save()!== false){
                     $this->success('更新成功', U('index'));
                 }else{
                     $this->error('更新失败');
                 }
             }else{
-                $this->error($group_model->getError());
+                $this->error($user_group_object->getError());
             }
         }else{
             $info = D('UserGroup')->find($id);

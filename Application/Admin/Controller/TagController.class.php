@@ -56,17 +56,17 @@ class TagController extends AdminController{
      */
     public function add(){
         if(IS_POST){
-            $tag_model = D('Tag');
-            $data = $tag_model->create();
+            $tag_object = D('Tag');
+            $data = $tag_object->create();
             if($data){
-                $id = $tag_model->add();
+                $id = $tag_object->add();
                 if($id){
                     $this->success('新增成功', U('index'));
                 }else{
                     $this->error('新增失败');
                 }
             }else{
-                $this->error($tag_model->getError());
+                $this->error($tag_object->getError());
             }
         }else{
             //使用FormBuilder快速建立表单页面。
@@ -85,16 +85,16 @@ class TagController extends AdminController{
      */
     public function edit(){
         if(IS_POST){
-            $tag_model = D('Tag');
-            $data = $tag_model->create();
+            $tag_object = D('Tag');
+            $data = $tag_object->create();
             if($data){
-                if($tag_model->save()!== false){
+                if($tag_object->save()!== false){
                     $this->success('更新成功', U('index'));
                 }else{
                     $this->error('更新失败');
                 }
             }else{
-                $this->error($tag_model->getError());
+                $this->error($tag_object->getError());
             }
         }else{
             //使用FormBuilder快速建立表单页面。
