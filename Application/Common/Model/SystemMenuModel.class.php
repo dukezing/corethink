@@ -35,38 +35,6 @@ class SystemMenuModel extends Model{
     );
 
     /**
-     * 根据ID获取菜单
-     * @author jry <598821125@qq.com>
-     */
-    public function getMenuById($id, $field){
-        $map['id'] = array('eq', $id);
-        $menu_info = $this->where($map)->find();
-        if($field){
-            return $menu_info[$field];
-        }
-        return $menu_info;
-    }
-
-    /**
-     * 获取所有菜单
-     * @author jry <598821125@qq.com>
-     */
-    public function getAllMenu($map, $status = '0,1'){
-        $map['status'] = array('in', $status);
-        return $this->where($map)->order('sort asc,id asc')->select();
-    }
-
-    /**
-     * 根据PID获取不同级别的菜单
-     * @author jry <598821125@qq.com>
-     */
-    public function getMenuByPid($pid = 0){
-        $map['pid'] = array('eq', $pid);
-        $map['status'] = array('eq', 1);
-        return $this->where($map)->order('sort asc,id asc')->select();
-    }
-
-    /**
      * 根据id获取当前菜单的顶级菜单
      * @author jry <598821125@qq.com>
      */
@@ -102,8 +70,9 @@ class SystemMenuModel extends Model{
         if(empty($id)){
             return false;
         }
-        $menus = $this->getAllMenu();
-        $child = $this->field('id,pid,title,url')->getMenuById($id); //获取信息
+        $map['status'] = array('eq', 1);
+        $menus = $this->where($map)->select();
+        $child = $this->field('id,pid,title,url')->find($id); //获取信息
         $pid   = $child['pid'];
         $temp  = array();
         $res[] = $child;

@@ -133,7 +133,7 @@
                             </div>
                             <script type="text/javascript">
                                 $('#upload_{$key}').Huploadify({
-                                    uploader:'{:U("Index/upload")}',
+                                    uploader:'{:U("Upload/upload")}',
                                     fileTypeExts:'*.gif;*.jpg;*.jpeg;*.png;*.bmp',
                                     fileSizeLimit:{:C('UPLOAD_IMAGE_SIZE')}*1024,
                                     buttonText:'上 传 图 片',
@@ -169,9 +169,9 @@
                                                 'fontname','fontsize','|','forecolor','hilitecolor','bold','italic','underline','strikethrough',
                                                 'lineheight','removeformat','|','image','multiimage','flash','media','insertfile','table','hr',
                                                 'emoticons','baidumap','pagebreak','anchor','link','unlink','poll','|','about'],
-                                        fileManagerJson : '{:U("Index/fileManager")}',
-                                        uploadJson : '{:U("Index/upload")}',
-                                        remoteImgSaveUrl: '{:U("Index/downremoteimg")}',
+                                        fileManagerJson : '{:U("Upload/fileManager")}',
+                                        uploadJson : '{:U("Upload/upload")}',
+                                        remoteImgSaveUrl: '{:U("Upload/downremoteimg")}',
                                         extraFileUploadParams: {
                                             session_id : '{:session_id()}'
                                         },
@@ -332,7 +332,7 @@
                                                                 <script type="text/javascript" src="__PUBLIC__/huploadify/huploadify.js" charset="utf-8"></script>
                                                                 <script type="text/javascript">
                                                                     $('#upload_{$tab_key}').Huploadify({
-                                                                        uploader:'{:U("Index/upload")}',
+                                                                        uploader:'{:U("Upload/upload")}',
                                                                         fileTypeExts:'*.gif;*.jpg;*.jpeg;*.png;*.bmp',
                                                                         fileSizeLimit:{:C('UPLOAD_IMAGE_SIZE')}*1024,
                                                                         buttonText:'上 传 图 片',
@@ -368,9 +368,9 @@
                                                                                     'fontname','fontsize','|','forecolor','hilitecolor','bold','italic','underline','strikethrough',
                                                                                     'lineheight','removeformat','|','image','multiimage','flash','media','insertfile','table','hr',
                                                                                     'emoticons','baidumap','pagebreak','anchor','link','unlink','poll','|','about'],
-                                                                            fileManagerJson : '{:U("Index/fileManager")}',
-                                                                            uploadJson : '{:U("Index/upload")}',
-                                                                            remoteImgSaveUrl: '{:U("Index/downremoteimg")}',
+                                                                            fileManagerJson : '{:U("Upload/fileManager")}',
+                                                                            uploadJson : '{:U("Upload/upload")}',
+                                                                            remoteImgSaveUrl: '{:U("Upload/downremoteimg")}',
                                                                             extraFileUploadParams: {
                                                                                 session_id : '{:session_id()}'
                                                                             },

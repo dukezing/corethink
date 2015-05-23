@@ -1,12 +1,10 @@
 <?php
 // +----------------------------------------------------------------------
-// | ThinkPHP [ WE CAN DO IT JUST THINK IT ]
+// | CoreThink [ Simple Efficient Excellent ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2006-2014 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2014 http://www.corethink.cn All rights reserved.
 // +----------------------------------------------------------------------
-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
-// +----------------------------------------------------------------------
-// | Author: liu21st <liu21st@gmail.com>
+// | Author: jry <598821125@qq.com> <http://www.corethink.cn>
 // +----------------------------------------------------------------------
 
 /**

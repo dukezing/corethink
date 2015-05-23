@@ -8,7 +8,9 @@
 // +----------------------------------------------------------------------
 const THINK_ADDON_PATH = './Addons/';
 return array(
-    //数据库配置
+    //CoreThink当前版本
+    'CORETHINK_VERSION' => '1.0Beta',
+
     'DB_TYPE'   => $_SERVER[ENV_PRE.'DB_TYPE'] ? : '[DB_TYPE]', // 数据库类型
     'DB_HOST'   => $_SERVER[ENV_PRE.'DB_HOST'] ? : '[DB_HOST]', // 服务器地址
     'DB_NAME'   => $_SERVER[ENV_PRE.'DB_NAME'] ? : '[DB_NAME]', // 数据库名
@@ -18,25 +20,19 @@ return array(
     'DB_PREFIX' => $_SERVER[ENV_PRE.'DB_PREFIX'] ? : '[DB_PREFIX]', // 数据库表前缀
 
     //URL模式
-    'URL_MODEL' => 2,
-
-    //CoreThink当前版本
-    'CORETHINK_VERSION' => '1.0Beta',
-
-    //后台分页每页行数数
-    'ADMIN_PAGE_ROWS' => 10,
+    'URL_MODEL' => '3',
 
     //全局过滤配置
     'DEFAULT_FILTER' => '', //默认为htmlspecialchars
+
+    //URL配置
+    'URL_CASE_INSENSITIVE' => true, //不区分大小写
 
     //应用配置
     'DEFAULT_MODULE'     => 'Home',
     'MODULE_DENY_LIST'   => array('Common'),
     'MODULE_ALLOW_LIST'  => array('Home','Admin','Install'),
     'AUTOLOAD_NAMESPACE' => array('Addons' => THINK_ADDON_PATH), //扩展模块列表
-
-    //URL配置
-    'URL_CASE_INSENSITIVE' => true, //默认false 表示URL区分大小写 true则表示不区分大小写
 
     //表单类型
     'FORM_ITEM_TYPE' => array(
@@ -49,6 +45,7 @@ return array(
         'radio'      => '单选按钮',
         'checkbox'   => '复选框',
         'select'     => '下拉框',
+        'icon'       => '图标',
         'date  '     => '日期',
         'datetime'   => '时间',
         'picture'    => '图片',
@@ -59,7 +56,7 @@ return array(
     //文件上传相关配置
     'UPLOAD_CONFIG' => array(
         'mimes'    => '', //允许上传的文件MiMe类型
-        'maxSize'  => 2*1024*1024, //上传的文件大小限制 (0-不做限制)
+        'maxSize'  => 2*1024*1024, //上传的文件大小限制 (0-不做限制，默认为2M，后台配置会覆盖此值)
         'autoSub'  => true, //自动子目录保存文件
         'subName'  => array('date', 'Y-m-d'), //子目录创建方式，[0]-函数名，[1]-参数，多个参数使用数组
         'rootPath' => './Uploads/', //保存根路径

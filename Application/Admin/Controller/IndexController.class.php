@@ -51,28 +51,4 @@ class IndexController extends AdminController{
             $this->error("缓存清理失败");
         }
     }
-
-    /**
-     * 编辑器上传
-     * @author jry <598821125@qq.com>
-     */
-    public function upload(){
-        exit(D('Upload')->upload());
-    }
-
-    /**
-     * KindEditor编辑器下载远程图片
-     * @author jry <598821125@qq.com>
-     */
-    public function downremoteimg(){
-        exit(D('Upload')->downremoteimg());
-    }
-
-    /**
-     * KindEditor编辑器文件管理
-     * @author jry <598821125@qq.com>
-     */
-    public function fileManager(){
-        exit(D('Upload')->fileManager());
-    }
 }

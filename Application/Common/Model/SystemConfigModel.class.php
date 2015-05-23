@@ -44,7 +44,7 @@ class SystemConfigModel extends Model{
      * @author jry <598821125@qq.com>
      */
     public function lists(){
-        $map  = array('status' => 1);
+        $map['status']  = array('eq', 1);
         $list = $this->where($map)->field('name,value,type')->select();
         foreach ($list as $key => $val){
             if($val['type'] === 'array'){ //数组类型需要解析配置的value

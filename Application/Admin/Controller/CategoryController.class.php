@@ -134,10 +134,11 @@ class CategoryController extends AdminController{
      */
     public function del($id){
         $category_object = D('Category');
-        $category_type = $category_object->getCategoryById($id, 'type');
-        $category_type_name = D('DocumentType')->getTypeNameById($category_type);
+        $category_info = $category_object->find($id);
+        $con['id'] = $category_info['doc_type'];
+        $category_type = D('DocumentType')->where($con)->getField('name');
         $condition['cid'] = $id;
-        $count = D($category_type_name)->where($condition)->count();
+        $count = D('Document')->where($condition)->count();
         if($count == 0){
             $result = $category_object->delete($id);
             if($result){

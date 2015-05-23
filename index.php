@@ -49,7 +49,7 @@ define('HTML_PATH', RUNTIME_PATH.'Html/');
 /**
  * 系统安装及开发模式检测
  */
-if(is_file('./Conf/install.lock') === false && $_SERVER[ENV_PRE.'DEV_MODE'] !== 'true'){
+if(is_file(APP_PATH . 'Common/Conf/install.lock') === false && $_SERVER[ENV_PRE.'DEV_MODE'] !== 'true'){
     define('BIND_MODULE','Install');
 }
 

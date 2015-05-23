@@ -55,10 +55,10 @@ function check_env(){
  */
 function check_dirfile(){
     $items = array(
-        array('dir',  '可写', 'ok', './Conf'),
+        array('dir',  '可写', 'ok', APP_PATH . 'Common/Conf'),
+        array('file', '可写', 'ok', APP_PATH . 'Common/Conf/config.php'),
         array('dir',  '可写', 'ok', './Runtime'),
         array('dir',  '可写', 'ok', './Uploads'),
-        array('file', '可写', 'ok', './Conf/config.php'),
     );
 
     foreach ($items as &$val){
@@ -131,7 +131,7 @@ function write_config($config, $auth){
         $conf = str_replace('[AUTH_KEY]', $auth, $conf);
         //写入应用配置文件
 
-        if(file_put_contents('./Conf/config.php', $conf)){
+        if(file_put_contents(APP_PATH . 'Common/Conf/config.php', $conf)){
             show_msg('配置文件写入成功');
         }else{
             show_msg('配置文件写入失败！', 'error');

@@ -49,7 +49,7 @@
                     <script type="text/javascript" src="__PUBLIC__/huploadify/huploadify.js" charset="utf-8"></script>
                     <script type="text/javascript">
                         $('#upload').Huploadify({
-                            uploader:'{:U("Index/upload")}',
+                            uploader:'{:U("Upload/upload")}',
                             fileTypeExts:'*.gif;*.jpg;*.jpeg;*.png;*.bmp',
                             fileSizeLimit:{:C('UPLOAD_IMAGE_SIZE')}*1024,
                             buttonText:'上 传 图 片',
@@ -93,9 +93,9 @@
                 pasteType : 2,
                 urlType : 'absolute',
                 items : [{:C('EDITOR_STYLE_DEFAULT')}],
-                fileManagerJson : '{:U("Index/fileManager")}',
-                uploadJson : '{:U("Index/upload")}',
-                remoteImgSaveUrl: '{:U("Index/downremoteimg")}',
+                fileManagerJson : '{:U("Upload/fileManager")}',
+                uploadJson : '{:U("Upload/upload")}',
+                remoteImgSaveUrl: '{:U("Upload/downremoteimg")}',
                 extraFileUploadParams: {
                     session_id : '{:session_id()}'
                 },

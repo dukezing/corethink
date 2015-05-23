@@ -27,7 +27,7 @@ class IndexController extends Controller {
             $this->error('请正确安装系统', U('Install/step'.$step));
         }
         //写入安装锁定文件
-        Storage::put('./Conf/install.lock', 'lock');
+        Storage::put(APP_PATH . 'Common/Conf/install.lock', 'lock');
         session('step', null);
         session('error', null);
         $this->display();

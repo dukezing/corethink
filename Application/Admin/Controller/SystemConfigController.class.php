@@ -147,7 +147,7 @@ class SystemConfigController extends AdminController{
         $builder->title('系统设置')  //设置页面标题
                 ->SetTablist(C('CONFIG_GROUP_LIST')) //设置Tab按钮列表
                 ->SetCurrentTab($tab) //设置当前Tab
-                ->setUrl(U('save')) //设置表单提交地址
+                ->setUrl(U('groupSave')) //设置表单提交地址
                 ->setExtraItems($data_list) //直接设置表单数据
                 ->display();
     }
@@ -156,7 +156,7 @@ class SystemConfigController extends AdminController{
      * 批量保存配置
      * @author jry <598821125@qq.com>
      */
-    public function save($config){
+    public function groupSave($config){
         if($config && is_array($config)){
             $config_object = D('SystemConfig');
             foreach ($config as $name => $value){

@@ -43,7 +43,11 @@ class AdminController extends Controller{
         C($config); //添加配置
 
         //获取菜单导航
-        $all_menu = D('Tree')->list_to_tree(D('SystemMenu')->getAllMenu($map, $status="1")); //所有菜单
+        $map['status'] = array('eq', 1);
+        if(!C('DEVELOP_MODE')){ //是否开启开发者模式
+            $map['dev'] = array('neq', 1);
+        }
+        $all_menu = D('Tree')->list_to_tree(D('SystemMenu')->where($map)->select($map, $status="1")); //所有菜单
         foreach($all_menu as $key => $val){
             $all_menu_list[$val['id']] = $val;
         }
