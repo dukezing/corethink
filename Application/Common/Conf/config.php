@@ -56,6 +56,7 @@ return array(
         'picture'    => '图片',
         'kindeditor' => '编辑器',
         'tag  '      => '标签',
+        'board  '    => '拖动排序',
     ),
 
     //文件上传相关配置

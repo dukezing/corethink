@@ -12,6 +12,7 @@
     <script type="text/javascript" src="__PUBLIC__/chosen/chosen.icons.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="__PUBLIC__/datetimepicker/datetimepicker.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="__PUBLIC__/tokeninput/jquery.tokeninput.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/jquery/jquery.dragsort.min.js"></script>
     <script type="text/javascript">
         $(function(){
             $(".form .controls select.form-control").chosen({disable_search_threshold: 10}); //使用chosen插件接管select
@@ -222,32 +223,38 @@
                                 });
                             </script>
                         </case>
-                        <!-- 标签 -->
+                        <!-- 拖动排序 -->
                         <case value="board">
                             <input type="hidden" name="{$form.name}" value='{$form.value}'>
                             <div class="boards boards_{$key}">
                                 <foreach name="form.options" item="option" key="option_key">
-                                    <div class="board panel" data-id="{$option_key}">
-                                            <div class="panel-heading">
-                                                <strong>{$option.title}</strong>
-                                            </div>
-                                            <div class="panel-body">
-                                                <div class="board-list">
-                                                    <foreach name="option.field" item="option_field" key="option_field_key">
-                                                        <div class="board-item" data-id="{$option_field_key}">{$option_field}</div>
-                                                    </foreach>
-                                                </div>
-                                            </div>
+                                    <div class="board panel" data-id="{$option_key}" style="position:relative">
+                                        <div class="panel-heading">
+                                            <strong>{$option.title}</strong>
                                         </div>
+                                        <div class="panel-body dragsort_{$key}" data-group="{$option_key}">
+                                            <foreach name="option.field" item="option_field" key="option_field_key">
+                                                <div class="board-item">
+                                                    <em data="{$field['id']}">{$option_field}</em>
+                                                    <input type="hidden" name="{$form.name}[{$option_key}][]" value="{$option_field_key}"/>
+                                                </div>
+                                            </foreach>
+                                        </div>
+                                    </div>
                                 </foreach>
                             </div>
                             <script type="text/javascript">
+                                //拖曳插件初始化
                                 $(function(){
-                                    if($.fn.boards) $('.boards_{$key}').boards({
-                                        drop: function(e){
-                                            //$.zui.messager.show(e.element.text() + " 拖放到 " + e.target.closest('.board').find('.panel-heading').text());
-                                        }
-                                    });
+                                    $(".dragsort_{$key}").dragsort({
+                                         dragSelector:'div',
+                                         placeHolderTemplate: '<div class="clearfix draging-place">&nbsp;</div>',
+                                         dragBetween:true, //允许拖动到任意地方
+                                         dragEnd:function(){
+                                             var self = $(this);
+                                             self.find('input').attr('name', '{$form.name}[' + self.closest('.dragsort_{$key}').data('group') + '][]');
+                                         }
+                                     });
                                 });
                             </script>
                         </case>
@@ -445,6 +452,40 @@
                                                                         onAdd: function (item){ //新增系统没有的标签时提交到数据库
                                                                             $.post('{:U("Tag/add")}', {'title': item.title});
                                                                         }
+                                                                    });
+                                                                </script>
+                                                            </case>
+                                                            <!-- 拖动排序 -->
+                                                            <case value="board">
+                                                                <div class="boards boards_{$tab_key}">
+                                                                    <foreach name="tab_form.options" item="option" key="option_key">
+                                                                        <div class="board panel" data-id="{$option_key}" style="position:relative">
+                                                                            <div class="panel-heading">
+                                                                                <strong>{$option.title}</strong>
+                                                                            </div>
+                                                                            <div class="panel-body dragsort_{$tab_key}" data-group="{$option_key}">
+                                                                                <foreach name="option.field" item="option_field" key="option_field_key">
+                                                                                    <div class="board-item">
+                                                                                        <em data="{$option_field_key}">{$option_field}</em>
+                                                                                        <input type="hidden" name="{$tab_form.name}[{$option_key}][]" value="{$option_field_key}"/>
+                                                                                    </div>
+                                                                                </foreach>
+                                                                            </div>
+                                                                        </div>
+                                                                    </foreach>
+                                                                </div>
+                                                                <script type="text/javascript">
+                                                                    //拖曳插件初始化
+                                                                    $(function(){
+                                                                        $(".dragsort_{$tab_key}").dragsort({
+                                                                             dragSelector:'div',
+                                                                             placeHolderTemplate: '<div class="clearfix draging-place">&nbsp;</div>',
+                                                                             dragBetween:true, //允许拖动到任意地方
+                                                                             dragEnd:function(){
+                                                                                 var self = $(this);
+                                                                                 self.find('input').attr('name', '{$tab_form.name}[' + self.closest('.dragsort_{$tab_key}').data('group') + '][]');
+                                                                             }
+                                                                         });
                                                                     });
                                                                 </script>
                                                             </case>

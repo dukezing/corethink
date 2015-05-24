@@ -31,6 +31,7 @@ class DocumentTypeModel extends Model{
      * @author jry <598821125@qq.com>
      */
     protected $_auto = array(
+        array('field_sort', 'json_encode', self::MODEL_UPDATE, 'function'),
         array('ctime', NOW_TIME, self::MODEL_INSERT),
         array('utime', NOW_TIME, self::MODEL_BOTH),
         array('status', '1', self::MODEL_INSERT),
