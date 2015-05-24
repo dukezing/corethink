@@ -222,6 +222,35 @@
                                 });
                             </script>
                         </case>
+                        <!-- 标签 -->
+                        <case value="board">
+                            <input type="hidden" name="{$form.name}" value='{$form.value}'>
+                            <div class="boards boards_{$key}">
+                                <foreach name="form.options" item="option" key="option_key">
+                                    <div class="board panel" data-id="{$option_key}">
+                                            <div class="panel-heading">
+                                                <strong>{$option.title}</strong>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="board-list">
+                                                    <foreach name="option.field" item="option_field" key="option_field_key">
+                                                        <div class="board-item" data-id="{$option_field_key}">{$option_field}</div>
+                                                    </foreach>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </foreach>
+                            </div>
+                            <script type="text/javascript">
+                                $(function(){
+                                    if($.fn.boards) $('.boards_{$key}').boards({
+                                        drop: function(e){
+                                            //$.zui.messager.show(e.element.text() + " 拖放到 " + e.target.closest('.board').find('.panel-heading').text());
+                                        }
+                                    });
+                                });
+                            </script>
+                        </case>
                         <case value="group">
                             <ul class="nav-tabs nav">
                                 <volist name="form.options" id="li">
@@ -328,8 +357,6 @@
                                                                     <input type="hidden" name="{$form.name}" value="{$tab_form.value}">
                                                                     <img style="margin-top:8px;max-height:60px;" src="{$tab_form.value|get_cover}">
                                                                 </div>
-                                                                <link rel="stylesheet" type="text/css" href="__PUBLIC__/huploadify/huploadify.css">
-                                                                <script type="text/javascript" src="__PUBLIC__/huploadify/huploadify.js" charset="utf-8"></script>
                                                                 <script type="text/javascript">
                                                                     $('#upload_{$tab_key}').Huploadify({
                                                                         uploader:'{:U("Upload/upload")}',

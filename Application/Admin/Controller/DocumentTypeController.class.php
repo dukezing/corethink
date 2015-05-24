@@ -101,6 +101,32 @@ class DocumentTypeController extends AdminController{
                 $this->error($document_type_object->getError());
             }
         }else{
+            
+            $document_type_info = D('DocumentType')->find($id);
+            $document_type_field_sort = json_decode($document_type_info['field_sort'], true);
+            $document_type_field_group = parse_attr($document_type_info['field_group']);
+
+            //获取文档字段
+            $map['status'] = array('eq', '1');
+            $map['show'] = array('eq', '1');
+            $map['doc_type'] = array('in', '0,'.$id);
+            $attribute_list = D('DocumentAttribute')->where($map)->select();
+
+            //解析字段
+            $new_attribute_list = array();
+            foreach($attribute_list as $attr){
+                $new_attribute_list[$attr['id']] = $attr['title'];
+            }
+
+            foreach($document_type_field_sort as $key => $val){
+                $field[$key]['title'] = $document_type_field_group[$key];
+                $temp = array();
+                foreach($val as $val2){
+                    $temp[$val2] = $new_attribute_list[$val2];
+                }
+                $field[$key]['field'] = $temp;
+            }
+
             //使用FormBuilder快速建立表单页面。
             $builder = new \Admin\Builder\AdminFormBuilder();
             $builder->title('编辑类型')  //设置页面标题
@@ -111,6 +137,7 @@ class DocumentTypeController extends AdminController{
                     ->addItem('field_group', 'textarea', '字段分组', '字段分组')
                     ->addItem('icon', 'icon', '图标', '类型图标')
                     ->addItem('sort', 'num', '排序', '用于显示的顺序')
+                    ->addItem('field_sort', 'board', '字段排序', '字段排序', $field)
                     ->setFormData(D('DocumentType')->find($id))
                     ->display();
         }
