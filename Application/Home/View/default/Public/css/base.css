@@ -15,6 +15,9 @@ body {
 .card .caption a {
     color: #fff;
 }
+.tab-content{
+    margin-top: 10px;
+}
 pre,
 .btn,
 .alert,

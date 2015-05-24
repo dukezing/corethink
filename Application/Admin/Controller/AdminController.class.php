@@ -86,7 +86,8 @@ class AdminController extends Controller{
                     $this->error('不允许更改超级管理员组状态');
                 break;
         }
-        $map['id'] = array('in',$ids);
+        $model_primary_key = D($model)->getPk();
+        $map[$model_primary_key] = array('in',$ids);
         switch($status){
             case 'forbid'  : //禁用条目
                 $data = array('status' => 0);
@@ -148,7 +149,7 @@ class AdminController extends Controller{
      * 获取所有数据并转换成一维数组
      * @author jry <598821125@qq.com>
      */
-    public function selectListAsTree($model, $map = null){
+    public function selectListAsTree($model, $map = null, $extra = null){
         //获取列表
         $map['status'] = array('eq', 1);
         $list = D($model)->where($map)->select();
@@ -156,6 +157,10 @@ class AdminController extends Controller{
         //转换成树状列表
         $tree = new \Common\Util\Tree();
         $list = $tree->toFormatTree($list);
+
+        if($extra){
+            $result[0] = $extra;
+        }
 
         //转换成一维数组
         foreach($list as $val){

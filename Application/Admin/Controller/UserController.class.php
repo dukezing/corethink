@@ -77,7 +77,7 @@ class UserController extends AdminController{
             $builder = new \Admin\Builder\AdminFormBuilder();
             $builder->title('新增用户')  //设置页面标题
                     ->setUrl(U('add')) //设置表单提交地址
-                    ->addItem('group', 'select', '部门', '所属部门', array_merge(array(0 => '默认部门'), $this->selectListAsTree('UserGroup')))
+                    ->addItem('group', 'select', '部门', '所属部门', $this->selectListAsTree('UserGroup', null, '默认部门'))
                     ->addItem('username', 'text', '用户名', '用户名')
                     ->addItem('email', 'text', '邮箱', '邮箱')
                     ->addItem('mobile', 'text', '手机号码', '手机号码')
@@ -118,7 +118,7 @@ class UserController extends AdminController{
             $builder->title('编辑用户')  //设置页面标题
                     ->setUrl(U('edit')) //设置表单提交地址
                     ->addItem('id', 'hidden', 'ID', 'ID')
-                    ->addItem('group', 'select', '部门', '所属部门', array_merge(array(0 => '默认部门'), $this->selectListAsTree('UserGroup')))
+                    ->addItem('group', 'select', '部门', '所属部门', $this->selectListAsTree('UserGroup', null, '默认部门'))
                     ->addItem('username', 'text', '用户名', '用户名')
                     ->addItem('email', 'text', '邮箱', '邮箱')
                     ->addItem('mobile', 'text', '手机号码', '手机号码')

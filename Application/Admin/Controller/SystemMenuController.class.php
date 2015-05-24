@@ -76,7 +76,7 @@ class SystemMenuController extends AdminController{
             $builder = new \Admin\Builder\AdminFormBuilder();
             $builder->title('新增菜单')  //设置页面标题
                     ->setUrl(U('add')) //设置表单提交地址
-                    ->addItem('pid', 'select', '上级菜单', '所属的上级菜单', array_merge(array(0 => '顶级菜单'), $this->selectListAsTree('SystemMenu')))
+                    ->addItem('pid', 'select', '上级菜单', '所属的上级菜单', $this->selectListAsTree('SystemMenu', null, '顶级菜单'))
                     ->addItem('title', 'text', '标题', '菜单标题')
                     ->addItem('url', 'text', '链接', 'U函数解析的URL或者外链')
                     ->addItem('icon', 'icon', '图标', '菜单图标')
@@ -108,7 +108,7 @@ class SystemMenuController extends AdminController{
             $builder->title('新增菜单')  //设置页面标题
                     ->setUrl(U('edit')) //设置表单提交地址
                     ->addItem('id', 'hidden', 'ID', 'ID')
-                    ->addItem('pid', 'select', '上级菜单', '所属的上级菜单', array_merge(array(0 => '顶级菜单'), $this->selectListAsTree('SystemMenu')))
+                    ->addItem('pid', 'select', '上级菜单', '所属的上级菜单', $this->selectListAsTree('SystemMenu', null, '顶级菜单'))
                     ->addItem('title', 'text', '标题', '菜单标题')
                     ->addItem('url', 'text', '链接', 'U函数解析的URL或者外链')
                     ->addItem('icon', 'icon', '图标', '菜单图标')

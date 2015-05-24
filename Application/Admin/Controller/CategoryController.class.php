@@ -77,7 +77,7 @@ class CategoryController extends AdminController{
             $builder = new \Admin\Builder\AdminFormBuilder();
             $builder->title('新增分类')  //设置页面标题
                     ->setUrl(U('add')) //设置表单提交地址
-                    ->addItem('pid', 'select', '上级分类', '所属的上级分类', array_merge(array(0 => '顶级分类'), $this->selectListAsTree('Category')))
+                    ->addItem('pid', 'select', '上级分类', '所属的上级分类', $this->selectListAsTree('Category', null, '顶级分类'))
                     ->addItem('title', 'text', '分类标题', '分类标题')
                     ->addItem('doc_type', 'select', '分类内容模型', '分类内容模型', $this->selectListAsTree('DocumentType'))
                     ->addItem('url', 'text', '链接', 'U函数解析的URL或者外链', null, 'hidden')
@@ -114,7 +114,7 @@ class CategoryController extends AdminController{
             $builder->title('编辑分类')  //设置页面标题
                     ->setUrl(U('edit')) //设置表单提交地址
                     ->addItem('id', 'hidden', 'ID', 'ID')
-                    ->addItem('pid', 'select', '上级分类', '所属的上级分类', array_merge(array(0 => '顶级分类'), $this->selectListAsTree('Category')))
+                    ->addItem('pid', 'select', '上级分类', '所属的上级分类', $this->selectListAsTree('Category', null, '顶级分类'))
                     ->addItem('title', 'text', '分类标题', '分类标题')
                     ->addItem('doc_type', 'select', '分类内容模型', '分类内容模型', $this->selectListAsTree('DocumentType'))
                     ->addItem('url', 'text', '链接', 'U函数解析的URL或者外链', null, $info['model'] == 1 ? : 'hidden')
