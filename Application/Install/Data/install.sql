@@ -188,7 +188,7 @@ VALUES
 	(11,'status','数据状态','tinyint(4) NOT NULL ','radio','1','',0,'-1:删除\r\n0:禁用\r\n1:正常',0,1383891233,1384508496,1),
 	(12,'abstract','简介','vachar(255) NOT NULL','textarea','','文档简介',1,'',3,1383891233,1384508496,1),
 	(13,'content','正文内容','text','kindeditor','','文章正文内容',1,'',3,1383891233,1384508496,1),
-	(14,'tags','文章标签','vachar(128) NOT NULL','tag','','标签',1,'',3,1383891233,1384508496,1),
+	(14,'tags','文章标签','vachar(128) NOT NULL','tags','','标签',1,'',3,1383891233,1384508496,1),
 	(15,'cover','封面','int(11) unsigned NOT NULL ','picture','','文档封面',1,'',3,1383891233,1384508496,1);
 
 /*!40000 ALTER TABLE `ct_document_attribute` ENABLE KEYS */;

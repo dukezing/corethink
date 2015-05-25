@@ -55,7 +55,7 @@ return array(
         'datetime'   => '时间',
         'picture'    => '图片',
         'kindeditor' => '编辑器',
-        'tag  '      => '标签',
+        'tags'       => '标签',
         'board  '    => '拖动排序',
     ),
 

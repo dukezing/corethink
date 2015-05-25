@@ -143,8 +143,8 @@ class AdminListBuilder extends AdminController{
      * @param $attr
      * @return $this
      */
-    public function addRightButton($type, $title = null, $url = null){
-        $this->_right_button_list[] = array('type' => $type, 'title' => $title, 'url' => $url);
+    public function addRightButton($type, $title = null, $attr = null){
+        $this->_right_button_list[] = array('type' => $type, 'title' => $title, 'attr' => $attr);
         return $this;
     }
 
@@ -176,32 +176,34 @@ class AdminListBuilder extends AdminController{
         //编译data_list中的值
         foreach($this->_data_list as &$data){
             //编译表格右侧按钮
-            foreach($this->_right_button_list as &$right_button){
+            foreach($this->_right_button_list as $right_button){
                 switch($right_button['type']){
                     case 'edit':
-                        $right_button['link'] = '<a href="'.U(CONTROLLER_NAME.'/edit', array('id' => $data['id'])).'">编辑</a>';
+                        $right_button['link'] = '<a href="'.U(CONTROLLER_NAME.'/edit', array('id' => $data['id'])).'">编辑</a> ';
                         break;
                     case 'forbid':
                         switch($data['status']){
                             case '1':
-                                $right_button['link'] = ' <a href="'.U(CONTROLLER_NAME.'/setStatus', array('status'=>'forbid', 'ids' => $data['id'])).'" class="ajax-get confirm">禁用</a>';
+                                $right_button['link'] = ' <a href="'.U(CONTROLLER_NAME.'/setStatus', array('status'=>'forbid', 'ids' => $data['id'])).'" class="ajax-get confirm">禁用</a> ';
                                 break;
                             case '0':
-                                $right_button['link'] = ' <a href="'.U(CONTROLLER_NAME.'/setStatus', array('status'=>'resume', 'ids' => $data['id'])).'" class="ajax-get confirm">启用</a>';
+                                $right_button['link'] = ' <a href="'.U(CONTROLLER_NAME.'/setStatus', array('status'=>'resume', 'ids' => $data['id'])).'" class="ajax-get confirm">启用</a> ';
                                 break;
                             case '-1':
-                                $right_button['link'] = ' <a href="'.U(CONTROLLER_NAME.'/setStatus', array('status'=>'restore', 'ids' => $data['id'])).'" class="ajax-get confirm">还原</a>';
+                                $right_button['link'] = ' <a href="'.U(CONTROLLER_NAME.'/setStatus', array('status'=>'restore', 'ids' => $data['id'])).'" class="ajax-get confirm">还原</a> ';
                                 break;
                         }
                         break;
                     case 'delete':
-                        $right_button['link'] = ' <a href="'.U(CONTROLLER_NAME.'/setStatus', array('status'=>'delete', 'ids' => $data['id'])).'" class="ajax-get confirm">删除</a>';
+                        $right_button['link'] = '<a href="'.U(CONTROLLER_NAME.'/setStatus', array('status'=>'delete', 'ids' => $data['id'])).'" class="ajax-get confirm">删除</a> ';
                         break;
                     case 'recycle':
-                        $right_button['link'] = ' <a href="'.U(CONTROLLER_NAME.'/setStatus', array('status'=>'recycle', 'ids' => $data['id'])).'" class="ajax-get confirm">回收</a>';
+                        $right_button['link'] = '<a href="'.U(CONTROLLER_NAME.'/setStatus', array('status'=>'recycle', 'ids' => $data['id'])).'" class="ajax-get confirm">回收</a> ';
                         break;
                     case 'self':
-                        $right_button['link'] = ' <a href="'.U($right_button['url'], array('id' => $data['id'])).'" class="ajax-get confirm">'.$right_button['title'].'</a>';
+                        $right_button['attr']['href'] = U($right_button['attr']['href'].$data['id']);
+                        $attr = $this->compileHtmlAttr($right_button['attr']);
+                        $right_button['link'] = '<a '.$attr .'>'.$right_button['title'].'</a> ';
                         break;
                 }
                 $data['right_button'] .= $right_button['link'];
@@ -232,6 +234,9 @@ class AdminListBuilder extends AdminController{
                     case 'image':
                         $data[$field['name']] = '<img src="'.get_cover($data[$field['name']]).'">';
                         break;
+                    case 'type':
+                        $data[$field['name']] = C('FORM_ITEM_TYPE')[$data[$field['name']]];
+                        break;
                 }
             }
         }
@@ -251,7 +256,7 @@ class AdminListBuilder extends AdminController{
     }
 
     //编译HTML属性
-    protected function compileHtmlAttr($attr) {
+    protected function compileHtmlAttr($attr){
         $result = array();
         foreach($attr as $key=>$value) {
             $value = htmlspecialchars($value);

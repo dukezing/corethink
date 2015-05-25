@@ -28,6 +28,8 @@ class DocumentTypeController extends AdminController{
         $data_list = D('DocumentType')->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))->where($map)->order('sort asc,id asc')->select();
         $page = new \Common\Util\Page(D('DocumentType')->where($map)->count(), C('ADMIN_PAGE_ROWS'));
 
+        $attr['href'] = 'DocumentAttribute/index?doc_type=';
+
         //使用Builder快速建立列表页面。
         $builder = new \Admin\Builder\AdminListBuilder();
         $builder->title('类型列表')  //设置页面标题
@@ -45,6 +47,7 @@ class DocumentTypeController extends AdminController{
                 ->addField('status', '状态', 'status')
                 ->addField('right_button', '操作', 'btn')
                 ->dataList($data_list)    //数据列表
+                ->addRightButton('self', '字段管理', $attr) //添加字段管理按钮
                 ->addRightButton('edit')   //添加编辑按钮
                 ->addRightButton('forbid') //添加禁用/启用按钮
                 ->addRightButton('delete') //添加删除按钮

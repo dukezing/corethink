@@ -33,6 +33,9 @@ class CategoryController extends AdminController{
         $data_list = $tree->toFormatTree($data_list);
         $data_list = D('Category')->getLinkByModel($data_list);
 
+        $attr['href'] = 'Category/del?id=';
+        $attr['class'] = 'ajax-get confirm';
+
         //使用Builder快速建立列表页面。
         $builder = new \Admin\Builder\AdminListBuilder();
         $builder->title('分类列表')  //设置页面标题
@@ -50,7 +53,7 @@ class CategoryController extends AdminController{
                 ->dataList($data_list)    //数据列表
                 ->addRightButton('edit')   //添加编辑按钮
                 ->addRightButton('forbid') //添加禁用/启用按钮
-                ->addRightButton('self', '删除', CONTROLLER_NAME.'/del') //添加删除按钮
+                ->addRightButton('self', '删除', $attr) //添加删除按钮
                 ->display();
     }
 
