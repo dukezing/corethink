@@ -46,13 +46,13 @@ class HomeController extends Controller{
      * 用户登录检测
      * @author jry <598821125@qq.com>
      */
-    protected function login(){
+    protected function is_login(){
         //用户登录检测
         $uid = is_login();
         if($uid){
             return $uid;
         }else{
-            $this->error('您还没有登录，请先登录！');
+            $this->redirect('User/login');
         }
     }
 }

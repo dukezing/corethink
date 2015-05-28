@@ -19,7 +19,7 @@ class UserCommentController extends HomeController{
      */
     public function add(){
         if(IS_POST){
-            $this->login();
+            $this->is_login();
             preg_match_all("/([\一-\龥]){1}/u", $_POST['content'], $num);
             if(2 > count($num[0])){
                 $this->error('评论至少包含2个中文字符！');

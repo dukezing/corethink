@@ -13,11 +13,6 @@ use Think\Controller;
  * @author jry <598821125@qq.com>
  */
 class DocumentController extends HomeController{
-    //初始化方法
-    protected function _initialize(){
-        parent::_initialize();
-        Cookie('__forward__', $_SERVER['REQUEST_URI']);
-    }
 
     /**
      * 文章列表
@@ -40,7 +35,22 @@ class DocumentController extends HomeController{
 
         $this->assign('__CURRENT_CATEGORY__', $category['id']);
         $this->meta_title = $category['title'];
+        Cookie('__forward__', $_SERVER['REQUEST_URI']);
         $this->display($template);
+    }
+
+    /**
+     * 新增或更新一个文档
+     * @author jry <598821125@qq.com>
+     */
+    public function update(){
+        $document_object = D('Document');
+        $result = $document_object->update();
+        if(!$result){
+            $this->error($document_object->getError());
+        }else{
+            $this->success($result['id']?'更新成功':'新增成功', U('Index/index'));
+        }
     }
 
     /**
@@ -53,6 +63,7 @@ class DocumentController extends HomeController{
         $this->assign('info', $info);
         $this->assign('__CURRENT_CATEGORY__', $category['id']);
         $this->meta_title = $info['title'];
+        Cookie('__forward__', $_SERVER['REQUEST_URI']);
         $this->display();
     }
 }

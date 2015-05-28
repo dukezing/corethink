@@ -127,7 +127,6 @@ class UserModel extends Model{
         $data = $this->create($data);
         if($data){
             $result = $this->save($data);
-            $this->updateUserCache($data['id']);
             return $result;
         }
         return false;

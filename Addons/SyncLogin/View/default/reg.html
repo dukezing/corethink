@@ -27,43 +27,42 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="control-label">邮 箱</label>
+                                <div class="controls">
+                                    <input type="text" class="form-control" placeholder="请输入邮箱" name="email">
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="control-label">密 码</label>
                                 <div class="controls">
                                     <input type="password" class="form-control" placeholder="请输入密码" name="password">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label">确认密码</label>
-                                <div class="controls">
-                                    <input type="password" class="form-control" placeholder="请输入确认密码" name="repassword">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-success ajax-post" target-form="reg-form">注 册</button>
-                                <button type="reset" class="btn">重 置</button>
+                                <input type="hidden" name="avatar" value="{$user_sns_info.head}">
+                                <button type="submit" class="btn btn-success btn-block ajax-post" target-form="reg-form">注 册</button>
                             </div>
                         </form>
                     </div>
                     <div id="reg2" class='tab-pane'>
                         <form class="login-form" action="{:U('home/addon/execute',array('_addons'=>'SyncLogin','_controller'=>'Login','_action'=>'dobind'))}" method="post">
-                                <div class="form-group">
-                                    <label class="control-label">用户名</label>
-                                    <div class="controls">
-                                        <input type="text" class="form-control" placeholder="请输入用户名" name="username">
-                                    </div>
+                            <div class="form-group">
+                                <label class="control-label">用户名</label>
+                                <div class="controls">
+                                    <input type="text" class="form-control" placeholder="请输入邮箱/手机号/用户名" name="username">
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label">密 码</label>
-                                    <div class="controls">
-                                        <input type="password" class="form-control" placeholder="请输入密码" name="password">
-                                    </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">密 码</label>
+                                <div class="controls">
+                                    <input type="password" class="form-control" placeholder="请输入密码" name="password">
                                 </div>
-                                <div class="form-group">
-                                    <div class="controls">
-                                        <button type="submit" class="btn btn-success ajax-post" target-form="login-form">绑 定</button>
-                                        <button type="reset" class="btn">重 置</button>
-                                    </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="controls">
+                                    <button type="submit" class="btn btn-success btn-block ajax-post" target-form="login-form">绑 定</button>
                                 </div>
+                            </div>
                         </form>
                     </div>
                 </div>

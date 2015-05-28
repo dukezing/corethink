@@ -62,6 +62,10 @@ class LoginController extends AddonController{
     public function doregister(){
         $username = $_POST['username'];
         $password = $_POST['password'];
+        $upload_data['url'] = $_POST['avatar'];
+        $upload_data['ext'] = 'png';
+        $upload_data['status'] = 1;
+        $_POST['avatar'] = M('Upload')->add($upload_data);
         $user = D('User');
         $data = $user->create();
         if($data){

@@ -1,44 +1,49 @@
+<style>
+    #rocket-to-top div {
+        left:0;
+        margin:0;
+        overflow:hidden;
+        padding:0;
+        position:absolute;
+        top:0;
+        width:88px;
+        background: red;
+    }
+    #rocket-to-top .level-2 {
+        background:url("__ADDONROOT__/images/rocket_button_up.png") no-repeat scroll -88px 0 transparent;
+        display:none;
+        height:200px;
+        opacity:0;
+        z-index:1;
+    }
+    #rocket-to-top .level-3 {
+        background:none repeat scroll 0 0 transparent;
+        cursor:pointer;
+        display:block;
+        height:150px;
+        z-index:2;
+    }
+    #rocket-to-top {
+        background:url("__ADDONROOT__/images/rocket_button_up.png") no-repeat scroll 0 0 transparent;
+        cursor:default;
+        display:block;
+        height:200px;
+        margin:-25px 0 0;
+        overflow:hidden;
+        padding:0;
+        position:fixed;
+        right:0;
+        top:70%;
+        width:88px;
+        z-index:11;
+    }
+    @media (max-width: 768px) {
+        .returntop {
+            display: none;
+        }
+    }
+</style>
 <div class="returntop">
-    <style>
-        #rocket-to-top div {
-            left:0;
-            margin:0;
-            overflow:hidden;
-            padding:0;
-            position:absolute;
-            top:0;
-            width:88px;
-            background: red;
-        }
-        #rocket-to-top .level-2 {
-            background:url("__ADDONROOT__/images/rocket_button_up.png") no-repeat scroll -88px 0 transparent;
-            display:none;
-            height:200px;
-            opacity:0;
-            z-index:1;
-        }
-        #rocket-to-top .level-3 {
-            background:none repeat scroll 0 0 transparent;
-            cursor:pointer;
-            display:block;
-            height:150px;
-            z-index:2;
-        }
-        #rocket-to-top {
-            background:url("__ADDONROOT__/images/rocket_button_up.png") no-repeat scroll 0 0 transparent;
-            cursor:default;
-            display:block;
-            height:200px;
-            margin:-25px 0 0;
-            overflow:hidden;
-            padding:0;
-            position:fixed;
-            right:0;
-            top:80%;
-            width:88px;
-            z-index:11;
-        }
-    </style>
     <div style="display:none;" id="rocket-to-top">
         <div style="opacity:0;display:block;" class="level-2"></div>
         <div class="level-3"></div>
@@ -80,6 +85,7 @@
                     if (e.css("display") == "none" || i == 0) {
                         clearInterval(n),
                         e.css("background-position", "0px 0px");
+                        e.css("height", "200px;");
                         return
                     }
                     switch (t){

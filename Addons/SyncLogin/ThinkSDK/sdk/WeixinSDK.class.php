@@ -4,7 +4,8 @@ class WeixinSDK extends ThinkOauth{
      * 获取requestCode的api接口
      * @var string
      */
-    protected $GetRequestCodeURL = 'https://open.weixin.qq.com/connect/oauth2/authorize';
+    protected $GetRequestCodeURL1 = 'https://open.weixin.qq.com/connect/oauth2/authorize';
+    protected $GetRequestCodeURL2 = 'https://open.weixin.qq.com/connect/qrconnect';
 
     /**
      * 获取access_token的api接口
@@ -24,9 +25,13 @@ class WeixinSDK extends ThinkOauth{
                 'appid' => $this->AppKey,
                 'redirect_uri'=>$this->Callback,
                 'response_type'=>'code',
-                'scope'=>'snsapi_userinfo'
+                'scope'=>'snsapi_login'
         );
-        return $this->GetRequestCodeURL . '?' . http_build_query($params);
+        if($this->is_weixin()){
+            return $this->GetRequestCodeURL1 . '?' . http_build_query($params);
+        }else{
+            return $this->GetRequestCodeURL2 . '?' . http_build_query($params);
+        }
     }
 
     /**
@@ -89,5 +94,19 @@ class WeixinSDK extends ThinkOauth{
             return $data['openid'];
         else
             exit('没有获取到微信用户ID！');
+    }
+
+    /**
+     * 判断浏览器是否是微信
+     * @author jry <598821125@qq.com>
+     */
+    function is_weixin(){
+        $agent = strtolower($_SERVER['HTTP_USER_AGENT']);
+        $is_weixin = strpos($agent, 'micromessenger') ? true : false ;
+        if($is_weixin){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

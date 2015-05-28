@@ -203,7 +203,6 @@
     .right .form .controls .token-input-list,
     .right .form .controls>textarea,
     .right .form .controls>select,
-    .right .config .ke-container,
     .right .uploadify-button{
         width: 50% !important;
         max-width: 640px;

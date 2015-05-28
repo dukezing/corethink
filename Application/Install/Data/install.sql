@@ -85,7 +85,7 @@ DROP TABLE IF EXISTS `ct_addon_sync_login`;
 CREATE TABLE `ct_addon_sync_login` (
   `uid` int(11) NOT NULL COMMENT 'ID',
   `openid` varchar(64) NOT NULL DEFAULT '' COMMENT 'OpenID',
-  `type` varchar(4) NOT NULL DEFAULT '' COMMENT '类别',
+  `type` varchar(15) NOT NULL DEFAULT '' COMMENT '类别',
   `access_token` varchar(64) NOT NULL DEFAULT '' COMMENT 'AccessToken',
   `refresh_token` varchar(64) NOT NULL DEFAULT '' COMMENT 'RefreshToken'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='第三方登陆插件表';

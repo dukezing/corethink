@@ -2,11 +2,8 @@
 -------------------------------------------------- */
 body {
     padding-top: 52px;
-    background-color: #f2f2f2;
+    background-color: rgba(0,0,0,0.02);
     font-family: roboto, Verdana, Arial, Helvetica Neue, Helvetica, Tahoma, sans-serif;
-}
-.btn {
-    border: 0px;
 }
 .messager.top {
     top: 56px;
@@ -34,6 +31,72 @@ pre,
 }
 
 
+/* 表单
+-------------------------------------------------- */
+.form .btn,
+.form input,
+.form textarea {
+    border-left: 0px;
+    border-right: 0px;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    transition: none;
+    background-color: #fff;
+    color: #333;
+    width: 100%;
+}
+.form .form-control:focus {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    transition: none;
+}
+.form .btn,
+.form input {
+    height: 38px;
+    line-height: 28px;
+    border-color: #ddd;
+}
+.form textarea {
+    height: 150px;
+}
+.form .item-label {
+     color: #666;
+     font-size: 12px;
+}
+.form .input-group-addon {
+    border-left: 0px;
+    border-right: 0px;
+    background-color: #fff;
+    padding: 5px 2px 5px 12px;
+    color: #999;
+}
+.form .chosen-single {
+    height: 40px;
+    padding: 9px 8px;
+    border-left: 0px;
+    border-right: 0px;
+    border-radius: 0px;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    transition: none;
+}
+.form .chosen-single div {
+    padding: 9px 8px;
+}
+.form .chosen-results li {
+    line-height: 25px;
+}
+@media (max-width: 768px) {
+    .container {
+        padding: 0px;
+    }
+    .form .item-label {
+        margin-left: 5px;
+        font-size: 11px;
+    }
+}
+
+
 /* 盒子
 -------------------------------------------------- */
 .box {
@@ -47,7 +110,6 @@ pre,
 .box header h3 {
     margin-top: 20px;
 }
-
 
 
 /* 顶部主导航 navbar-corethink
@@ -168,82 +230,13 @@ pre,
 }
 
 
-/* login
+/* 用户
 -------------------------------------------------- */
-.login .nav > li > a {
-    padding: 12px 15px;
-    font-size: 16px;
+@media (max-width: 768px) {
+    .login .avatar {
+        margin-left: 5px;
+    }
 }
-.login .tab-content {
-    margin-top: 20px;
-}
-.login .submit {
-    border: 0px;
-    width: 100%;
-    margin-bottom: 0px;
-    height: 40px;
-}
-.login .title {
-    margin-top: 0px;
-    margin-bottom: 15px;
-}
-.login .input-group-addon {
-    border: 0px;
-    background-color: #f2f2f2;
-    padding: 5px 2px 5px 12px;
-    color: #999;
-}
-.login .form-control {
-    border: 0px;
-    box-shadow: none;
-    -webkit-box-shadow: none;
-    transition: none;
-    background-color: #f2f2f2;
-    height: 40px;
-    color: #999;
-}
-.login .form-control:focus {
-    box-shadow: none;
-    -webkit-box-shadow: none;
-    transition: none;
-}
-.login .tip a {
-    color: #999;
-    vertical-align: middle;
-}
-.login .info {
-    margin: -5px 0px 12px ;
-}
-.login .info a {
-    color: #999;
-}
-.login .info span {
-    margin: 0px 8px;
-    color: #999;
-}
-.login .chosen-single {
-    border: none;
-    height: 40px;
-    padding: 9px 8px;
-    border-radius: 0px;
-    background: #f2f2f2;
-    box-shadow: none;
-    -webkit-box-shadow: none;
-    transition: none;
-}
-.login .chosen-single div {
-    padding: 9px 8px;
-}
-.login .chosen-results li {
-    line-height: 25px;
-}
-.login .auto-tip li.hoverBg {
-    background:#ddd;
-}
-
-
-/* 用户主页
--------------------------------------------------- */
 .userinfo header h1 {
     font-size: 32px;
     margin-top: 0px;

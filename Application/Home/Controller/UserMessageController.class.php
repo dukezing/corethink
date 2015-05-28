@@ -19,7 +19,7 @@ class UserMessageController extends HomeController{
      */
     protected function _initialize(){
         parent::_initialize();
-        $this->login();
+        $this->is_login();
     }
     /**
      * 默认方法

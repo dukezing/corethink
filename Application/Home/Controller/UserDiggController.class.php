@@ -12,13 +12,22 @@ namespace Home\Controller;
  * @author ijry <ijry@qq.com>
  */
 class UserDiggController extends HomeController{
+    /**
+     * 初始化方法
+     * @author jry <598821125@qq.com>
+     */
+    protected function _initialize(){
+        parent::_initialize();
+        $this->is_login();
+    }
+
     /**投票
      * @param $type  Digg类别 good bad mark
      * @param $doc_id    文档内容ID
      * @author jry <598821125@qq.com>
      */
     public function digg($type, $doc_id){
-        $uid = $this->login();
+        $uid = $this->is_login();
         $map['doc_id'] = $doc_id;
         $digg_info = D('UserDigg')->where($map)->find();
         if(!$digg_info){ //创建Digg记录

@@ -11,10 +11,10 @@ return array(
         'title'=>'开启同步登录：',
         'type'=>'checkbox',
         'options'=>array(
+            'Weixin'=>'Weixin',
             'Qq'=>'Qq',
             'Sina'=>'Sina',
             'Renren'=>'Renren',
-            'Google'=>'Google',
         ),
     ),
     'meta'=>array(
@@ -26,6 +26,23 @@ return array(
     'group'=>array(
         'type'=>'group',
         'options'=>array(
+            'Wexin'=>array(
+                'title'=>'微信配置',
+                'options'=>array(
+                    'WeixinKEY'=>array(
+                        'title'=>'微信APPKEY：',
+                        'type'=>'text',
+                        'value'=>'',
+                        'tip'=>'申请地址：http://open.weixin.qq.com/',
+                    ),
+                    'WeixinSecret'=>array(
+                        'title'=>'微信APPSECRET：',
+                        'type'=>'text',
+                        'value'=>'',
+                        'tip'=>'申请地址：http://open.weixin.qq.com/',
+                    )
+                )
+            ),
             'Qq'=>array(
                 'title'=>'QQ配置',
                 'options'=>array(
@@ -74,23 +91,6 @@ return array(
                         'type'=>'text',
                         'value'=>'',
                         'tip'=>'申请地址：http://dev.renren.com/',
-                    )
-                ),
-            ),
-            'Google'=>array(
-                'title'=>'谷歌配置',
-                'options'=>array(
-                    'GoogleKEY'=>array(
-                        'title'=>'谷歌APPKEY：',
-                        'type'=>'text',
-                        'value'=>'',
-                        'tip'=>'申请地址：https://code.google.com/apis/console/',
-                    ),
-                    'GoogleSecret'=>array(
-                        'title'=>'谷歌APPSECRET：',
-                        'type'=>'text',
-                        'value'=>'',
-                        'tip'=>'申请地址：https://code.google.com/apis/console/',
                     )
                 )
             )
