@@ -46,7 +46,7 @@ class CoreThink extends TagLib{
      */
     public function _category($tag, $content){
         $name   = $tag['name'];
-        $pid   = $tag['pid'];
+        $pid   = $tag['pid']? : 0;
         $parse  = '<?php ';
         $parse .= '$map[\'pid\'] = array("eq", '.$pid.');';
         $parse .= '$__CATEGORYLIST__ = D(\'Category\')->getAllCategory($map, "1");';
