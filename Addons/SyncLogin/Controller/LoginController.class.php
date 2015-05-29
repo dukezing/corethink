@@ -46,7 +46,7 @@ class LoginController extends AddonController{
         if($user_sync_info['uid'] && $user_sys_info['id'] && $user_sync_info['uid'] == $user_sys_info['id']) { //曾经绑定过
             D('Addons://SyncLogin/SyncLogin')->updateTokenByTokenAndType($token, $type);
             D('User')->autoLogin($user_sys_info);
-            $this->success($type.'同步登录成功', U('Home/Index/index'));
+            $this->redirect('Index/index');
         }else{ //没绑定过，去注册页面
             session('token', $token);
             session('user_sns_info', $user_sns_info);

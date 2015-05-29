@@ -66,7 +66,7 @@ class SyncLoginModel extends Model{
         );
         $data['access_token'] = $token['access_token'];
         $data['refresh_token'] = $token['refresh_token'];
-        if(M('SyncLogin')->where($condition)->save($data)){
+        if($this->where($condition)->save($data)){
             return true;
         }
     }
