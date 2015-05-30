@@ -49,13 +49,13 @@ class UserController extends HomeController{
             }
             $uid = D('User')->login($username, $password);
             if(0 < $uid){
-                $this->success('登录成功！', Cookie('__forward__') ? : U('Index/index'));
+                $this->success('登录成功！', Cookie('__forward__') ? : C('HOME_PAGE'));
             }else{
                 $this->error('登录失败，'. $uid);
             }
         }else{
             if(is_login()){
-                $this->error("您已登陆系统", Cookie('__forward__') ? : U('Index/index'));
+                $this->error("您已登陆系统", Cookie('__forward__') ? : C('HOME_PAGE'));
             }
             $this->meta_title = '用户登录';
             $this->display();
@@ -69,7 +69,7 @@ class UserController extends HomeController{
     public function logout(){
         session('user_auth', null);
         session('user_auth_sign', null);
-        $this->success('退出成功！', Cookie('__forward__') ? : U('Index/index'));
+        $this->success('退出成功！', Cookie('__forward__') ? : C('HOME_PAGE'));
     }
 
     /**
@@ -113,7 +113,7 @@ class UserController extends HomeController{
             }
         }else{
             if(is_login()){
-                $this->error("您已登陆系统", Cookie('__forward__') ? : U('Index/index'));
+                $this->error("您已登陆系统", Cookie('__forward__') ? : C('HOME_PAGE'));
             }
             $this->meta_title = '用户注册';
             $this->display();
@@ -132,7 +132,7 @@ class UserController extends HomeController{
             if($result){
                 $user_info = $user_object->getUserById($_POST['id']);
                 $user_object->autoLogin($user_info);
-                $this->success('更新成功', U('Index/index'));
+                $this->success('更新成功', C('HOME_PAGE'));
             }else{
                 $this->error($user_object->getError());
             }
@@ -173,7 +173,7 @@ class UserController extends HomeController{
             $result = $user_object->where($condition)->setField('password', $data['password']); //重置密码
             $uid = $user_object->login($username, I('post.password')); //自动登录
             if($uid){
-                $this->success('密码重置成功', U('Index/index'));
+                $this->success('密码重置成功', C('HOME_PAGE'));
             }else{
                 $this->error('密码重置失败');
             }
