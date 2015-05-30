@@ -29,35 +29,20 @@
     <![endif]-->
     <script type="text/javascript" src="__PUBLIC__/zui/js/zui.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="__PUBLIC__/chosen/chosen.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="__PUBLIC__/jquery/jquery.bootstrap.autohidingnavbar.js"></script>
     <script type="text/javascript" src="__PUBLIC__/corethink/js/base.js" charset="utf-8"></script>
     <script type="text/javascript">
         $(function(){
+            $(".top_nav").autoHidingNavbar(); //自动隐藏顶部导航
             $('.lazy img').lazyload({effect: 'fadeIn'}); //图片lazyload
             $('.form select.form-control').chosen({disable_search_threshold: 10}); //使用chosen插件接管select
         });
-        //iOS Web APP中点击链接跳转到Safari浏览器新标签页的问题
-        if (("standalone" in window.navigator) && window.navigator.standalone) {
-            var noddy, remotes = false;
-            document.addEventListener('click',
-                function(event) {
-                    noddy = event.target;
-                    while (noddy.nodeName !== "A" && noddy.nodeName !== "HTML") {
-                        noddy = noddy.parentNode;
-                    }
-                    if ('href' in noddy && noddy.href.indexOf('http') !== -1 && (noddy.href.indexOf(document.location.host) !== -1 || remotes)) {
-                        event.preventDefault();
-                        document.location.href = noddy.href;
-                    }
-                },
-                false
-            );
-        }
     </script>
     <block name="script"></block>
 </head>
 <body>
     {:hook('PageHeader')} <!-- 文档开始钩子 -->
-    <nav class="navbar navbar-default navbar-fixed-top navbar-corethink" role="navigation">
+    <nav class="navbar navbar-default navbar-fixed-top navbar-corethink top_nav" role="navigation">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-main">
