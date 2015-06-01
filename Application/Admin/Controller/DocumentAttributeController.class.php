@@ -34,10 +34,9 @@ class DocumentAttributeController extends AdminController{
         $attr['href'] = U('add', array('doc_type' => $doc_type));
         $attr['class'] = 'btn';
 
-
         //使用Builder快速建立列表页面。
         $builder = new \Admin\Builder\AdminListBuilder();
-        $builder->title($category['title'])  //设置页面标题
+        $builder->title('字段管理') //设置页面标题
                 ->AddButton('新 增', $attr) //添加新增按钮
                 ->addResumeButton() //添加启用按钮
                 ->addForbidButton() //添加禁用按钮

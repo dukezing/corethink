@@ -104,7 +104,6 @@ class DocumentTypeController extends AdminController{
                 $this->error($document_type_object->getError());
             }
         }else{
-            
             $document_type_info = D('DocumentType')->find($id);
             $document_type_field_sort = json_decode($document_type_info['field_sort'], true);
             $document_type_field_group = parse_attr($document_type_info['field_group']);
@@ -121,13 +120,21 @@ class DocumentTypeController extends AdminController{
                 $new_attribute_list[$attr['id']] = $attr['title'];
             }
 
+            //构造拖动排序options
             foreach($document_type_field_sort as $key => $val){
                 $field[$key]['title'] = $document_type_field_group[$key];
                 $temp = array();
                 foreach($val as $val2){
                     $temp[$val2] = $new_attribute_list[$val2];
+                    unset($new_attribute_list[$val2]);
                 }
                 $field[$key]['field'] = $temp;
+            }
+
+            //未排序字段
+            if($new_attribute_list){
+                $field[99]['title'] = "未排序";
+                $field[99]['field'] = $new_attribute_list;
             }
 
             //使用FormBuilder快速建立表单页面。
