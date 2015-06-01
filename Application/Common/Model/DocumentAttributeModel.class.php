@@ -69,10 +69,7 @@ class DocumentAttributeModel extends Model{
     protected function checkTableExist($doc_type){
         $table_name = 'ct_document_extend_'.D('DocumentType')->getfieldById($doc_type, 'name');
         $this->table_name = strtolower($table_name);
-        $sql = <<<sql
-                SHOW TABLES LIKE '{$table_name}';
-sql;
-        $res = M()->query($sql);
+        $res = M()->query("SHOW TABLES LIKE '".$this->table_name."'");
         return count($res);
     }
 
@@ -155,12 +152,13 @@ sql;
     public function deleteField($field){
         //检查表是否存在
         $table_exist = $this->checkTableExist($field['doc_type']);
-
-        $sql = <<<sql
-            ALTER TABLE `{$this->table_name}`
+        if($table_exist){
+            $sql = <<<sql
+                ALTER TABLE `{$this->table_name}`
 DROP COLUMN `{$field['name']}`;
 sql;
-        $res = M()->execute($sql);
+            $res = M()->execute($sql);
+        }
         return $res !== false;
     }
 }

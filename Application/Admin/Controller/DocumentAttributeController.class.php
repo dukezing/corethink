@@ -36,7 +36,7 @@ class DocumentAttributeController extends AdminController{
 
         //使用Builder快速建立列表页面。
         $builder = new \Admin\Builder\AdminListBuilder();
-        $builder->title('字段管理') //设置页面标题
+        $builder->title(字段管理) //设置页面标题
                 ->AddButton('新 增', $attr) //添加新增按钮
                 ->addResumeButton() //添加启用按钮
                 ->addForbidButton() //添加禁用按钮
@@ -154,21 +154,16 @@ class DocumentAttributeController extends AdminController{
         if(empty($ids)){
             $this->error('请选择要操作的数据');
         }
-        $map['id'] = array('in',$ids);
         switch($status){
-            case 'delete'  : //删除条目
+            case 'delete' : //删除条目
                 $document_attribute_object = D('DocumentAttribute');
                 $field = $document_attribute_object->find($ids);
-                $status = D('DocumentAttribute')->deleteField($field);
-                if($status){
-                    $result = D($model)->where($map)->delete();
-                    if($result){
-                        $this->success('删除成功，不可恢复！');
-                    }else{
-                        $this->error('删除失败');
-                    }
+                $result1 = $document_attribute_object->delete($ids);
+                $result2 = $document_attribute_object->deleteField($field);
+                if($result1 && $result2){
+                    $this->success('删除成功，不可恢复！');
                 }else{
-                    $this->error('删除失败');
+                    $this->error('删除失败'.$document_attribute_object->getError());
                 }
                 break;
             default :
