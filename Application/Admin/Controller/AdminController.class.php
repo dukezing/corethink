@@ -47,7 +47,8 @@ class AdminController extends Controller{
         if(!C('DEVELOP_MODE')){ //是否开启开发者模式
             $map['dev'] = array('neq', 1);
         }
-        $all_menu = D('Tree')->list_to_tree(D('SystemMenu')->where($map)->select($map, $status="1")); //所有菜单
+        $tree = new \Common\Util\Tree();
+        $all_menu = $tree->list_to_tree(D('SystemMenu')->where($map)->select($map, $status="1")); //所有菜单
         foreach($all_menu as $key => $val){
             $all_menu_list[$val['id']] = $val;
         }

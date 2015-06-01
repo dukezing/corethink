@@ -73,7 +73,8 @@ class UserGroupController extends AdminController{
             }
         }else{
             $map['status'] = array('egt', 0);
-            $all_group = D('Tree')->toFormatTree(D('UserGroup')->where($map)->order('sort asc,id asc')->select());
+            $tree = new \Common\Util\Tree();
+            $all_group = $tree->toFormatTree(D('UserGroup')->where($map)->order('sort asc,id asc')->select());
             $all_group = array_merge(array(0 => array('id'=>0, 'title_show'=>'顶级部门')), $all_group);
             $this->assign('all_group', $all_group);
             $this->meta_title = '新增部门';
@@ -103,7 +104,8 @@ class UserGroupController extends AdminController{
             $info = D('UserGroup')->find($id);
             $info['auth'] = explode(',', $info['auth']);
             $map['status'] = array('egt', 0);
-            $all_group = D('Tree')->toFormatTree(D('UserGroup')->where($map)->order('sort asc,id asc')->select());
+            $tree = new \Common\Util\Tree();
+            $all_group = $tree->toFormatTree(D('UserGroup')->where($map)->order('sort asc,id asc')->select());
             $all_group = array_merge(array(0 => array('id'=>0, 'title_show'=>'顶级部门')), $all_group);
             $this->assign('all_group', $all_group);
             $this->assign('info', $info);

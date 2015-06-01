@@ -50,7 +50,8 @@ class CoreThink extends TagLib{
         $parse  = '<?php ';
         $parse .= '$map[\'pid\'] = array("eq", '.$pid.');';
         $parse .= '$__CATEGORYLIST__ = D(\'Category\')->getAllCategory($map, "1");';
-        $parse .= '$__CATEGORYLIST__ = D(\'Tree\')->list_to_tree($__CATEGORYLIST__);';
+        $parse .= '$tree = new \Common\Util\Tree();';
+        $parse .= '$__CATEGORYLIST__ = $tree->list_to_tree($__CATEGORYLIST__);';
         $parse .= ' ?>';
         $parse .= '<volist name="__CATEGORYLIST__" id="'. $name .'">';
         $parse .= $content;

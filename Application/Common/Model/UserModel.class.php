@@ -154,7 +154,7 @@ class UserModel extends Model{
             }else{
                 //更新登录信息
                 $data = array(
-                    'id'             => $user['id'],
+                    'id'              => $user['id'],
                     'login'           => array('exp', '`login`+1'),
                     'last_login_time' => NOW_TIME,
                     'last_login_ip'   => get_client_ip(1),
