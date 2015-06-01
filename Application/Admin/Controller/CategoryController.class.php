@@ -53,7 +53,7 @@ class CategoryController extends AdminController{
                 ->dataList($data_list)    //数据列表
                 ->addRightButton('edit')   //添加编辑按钮
                 ->addRightButton('forbid') //添加禁用/启用按钮
-                ->addRightButton('self', '删除', $attr) //添加删除按钮
+                ->addRightButton('delete') //添加删除按钮
                 ->display();
     }
 
@@ -132,23 +132,33 @@ class CategoryController extends AdminController{
     }
 
     /**
-     * 删除分类
+     * 设置一条或者多条数据的状态
      * @author jry <598821125@qq.com>
      */
-    public function del($id){
-        $category_object = D('Category');
-        $category_info = $category_object->find($id);
-        $con['id'] = $category_info['doc_type'];
-        $category_type = D('DocumentType')->where($con)->getField('name');
-        $condition['cid'] = $id;
-        $count = D('Document')->where($condition)->count();
-        if($count == 0){
-            $result = $category_object->delete($id);
-            if($result){
-                $this->success('删除分类成功');
-            }
-        }else{
-            $this->error('请先删除或移动该分类下文档');
+    public function setStatus($model = CONTROLLER_NAME){
+        $ids    = I('request.ids');
+        $status = I('request.status');
+        if(empty($ids)){
+            $this->error('请选择要操作的数据');
+        }
+        $map['id'] = array('in',$ids);
+        switch($status){
+            case 'delete' : //删除条目
+                $category_object = D('Category');
+                $con['cid'] = array('in',$ids);
+                $count = D('Document')->where($con)->count();
+                if($count == 0){
+                    $result = $category_object->where($map)->delete();
+                    if($result){
+                        $this->success('删除分类成功');
+                    }
+                }else{
+                    $this->error('请先删除或移动该分类下文档');
+                }
+                break;
+            default :
+                parent::setStatus($model);
+                break;
         }
     }
 }

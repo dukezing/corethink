@@ -36,7 +36,6 @@ class DocumentTypeController extends AdminController{
                 ->AddNewButton()    //添加新增按钮
                 ->addResumeButton() //添加启用按钮
                 ->addForbidButton() //添加禁用按钮
-                ->addDeleteButton() //添加删除按钮
                 ->setSearch('请输入ID/类型标题', U('index'))
                 ->addField('id', 'ID', 'text')
                 ->addField('icon', '图标', 'icon')
@@ -150,6 +149,38 @@ class DocumentTypeController extends AdminController{
                     ->addItem('field_sort', 'board', '字段排序', '字段排序', $field)
                     ->setFormData(D('DocumentType')->find($id))
                     ->display();
+        }
+    }
+
+    /**
+     * 设置一条或者多条数据的状态
+     * @author jry <598821125@qq.com>
+     */
+    public function setStatus($model = CONTROLLER_NAME){
+        $ids    = I('request.ids');
+        $status = I('request.status');
+        if(empty($ids)){
+            $this->error('请选择要操作的数据');
+        }
+        $map['id'] = array('in',$ids);
+        switch($status){
+            case 'delete'  : //删除条目
+                $con['doc_type'] = $ids;
+                $count = D('category')->where($con)->count();
+                if($count > 0){
+                    $this->error('存在该文档类型的分类，无法删除！');
+                }else{
+                    $result = D('DocumentType')->where($map)->delete();
+                    if($result){
+                        $this->success('删除成功，不可恢复！');
+                    }else{
+                        $this->error('删除失败');
+                    }
+                }
+                break;
+            default :
+                parent::setStatus($model);
+                break;
         }
     }
 }
