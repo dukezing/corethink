@@ -133,7 +133,7 @@ CREATE TABLE `ct_document` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '文档ID',
   `cid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '分类ID',
   `uid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '发布者ID',
-  `title` varchar(127) NOT NULL DEFAULT '' COMMENT '标题',
+  `title` char(127) NOT NULL DEFAULT '' COMMENT '标题',
   `view` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '阅读量',
   `comment` int(11) NOT NULL DEFAULT '0' COMMENT '评论数',
   `good` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '赞数',
@@ -175,21 +175,21 @@ LOCK TABLES `ct_document_attribute` WRITE;
 
 INSERT INTO `ct_document_attribute` (`id`, `name`, `title`, `field`, `type`, `value`, `tip`, `show`, `options`, `doc_type`, `ctime`, `utime`, `status`)
 VALUES
-	(1,'cid','分类','int(11) unsigned NOT NULL ','select','','所属分类',1,'',0,1383891233,1384508336,1),
-	(2,'uid','用户ID','int(11) unsigned NOT NULL ','num','','用户ID',0,'',0,1383891233,1384508336,1),
-	(3,'title','标题','char(80) NOT NULL ','text','','文档标题',1,'',0,1383891233,1383894778,1),
-	(4,'view','阅读量','varchar(255) NOT NULL','num','','标签',0,'',0,1413303715,1413303715,1),
-	(5,'comment','评论数','int(11) unsigned NOT NULL ','num','','评论数',0,'',0,1383891233,1383894927,1),
-	(6,'good','赞数','int(11) unsigned NOT NULL ','num','0','赞数',0,'',0,1383891233,1384147827,1),
-	(7,'bad','踩数','int(11) unsigned NOT NULL ','num','','踩数',0,'',0,1407646362,1407646362,1),
-	(8,'ctime','创建时间','int(11) unsigned NOT NULL ','time','','创建时间',1,'',0,1383891233,1383895903,1),
-	(9,'utime','更新时间','int(11) unsigned NOT NULL ','time','','更新时间',0,'',0,1383891233,1384508277,1),
-	(10,'sort','排序','int(11) unsigned NOT NULL ','num','0','用于显示的顺序',1,'',0,1383891233,1383895757,1),
-	(11,'status','数据状态','tinyint(4) NOT NULL ','radio','1','',0,'-1:删除\r\n0:禁用\r\n1:正常',0,1383891233,1384508496,1),
-	(12,'abstract','简介','vachar(255) NOT NULL','textarea','','文档简介',1,'',3,1383891233,1384508496,1),
-	(13,'content','正文内容','text','kindeditor','','文章正文内容',1,'',3,1383891233,1384508496,1),
-	(14,'tags','文章标签','vachar(128) NOT NULL','tags','','标签',1,'',3,1383891233,1384508496,1),
-	(15,'cover','封面','int(11) unsigned NOT NULL ','picture','','文档封面',1,'',3,1383891233,1384508496,1);
+	(1, 'cid', '分类', 'int(11) unsigned NOT NULL ', 'select', '0', '所属分类', 1, '', 0, 1383891233, 1384508336, 1),
+	(2, 'uid', '用户ID', 'int(11) unsigned NOT NULL ', 'num', '0', '用户ID', 0, '', 0, 1383891233, 1384508336, 1),
+	(3, 'title', '标题', 'char(127) NOT NULL ', 'text', '', '文档标题', 1, '', 0, 1383891233, 1383894778, 1),
+	(4, 'view', '阅读量', 'varchar(255) NOT NULL', 'num', '0', '标签', 0, '', 0, 1413303715, 1413303715, 1),
+	(5, 'comment', '评论数', 'int(11) unsigned NOT NULL ', 'num', '0', '评论数', 0, '', 0, 1383891233, 1383894927, 1),
+	(6, 'good', '赞数', 'int(11) unsigned NOT NULL ', 'num', '0', '赞数', 0, '', 0, 1383891233, 1384147827, 1),
+	(7, 'bad', '踩数', 'int(11) unsigned NOT NULL ', 'num', '0', '踩数', 0, '', 0, 1407646362, 1407646362, 1),
+	(8, 'ctime', '创建时间', 'int(11) unsigned NOT NULL ', 'time', '0', '创建时间', 1, '', 0, 1383891233, 1383895903, 1),
+	(9, 'utime', '更新时间', 'int(11) unsigned NOT NULL ', 'time', '0', '更新时间', 0, '', 0, 1383891233, 1384508277, 1),
+	(10, 'sort', '排序', 'int(11) unsigned NOT NULL ', 'num', '0', '用于显示的顺序', 1, '', 0, 1383891233, 1383895757, 1),
+	(11, 'status', '数据状态', 'tinyint(4) NOT NULL ', 'radio', '1', '', 0, '-1:删除\r\n0:禁用\r\n1:正常', 0, 1383891233, 1384508496, 1),
+	(12, 'abstract', '简介', 'vachar(255) NOT NULL', 'textarea', '', '文档简介', 1, '', 3, 1383891233, 1384508496, 1),
+	(13, 'content', '正文内容', 'text', 'kindeditor', '', '文章正文内容', 1, '', 3, 1383891233, 1384508496, 1),
+	(14, 'tags', '文章标签', 'vachar(128) NOT NULL', 'tags', '', '标签', 1, '', 3, 1383891233, 1384508496, 1),
+	(15, 'cover', '封面', 'int(11) unsigned NOT NULL ', 'picture', '0', '文档封面', 1, '', 3, 1383891233, 1384508496, 1);
 
 /*!40000 ALTER TABLE `ct_document_attribute` ENABLE KEYS */;
 UNLOCK TABLES;

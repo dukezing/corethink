@@ -26,7 +26,7 @@ class DatebaseController extends AdminController{
      * @author jry <598821125@qq.com>
      */
     public function index($tab = 'ct_addon'){
-        $database   = C('DB_NAME'); //数据库名 
+        $database   = C('DB_NAME'); //数据库名
         //取得所有表
         $tables = M()->query('show tables');
         foreach($tables as $key => $val){
@@ -39,7 +39,7 @@ class DatebaseController extends AdminController{
             $sql  = 'SELECT * FROM ';
             $sql .= 'INFORMATION_SCHEMA.TABLES ';
             $sql .= 'WHERE ';
-            $sql .= "table_name = '{$val['name']}'  AND table_schema = '{$database}'";
+            $sql .= "table_name = '{$val['name']}' AND table_schema = '{$database}'";
             $table_result = M()->query($sql);
             $tables_result[$key]['title'] = $table_result[0]['table_comment'];
             $tabs[$key] = $table_result[0]['table_comment'].'('.$key.')';
@@ -48,7 +48,7 @@ class DatebaseController extends AdminController{
             $sql  = 'SELECT * FROM ';
             $sql .= 'INFORMATION_SCHEMA.COLUMNS ';
             $sql .= 'WHERE ';
-            $sql .= "table_name = '{$val['name']}'  AND table_schema = '{$database}'";
+            $sql .= "table_name = '{$val['name']}' AND table_schema = '{$database}'";
             $field_result = M()->query($sql);
             $tables_result[$key]['fields'] = $field_result;
         }

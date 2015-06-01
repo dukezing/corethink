@@ -11,12 +11,12 @@
  *  带格式生成随机字符 支持批量生成
  *  但可能存在重复
  * @param string $format 字符格式
- *     # 表示数字 * 表示字母和数字 $ 表示字母
+ * 0 字母 1 数字 其它 混合
  * @param integer $number 生成数量
  * @return string | array
  * @author jry <598821125@qq.com>
  */
-function randString($len = 6, $type){
+function randString($len = 6, $type = 1){
     return \Org\Util\String::randString($len, $type);
 }
 

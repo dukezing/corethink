@@ -26,16 +26,16 @@ pre,
 .input-group-addon,
 .article > header > dl,
 .article > header > .abstract {
-    box-shadow: none;
     border-radius: 0px;
+    box-shadow: none;
+    -webkit-box-shadow: none;
 }
 
 
 /* 表单
 -------------------------------------------------- */
 .form .btn,
-.form input,
-.form textarea {
+.form .form-control {
     border-left: 0px;
     border-right: 0px;
     box-shadow: none;
