@@ -95,7 +95,7 @@
                         </case>
                         <!-- 日期 -->
                         <case value="date">
-                            <input type="text" class="form-control time_{$key}" name="{$form.name}" value="{$form.value|time_format}">
+                            <input type="text" class="form-control time_{$key}" name="{$form.name}" value="<notempty name='form.value'>{$form.value|time_format='Y-m-d'}</notempty>">
                             <script type="text/javascript">
                                 $(function(){
                                     $(".time_{$key}").datetimepicker({
@@ -111,7 +111,7 @@
                         </case>
                         <!-- 时间 -->
                         <case value="time">
-                            <input type="text" class="form-control time_{$key}" name="{$form.name}" value="{$form.value|time_format}">
+                            <input type="text" class="form-control time_{$key}" name="{$form.name}" value="<notempty name='form.value'>{$form.value|time_format}</notempty>">
                             <script type="text/javascript">
                                 $(function(){
                                     $(".time_{$key}").datetimepicker({
@@ -163,13 +163,6 @@
                                         resizeType: 1,
                                         pasteType : 2,
                                         urlType : 'absolute',
-                                        items : ['source','|','undo','redo','|','preview','print','template','code','cut','copy','paste',
-                                                'plainpaste','wordpaste','downremoteimg','|','justifyleft','justifycenter','justifyright',
-                                                'justifyfull','insertorderedlist','insertunorderedlist','indent','outdent','subscript',
-                                                'superscript','clearhtml','quickformat','selectall','|','fullscreen','/','formatblock',
-                                                'fontname','fontsize','|','forecolor','hilitecolor','bold','italic','underline','strikethrough',
-                                                'lineheight','removeformat','|','image','multiimage','flash','media','insertfile','table','hr',
-                                                'emoticons','baidumap','pagebreak','anchor','link','unlink','poll','|','about'],
                                         fileManagerJson : '{:U("Upload/fileManager")}',
                                         uploadJson : '{:U("Upload/upload")}',
                                         remoteImgSaveUrl: '{:U("Upload/downremoteimg")}',
@@ -327,7 +320,7 @@
                                                             </case>
                                                             <!-- 日期 -->
                                                             <case value="date">
-                                                                <input type="text" class="form-control time_{$tab_key}" name="{$tab_form.name}" value="{$tab_form.value|time_format}">
+                                                                <input type="text" class="form-control time_{$tab_key}" name="{$tab_form.name}" value="<notempty name='tab_form.value'>{$tab_form.value|time_format='Y-m-d'}</notempty>">
                                                                 <script type="text/javascript">
                                                                     $(function(){
                                                                         $(".time_{$tab_key}").datetimepicker({
@@ -343,7 +336,7 @@
                                                             </case>
                                                             <!-- 时间 -->
                                                             <case value="time">
-                                                                <input type="text" class="form-control time_{$tab_key}" name="{$tab_form.name}" value="{$tab_form.value|time_format}">
+                                                                <input type="text" class="form-control time_{$tab_key}" name="{$tab_form.name}" value="<notempty name='tab_form.value'>{$tab_form.value|time_format}</notempty>">
                                                                 <script type="text/javascript">
                                                                     $(function(){
                                                                         $(".time_{$tab_key}").datetimepicker({
@@ -361,7 +354,7 @@
                                                             <case value="picture">
                                                                 <div id="upload_{$tab_key}"></div>
                                                                 <div id="preview_{$tab_key}">
-                                                                    <input type="hidden" name="{$form.name}" value="{$tab_form.value}">
+                                                                    <input type="hidden" name="{$tab_form.name}" value="{$tab_form.value}">
                                                                     <img style="margin-top:8px;max-height:60px;" src="{$tab_form.value|get_cover}">
                                                                 </div>
                                                                 <script type="text/javascript">
@@ -395,13 +388,6 @@
                                                                             resizeType: 1,
                                                                             pasteType : 2,
                                                                             urlType : 'absolute',
-                                                                            items : ['source','|','undo','redo','|','preview','print','template','code','cut','copy','paste',
-                                                                                    'plainpaste','wordpaste','downremoteimg','|','justifyleft','justifycenter','justifyright',
-                                                                                    'justifyfull','insertorderedlist','insertunorderedlist','indent','outdent','subscript',
-                                                                                    'superscript','clearhtml','quickformat','selectall','|','fullscreen','/','formatblock',
-                                                                                    'fontname','fontsize','|','forecolor','hilitecolor','bold','italic','underline','strikethrough',
-                                                                                    'lineheight','removeformat','|','image','multiimage','flash','media','insertfile','table','hr',
-                                                                                    'emoticons','baidumap','pagebreak','anchor','link','unlink','poll','|','about'],
                                                                             fileManagerJson : '{:U("Upload/fileManager")}',
                                                                             uploadJson : '{:U("Upload/upload")}',
                                                                             remoteImgSaveUrl: '{:U("Upload/downremoteimg")}',
