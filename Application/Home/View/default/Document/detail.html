@@ -104,7 +104,11 @@
                             }
                             $(that).find('span.num').css({'opacity':'0'}).text(ret[1]).animate({opacity:'1'});
                         }else{
-                            alertMessager(data.info, 'danger');
+                            if(data.login == 1){
+                                $('#login-modal').modal(); //弹出登陆框
+                            }else{
+                                alertMessager(data.info, 'danger');
+                            }
                         }
                     });
                 }

@@ -65,7 +65,11 @@
                         }
                     },2000);
                 }else{
-                    alertMessager(data.info, 'danger');
+                    if(data.login == 1){
+                        $('#login-modal').modal(); //弹出登陆框
+                    }else{
+                        alertMessager(data.info, 'danger');
+                    }
                     setTimeout(function(){
                         $(that).removeClass('disabled').prop('disabled',false);
                     },2000);
@@ -149,6 +153,16 @@
 });
 
 //弹窗提醒
-function alertMessager(message,type){
-    var msg = new $.zui.showMessager(message, {type: type, placement: 'top', time: 2000, close: false, fade: true, scale: false});
+function alertMessager(message, type, time){
+    if(!time){
+        time = 2000;
+    }
+    $.zui.showMessager(message, {
+        type: type,
+        placement: 'top',
+        time: time,
+        close: false,
+        fade: true,
+        scale: false
+    });
 }

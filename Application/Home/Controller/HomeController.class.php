@@ -53,7 +53,8 @@ class HomeController extends Controller{
         if($uid){
             return $uid;
         }else{
-            $this->redirect('User/login');
+            $data['login'] = 1;
+            $this->error('请先登陆', U('User/login'), $data);
         }
     }
 }
