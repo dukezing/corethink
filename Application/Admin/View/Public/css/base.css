@@ -28,7 +28,7 @@
 /* 布局绝对定位
 -------------------------------------------------- */
 @media (min-width: 768px){
-    .left{
+    .wrap>.left{
         padding: 0px;
         top: 50px;
         bottom: 0px;
@@ -36,17 +36,17 @@
         overflow: auto;
         background: rgb(245, 246, 247);
     }
-    .right{
+    .wrap>.right{
         top: 50px;
         right: 0px;
         bottom: 0px;
         position: absolute;
         overflow: auto;
     }
-    .right .title{
+    .wrap>.right .title{
         margin-left: -10px;
     }
-    .right .title .breadcrumb{
+    .wrap>.right .title .breadcrumb{
         padding-left: 10px !important;
     }
     .menu-corethink,
@@ -156,58 +156,58 @@
 
 /* 右侧内容
 -------------------------------------------------- */
-.right .title .breadcrumb{
+.wrap>.right .title .breadcrumb{
     padding-left: 0px;
     margin-bottom: 10px;
     border-bottom: 1px solid #ccc;
 }
-.right .title .breadcrumb li a{
+.wrap>.right .title .breadcrumb li a{
     color: #445566;
     cursor: pointer;
 }
-.right .toolbar>div>.btn{
+.wrap>.right .toolbar>div>.btn{
     margin-right: 5px;
 }
-.right .toolbar .btn,
-.right .toolbar input,
-.right .toolbar .nav-pills{
+.wrap>.right .toolbar .btn,
+.wrap>.right .toolbar input,
+.wrap>.right .toolbar .nav-pills{
     margin-bottom: 10px;
 }
-.right .toolbar .tab{
+.wrap>.right .toolbar .tab{
     margin:0px 10px;
 }
-.right .uploadify-button,
-.right .form .controls>select{
+.wrap>.right .uploadify-button,
+.wrap>.right .form .controls>select{
     width: 100%;
 }
-.right .form textarea{
+.wrap>.right .form textarea{
     height: 150px;
 }
-.right .form .submit,
-.right .form .reset,
-.right .form .return{
+.wrap>.right .form .submit,
+.wrap>.right .form .reset,
+.wrap>.right .form .return{
     min-width:120px;
 }
 @media (max-width: 768px){
-    .right .form .submit,
-    .right .form .reset,
-    .right .form .return{
+    .wrap>.right .form .submit,
+    .wrap>.right .form .reset,
+    .wrap>.right .form .return{
         width: 100%;
         margin-bottom: 10px;
     }
 }
 @media (min-width: 768px){
-    .right .form .controls>input[type=text],
-    .right .form .controls>input[type=password],
-    .right .form .controls .chosen-container,
-    .right .form .controls .token-input-list,
-    .right .form .controls>textarea,
-    .right .form .controls>select,
-    .right .uploadify-button{
+    .wrap>.right .form .controls>input[type=text],
+    .wrap>.right .form .controls>input[type=password],
+    .wrap>.right .form .controls .chosen-container,
+    .wrap>.right .form .controls .token-input-list,
+    .wrap>.right .form .controls>textarea,
+    .wrap>.right .form .controls>select,
+    .wrap>.right .uploadify-button{
         width: 50% !important;
         max-width: 640px;
     }
-    .right .ke-container{
+    .wrap>.right .ke-container{
         max-width: 960px;
     }
 }

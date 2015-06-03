@@ -108,12 +108,7 @@
                     <div class="panel" id="panel4" data-id="4">
                         <div class="panel-heading">
                             <div class="panel-actions">
-                                <div class="dropdown">
-                                    <button role="button" class="btn btn-mini" data-toggle="dropdown"><span class="caret"></span></button>
-                                    <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
-                                        <li><a href="#"><i class="icon-pencil"></i> 设置</a></li>
-                                    </ul>
-                                </div>
+                                <button id="daterange_set" class="btn btn-mini"><span class="icon-cog"></span></button>
                             </div>
                             <i class="icon-user"></i> 用户增长统计
                         </div>
@@ -127,6 +122,9 @@
 
 <block name="script">
     <script type="text/javascript" src="__PUBLIC__/highcharts/highcharts.js" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/daterangepicker/daterangepicker-bs3.css" />
+    <script type="text/javascript" src="__PUBLIC__/daterangepicker/moment.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="__PUBLIC__/daterangepicker/daterangepicker.js" charset="utf-8"></script>
     <script>
         $(function (){
             //dashboard
@@ -140,7 +138,7 @@
                     }
                 },
                 title: {
-                    text: '最近{$count_day}天用户增长',
+                    text: '{$start_date}－{$end_date} {$count_day}天用户增长',
                     x: -20 //center
                 },
                 xAxis: {
@@ -164,6 +162,45 @@
                     data: eval('{$user_reg_count}'),
                     enable: true
                 }], credits: {enabled: false}
+            });
+
+            //图表时间段选择
+            var option_set = {
+                startDate: moment().subtract(29, 'days'),
+                endDate: moment(),
+                minDate: '01/01/2015',
+                maxDate: '12/31/2100',
+                dateLimit: { days: 360 },
+                showDropdowns: true,
+                showWeekNumbers: true,
+                timePicker: false,
+                timePickerIncrement: 1,
+                timePicker12Hour: true,
+                ranges: {
+                   '最近7天': [moment().subtract(6, 'days'), moment()],
+                   '这个月': [moment().startOf('month'), moment().endOf('month')],
+                   '上个月': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+                opens: 'left',
+                buttonClasses: ['btn btn-default'],
+                applyClass: 'btn-sm btn-primary',
+                cancelClass: 'btn-sm',
+                format: 'MM/DD/YYYY',
+                separator: ' to ',
+                locale: {
+                    applyLabel: '确定',
+                    cancelLabel: '清除',
+                    fromLabel: '从',
+                    toLabel: '到',
+                    customRangeLabel: '自定义',
+                    daysOfWeek: ['日', '一', '二', '三', '四', '五','六'],
+                    monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+                    firstDay: 1
+                }
+            };
+
+            $('#daterange_set').daterangepicker(option_set, function(start, end, label){
+                location.href = '{:U("Index/index")}'+'&start_date='+start+'&end_date='+end;
             });
         });
     </script>
