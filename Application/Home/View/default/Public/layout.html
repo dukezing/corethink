@@ -159,7 +159,7 @@
                 <h4 class="modal-title">用户登录</h4>
             </div>
             <div class="modal-content" style="padding: 10px;">
-                <form class="form" action="{:U('User/login')}" method="post">
+                <form class="form login-modal" action="{:U('User/login')}" method="post">
                     <div class="form-group">
                         <label class="item-label">账号<span class="check-tips"></span></label>
                         <div class="control">
@@ -177,7 +177,7 @@
                             <a href="{:U('User/register')}">立刻注册</a> 
                             <a href="{:U('User/resetPassword')}">忘记密码</a>
                         </label>
-                        <button type="submit" class="btn ajax-post submit" target-form="form" data-loading-text="正在登录...">登 录</button>
+                        <button type="submit" class="btn ajax-post submit" target-form="login-modal" data-loading-text="正在登录...">登 录</button>
                     </div>
                 </form>
                 {:hook('SyncLogin')} <!-- 第三方登陆钩子 -->

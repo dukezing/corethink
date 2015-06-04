@@ -16,7 +16,7 @@
     <script type="text/javascript" src="__PUBLIC__/jquery/jquery.dragsort.min.js"></script>
     <script type="text/javascript">
         $(function(){
-            $(".form .controls select.form-control").chosen({disable_search_threshold: 10}); //使用chosen插件接管select
+            $(".form .controls select.form-control").chosen({disable_search: true}); //使用chosen插件接管select
             $('.form .chosen-icon').chosenIcons(); //使用chosen插件选择WebFont
             window.daterangepicker_locale = {
                 applyLabel: '确定',

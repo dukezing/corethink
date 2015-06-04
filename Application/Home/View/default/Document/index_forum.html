@@ -21,7 +21,7 @@
                                                 <a href="#"><strong>{$vo_child.link}</strong></a>
                                                 </span>
                                                 <div class="text">
-                                                    帖数:12
+                                                    帖数
                                                 </div>
                                             </div>
                                         </div>
@@ -33,9 +33,23 @@
                     <footer><ul class="pager pager-loose pager-pills">{$page}</ul></footer>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-3 hidden-xs">
+            <div class="col-xs-12 col-sm-3">
                 <nav class="menu menu-corethink" data-toggle="menu">
-                    
+                    <!-- 侧边导航 -->
+                    <ul class="nav nav-primary">
+                        <corethink:category_list name="side_category">
+                            <li class="show">
+                                {$side_category.link}
+                                <ul class="nav">
+                                    <volist name="side_category._child" id="child_category">
+                                        <li <php>if($child_category['id'] == $__CURRENT_CATEGORY__) echo 'class="active"';</php> >
+                                            {$child_category.link}
+                                        </li>
+                                    </volist>
+                                </ul>
+                            </li>
+                        </corethink:category_list>
+                    </ul>
                 </nav>
             </div>
         </div>

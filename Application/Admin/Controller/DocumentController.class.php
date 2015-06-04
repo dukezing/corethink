@@ -40,7 +40,7 @@ class DocumentController extends AdminController{
         $move_attr['onclick'] = 'move()';
 
         //使用Builder快速建立列表页面。
-        $builder = new \Admin\Builder\AdminListBuilder();
+        $builder = new \Common\Builder\ListBuilder();
         $builder->title($category['title'])  //设置页面标题
                 ->AddButton('新增', $add_attr)    //添加新增按钮
                 ->addResumeButton() //添加启用按钮
@@ -108,7 +108,7 @@ class DocumentController extends AdminController{
         }
 
         //使用FormBuilder快速建立表单页面。
-        $builder = new \Admin\Builder\AdminFormBuilder();
+        $builder = new \Common\Builder\FormBuilder();
         $builder->title('新增文章')  //设置页面标题
                 ->setUrl(U('update')) //设置表单提交地址
                 ->setExtraItems($new_attribute_list)
@@ -162,8 +162,8 @@ class DocumentController extends AdminController{
         }
 
         //使用FormBuilder快速建立表单页面。
-        $builder = new \Admin\Builder\AdminFormBuilder();
-        $builder->title('新增文章')  //设置页面标题
+        $builder = new \Common\Builder\FormBuilder();
+        $builder->title('编辑文章')  //设置页面标题
                 ->setUrl(U('update')) //设置表单提交地址
                 ->addItem('id', 'hidden', 'ID', 'ID')
                 ->setExtraItems($new_attribute_list)
@@ -224,7 +224,7 @@ class DocumentController extends AdminController{
         $page = new \Common\Util\Page(D('Document')->where($map)->count(), C('ADMIN_PAGE_ROWS'));
 
         //使用Builder快速建立列表页面。
-        $builder = new \Admin\Builder\AdminListBuilder();
+        $builder = new \Common\Builder\ListBuilder();
         $builder->title('回收站')  //设置页面标题
                 ->addDeleteButton() //添加删除按钮
                 ->addRestoreButton() //添加还原按钮

@@ -6,14 +6,14 @@
 // +----------------------------------------------------------------------
 // | Author: jry <598821125@qq.com> <http://www.corethink.cn>
 // +----------------------------------------------------------------------
-namespace Admin\Builder;
+namespace Common\Builder;
 use Think\View;
-use Admin\Controller\AdminController;
+use Think\Controller;
 /**
- * 后台表单页面自动生成器
+ * 表单页面自动生成器
  * @author jry <598821125@qq.com>
  */
-class AdminFormBuilder extends AdminController{
+class FormBuilder extends Controller{
     private $_title; //页面标题
     private $_tab_list; //Tab按钮列表
     private $_current_tab = 0; //当前Tab
@@ -22,15 +22,7 @@ class AdminFormBuilder extends AdminController{
     private $_extra_items = array(); //额外已经构造好的表单项目
     private $_form_data = array(); //表单数据
     private $_extra; //额外参数
-
-    /**设置页面标题
-     * @param $title 标题文本
-     * @return $this
-     */
-    public function setType($type){
-        $this->_type = $type;
-        return $this;
-    }
+    private $_template = 'adminformbuilder.html'; //模版
 
     /**设置页面标题
      * @param $title 标题文本
@@ -115,6 +107,15 @@ class AdminFormBuilder extends AdminController{
         return $this;
     }
 
+    /**设置页面模版
+     * @param $template 模版
+     * @return $this
+     */
+    public function setTemplate($template){
+        $this->_template = $template;
+        return $this;
+    }
+
     //显示页面
     public function display(){
         //编译表单值
@@ -131,6 +132,6 @@ class AdminFormBuilder extends AdminController{
         $this->assign('url', $this->_url);
         $this->assign('form_items', $this->_form_items);
         $this->assign('extra', $this->_extra);
-        parent::display(dirname(__FILE__) . '/adminformbuilder.html');
+        parent::display(dirname(__FILE__).'/'.$this->_template);
     }
 }

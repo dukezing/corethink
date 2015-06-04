@@ -32,7 +32,7 @@ class UserGroupController extends AdminController{
         $data_list = $tree->toFormatTree($data_list);
 
         //使用Builder快速建立列表页面。
-        $builder = new \Admin\Builder\AdminListBuilder();
+        $builder = new \Common\Builder\ListBuilder();
         $builder->title('部门列表')  //设置页面标题
                 ->AddNewButton()    //添加新增按钮
                 ->addResumeButton() //添加启用按钮

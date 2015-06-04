@@ -32,7 +32,7 @@ class SystemMenuController extends AdminController{
         $data_list = $tree->toFormatTree($data_list);
 
         //使用Builder快速建立列表页面。
-        $builder = new \Admin\Builder\AdminListBuilder();
+        $builder = new \Common\Builder\ListBuilder();
         $builder->title('菜单列表')  //设置页面标题
                 ->AddNewButton()    //添加新增按钮
                 ->addResumeButton() //添加启用按钮
@@ -73,7 +73,7 @@ class SystemMenuController extends AdminController{
             }
         }else{
             //使用FormBuilder快速建立表单页面。
-            $builder = new \Admin\Builder\AdminFormBuilder();
+            $builder = new \Common\Builder\FormBuilder();
             $builder->title('新增菜单')  //设置页面标题
                     ->setUrl(U('add')) //设置表单提交地址
                     ->addItem('pid', 'select', '上级菜单', '所属的上级菜单', $this->selectListAsTree('SystemMenu', null, '顶级菜单'))
@@ -104,7 +104,7 @@ class SystemMenuController extends AdminController{
             }
         }else{
             //使用FormBuilder快速建立表单页面。
-            $builder = new \Admin\Builder\AdminFormBuilder();
+            $builder = new \Common\Builder\FormBuilder();
             $builder->title('新增菜单')  //设置页面标题
                     ->setUrl(U('edit')) //设置表单提交地址
                     ->addItem('id', 'hidden', 'ID', 'ID')

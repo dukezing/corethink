@@ -35,7 +35,7 @@ class DocumentAttributeController extends AdminController{
         $attr['class'] = 'btn';
 
         //使用Builder快速建立列表页面。
-        $builder = new \Admin\Builder\AdminListBuilder();
+        $builder = new \Common\Builder\ListBuilder();
         $builder->title(字段管理) //设置页面标题
                 ->AddButton('新 增', $attr) //添加新增按钮
                 ->addResumeButton() //添加启用按钮
@@ -84,7 +84,7 @@ class DocumentAttributeController extends AdminController{
             $info['doc_type'] = $doc_type;
             $info['show'] = 1;
             //使用FormBuilder快速建立表单页面。
-            $builder = new \Admin\Builder\AdminFormBuilder();
+            $builder = new \Common\Builder\FormBuilder();
             $builder->title('新增字段')  //设置页面标题
                     ->setUrl(U('add')) //设置表单提交地址
                     ->addItem('doc_type', 'select', '文档类型', '文档类型', $this->selectListAsTree('DocumentType'))
@@ -126,7 +126,7 @@ class DocumentAttributeController extends AdminController{
             }
         }else{
             //使用FormBuilder快速建立表单页面。
-            $builder = new \Admin\Builder\AdminFormBuilder();
+            $builder = new \Common\Builder\FormBuilder();
             $builder->title('编辑字段')  //设置页面标题
                     ->setUrl(U('edit')) //设置表单提交地址
                     ->addItem('id', 'hidden', 'ID', 'ID')

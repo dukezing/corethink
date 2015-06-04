@@ -29,7 +29,7 @@ class UserController extends AdminController{
         $page = new \Common\Util\Page(D('User')->where($map)->count(), C('ADMIN_PAGE_ROWS'));
 
         //使用Builder快速建立列表页面。
-        $builder = new \Admin\Builder\AdminListBuilder();
+        $builder = new \Common\Builder\ListBuilder();
         $builder->title('用户列表')  //设置页面标题
                 ->AddNewButton()    //添加新增按钮
                 ->addResumeButton() //添加启用按钮
@@ -74,7 +74,7 @@ class UserController extends AdminController{
             }
         }else{
             //使用FormBuilder快速建立表单页面。
-            $builder = new \Admin\Builder\AdminFormBuilder();
+            $builder = new \Common\Builder\FormBuilder();
             $builder->title('新增用户')  //设置页面标题
                     ->setUrl(U('add')) //设置表单提交地址
                     ->addItem('group', 'select', '部门', '所属部门', $this->selectListAsTree('UserGroup', null, '默认部门'))
@@ -114,7 +114,7 @@ class UserController extends AdminController{
             }
         }else{
             //使用FormBuilder快速建立表单页面。
-            $builder = new \Admin\Builder\AdminFormBuilder();
+            $builder = new \Common\Builder\FormBuilder();
             $builder->title('编辑用户')  //设置页面标题
                     ->setUrl(U('edit')) //设置表单提交地址
                     ->addItem('id', 'hidden', 'ID', 'ID')

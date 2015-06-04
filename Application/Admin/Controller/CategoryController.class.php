@@ -36,7 +36,7 @@ class CategoryController extends AdminController{
         $data_list = D('Category')->getLinkByModel($data_list);
 
         //使用Builder快速建立列表页面。
-        $builder = new \Admin\Builder\AdminListBuilder();
+        $builder = new \Common\Builder\ListBuilder();
         $builder->title('分类列表')  //设置页面标题
                 ->AddNewButton()    //添加新增按钮
                 ->addResumeButton() //添加启用按钮
@@ -84,7 +84,7 @@ class CategoryController extends AdminController{
             }
 
             //使用FormBuilder快速建立表单页面。
-            $builder = new \Admin\Builder\AdminFormBuilder();
+            $builder = new \Common\Builder\FormBuilder();
             $builder->title('新增分类')  //设置页面标题
                     ->setUrl(U('add')) //设置表单提交地址
                     ->addItem('pid', 'select', '上级分类', '所属的上级分类', $this->selectListAsTree('Category', null, '顶级分类'))
@@ -130,7 +130,7 @@ class CategoryController extends AdminController{
             }
 
             //使用FormBuilder快速建立表单页面。
-            $builder = new \Admin\Builder\AdminFormBuilder();
+            $builder = new \Common\Builder\FormBuilder();
             $builder->title('编辑分类')  //设置页面标题
                     ->setUrl(U('edit')) //设置表单提交地址
                     ->addItem('id', 'hidden', 'ID', 'ID')

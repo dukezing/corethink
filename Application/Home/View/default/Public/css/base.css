@@ -21,12 +21,13 @@ pre,
 .panel,
 .form-control,
 .navbar-toggle,
+.chosen-single,
 .dropdown-menu,
 .nav-tabs > li > a,
 .input-group-addon,
 .article > header > dl,
 .article > header > .abstract {
-    border-radius: 0px;
+    border-radius: 0px !important;
     box-shadow: none;
     -webkit-box-shadow: none;
 }
@@ -35,6 +36,7 @@ pre,
 /* 表单
 -------------------------------------------------- */
 .form .btn,
+.form.chosen-single,
 .form .form-control {
     border-left: 0px;
     border-right: 0px;
@@ -45,16 +47,25 @@ pre,
     color: #333;
     width: 100%;
 }
+.form .chosen-single,
 .form .form-control:focus {
-    box-shadow: none;
-    -webkit-box-shadow: none;
-    transition: none;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    transition: none !important;
 }
 .form .btn,
 .form input {
     height: 38px;
     line-height: 28px;
     border-color: #ddd;
+}
+.form .chosen-single {
+    height: 38px !important;
+    line-height: 25px !important;
+}
+.chosen-results li {
+    height: 32px !important;
+    line-height: 20px !important;
 }
 .form textarea {
     height: 150px;

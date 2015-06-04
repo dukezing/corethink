@@ -29,7 +29,7 @@ class UserCommentController extends AdminController{
         $page = new \Common\Util\Page(D('UserComment')->where($map)->count(), C('ADMIN_PAGE_ROWS'));
 
         //使用Builder快速建立列表页面。
-        $builder = new \Admin\Builder\AdminListBuilder();
+        $builder = new \Common\Builder\ListBuilder();
         $builder->title('评论列表')  //设置页面标题
                 ->AddNewButton()    //添加新增按钮
                 ->addResumeButton() //添加启用按钮
@@ -70,7 +70,7 @@ class UserCommentController extends AdminController{
             }
         }else{
             //使用FormBuilder快速建立表单页面。
-            $builder = new \Admin\Builder\AdminFormBuilder();
+            $builder = new \Common\Builder\FormBuilder();
             $builder->title('新增评论')  //设置页面标题
                     ->setUrl(U('add')) //设置表单提交地址
                     ->addItem('doc_id', 'num', '文档ID', '文档ID')
@@ -100,7 +100,7 @@ class UserCommentController extends AdminController{
             }
         }else{
             //使用FormBuilder快速建立表单页面。
-            $builder = new \Admin\Builder\AdminFormBuilder();
+            $builder = new \Common\Builder\FormBuilder();
             $builder->title('编辑评论')  //设置页面标题
                     ->setUrl(U('edit')) //设置表单提交地址
                     ->addItem('id', 'hidden', 'ID', 'ID')

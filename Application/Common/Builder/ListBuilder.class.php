@@ -6,14 +6,14 @@
 // +----------------------------------------------------------------------
 // | Author: jry <598821125@qq.com> <http://www.corethink.cn>
 // +----------------------------------------------------------------------
-namespace Admin\Builder;
+namespace Common\Builder;
 use Think\View;
-use Admin\Controller\AdminController;
+use Think\Controller;
 /**
- * 后台数据列表自动生成器
+ * 数据列表自动生成器
  * @author jry <598821125@qq.com>
  */
-class AdminListBuilder extends AdminController{
+class ListBuilder extends Controller{
     private $_title; //页面标题
     private $_button_list = array(); //工具栏按钮组
     private $_search = array(); //搜索参数
@@ -24,6 +24,7 @@ class AdminListBuilder extends AdminController{
     private $_right_button_list = array(); //表格右侧操作按钮组
     private $_page; //分页
     private $_extra; //额外参数
+    private $_template = 'adminlistbuilder.html'; //模版
 
     /**设置页面标题
      * @param $title 标题文本
@@ -166,6 +167,15 @@ class AdminListBuilder extends AdminController{
         return $this;
     }
 
+    /**设置页面模版
+     * @param $template 模版
+     * @return $this
+     */
+    public function setTemplate($template){
+        $this->_template = $template;
+        return $this;
+    }
+
     //显示页面
     public function display(){
         //编译button_list中的HTML属性
@@ -251,8 +261,7 @@ class AdminListBuilder extends AdminController{
         $this->assign('right_button_list', $this->_right_button_list);
         $this->assign('page', $this->_page);
         $this->assign('extra', $this->_extra);
-
-        parent::display(dirname(__FILE__) . '/adminlistbuilder.html');
+        parent::display(dirname(__FILE__).'/'.$this->_template);
     }
 
     //编译HTML属性

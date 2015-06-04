@@ -31,7 +31,7 @@ class DocumentTypeController extends AdminController{
         $attr['href'] = 'DocumentAttribute/index?doc_type=';
 
         //使用Builder快速建立列表页面。
-        $builder = new \Admin\Builder\AdminListBuilder();
+        $builder = new \Common\Builder\ListBuilder();
         $builder->title('类型列表')  //设置页面标题
                 ->AddNewButton()    //添加新增按钮
                 ->addResumeButton() //添加启用按钮
@@ -74,7 +74,7 @@ class DocumentTypeController extends AdminController{
             }
         }else{
             //使用FormBuilder快速建立表单页面。
-            $builder = new \Admin\Builder\AdminFormBuilder();
+            $builder = new \Common\Builder\FormBuilder();
             $builder->title('新增类型')  //设置页面标题
                     ->setUrl(U('add')) //设置表单提交地址
                     ->addItem('name', 'text', '类型名称', '类型名称')
@@ -137,7 +137,7 @@ class DocumentTypeController extends AdminController{
             }
 
             //使用FormBuilder快速建立表单页面。
-            $builder = new \Admin\Builder\AdminFormBuilder();
+            $builder = new \Common\Builder\FormBuilder();
             $builder->title('编辑类型')  //设置页面标题
                     ->setUrl(U('edit')) //设置表单提交地址
                     ->addItem('id', 'hidden', 'ID', 'ID')

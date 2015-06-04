@@ -87,7 +87,7 @@ class AddonController extends AdminController {
                 $this->display();
             }else{
                 //使用FormBuilder快速建立表单页面。
-                $builder = new \Admin\Builder\AdminFormBuilder();
+                $builder = new \Common\Builder\FormBuilder();
                 $builder->title('插件设置')  //设置页面标题
                         ->setUrl(U('config')) //设置表单提交地址
                         ->addItem('id', 'hidden', 'ID', 'ID')

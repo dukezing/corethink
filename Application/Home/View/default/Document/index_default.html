@@ -28,11 +28,12 @@
                     <footer><ul class="pager pager-loose pager-pills">{$page}</ul></footer>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-3 hidden-xs">
+            <div class="col-xs-12 col-sm-3 form">
+                <a href="{:U('Document/add', array('cid' => $__CURRENT_CATEGORY__))}" class="btn btn-block">发表</a>
+                <br>
                 <nav class="menu menu-corethink" data-toggle="menu">
                     <!-- 侧边导航 -->
                     <ul class="nav nav-primary">
-                        <!-- 模版标签 -->
                         <corethink:category_list name="side_category">
                             <li class="show">
                                 {$side_category.link}
@@ -45,7 +46,6 @@
                                 </ul>
                             </li>
                         </corethink:category_list>
-                        <!-- /模版标签 -->
                     </ul>
                 </nav>
             </div>

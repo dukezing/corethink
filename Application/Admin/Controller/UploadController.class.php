@@ -29,7 +29,7 @@ class UploadController extends AdminController{
         $page = new \Common\Util\Page(D('Upload')->where($map)->count(), C('ADMIN_PAGE_ROWS'));
 
         //使用Builder快速建立列表页面。
-        $builder = new \Admin\Builder\AdminListBuilder();
+        $builder = new \Common\Builder\ListBuilder();
         $builder->title('上传列表')  //设置页面标题
                 ->addResumeButton() //添加启用按钮
                 ->addForbidButton() //添加禁用按钮

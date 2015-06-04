@@ -54,7 +54,7 @@ class DatebaseController extends AdminController{
         }
 
         //使用Builder快速建立列表页面。
-        $builder = new \Admin\Builder\AdminListBuilder();
+        $builder = new \Common\Builder\ListBuilder();
         $builder->title('数据字典')  //设置页面标题
                 ->SetTablist($tabs) //设置Tab按钮列表
                 ->SetCurrentTab($tab) //设置当前Tab
