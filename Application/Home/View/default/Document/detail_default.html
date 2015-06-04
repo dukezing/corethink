@@ -44,13 +44,12 @@
                         </div>
                     </footer>
                 </article>
-                <include file="Document:comment.html" /><!-- 包含评论 -->
+                <include file="Document:comment" /><!-- 包含评论 -->
             </div>
             <div class="col-xs-12 col-sm-3">
                 <nav class="menu menu-corethink" data-toggle="menu">
                     <!-- 侧边导航 -->
                     <ul class="nav nav-primary">
-                        <!-- 模版标签 -->
                         <corethink:category_list name="side_category">
                             <li class="show">
                                 {$side_category.link}
@@ -63,7 +62,6 @@
                                 </ul>
                             </li>
                         </corethink:category_list>
-                        <!-- /模版标签 -->
                     </ul>
                 </nav>
             </div>
