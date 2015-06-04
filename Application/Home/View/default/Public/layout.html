@@ -61,9 +61,9 @@
                 <ul class="nav navbar-nav">
                     <li><a href="__ROOT__/">首页</a></li>
                     <!-- 模版标签 -->
-                        <corethink:category name="_category">
+                        <corethink:category_list name="_category">
                             <li <if condition='$_category.id eq $__CURRENT_CATEGORY__'> class="active"</if> >{$_category.link}</li>
-                        </corethink:category>
+                        </corethink:category_list>
                     <!-- /模版标签 -->
                 </ul>
                 <ul class="nav navbar-nav navbar-right">

@@ -23,18 +23,17 @@ class CategoryController extends AdminController{
         $condition = array('like','%'.$keyword.'%');
         $map['id|title'] = array($condition, $condition,'_multi'=>true);
 
-        //获取所有
+        //获取所有分类
         $map['status'] = array('egt', '0'); //禁用和正常状态
-        $map['pid'] = array('eq', I('get.pid') ? : '0'); //父分类ID
+        if(I('get.pid')){
+            $map['pid'] = array('eq', I('get.pid')); //父分类ID
+        }
         $data_list = D('Category')->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))->where($map)->order('sort asc,id asc')->select();
 
         //转换成树状列表
         $tree = new \Common\Util\Tree();
         $data_list = $tree->toFormatTree($data_list);
         $data_list = D('Category')->getLinkByModel($data_list);
-
-        $attr['href'] = 'Category/del?id=';
-        $attr['class'] = 'ajax-get confirm';
 
         //使用Builder快速建立列表页面。
         $builder = new \Admin\Builder\AdminListBuilder();
@@ -76,6 +75,14 @@ class CategoryController extends AdminController{
                 $this->error($category_object->getError());
             }
         }else{
+            //获取前台模版供选择
+            $default_theme = D('SystemConfig')->getFieldByName('DEFAULT_THEME','value');
+            $template_list = \Common\Util\File::get_dirs(getcwd().'/Application/Home/View/'.$default_theme.'/Document');
+            foreach($template_list['file'] as $val){
+                $val = substr($val, 0, -5);
+                $new_template_list[$val] =  $val;
+            }
+
             //使用FormBuilder快速建立表单页面。
             $builder = new \Admin\Builder\AdminFormBuilder();
             $builder->title('新增分类')  //设置页面标题
@@ -85,7 +92,7 @@ class CategoryController extends AdminController{
                     ->addItem('doc_type', 'select', '分类内容模型', '分类内容模型', $this->selectListAsTree('DocumentType'))
                     ->addItem('url', 'text', '链接', 'U函数解析的URL或者外链', null, 'hidden')
                     ->addItem('content', 'kindeditor', '内容', '单页模型填写内容', null, 'hidden')
-                    ->addItem('template', 'text', '模版', '单页使用的模版或其他模型文档列表模版')
+                    ->addItem('template', 'select', '模版', '单页使用的模版或其他模型文档列表模版', $new_template_list)
                     ->addItem('icon', 'icon', '图标', '菜单图标')
                     ->addItem('sort', 'num', '排序', '用于显示的顺序')
                     ->setExtra('category')
@@ -111,7 +118,17 @@ class CategoryController extends AdminController{
                 $this->error($category_object->getError());
             }
         }else{
+            //获取分类信息
             $info = D('Category')->find($id);
+
+            //获取前台模版供选择
+            $default_theme = D('SystemConfig')->getFieldByName('DEFAULT_THEME','value');
+            $template_list = \Common\Util\File::get_dirs(getcwd().'/Application/Home/View/'.$default_theme.'/Document');
+            foreach($template_list['file'] as $val){
+                $val = substr($val, 0, -5);
+                $new_template_list[$val] =  $val;
+            }
+
             //使用FormBuilder快速建立表单页面。
             $builder = new \Admin\Builder\AdminFormBuilder();
             $builder->title('编辑分类')  //设置页面标题
@@ -122,7 +139,7 @@ class CategoryController extends AdminController{
                     ->addItem('doc_type', 'select', '分类内容模型', '分类内容模型', $this->selectListAsTree('DocumentType'))
                     ->addItem('url', 'text', '链接', 'U函数解析的URL或者外链', null, $info['model'] == 1 ? : 'hidden')
                     ->addItem('content', 'kindeditor', '内容', '单页模型填写内容', null, $info['model'] == 2 ? : 'hidden')
-                    ->addItem('template', 'text', '模版', '单页使用的模版或其他模型文档列表模版')
+                    ->addItem('template', 'select', '模版', '单页使用的模版或其他模型文档列表模版', $new_template_list)
                     ->addItem('icon', 'icon', '图标', '菜单图标')
                     ->addItem('sort', 'num', '排序', '用于显示的顺序')
                     ->setFormData($info)

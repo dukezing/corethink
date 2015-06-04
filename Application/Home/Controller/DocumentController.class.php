@@ -22,7 +22,7 @@ class DocumentController extends HomeController{
         //获取分类信息
         $map['cid'] = $cid;
         $category = D('Category')->find($cid);
-        $template = $category['template'] ? 'Article/'.$category['template'] : '';
+        $template = $category['template'] ? 'Article/'.$category['template'] : 'Document/index_default';
 
         $map['status'] = array('egt', 0);
         $document_list = D('Document')->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))
@@ -64,6 +64,6 @@ class DocumentController extends HomeController{
         $this->assign('__CURRENT_CATEGORY__', $category['id']);
         $this->meta_title = $info['title'];
         Cookie('__forward__', $_SERVER['REQUEST_URI']);
-        $this->display();
+        $this->display(Document/detail_default);
     }
 }

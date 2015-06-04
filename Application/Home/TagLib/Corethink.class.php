@@ -19,7 +19,7 @@ class CoreThink extends TagLib{
      */
     protected $tags = array(
         'breadcrumb'  => array('attr' => 'name,cid', 'close' => 1), //面包屑导航列表
-        'category' => array('attr' => 'name,pid', 'close' => 1), //栏目分类列表
+        'category_list' => array('attr' => 'name,pid,limit', 'close' => 1), //栏目分类列表
         'comment'  => array('attr' => 'name,doc_id', 'close' => 1), //评论列表
         'document'  => array('attr' => 'name,cid,limit', 'close' => 1), //文档列表
     );
@@ -44,14 +44,12 @@ class CoreThink extends TagLib{
      * 栏目分类列表
      * @author jry <598821125@qq.com>
      */
-    public function _category($tag, $content){
+    public function _category_list($tag, $content){
         $name   = $tag['name'];
-        $pid   = $tag['pid']? : 0;
+        $pid    = $tag['pid'] ? : 0;
+        $limit  = $tag['limit'];
         $parse  = '<?php ';
-        $parse .= '$map[\'pid\'] = array("eq", '.$pid.');';
-        $parse .= '$__CATEGORYLIST__ = D(\'Category\')->getAllCategory($map, "1");';
-        $parse .= '$tree = new \Common\Util\Tree();';
-        $parse .= '$__CATEGORYLIST__ = $tree->list_to_tree($__CATEGORYLIST__);';
+        $parse .= '$__CATEGORYLIST__ = D(\'Category\')->getCategoryTree('.$pid.');';
         $parse .= ' ?>';
         $parse .= '<volist name="__CATEGORYLIST__" id="'. $name .'">';
         $parse .= $content;

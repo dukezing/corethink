@@ -19,7 +19,7 @@ class CategoryController extends HomeController{
      */
     public function detail($id){
         $category = D('Category')->find($id);
-        $template = $category['template'] ? 'Category/'.$category['template'] : '';
+        $template = $category['template'] ? 'Document/'.$category['template'] : 'Document/detail_category';
         $this->assign('info', $category);
         $this->assign('__CURRENT_CATEGORY__', $category['id']);
         $this->assign('meta_title', $category['title']);

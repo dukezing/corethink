@@ -19,6 +19,6 @@ class IndexController extends HomeController{
      */
     public function index(){
         $this->assign('meta_title', "首页");
-        $this->display();
+        $this->display('Public/index');
     }
 }

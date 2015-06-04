@@ -110,4 +110,26 @@ class CategoryModel extends Model{
         }
         return $this->getLinkByModel($res);
     }
+
+    /**
+     * 获取分类树，指定分类则返回指定分类极其子分类，不指定则返回所有分类树
+     * @param  integer $id    分类ID
+     * @param  boolean $field 查询字段
+     * @return array          分类树
+     * @author jry <598821125@qq.com>
+     */
+    public function getCategoryTree($id = 0, $field = true){
+        //获取当前分类信息
+        if((int)$id > 0){
+            $info = $this->find($id);
+            $id   = $info['id'];
+        }
+        //获取所有分类
+        $map  = array('status' => 1);
+        $tree = new \Common\Util\Tree();
+        $list = $this->field($field)->where($map)->order('sort')->select();
+        $list = $this->getLinkByModel($list);
+        $list = $tree->list_to_tree($list, $pk = 'id', $pid = 'pid', $child = '_child', $root = (int)$id);
+        return $list;
+    }
 }
