@@ -59,30 +59,6 @@ class CategoryModel extends Model{
     }
 
     /**
-     * 根据分类模型获取分类链接
-     * @return array 分类列表
-     * @author jry <598821125@qq.com>
-     */
-    public function getLinkByModel($list){
-        foreach($list as $key => $val){
-            switch($val['type']){
-                case 1:
-                    $list[$key]['link'] = '<a target="_blank" href="'.$val['url'].'">'.$val['title'].'</a>';
-                    $list[$key]['title_link'] = $val['title'];
-                    break;
-                case 2:
-                    $list[$key]['link'] = '<a href="'.U('Category/detail', array('id' => $val['id'])).'">'.$val['title'].'</a>';
-                    $list[$key]['title_link'] = $val['title'];
-                    break;
-                default :
-                    $list[$key]['link'] = '<a href="'.U('Document/index', array('cid' => $val['id'])).'">'.$val['title'].'</a>';
-                    $list[$key]['title_link'] = $list[$key]['title_prefix'].$list[$key]['link'];
-            }
-        }
-        return $list;
-    }
-
-    /**
      * 获取参数的所有父级分类
      * @param int $cid 分类id
      * @return array 参数分类和父类的信息集合
@@ -128,8 +104,51 @@ class CategoryModel extends Model{
         $map  = array('status' => 1);
         $tree = new \Common\Util\Tree();
         $list = $this->field($field)->where($map)->order('sort')->select();
-        $list = $this->getLinkByModel($list);
+        $list = $this->getLinkByModel($list); //获取分类链接
+        $list = $this->getCategoryCount($list); //获取分类的文档数目
         $list = $tree->list_to_tree($list, $pk = 'id', $pid = 'pid', $child = '_child', $root = (int)$id);
+        return $list;
+    }
+
+    /**
+     * 获取分类的文档统计数据
+     * @return array 分类列表
+     * @author jry <598821125@qq.com>
+     */
+    public function getCategoryCount($list){
+        foreach($list as &$val){
+            $map = array();
+            $map['cid'] = array('eq', $val['id']);
+            $val['count_sum_document'] = D('Document')->where($map)->count();
+            $val['count_sum_comment'] = D('Document')->where($map)->sum('comment');
+            $today = strtotime(date('Y-m-d', time())); //今天
+            $map['ctime'] = array(array('gt', $today), array('lt', $today+86400));
+            $val['count_new_document'] = D('Document')->where($map)->count();
+        }
+        return $list;
+    }
+
+    /**
+     * 根据分类模型获取分类链接
+     * @return array 分类列表
+     * @author jry <598821125@qq.com>
+     */
+    public function getLinkByModel($list){
+        foreach($list as $key => $val){
+            switch($val['type']){
+                case 1:
+                    $list[$key]['link'] = '<a target="_blank" href="'.$val['url'].'">'.$val['title'].'</a>';
+                    $list[$key]['title_link'] = $val['title'];
+                    break;
+                case 2:
+                    $list[$key]['link'] = '<a href="'.U('Category/detail', array('id' => $val['id'])).'">'.$val['title'].'</a>';
+                    $list[$key]['title_link'] = $val['title'];
+                    break;
+                default :
+                    $list[$key]['link'] = '<a href="'.U('Document/index', array('cid' => $val['id'])).'">'.$val['title'].'</a>';
+                    $list[$key]['title_link'] = $list[$key]['title_prefix'].$list[$key]['link'];
+            }
+        }
         return $list;
     }
 }

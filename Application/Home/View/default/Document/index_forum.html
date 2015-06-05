@@ -18,10 +18,16 @@
                                             </span>
                                             <div class="content">
                                                 <span class="author">
-                                                <a href="#"><strong>{$vo_child.link}</strong></a>
+                                                    <a href="#">
+                                                        <strong>{$vo_child.link}</strong> 
+                                                        <notempty name="vo_child.count_new_document">
+                                                            <span class="label label-dot label-danger"></span> 
+                                                            ({$vo_child.count_new_document})
+                                                        </notempty>
+                                                    </a>
                                                 </span>
                                                 <div class="text">
-                                                    帖数
+                                                    帖数 {$vo_child.count_sum_document} 回复数 {$vo_child.count_sum_comment}
                                                 </div>
                                             </div>
                                         </div>
