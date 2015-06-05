@@ -14,6 +14,26 @@ use Think\Controller;
  */
 class CategoryController extends HomeController{
     /**
+     * 获取分类树，指定分类则返回指定分类极其子分类，不指定则返回所有分类树
+     * @param  integer $id    分类ID
+     * @param  boolean $field 查询字段
+     * @return array          分类树
+     * @author jry <598821125@qq.com>
+     */
+    public function getCategoryTree($id = 0, $field = true){
+        $list = D('Category')->getCategoryTree($id, $field);
+        if($list){
+            $data['status']  = 1;
+            $data['info']  = '获取数据成功';
+            $data['data']  = json_encode($list);
+        }else{
+            $data['status']  = 0;
+            $data['info']  = '获取数据失败';
+        }
+        $this->ajaxReturn($data);
+    }
+
+    /**
      * 分类详情
      * @author jry <598821125@qq.com>
      */

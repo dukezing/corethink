@@ -14,10 +14,7 @@
     <block name="title"><title>{$meta_title}｜{:C('WEB_SITE_TITLE')}</title></block>
     <link rel="apple-touch-icon" type="image/x-icon" href="__ROOT__/favicon.ico">
     <link rel="stylesheet" type="text/css" href="__PUBLIC__/zui/css/zui.min.css">
-    <link rel="stylesheet" type="text/css" href="__PUBLIC__/chosen/chosen.min.css">
     <link rel="stylesheet" type="text/css" href="__PUBLIC__/fontawesome/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="__PUBLIC__/kindeditor/themes/default/default.css">
-    <link rel="stylesheet" type="text/css" href="__PUBLIC__/huploadify/huploadify.css">
     <link rel="stylesheet" type="text/css" href="__CSS__/base.css">
     <block name="style"></block>
     <script type="text/javascript" src="__PUBLIC__/jquery/jquery-1.11.1.min.js" charset="utf-8"></script>
@@ -28,14 +25,13 @@
         <script type="text/javascript" src=""__PUBLIC__/ieonly/excanvas.js" charset="utf-8"></script>
     <![endif]-->
     <script type="text/javascript" src="__PUBLIC__/zui/js/zui.min.js" charset="utf-8"></script>
-    <script type="text/javascript" src="__PUBLIC__/chosen/chosen.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="__PUBLIC__/jquery/jquery.bootstrap.autohidingnavbar.js"></script>
     <script type="text/javascript" src="__PUBLIC__/corethink/js/base.js" charset="utf-8"></script>
     <script type="text/javascript">
         $(function(){
             $(".top_nav").autoHidingNavbar(); //自动隐藏顶部导航
             $('.lazy img').lazyload({effect: 'fadeIn'}); //图片lazyload
-            $('.form select.form-control').chosen({disable_search_threshold: 10}); //使用chosen插件接管select
+            $(window).resize(function(){$('body .main').css("min-height", $(window).height()-178);}).resize(); //调整内容高度
         });
     </script>
     <block name="script"></block>
