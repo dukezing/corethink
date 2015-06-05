@@ -28,7 +28,7 @@ class CategoryController extends AdminController{
         if(I('get.pid')){
             $map['pid'] = array('eq', I('get.pid')); //父分类ID
         }
-        $data_list = D('Category')->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))->where($map)->order('sort asc,id asc')->select();
+        $data_list = D('Category')->where($map)->order('sort asc,id asc')->select();
 
         //转换成树状列表
         $tree = new \Common\Util\Tree();
