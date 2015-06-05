@@ -14,7 +14,7 @@ use Think\Controller;
  */
 class CategoryController extends HomeController{
     /**
-     * 获取分类树，指定分类则返回指定分类极其子分类，不指定则返回所有分类树
+     * 获取分类树，指定分类则返回指定分类极其子分类，不指定则返回所有分类树(返回JSON)
      * @param  integer $id    分类ID
      * @param  boolean $field 查询字段
      * @return array          分类树
@@ -38,12 +38,29 @@ class CategoryController extends HomeController{
      * @author jry <598821125@qq.com>
      */
     public function detail($id){
-        $category = D('Category')->find($id);
-        $template = $category['template'] ? 'Document/'.$category['template'] : 'Document/detail_category';
-        $this->assign('info', $category);
-        $this->assign('__CURRENT_CATEGORY__', $category['id']);
-        $this->assign('meta_title', $category['title']);
+        $info = D('Category')->find($id);
+        $template = $category['template'] ? 'Document/'.$info['template'] : 'Document/detail_category';
+        $this->assign('info', $info);
+        $this->assign('__CURRENT_CATEGORY__', $info['id']);
+        $this->assign('meta_title', $info['title']);
         Cookie('__forward__', $_SERVER['REQUEST_URI']);
         $this->display($template);
+    }
+
+    /**
+     * 分类详情(返回JSON)
+     * @author jry <598821125@qq.com>
+     */
+    public function getDetail($id){
+        $info = D('Category')->find($id);
+        if($info){
+            $data['status']  = 1;
+            $data['info']  = '获取数据成功';
+            $data['data']  = json_encode($info);
+        }else{
+            $data['status']  = 0;
+            $data['info']  = '获取数据失败';
+        }
+        $this->ajaxReturn($data);
     }
 }

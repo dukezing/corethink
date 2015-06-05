@@ -1,0 +1,59 @@
+<extend name="Public/layout"/>
+
+<block name="script">
+    <style type="text/css">.ztree{min-height: 500px;}</style>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/ztree/css/zTreeStyle/zTreeStyle.css">
+    <script type="text/javascript" src="__PUBLIC__/ztree/js/jquery.ztree.all-3.5.min.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        $(function(){
+            //ztree设置
+            var setting = {
+                data:{
+                    key:{
+                        children:'_child',
+                        name:'title',
+                        children:'_child',
+                    }
+                },
+                callback:{
+                    onClick: ztree_node_click
+                }
+            };
+
+            //回调函数点击事件
+            function ztree_node_click(event, treeId, treeNode){
+                $.get("{:U('Category/getDetail')}", {id:treeNode.id}, function(data){
+                    if(data.status == 1){
+                        var node = data.data;
+                        node = eval('('+node+')');
+                        $('#ztree-content').html(node.content);
+                    }else{
+                        alertMessager(data.info, 'danger');
+                    }
+                });
+            };
+
+            //获取目录列表
+            $.get("{:U('Category/getCategoryTree', array('id' => $__CURRENT_CATEGORY__))}").success(function(data){
+                if(data.status == 1){
+                    var nodes = data.data;
+                    $.fn.zTree.init($("#ztree"), setting, eval('('+nodes+')'));
+                }else{
+                    alertMessager(data.info, 'danger');
+                }
+            });
+
+        });
+    </script>
+</block>
+
+<block name="body">
+    <section class="main">
+        <div class="col-xs-12 col-sm-2">
+            <div class="ztree box" id="ztree"></div>
+        </div>
+        <div class="col-xs-12 col-sm-10">
+            <div class="ztree box" id="ztree-content">{$info.content}</div>
+        </div>
+    </section>
+</block>

@@ -33,6 +33,7 @@ class DocumentController extends HomeController{
         $this->assign('page', $page->show());
 
         $this->assign('__CURRENT_CATEGORY__', $category['id']);
+        $this->assign('info', $category);
         $this->meta_title = $category['title'];
         Cookie('__forward__', $_SERVER['REQUEST_URI']);
         $this->display($template);
