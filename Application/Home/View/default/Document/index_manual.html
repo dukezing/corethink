@@ -1,7 +1,7 @@
 <extend name="Public/layout"/>
 
 <block name="script">
-    <style type="text/css">.ztree{min-height: 500px;}</style>
+    <style type="text/css">.ztree-manual{min-height: 500px;}</style>
     <link rel="stylesheet" type="text/css" href="__PUBLIC__/ztree/css/zTreeStyle/zTreeStyle.css">
     <script type="text/javascript" src="__PUBLIC__/ztree/js/jquery.ztree.all-3.5.min.js" charset="utf-8"></script>
     <script type="text/javascript">
@@ -26,7 +26,7 @@
                     if(data.status == 1){
                         var node = data.data;
                         node = eval('('+node+')');
-                        $('#ztree-content').html(node.content);
+                        $('#ztree-manual-content').html(node.content);
                     }else{
                         alertMessager(data.info, 'danger');
                     }
@@ -37,7 +37,7 @@
             $.get("{:U('Category/getCategoryTree', array('id' => $__CURRENT_CATEGORY__))}").success(function(data){
                 if(data.status == 1){
                     var nodes = data.data;
-                    $.fn.zTree.init($("#ztree"), setting, eval('('+nodes+')'));
+                    $.fn.zTree.init($("#ztree-manual"), setting, eval('('+nodes+')'));
                 }else{
                     alertMessager(data.info, 'danger');
                 }
@@ -50,10 +50,10 @@
 <block name="body">
     <section class="main">
         <div class="col-xs-12 col-sm-2">
-            <div class="ztree box" id="ztree"></div>
+            <div class="ztree ztree-manual box" id="ztree-manual"></div>
         </div>
         <div class="col-xs-12 col-sm-10">
-            <div class="ztree box" id="ztree-content">{$info.content}</div>
+            <div class="ztree-manual box" id="ztree-manual-content">{$info.content}</div>
         </div>
     </section>
 </block>
