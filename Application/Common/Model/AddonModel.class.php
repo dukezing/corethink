@@ -96,21 +96,6 @@ class AddonModel extends Model{
     }
 
     /**
-     * 获取插件的后台列表
-     * @author jry <598821125@qq.com>
-     */
-    public function getAdminList(){
-        $admin = array();
-        $db_addons = $this->where("status=1 AND adminlist=1")->field('title,name')->select();
-        if($db_addons){
-            foreach ($db_addons as $value) {
-                $admin[] = array('title'=>$value['title'],'url'=>"Addons/adminList?name={$value['name']}");
-            }
-        }
-        return $admin;
-    }
-
-    /**
      * 插件显示内容里生成访问插件的url
      * @param string $url url
      * @param array $param 参数
@@ -135,51 +120,5 @@ class AddonModel extends Model{
         );
         $params = array_merge($params, $param); //添加额外参数
         return U('Addon/execute', $params);
-    }
-
-    /**
-     * 解析插件数据列表定义规则
-     * @author jry <598821125@qq.com>
-     */
-    public function getAddonAdminlistField($data, $grid,$addon){
-        // 获取当前字段数据
-        foreach($grid['field'] as $field){
-            $array  =   explode('|',$field);
-            $temp   =   $data[$array[0]];
-            //函数支持
-            if(isset($array[1])){
-                $temp = call_user_func($array[1], $temp);
-            }
-            $data2[$array[0]]    =   $temp;
-        }
-        if(!empty($grid['format'])){
-            $value  =   preg_replace_callback('/\[([a-z_]+)\]/', function($match) use($data2){return $data2[$match[1]];}, $grid['format']);
-        }else{
-            $value  =   implode(' ',$data2);
-        }
-
-        // 链接支持
-        if(!empty($grid['href'])){
-            $links  =   explode(',',$grid['href']);
-            foreach($links as $link){
-                $array  =   explode('|',$link);
-                $href   =   $array[0];
-                if(preg_match('/^\[([a-z_]+)\]$/',$href,$matches)){
-                    $val[]  =   $data2[$matches[1]];
-                }else{
-                    $show   =   isset($array[1])?$array[1]:$value;
-                    // 替换系统特殊字符串
-                    $href   =   str_replace(
-                        array('[DELETE]','[EDIT]','[ADDON]'),
-                        array('del?ids=[id]&name=[ADDON]','edit?id=[id]&name=[ADDON]',$addon),
-                        $href);
-                    // 替换数据变量
-                    $href   =   preg_replace_callback('/\[([a-z_]+)\]/', function($match) use($data){return $data[$match[1]];}, $href);
-                    $val[]  =   '<a href="'.U($href).'">'.$show.'</a>';
-                }
-            }
-            $value  =   implode(' ',$val);
-        }
-        return $value;
     }
 }

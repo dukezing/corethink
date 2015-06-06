@@ -211,68 +211,46 @@ class AddonController extends AdminController {
      * @author jry <598821125@qq.com>
      */
     public function adminList($name){
-        $this->assign('name', $name);
+        //获取插件实例
         $addon_class = get_addon_class($name);
-        if(!class_exists($addon_class))
+        if(!class_exists($addon_class)){
             $this->error('插件不存在');
+        }
         $addon = new $addon_class();
         $this->assign('addon', $addon);
-        $param = $addon->admin_list; //获取插件的$admin_list配置
-        if(!$param)
+
+        //获取插件的$admin_list配置
+        $param = $addon->admin_list;
+        if($param){
+            $data_list = M($param['model'])->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))
+                                           ->field(true)->order($param['order'])->select();
+            $page = new \Common\Util\Page(D('Document')->where($map)->count(), C('ADMIN_PAGE_ROWS'));
+
+            $attr_add['class'] = 'btn';
+            $attr_add['href'] =  U($param.'/adminAdd');
+
+            //使用Builder快速建立列表页面。
+            $builder = new \Common\Builder\ListBuilder();
+            $builder->title($addon->info['title']) //设置页面标题
+                    ->AddNewButton('Addon/adminAdd') //添加新增按钮
+                    ->addResumeButton($param['model']) //添加启用按钮
+                    ->addForbidButton($param['model']) //添加禁用按钮
+                    ->setPage($page->show()) //分页
+                    ->dataList($data_list); //数据列表
+
+            //根据插件的list_grid设置后台列表字段信息
+            foreach($param['list_grid'] as $key => $val){
+                $builder->addField($key, $val['title'], $val['type']);
+            }
+
+            //显示列表
+            $builder->addField('right_button', '操作', 'btn')
+                    ->addRightButton('edit', $param['model'], 'Addon/adminEdit') //添加编辑按钮
+                    ->addRightButton('forbid', $param['model']) //添加禁用/启用按钮
+                    ->addRightButton('delete', $param['model']) //添加删除按钮
+                    ->display();
+        }else{
             $this->error('插件列表信息不正确');
-        $this->meta_title = $addon->info['title'];
-        extract($param);
-        $this->assign('title', $addon->info['title']);
-        $this->assign($param);
-        if(!isset($fields))
-            $fields = '*';
-        $key = $search_key;
-        if(isset($_REQUEST[$key])){
-            $map[$key] = array('like', '%'.$_GET[$key].'%');
-            unset($_REQUEST[$key]);
         }
-        if(isset($model)){
-            $model  =  D("Addons://{$name}/{$model}");
-            // 条件搜索
-            $map = array();
-            foreach($_REQUEST as $name=>$val){
-                if($fields == '*'){
-                    $fields = $model->getDbFields();
-                }
-                if(in_array($name, $fields)){
-                    $map[$name] = $val;
-                }
-            }
-            if(!isset($order)) $order = '';
-            $list = $this->lists($model->field($fields),$map,$order);
-            $fields = array();
-            foreach ($list_grid as &$value) {
-                // 字段:标题:链接
-                $val = explode(':', $value);
-                // 支持多个字段显示
-                $field = explode(',', $val[0]);
-                $value = array('field' => $field, 'title' => $val[1]);
-                if(isset($val[2])){
-                    // 链接信息
-                    $value['href'] = $val[2];
-                    // 搜索链接信息中的字段信息
-                    preg_replace_callback('/\[([a-z_]+)\]/', function($match) use(&$fields){$fields[]=$match[1];}, $value['href']);
-                }
-                if(strpos($val[1],'|')){
-                    //显示格式定义
-                    list($value['title'],$value['format']) = explode('|',$val[1]);
-                }
-                foreach($field as $val){
-                    $array = explode('|',$val);
-                    $fields[] = $array[0];
-                }
-            }
-            $this->assign('model', $model->model);
-            $this->assign('list_grid', $list_grid);
-        }
-        $this->assign('_list', $list);
-        if($addon->custom_adminlist)
-            $this->assign('custom_adminlist', $this->fetch($addon->addon_path.$addon->custom_adminlist));
-        $this->display('adminlist');
     }
 }

@@ -23,16 +23,28 @@ class SyncLoginAddon extends Addon{
     );
 
     public $admin_list = array(
-        'list_grid' => array(
-            'uid:UID',
-            'openid:openid',
-            'type:类别',
-        ),
         'model'=>'addon_sync_login',
-        'fields'=>'*',
+        'list_grid' => array(
+            'uid' => array(
+                        'title' => 'UID',
+                        'type' => 'text',
+                    ),
+            'type' => array(
+                        'title' => '类别',
+                        'type' => 'text',
+                    ),
+            'openid' => array(
+                        'title' => 'openid',
+                        'type' => 'text',
+                    ),
+            'status' => array(
+                        'title' => '状态',
+                        'type' => 'status',
+                    ),
+        ),
         'search_key'=>'uid',
-        'map' => '',
         'order'=>'uid desc',
+        'map' => null,
     );
 
     public function install(){
