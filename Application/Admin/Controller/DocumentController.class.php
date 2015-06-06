@@ -25,6 +25,7 @@ class DocumentController extends AdminController{
 
         if($cid){
             $map['cid'] = $cid;
+            $category = D('Category')->find($cid);
         }
         $map['status'] = array('egt', 0);
         $document_list = D('Document')->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))
@@ -42,11 +43,11 @@ class DocumentController extends AdminController{
         //使用Builder快速建立列表页面。
         $builder = new \Common\Builder\ListBuilder();
         $builder->title($category['title'])  //设置页面标题
-                ->AddButton('新增', $add_attr)    //添加新增按钮
+                ->AddButton('新 增', $add_attr)    //添加新增按钮
                 ->addResumeButton() //添加启用按钮
                 ->addForbidButton() //添加禁用按钮
                 ->addRecycleButton() //添加回收按钮
-                ->AddButton('移动', $move_attr) //添加移动按钮
+                ->AddButton('移 动', $move_attr) //添加移动按钮
                 ->setSearch('请输入ID/文档名称', U('index'))
                 ->addField('id', 'UID', 'text')
                 ->addField('title', '标题', 'text')
@@ -199,8 +200,8 @@ class DocumentController extends AdminController{
             }
             if($to_cid){
                 $category_model = D('Category');
-                $form_category_type = $category_model->getCategoryById($from_cid, 'doc_type');
-                $to_category_type = $category_model->getCategoryById($to_cid, 'doc_type');
+                $form_category_type = $category_model->getFieldById($from_cid, 'doc_type');
+                $to_category_type = $category_model->getFieldById($to_cid, 'doc_type');
                 if($form_category_type === $to_category_type){
                     $map['id'] = array('in',$ids);
                     $data = array('cid' => $to_cid);

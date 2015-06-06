@@ -38,7 +38,8 @@
                             </div>
                             <div class="modal-body">
                                 <php>
-                                    $category_list = D('Category')->getAllCategory();
+                                    $map['status'] = array('eq', 1);
+                                    $category_list = D('Category')->where($map)->select();
                                     $tree = new \Common\Util\Tree();
                                     $category_list = $tree->toFormatTree($category_list);
                                 </php>

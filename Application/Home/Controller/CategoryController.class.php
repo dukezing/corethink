@@ -20,8 +20,8 @@ class CategoryController extends HomeController{
      * @return array          分类树
      * @author jry <598821125@qq.com>
      */
-    public function getCategoryTree($id = 0, $field = true){
-        $list = D('Category')->getCategoryTree($id, $field);
+    public function getCategoryTree($id = 0, $group = 1, $field = true){
+        $list = D('Category')->getCategoryTree($id, $group, $field);
         if($list){
             $data['status']  = 1;
             $data['info']  = '获取数据成功';

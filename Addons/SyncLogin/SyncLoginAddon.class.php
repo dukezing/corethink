@@ -35,7 +35,7 @@ class SyncLoginAddon extends Addon{
             DROP TABLE IF EXISTS {$prefix}addon_sync_login;
             CREATE TABLE `ct_addon_sync_login` (
                 `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
-                `uid` int(11) NOT NULL COMMENT 'ID',
+                `uid` int(11) NOT NULL COMMENT '用户ID',
                 `type` varchar(15) NOT NULL DEFAULT '' COMMENT '类别',
                 `openid` varchar(64) NOT NULL DEFAULT '' COMMENT 'OpenID',
                 `access_token` varchar(64) NOT NULL DEFAULT '' COMMENT 'AccessToken',

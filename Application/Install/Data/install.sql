@@ -84,7 +84,7 @@ DROP TABLE IF EXISTS `ct_addon_sync_login`;
 
 CREATE TABLE `ct_addon_sync_login` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `uid` int(11) NOT NULL COMMENT 'ID',
+  `uid` int(11) NOT NULL COMMENT '用户ID',
   `type` varchar(15) NOT NULL DEFAULT '' COMMENT '类别',
   `openid` varchar(64) NOT NULL DEFAULT '' COMMENT 'OpenID',
   `access_token` varchar(64) NOT NULL DEFAULT '' COMMENT 'AccessToken',
@@ -106,6 +106,7 @@ DROP TABLE IF EXISTS `ct_category`;
 CREATE TABLE `ct_category` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '分类ID',
   `pid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '父分类ID',
+  `group` tinyint(4) NOT NULL DEFAULT '0' COMMENT '分组',
   `doc_type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '分类模型',
   `title` varchar(32) NOT NULL DEFAULT '' COMMENT '分类名称',
   `url` varchar(128) NOT NULL COMMENT '链接地址',
@@ -275,30 +276,31 @@ LOCK TABLES `ct_system_config` WRITE;
 
 INSERT INTO `ct_system_config` (`id`, `title`, `name`, `value`, `group`, `type`, `options`, `tip`, `ctime`, `utime`, `sort`, `status`)
 VALUES
-	(1,'站点开关','TOGGLE_WEB_SITE','1',1,'select','0:关闭,1:开启','站点关闭后将不能访问',1378898976,1406992386,1,1),
-	(2,'网站标题','WEB_SITE_TITLE','CoreThink框架',1,'text','','网站标题前台显示标题',1378898976,1379235274,2,1),
-	(3,'网站LOGO','WEB_SITE_LOGO','',1,'picture','','网站LOGO',1407003397,1407004692,3,1),
-	(4,'网站描述','WEB_SITE_DESCRIPTION','CoreThink是一套轻量级WEB产品开发框架，追求简单、高效、卓越。可轻松实现移动互联网时代支持多终端的轻量级WEB产品快速开发。系统功能采用模块化开发，内置丰富的模块，便于用户灵活扩展和二次开发。',1,'textarea','','网站搜索引擎描述',1378898976,1379235841,4,1),
-	(5,'网站关键字','WEB_SITE_KEYWORD','南京科斯克网络科技、CoreThink',1,'textarea','','网站搜索引擎关键字',1378898976,1381390100,5,1),
-	(6,'版权信息','WEB_SITE_COPYRIGHT','版权所有 © 2014-2015 科斯克网络科技',1,'text','','设置在网站底部显示的版权信息，如“版权所有 © 2014-2015 科斯克网络科技”',1406991855,1406992583,6,1),
-	(7,'网站备案号','WEB_SITE_ICP','苏ICP备15000000号',1,'text','','设置在网站底部显示的备案号，如“苏ICP备14000000号\"',1378900335,1415983236,7,1),
-	(8,'站点统计','WEB_SITE_STATISTICS','',1,'textarea','','支持百度、Google、cnzz等所有Javascript的统计代码',1407824190,1407824303,8,1),
-	(9,'前台主题','DEFAULT_THEME','default',1,'select','default:默认','前台模版主题，不影响后台',1425215616,1425299454,9,1),
-	(10,'注册开关','TOGGLE_USER_REGISTER','1',2,'select','0:关闭注册\r\n1:允许注册','是否开放用户注册',1379504487,1379504580,2,1),
-	(11,'注册时间间隔','LIMIT_TIME_BY_IP','300',2,'num','','同一IP注册时间间隔秒数',1379228036,1379228036,2,1),
-	(12,'评论开关','TOGGLE_USER_COMMENT','1',2,'select','0:关闭评论,1:允许评论','评论关闭后用户不能进行评论',1418715779,1418716106,3,1),
-	(13,'文件上传大小','UPLOAD_FILE_SIZE','10',2,'num','','文件上传大小单位：MB',1428681031,1428681031,4,1),
-	(14,'图片上传大小','UPLOAD_IMAGE_SIZE','2',2,'num','','图片上传大小单位：MB',1428681071,1428681071,5,1),
-	(15,'敏感字词','SENSITIVE_WORDS','傻逼,垃圾',2,'textarea','','用户注册及内容显示敏感字词',1420385145,1420387079,6,1),
-	(16,'是否显示页面Trace','SHOW_PAGE_TRACE','0',3,'select','0:关闭\r\n1:开启','是否显示页面Trace信息',1387165685,1387165685,1,1),
-	(17,'开发模式', 'DEVELOP_MODE', '1', 3, 'select', '1:开启\r\n0:关闭', '开发模式下会显示菜单管理、配置管理、数据字典等开发者工具', 1432393583, 1432393583, 2, 1),
-	(18,'配置分组','CONFIG_GROUP_LIST','1:基本\r\n2:用户\r\n3:系统\r\n4:上传\r\n',3,'array','','配置分组',1379228036,1426930700,3,1),
-	(19,'文件上传驱动类型','UPLOAD_DRIVER','Local',4,'select','Local:Local-本地\r\nFtp:FTP空间\r\nSae:Sae-Storage\r\nBcs:Bcs云存储\r\nUpyun:又拍云\r\nQiniu:七牛云存储','需要配置相应的UPLOAD_{driver}_CONFIG 配置方可使用，不然默认Local本地',1393073505,1393073505,1,1),
-	(20,'FTP上传配置','UPLOAD_FTP_CONFIG','host:\r\nusername:\r\npassword:',4,'array','','FTP上传配置',1393073559,1393073559,2,1),
-	(21,'Sae上传配置','UPLOAD_SAE_CONFIG','domain:',4,'array','','Sae上传配置',1393073998,1393073998,3,1),
-	(22,'Bcs上传配置','UPLOAD_BCS_CONFIG','AccessKey:\r\nSecretKey:\r\nbucket:',4,'array','','Bcs上传配置',1393073559,1393073559,4,1),
-	(23,'又拍云上传配置','UPLOAD_UPYUN_CONFIG','host:\r\nusername:\r\npassword:\r\nbucket:',4,'array','','又拍云上传配置',1393073559,1393073559,5,1),
-	(24,'七牛云存储上传配置','UPLOAD_QINIU_CONFIG','secrectKey:\r\naccessKey:\r\ndomain:\r\nbucket:',4,'array','','七牛云存储上传配置',1393074989,1416637334,6,1);
+	('站点开关','TOGGLE_WEB_SITE','1',1,'select','0:关闭,1:开启','站点关闭后将不能访问',1378898976,1406992386,1,1),
+	('网站标题','WEB_SITE_TITLE','CoreThink框架',1,'text','','网站标题前台显示标题',1378898976,1379235274,2,1),
+	('网站LOGO','WEB_SITE_LOGO','',1,'picture','','网站LOGO',1407003397,1407004692,3,1),
+	('网站描述','WEB_SITE_DESCRIPTION','CoreThink是一套轻量级WEB产品开发框架，追求简单、高效、卓越。可轻松实现移动互联网时代支持多终端的轻量级WEB产品快速开发。系统功能采用模块化开发，内置丰富的模块，便于用户灵活扩展和二次开发。',1,'textarea','','网站搜索引擎描述',1378898976,1379235841,4,1),
+	('网站关键字','WEB_SITE_KEYWORD','南京科斯克网络科技、CoreThink',1,'textarea','','网站搜索引擎关键字',1378898976,1381390100,5,1),
+	('版权信息','WEB_SITE_COPYRIGHT','版权所有 © 2014-2015 科斯克网络科技',1,'text','','设置在网站底部显示的版权信息，如“版权所有 © 2014-2015 科斯克网络科技”',1406991855,1406992583,6,1),
+	('网站备案号','WEB_SITE_ICP','苏ICP备15000000号',1,'text','','设置在网站底部显示的备案号，如“苏ICP备14000000号\"',1378900335,1415983236,7,1),
+	('站点统计','WEB_SITE_STATISTICS','',1,'textarea','','支持百度、Google、cnzz等所有Javascript的统计代码',1407824190,1407824303,8,1),
+	('前台主题','DEFAULT_THEME','default',1,'select','default:默认','前台模版主题，不影响后台',1425215616,1425299454,9,1),
+	('注册开关','TOGGLE_USER_REGISTER','1',2,'select','0:关闭注册\r\n1:允许注册','是否开放用户注册',1379504487,1379504580,2,1),
+	('注册时间间隔','LIMIT_TIME_BY_IP','300',2,'num','','同一IP注册时间间隔秒数',1379228036,1379228036,2,1),
+	('评论开关','TOGGLE_USER_COMMENT','1',2,'select','0:关闭评论,1:允许评论','评论关闭后用户不能进行评论',1418715779,1418716106,3,1),
+	('文件上传大小','UPLOAD_FILE_SIZE','10',2,'num','','文件上传大小单位：MB',1428681031,1428681031,4,1),
+	('图片上传大小','UPLOAD_IMAGE_SIZE','2',2,'num','','图片上传大小单位：MB',1428681071,1428681071,5,1),
+	('敏感字词','SENSITIVE_WORDS','傻逼,垃圾',2,'textarea','','用户注册及内容显示敏感字词',1420385145,1420387079,6,1),
+	('是否显示页面Trace','SHOW_PAGE_TRACE','0',3,'select','0:关闭\r\n1:开启','是否显示页面Trace信息',1387165685,1387165685,1,1),
+	('开发模式', 'DEVELOP_MODE', '1', 3, 'select', '1:开启\r\n0:关闭', '开发模式下会显示菜单管理、配置管理、数据字典等开发者工具', 1432393583, 1432393583, 2, 1),
+	('配置分组','CONFIG_GROUP_LIST','1:基本\r\n2:用户\r\n3:系统\r\n4:上传\r\n',3,'array','','配置分组',1379228036,1426930700,3,1),
+	('栏目分组','CATEGORY_GROUP_LIST','1:默认\r\n2:论坛\r\n3:手册\r\n4:底部导航',3,'array','','栏目分类分组',1433602137,1433602165,4,1)，
+	('文件上传驱动类型','UPLOAD_DRIVER','Local',4,'select','Local:Local-本地\r\nFtp:FTP空间\r\nSae:Sae-Storage\r\nBcs:Bcs云存储\r\nUpyun:又拍云\r\nQiniu:七牛云存储','需要配置相应的UPLOAD_{driver}_CONFIG 配置方可使用，不然默认Local本地',1393073505,1393073505,1,1),
+	('FTP上传配置','UPLOAD_FTP_CONFIG','host:\r\nusername:\r\npassword:',4,'array','','FTP上传配置',1393073559,1393073559,2,1),
+	('Sae上传配置','UPLOAD_SAE_CONFIG','domain:',4,'array','','Sae上传配置',1393073998,1393073998,3,1),
+	('Bcs上传配置','UPLOAD_BCS_CONFIG','AccessKey:\r\nSecretKey:\r\nbucket:',4,'array','','Bcs上传配置',1393073559,1393073559,4,1),
+	('又拍云上传配置','UPLOAD_UPYUN_CONFIG','host:\r\nusername:\r\npassword:\r\nbucket:',4,'array','','又拍云上传配置',1393073559,1393073559,5,1),
+	('七牛云存储上传配置','UPLOAD_QINIU_CONFIG','secrectKey:\r\naccessKey:\r\ndomain:\r\nbucket:',4,'array','','七牛云存储上传配置',1393074989,1416637334,6,1);
 
 
 /*!40000 ALTER TABLE `ct_system_config` ENABLE KEYS */;

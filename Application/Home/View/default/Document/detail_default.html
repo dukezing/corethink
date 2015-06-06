@@ -52,11 +52,11 @@
                     <ul class="nav nav-primary">
                         <corethink:category_list name="side_category">
                             <li class="show">
-                                {$side_category.link}
+                                <a href="{:U('Document/index', array('cid' => $side_category['id']))}">{$side_category.title}</a>
                                 <ul class="nav">
                                     <volist name="side_category._child" id="child_category">
                                         <li <php>if($child_category['id'] == $__CURRENT_CATEGORY__) echo 'class="active"';</php> >
-                                            {$child_category.link}
+                                            <a href="{:U('Document/index', array('cid' => $child_category['id']))}">{$child_category.title}</a>
                                         </li>
                                     </volist>
                                 </ul>

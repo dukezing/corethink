@@ -34,7 +34,7 @@
             };
 
             //获取目录列表
-            $.get("{:U('Category/getCategoryTree', array('id' => $__CURRENT_CATEGORY__))}").success(function(data){
+            $.get("{:U('Category/getCategoryTree', array('id' => $__CURRENT_CATEGORY__, 'group' => $__CURRENT_CATEGORY_GROUP__))}").success(function(data){
                 if(data.status == 1){
                     var nodes = data.data;
                     $.fn.zTree.init($("#ztree-manual"), setting, eval('('+nodes+')'));

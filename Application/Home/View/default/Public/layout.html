@@ -58,7 +58,9 @@
                     <li><a href="__ROOT__/">首页</a></li>
                     <!-- 模版标签 -->
                         <corethink:category_list name="_category">
-                            <li <if condition='$_category.id eq $__CURRENT_CATEGORY__'> class="active"</if> >{$_category.link}</li>
+                            <li <if condition='$_category.id eq $__CURRENT_CATEGORY__'> class="active"</if> >
+                                <a href="{:U('Document/index', array('cid' => $_category['id']))}">{$_category.title}</a>
+                            </li>
                         </corethink:category_list>
                     <!-- /模版标签 -->
                 </ul>
@@ -94,7 +96,7 @@
                         <li><a href="__ROOT__/">首页</a></li>
                         <!-- 模版标签 -->
                             <corethink:breadcrumb name="_breadcrumb" cid="$__CURRENT_CATEGORY__">
-                                <li>{$_breadcrumb.link}</li>
+                                <li><a href="{:U('Document/index', array('cid' => $_breadcrumb['id']))}">{$_breadcrumb.title}</a></li>
                             </corethink:breadcrumb>
                         <!-- /模版标签 -->
                     </ul>
@@ -107,20 +109,7 @@
     <footer class="footer">
         <div class="container">
             <div class="row navlink">
-                <div class="col-xs-12 col-sm-8">
-                    <!-- 底部地图导航模版标签 -->
-                        <corethink:navlink name="navlink">
-                            <div class="col-xs-12 col-sm-3">
-                                <dl>
-                                    <dt><a href="#">{$navlink.title}</a></dt>
-                                    <volist name="navlink._child" id="_navlink">
-                                        <dd>{$_navlink.link}</dd>
-                                    </volist>
-                                </dl>
-                            </div>
-                        </corethink:navlink>
-                    <!-- /底部地图导航模版标签 -->
-                </div>
+                <div class="col-xs-12 col-sm-8"></div>
                 <div class="col-xs-12 col-sm-4 hidden-xs">
                     <div class="logo"><a href="__ROOT__/"><img src="__PUBLIC__/corethink/img/logo_title.png"></a></div>
                     <div class="info">{:C('WEB_SITE_DESCRIPTION')}</div>

@@ -21,22 +21,31 @@ class DocumentController extends HomeController{
         //获取分类信息
         $map['cid'] = $cid;
         $category = D('Category')->find($cid);
-        $template = $category['template'] ? 'Document/'.$category['template'] : 'Document/index_default';
+        switch($category['doc_type']){
+            case 1: //链接
+                redirect($category['url']);
+                break;
+            case 2: //单页
+                $this->redirect('Category/detail/id/'.$category['id']);
+                break;
+            default :
+                $template = $category['template'] ? 'Document/'.$category['template'] : 'Document/index_default';
+                $map['status'] = array('egt', 0);
+                $document_list = D('Document')->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))
+                                              ->order('sort desc,id desc')->where($map)->select();
+                $this->assign('volist', $document_list);
 
-        $map['status'] = array('egt', 0);
-        $document_list = D('Document')->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))
-                                      ->order('sort desc,id desc')->where($map)->select();
-        $this->assign('volist', $document_list);
+                //分页
+                $page = new \Common\Util\Page(D('Document')->where($map)->count(), C('ADMIN_PAGE_ROWS'));
+                $this->assign('page', $page->show());
 
-        //分页
-        $page = new \Common\Util\Page(D('Document')->where($map)->count(), C('ADMIN_PAGE_ROWS'));
-        $this->assign('page', $page->show());
-
-        $this->assign('__CURRENT_CATEGORY__', $category['id']);
-        $this->assign('info', $category);
-        $this->meta_title = $category['title'];
-        Cookie('__forward__', $_SERVER['REQUEST_URI']);
-        $this->display($template);
+                $this->assign('__CURRENT_CATEGORY__', $category['id']);
+                $this->assign('__CURRENT_CATEGORY_GROUP__', $category['group']);
+                $this->assign('info', $category);
+                $this->meta_title = $category['title'];
+                Cookie('__forward__', $_SERVER['REQUEST_URI']);
+                $this->display($template);
+        }
     }
 
 

@@ -6,7 +6,7 @@
             <div class="col-xs-12 col-sm-9">
                 <div class="list box">
                     <section class="items">
-                        <corethink:category_list name="vo" pid="$__CURRENT_CATEGORY__">
+                        <corethink:category_list name="vo" pid="$__CURRENT_CATEGORY__" group="$__CURRENT_CATEGORY_GROUP__">
                             <div class="panel">
                                 <div class="panel-heading">{$vo.title}</div>
                                 <div class="panel-body">
@@ -19,7 +19,7 @@
                                             <div class="content">
                                                 <span class="author">
                                                     <a href="#">
-                                                        <strong>{$vo_child.link}</strong> 
+                                                        <strong><a href="{:U('Document/index', array('cid' => $vo_child['id']))}">{$vo_child.title}</a></strong> 
                                                         <notempty name="vo_child.count_new_document">
                                                             <span class="label label-dot label-danger"></span> 
                                                             ({$vo_child.count_new_document})
@@ -36,7 +36,6 @@
                             </div>
                         </corethink:category_list>
                     </section>
-                    <footer><ul class="pager pager-loose pager-pills">{$page}</ul></footer>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-3">
@@ -45,11 +44,11 @@
                     <ul class="nav nav-primary">
                         <corethink:category_list name="side_category">
                             <li class="show">
-                                {$side_category.link}
+                                <a href="{:U('Document/index', array('cid' => $side_category['id']))}">{$side_category.title}</a>
                                 <ul class="nav">
                                     <volist name="side_category._child" id="child_category">
                                         <li <php>if($child_category['id'] == $__CURRENT_CATEGORY__) echo 'class="active"';</php> >
-                                            {$child_category.link}
+                                            <a href="{:U('Document/index', array('cid' => $child_category['id']))}">{$child_category.title}</a>
                                         </li>
                                     </volist>
                                 </ul>

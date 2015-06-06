@@ -19,7 +19,7 @@ class CoreThink extends TagLib{
      */
     protected $tags = array(
         'breadcrumb'  => array('attr' => 'name,cid', 'close' => 1), //面包屑导航列表
-        'category_list' => array('attr' => 'name,pid,limit', 'close' => 1), //栏目分类列表
+        'category_list' => array('attr' => 'name,pid,group,limit', 'close' => 1), //栏目分类列表
         'comment'  => array('attr' => 'name,doc_id', 'close' => 1), //评论列表
         'document'  => array('attr' => 'name,cid,limit', 'close' => 1), //文档列表
     );
@@ -47,9 +47,10 @@ class CoreThink extends TagLib{
     public function _category_list($tag, $content){
         $name   = $tag['name'];
         $pid    = $tag['pid'] ? : 0;
+        $group    = $tag['group'] ? : 1;
         $limit  = $tag['limit'];
         $parse  = '<?php ';
-        $parse .= '$__CATEGORYLIST__ = D(\'Category\')->getCategoryTree('.$pid.');';
+        $parse .= '$__CATEGORYLIST__ = D(\'Category\')->getCategoryTree('.$pid.', '.$group.');';
         $parse .= ' ?>';
         $parse .= '<volist name="__CATEGORYLIST__" id="'. $name .'">';
         $parse .= $content;

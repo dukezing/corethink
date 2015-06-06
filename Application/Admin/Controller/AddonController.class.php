@@ -306,7 +306,7 @@ class AddonController extends AdminController {
                 //使用FormBuilder快速建立表单页面。
                 $builder = new \Common\Builder\FormBuilder();
                 $builder->title('新增数据')  //设置页面标题
-                        ->setUrl(U('admin/addon/adminAdd/name/'.$name.'/tab/'.$tab.'/')) //设置表单提交地址
+                        ->setUrl(U('admin/addon/adminAdd/name/'.$name.'/tab/'.$tab)) //设置表单提交地址
                         ->setExtraItems($param['field'])
                         ->display();
             }
@@ -352,7 +352,7 @@ class AddonController extends AdminController {
                 //使用FormBuilder快速建立表单页面。
                 $builder = new \Common\Builder\FormBuilder();
                 $builder->title('编辑数据')  //设置页面标题
-                        ->setUrl(U('admin/addon/adminedit/name/'.$name.'/tab/'.$tab.'/')) //设置表单提交地址
+                        ->setUrl(U('admin/addon/adminedit/name/'.$name.'/tab/'.$tab)) //设置表单提交地址
                         ->addItem('id', 'hidden', 'ID', 'ID')
                         ->setExtraItems($param['field'])
                         ->setFormData(M($param['model'])->find($id))
