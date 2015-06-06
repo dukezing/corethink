@@ -7,6 +7,7 @@
 // | Author: jry <598821125@qq.com> <http://www.corethink.cn>
 // +----------------------------------------------------------------------
 namespace Admin\Controller;
+use Think\Controller;
 /**
  * 扩展后台管理页面
  * @author jry <598821125@qq.com>
@@ -17,13 +18,25 @@ class AddonController extends AdminController {
      * @author jry <598821125@qq.com>
      */
     public function index(){
+        //获取所有插件信息
         $addons = D('Addon')->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))->getAllAddon();
-        $addons = $this->int_to_icon($addons, array('status'=>array(-1=>'损坏', 0=>'<i class="icon-ban-circle" style="color:red"></i>', 1=>'<i class="icon-ok" style="color:green"></i>', null=>'未安装')));
         $page = new \Common\Util\Page(D('Addon')->count(), C('ADMIN_PAGE_ROWS'));
-        $this->assign('page', $page->show());
-        $this->assign('volist', $addons);
-        $this->meta_title = '插件列表';
-        $this->display();
+
+        //使用Builder快速建立列表页面。
+        $builder = new \Common\Builder\ListBuilder();
+        $builder->title('插件列表')  //设置页面标题
+                ->addResumeButton() //添加启用按钮
+                ->addForbidButton() //添加禁用按钮
+                ->addField('name', '标识', 'text')
+                ->addField('title', '名称', 'text')
+                ->addField('description', '描述', 'text')
+                ->addField('status', '状态', 'text')
+                ->addField('author', '作者', 'text')
+                ->addField('version', '版本', 'text')
+                ->dataList($addons) //数据列表
+                ->addField('right_button', '操作', 'btn')
+                ->setPage($page->show())
+                ->display();
     }
 
     /**

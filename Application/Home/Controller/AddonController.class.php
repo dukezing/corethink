@@ -12,7 +12,7 @@ use Think\Controller;
  * 扩展控制器
  * 用于调度各个扩展的URL访问需求
  */
-class AddonController extends HomeController {
+class AddonController extends HomeController{
     /**
      * 外部执行插件方法
      * @author jry <598821125@qq.com>

@@ -24,12 +24,12 @@ class InitHookBehavior extends Behavior{
         $data = S('hooks');
         if(!$data){
             $hooks = D('AddonHook')->getField('name,addons');
-            foreach ($hooks as $key => $value) {
+            foreach($hooks as $key => $value){
                 if($value){
                     $map['status']  =   1;
                     $names          =   explode(',',$value);
                     $map['name']    =   array('IN',$names);
-                    $data = M('Addon')->where($map)->getField('id,name');
+                    $data = D('Addon')->where($map)->getField('id,name');
                     if($data){
                         $addons = array_intersect($names, $data);
                         Hook::add($key, array_map('get_addon_class', $addons));

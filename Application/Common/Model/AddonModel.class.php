@@ -40,22 +40,19 @@ class AddonModel extends Model{
      * @param string $addon_dir
      * @author jry <598821125@qq.com>
      */
-    public function getAllAddon($addon_dir = ''){
-        if(!$addon_dir)
-            $addon_dir = THINK_ADDON_PATH;
-        $dirs = array_map('basename',glob($addon_dir.'*', GLOB_ONLYDIR));
+    public function getAllAddon($addon_dir = THINK_ADDON_PATH){
+        $dirs = array_map('basename', glob($addon_dir.'*', GLOB_ONLYDIR));
         if($dirs === FALSE || !file_exists($addon_dir)){
             $this->error = '插件目录不可读或者不存在';
             return FALSE;
         }
         $addons           =    array();
-        $where['name']    =    array('in',$dirs);
-        $list             =    $this->where($where)->field(true)->order('sort asc,id desc')->select();
+        $map['name']    =    array('in', $dirs);
+        $list             =    $this->where($map)->field(true)->order('sort asc,id desc')->select();
         foreach($list as $addon){
-            $addon['uninstall']        =    0;
             $addons[$addon['name']]    =    $addon;
         }
-        foreach ($dirs as $value) {
+        foreach ($dirs as $value){
             if(!isset($addons[$value])){
                 $class = get_addon_class($value);
                 if(!class_exists($class)){ // 实例化插件失败忽略执行
@@ -65,9 +62,34 @@ class AddonModel extends Model{
                 $obj = new $class;
                 $addons[$value] = $obj->info;
                 if($addons[$value]){
-                    $addons[$value]['uninstall'] = 1;
-                    unset($addons[$value]['status']);
+                    $addons[$value]['status'] = -1; //未安装
                 }
+            }
+        }
+        foreach($addons as &$val){
+            switch($val['status']){
+                case '-1': //未安装
+                    $val['status'] = '<i class="icon-trash" style="color:red"></i>';
+                    $val['right_button']  = '<a class="ajax-get" href="'.U('install?addon_name='.$vo['name']).'">安装</a>';
+                    break;
+                case '0': //禁用
+                    $val['status'] = '<i class="icon-ban-circle" style="color:red"></i>';
+                    $val['right_button']  = '<a href="'.U('config',array('id'=>$val['id'])).'">设置</a> ';
+                    $val['right_button'] .= '<a class="ajax-get" href="'.U('setStatus',array('status'=>'resume', 'ids' => $val['id'])).'">启用</a> ';
+                    $val['right_button'] .= '<a class="ajax-get" href="'.U('uninstall?id='.$val['id']).'">卸载</a> ';
+                    if($val['adminlist']){
+                        $val['right_button'] .= '<a href="'.U('adminlist',array('name'=>$val['name'])).'">管理</a>';
+                    }
+                    break;
+                case '1': //正常
+                    $val['status'] = '<i class="icon-ok" style="color:green"></i>';
+                    $val['right_button']  = '<a href="'.U('config',array('id'=>$val['id'])).'">设置</a> ';
+                    $val['right_button'] .= '<a class="ajax-get" href="'.U('setStatus',array('status'=>'forbid', 'ids' => $val['id'])).'">禁用</a> ';
+                    $val['right_button'] .= '<a class="ajax-get" href="'.U('uninstall?id='.$val['id']).'">卸载</a> ';
+                    if($val['adminlist']){
+                        $val['right_button'] .= '<a href="'.U('adminlist',array('name'=>$val['name'])).'">管理</a>';
+                    }
+                    break;
             }
         }
         return $addons;
@@ -94,7 +116,7 @@ class AddonModel extends Model{
      * @param array $param 参数
      * @author jry <598821125@qq.com>
      */
-    function getAddonUrl($url, $param = array()){
+    public function getAddonUrl($url, $param = array()){
         $url        = parse_url($url);
         $case       = C('URL_CASE_INSENSITIVE');
         $addons     = $case ? parse_name($url['scheme']) : $url['scheme'];
@@ -123,8 +145,8 @@ class AddonModel extends Model{
         // 获取当前字段数据
         foreach($grid['field'] as $field){
             $array  =   explode('|',$field);
-            $temp  =    $data[$array[0]];
-            // 函数支持
+            $temp   =   $data[$array[0]];
+            //函数支持
             if(isset($array[1])){
                 $temp = call_user_func($array[1], $temp);
             }
