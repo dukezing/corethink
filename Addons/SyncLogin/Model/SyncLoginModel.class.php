@@ -19,6 +19,71 @@ class SyncLoginModel extends Model{
     protected $tableName = 'addon_sync_login'; 
 
     /**
+     * 后台列表管理相关定义
+     * @author jry <598821125@qq.com>
+     */
+    public $adminList = array(
+        'title' => '第三方登录列表',
+        'model' => 'addon_sync_login',
+        'search_key'=>'type',
+        'order'=>'id desc',
+        'map' => null,
+        'list_grid' => array(
+            'uid' => array(
+                'title' => 'UID',
+                'type'  => 'text',
+            ),
+            'type' => array(
+                'title' => '类别',
+                'type'  => 'text',
+            ),
+            'openid' => array(
+                'title' => 'openid',
+                'type'  => 'text',
+            ),
+            'status' => array(
+                 'title' => '状态',
+                 'type'  => 'status',
+             ),
+        ),
+        'field' => array( //后台新增、编辑字段
+            'uid' => array(
+                 'name'  => 'uid',
+                 'title' => '用户',
+                 'type'  => 'num',
+                 'tip'=>'绑定的系统用户ID',
+             ),
+            'type' => array(
+                 'name'  => 'type',
+                 'title' => '类别',
+                 'type'  => 'select',
+                 'tip'=>'第三方账号类型',
+                 'options'=>array(
+                     'Weixin'=>'Weixin',
+                     'Qq'=>'Qq',
+                     'Sina'=>'Sina',
+                     'Renren'=>'Renren',
+                 ),
+             ),
+            'openid' => array(
+                 'name'  => 'openid',
+                 'title' => 'openid',
+                 'type'  => 'text',
+             ),
+             'access_token' => array(
+                 'name'  => 'access_token',
+                 'title' => 'openid',
+                 'type'  => 'text',
+             ),
+            'refresh_token' => array(
+                 'name'  => 'refresh_token',
+                 'title' => 'openid',
+                 'type'  => 'text',
+             ),
+        ),
+    );
+
+    /**
      * 自动完成规则
      * @author jry <598821125@qq.com>
      */

@@ -220,12 +220,13 @@ class AddonController extends AdminController {
         }
 
         //获取插件的$admin_list配置
-        $param_list = $addon->admin_list;
+        $admin_list = $addon->admin_list;
         $tab_list = array();
-        foreach($param_list as $key => $val){
+        foreach($admin_list as $key => $val){
             $tab_list[$key] = $val['title'];
         }
-        $param = $param_list[$tab];
+        $admin = $admin_list[$tab];
+        $param = D('Addons://'.$name.'/'.$admin['model'].'')->adminList;
         if($param){
             //搜索
             $keyword = (string)I('keyword');
@@ -240,7 +241,7 @@ class AddonController extends AdminController {
             //使用Builder快速建立列表页面。
             $builder = new \Common\Builder\ListBuilder();
             $builder->title($addon->info['title']) //设置页面标题
-                    ->AddNewButton('Admin/Addon/adminAdd/name/'.$name.'/model/'.$tab) //添加新增按钮
+                    ->AddNewButton('Admin/Addon/adminAdd/name/'.$name.'/tab/'.$tab) //添加新增按钮
                     ->addResumeButton($param['model']) //添加启用按钮
                     ->addForbidButton($param['model']) //添加禁用按钮
                     ->setSearch('请输入关键字', U('Admin/Addon/adminlist/name/'.$name, array('tab' => $tab)))
@@ -256,7 +257,7 @@ class AddonController extends AdminController {
             }
 
             $attr['title'] = '编辑';
-            $attr['href'] = 'Admin/Addon/adminEdit/name/'.$name.'/model/'.$tab.'/id/';
+            $attr['href'] = 'Admin/Addon/adminEdit/name/'.$name.'/tab/'.$tab.'/id/';
 
             //显示列表
             $builder->addField('right_button', '操作', 'btn')
@@ -274,7 +275,7 @@ class AddonController extends AdminController {
      * @param string $name 插件名
      * @author jry <598821125@qq.com>
      */
-     public function adminAdd($name, $model){
+     public function adminAdd($name, $tab){
         //获取插件实例
         $addon_class = get_addon_class($name);
         if(!class_exists($addon_class)){
@@ -284,14 +285,20 @@ class AddonController extends AdminController {
         }
 
         //获取插件的$admin_list配置
-        $param_list = $addon->admin_list;
-        $param = $param_list[$model];
+        $admin_list = $addon->admin_list;
+        $admin = $admin_list[$tab];
+        $addon_model_object = D('Addons://'.$name.'/'.$admin['model']);
+        $param = $addon_model_object->adminList;
         if($param){
             if(IS_POST){
-                $data = D($param['model'])->create();
-                $result = D($param['model'])->add($data);
+                $data = $addon_model_object->create();
+                if($data){
+                    $result = $addon_model_object->add($data);
+                }else{
+                    $this->error($addon_model_object->getError());
+                }
                 if($result){
-                    $this->success('新增成功', U('Admin/Addon/adminlist/name/'.$name.'/tab/'.$model));
+                    $this->success('新增成功', U('Admin/Addon/adminlist/name/'.$name.'/tab/'.$tab));
                 }else{
                     $this->error('更新错误');
                 }
@@ -299,7 +306,7 @@ class AddonController extends AdminController {
                 //使用FormBuilder快速建立表单页面。
                 $builder = new \Common\Builder\FormBuilder();
                 $builder->title('新增数据')  //设置页面标题
-                        ->setUrl(U('admin/addon/adminAdd/name/'.$name.'/model/'.$model.'/')) //设置表单提交地址
+                        ->setUrl(U('admin/addon/adminAdd/name/'.$name.'/tab/'.$tab.'/')) //设置表单提交地址
                         ->setExtraItems($param['field'])
                         ->display();
             }
@@ -313,7 +320,7 @@ class AddonController extends AdminController {
      * @param string $name 插件名
      * @author jry <598821125@qq.com>
      */
-     public function adminEdit($name, $model, $id){
+     public function adminEdit($name, $tab, $id){
         //获取插件实例
         $addon_class = get_addon_class($name);
         if(!class_exists($addon_class)){
@@ -323,14 +330,21 @@ class AddonController extends AdminController {
         }
 
         //获取插件的$admin_list配置
-        $param_list = $addon->admin_list;
-        $param = $param_list[$model];
+        $admin_list = $addon->admin_list;
+        $admin = $admin_list[$tab];
+        $addon_model_object = D('Addons://'.$name.'/'.$admin['model']);
+        $param = $addon_model_object->adminList;
+        //dump($addon_model_object);exit();
         if($param){
             if(IS_POST){
-                $data = D($param['model'])->create();
-                $result = D($param['model'])->save($data);
+                $data = $addon_model_object->create();
+                if($data){
+                    $result = $addon_model_object->save($data);
+                }else{
+                    $this->error($addon_model_object->getError());
+                }
                 if($result){
-                    $this->success('更新成功', U('Admin/Addon/adminlist/name/'.$name.'/tab/'.$model));
+                    $this->success('更新成功', U('Admin/Addon/adminlist/name/'.$name.'/tab/'.$tab));
                 }else{
                     $this->error('更新错误');
                 }
@@ -338,7 +352,7 @@ class AddonController extends AdminController {
                 //使用FormBuilder快速建立表单页面。
                 $builder = new \Common\Builder\FormBuilder();
                 $builder->title('编辑数据')  //设置页面标题
-                        ->setUrl(U('admin/addon/adminedit/name/'.$name.'/model/'.$model.'/')) //设置表单提交地址
+                        ->setUrl(U('admin/addon/adminedit/name/'.$name.'/tab/'.$tab.'/')) //设置表单提交地址
                         ->addItem('id', 'hidden', 'ID', 'ID')
                         ->setExtraItems($param['field'])
                         ->setFormData(M($param['model'])->find($id))
