@@ -210,31 +210,43 @@ class AddonController extends AdminController {
      * @param string $name 插件名
      * @author jry <598821125@qq.com>
      */
-    public function adminList($name){
+    public function adminList($name, $tab = 1){
         //获取插件实例
         $addon_class = get_addon_class($name);
         if(!class_exists($addon_class)){
             $this->error('插件不存在');
+        }else{
+            $addon = new $addon_class();
         }
-        $addon = new $addon_class();
-        $this->assign('addon', $addon);
 
         //获取插件的$admin_list配置
-        $param = $addon->admin_list;
+        $param_list = $addon->admin_list;
+        $tab_list = array();
+        foreach($param_list as $key => $val){
+            $tab_list[$key] = $val['title'];
+        }
+        $param = $param_list[$tab];
         if($param){
-            $data_list = M($param['model'])->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))
-                                           ->field(true)->order($param['order'])->select();
-            $page = new \Common\Util\Page(D('Document')->where($map)->count(), C('ADMIN_PAGE_ROWS'));
+            //搜索
+            $keyword = (string)I('keyword');
+            $condition = array('like','%'.$keyword.'%');
+            $map['id|'.$param['search_key']] = array($condition, $condition,'_multi'=>true);
 
-            $attr_add['class'] = 'btn';
-            $attr_add['href'] =  U($param.'/adminAdd');
+            //获取数据列表
+            $data_list = M($param['model'])->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))
+                                           ->where($map)->field(true)->order($param['order'])->select();
+            $page = new \Common\Util\Page(M($param['model'])->where($map)->count(), C('ADMIN_PAGE_ROWS'));
 
             //使用Builder快速建立列表页面。
             $builder = new \Common\Builder\ListBuilder();
             $builder->title($addon->info['title']) //设置页面标题
-                    ->AddNewButton('Addon/adminAdd') //添加新增按钮
+                    ->AddNewButton('Admin/Addon/adminAdd/name/'.$name.'/model/'.$tab) //添加新增按钮
                     ->addResumeButton($param['model']) //添加启用按钮
                     ->addForbidButton($param['model']) //添加禁用按钮
+                    ->setSearch('请输入关键字', U('Admin/Addon/adminlist/name/'.$name, array('tab' => $tab)))
+                    ->SetTablist($tab_list) //设置Tab按钮列表
+                    ->setTabUrl('Admin/Addon/adminlist/name/'.$name)
+                    ->SetCurrentTab($tab) //设置当前Tab
                     ->setPage($page->show()) //分页
                     ->dataList($data_list); //数据列表
 
@@ -243,9 +255,12 @@ class AddonController extends AdminController {
                 $builder->addField($key, $val['title'], $val['type']);
             }
 
+            $attr['title'] = '编辑';
+            $attr['href'] = 'Admin/Addon/adminEdit/name/'.$name.'/model/'.$tab.'/id/';
+
             //显示列表
             $builder->addField('right_button', '操作', 'btn')
-                    ->addRightButton('edit', $param['model'], 'Addon/adminEdit') //添加编辑按钮
+                    ->addRightButton('self', $attr) //添加编辑按钮
                     ->addRightButton('forbid', $param['model']) //添加禁用/启用按钮
                     ->addRightButton('delete', $param['model']) //添加删除按钮
                     ->display();
@@ -253,4 +268,84 @@ class AddonController extends AdminController {
             $this->error('插件列表信息不正确');
         }
     }
+
+    /**
+     * 插件后台数据增加
+     * @param string $name 插件名
+     * @author jry <598821125@qq.com>
+     */
+     public function adminAdd($name, $model){
+        //获取插件实例
+        $addon_class = get_addon_class($name);
+        if(!class_exists($addon_class)){
+            $this->error('插件不存在');
+        }else{
+            $addon = new $addon_class();
+        }
+
+        //获取插件的$admin_list配置
+        $param_list = $addon->admin_list;
+        $param = $param_list[$model];
+        if($param){
+            if(IS_POST){
+                $data = D($param['model'])->create();
+                $result = D($param['model'])->add($data);
+                if($result){
+                    $this->success('新增成功', U('Admin/Addon/adminlist/name/'.$name.'/tab/'.$model));
+                }else{
+                    $this->error('更新错误');
+                }
+            }else{
+                //使用FormBuilder快速建立表单页面。
+                $builder = new \Common\Builder\FormBuilder();
+                $builder->title('新增数据')  //设置页面标题
+                        ->setUrl(U('admin/addon/adminAdd/name/'.$name.'/model/'.$model.'/')) //设置表单提交地址
+                        ->setExtraItems($param['field'])
+                        ->display();
+            }
+        }else{
+            $this->error('插件列表信息不正确');
+        }
+     }
+
+    /**
+     * 插件后台数据编辑
+     * @param string $name 插件名
+     * @author jry <598821125@qq.com>
+     */
+     public function adminEdit($name, $model, $id){
+        //获取插件实例
+        $addon_class = get_addon_class($name);
+        if(!class_exists($addon_class)){
+            $this->error('插件不存在');
+        }else{
+            $addon = new $addon_class();
+        }
+
+        //获取插件的$admin_list配置
+        $param_list = $addon->admin_list;
+        $param = $param_list[$model];
+        if($param){
+            if(IS_POST){
+                $data = D($param['model'])->create();
+                $result = D($param['model'])->save($data);
+                if($result){
+                    $this->success('更新成功', U('Admin/Addon/adminlist/name/'.$name.'/tab/'.$model));
+                }else{
+                    $this->error('更新错误');
+                }
+            }else{
+                //使用FormBuilder快速建立表单页面。
+                $builder = new \Common\Builder\FormBuilder();
+                $builder->title('编辑数据')  //设置页面标题
+                        ->setUrl(U('admin/addon/adminedit/name/'.$name.'/model/'.$model.'/')) //设置表单提交地址
+                        ->addItem('id', 'hidden', 'ID', 'ID')
+                        ->setExtraItems($param['field'])
+                        ->setFormData(M($param['model'])->find($id))
+                        ->display();
+            }
+        }else{
+            $this->error('插件列表信息不正确');
+        }
+     }
 }

@@ -16,6 +16,7 @@ use Think\Controller;
 class FormBuilder extends Controller{
     private $_title; //页面标题
     private $_tab_list; //Tab按钮列表
+    private $_tab_url; //Tab按钮地址
     private $_current_tab = 0; //当前Tab
     private $_url; //表单提交地址
     private $_form_items = array(); //表单项目
@@ -39,6 +40,15 @@ class FormBuilder extends Controller{
      */
     public function setTabList($tab_list){
         $this->_tab_list = $tab_list;
+        return $this;
+    }
+
+    /**设置Tab按钮地址
+     * @param $tab_list
+     * @return $this
+     */
+    public function setTabUrl($tab_url){
+        $this->_tab_url = $tab_url;
         return $this;
     }
 
@@ -118,16 +128,19 @@ class FormBuilder extends Controller{
 
     //显示页面
     public function display(){
-        //编译表单值
-        foreach($this->_form_items as &$item){
-            $item['value'] = $this->_form_data[$item['name']];
-        }
-
         //额外已经构造好的表单项目与单个组装的的表单项目进行合并
         $this->_form_items = array_merge($this->_form_items, $this->_extra_items);
 
+        //编译表单值
+        if($this->_form_data){
+            foreach($this->_form_items as &$item){
+                $item['value'] = $this->_form_data[$item['name']];
+            }
+        }
+
         $this->assign('title', $this->_title);
         $this->assign('tab_list', $this->_tab_list);
+        $this->assign('tab_url', $this->_tab_url);
         $this->assign('current_tab', $this->_current_tab);
         $this->assign('url', $this->_url);
         $this->assign('form_items', $this->_form_items);

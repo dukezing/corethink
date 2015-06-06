@@ -37,7 +37,7 @@ class SystemConfigController extends AdminController{
                 ->addResumeButton() //添加启用按钮
                 ->addForbidButton() //添加禁用按钮
                 ->addDeleteButton() //添加删除按钮
-                ->setSearch('请输入ID/配置名称/配置标题', U('index', array('group' => $group)))
+                ->setSearch('请输入ID/配置名称/配置标题', U('index', array('tab' => $tab)))
                 ->SetTablist(C('CONFIG_GROUP_LIST')) //设置Tab按钮列表
                 ->SetCurrentTab($tab) //设置当前Tab
                 ->addField('id', 'UID', 'text')

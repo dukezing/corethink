@@ -18,6 +18,7 @@ class ListBuilder extends Controller{
     private $_button_list = array(); //工具栏按钮组
     private $_search = array(); //搜索参数
     private $_tab_list; //Tab按钮列表
+    private $_tab_url; //Tab按钮地址
     private $_current_tab = 0; //当前Tab
     private $_field_list = array(); //表格标题字段
     private $_data_list = array(); //表格数据列表
@@ -114,6 +115,15 @@ class ListBuilder extends Controller{
      */
     public function setTabList($tab_list){
         $this->_tab_list = $tab_list;
+        return $this;
+    }
+
+    /**设置Tab按钮地址
+     * @param $tab_list
+     * @return $this
+     */
+    public function setTabUrl($tab_url){
+        $this->_tab_url = $tab_url;
         return $this;
     }
 
@@ -259,6 +269,7 @@ class ListBuilder extends Controller{
         $this->assign('button_list', $this->_button_list);
         $this->assign('search', $this->_search);
         $this->assign('tab_list', $this->_tab_list);
+        $this->assign('tab_url', $this->_tab_url);
         $this->assign('current_tab', $this->_current_tab);
         $this->assign('field_list', $this->_field_list);
         $this->assign('data_list', $this->_data_list);

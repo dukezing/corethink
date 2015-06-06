@@ -51,7 +51,7 @@
                 <div class="tab">
                     <ul class="nav nav-pills">
                         <volist name="tab_list" id="tab">
-                            <li class="<php>if($current_tab == $key) echo 'active';</php>"><a href="{:U('', array('tab' => $key))}">{$tab}</a></li>
+                            <li class="<php>if($current_tab == $key) echo 'active';</php>"><a href="{:U($tab_url, array('tab' => $key))}">{$tab}</a></li>
                         </volist>
                     </ul>
                 </div>
