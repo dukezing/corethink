@@ -20,7 +20,8 @@ class CategoryModel extends Model{
     protected $_validate = array(
         array('title', 'require', '名称不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
         array('title', '1,32', '名称长度为1-32个字符', self::EXISTS_VALIDATE, 'length', self::MODEL_BOTH),
-        array('title', '', '名称已经存在', self::VALUE_VALIDATE, 'unique', self::MODEL_BOTH),
+        array('title', 'checkTitle', '名称已经存在', self::MUST_VALIDATE, 'callback', self::MODEL_BOTH),
+        array('group', 'require', '分组不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
         array('doc_type', 'require', '内容模型不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
     );
 
@@ -34,6 +35,17 @@ class CategoryModel extends Model{
         array('sort', '0', self::MODEL_INSERT),
         array('status', '1', self::MODEL_INSERT),
     );
+
+    /**
+     * 检查同一分组下是否有相同的字段
+     * @author jry <598821125@qq.com>
+     */
+    protected function checkTitle(){
+        $map['title'] = array('eq', I('post.title'));
+        $map['group'] = array('eq', I('post.group'));
+        $result = $this->where($map)->find();
+        return empty($result);
+    }
 
     /**
      * 获取参数的所有父级分类
