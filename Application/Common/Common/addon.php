@@ -37,11 +37,3 @@ function get_addon_class($name){
 function addons_url($url, $param = array()){
     return D('Addon')->getAddonUrl($url, $param);
 }
-
-/**
- * 解析插件数据列表定义规则
- * @author jry <598821125@qq.com>
- */
-function get_addon_adminlist_field($data, $grid, $addon){
-    return D('Addon')->getAddonAdminlistField($data, $grid, $addon);
-}

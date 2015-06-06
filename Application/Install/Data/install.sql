@@ -83,12 +83,18 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `ct_addon_sync_login`;
 
 CREATE TABLE `ct_addon_sync_login` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `uid` int(11) NOT NULL COMMENT 'ID',
-  `openid` varchar(64) NOT NULL DEFAULT '' COMMENT 'OpenID',
   `type` varchar(15) NOT NULL DEFAULT '' COMMENT '类别',
+  `openid` varchar(64) NOT NULL DEFAULT '' COMMENT 'OpenID',
   `access_token` varchar(64) NOT NULL DEFAULT '' COMMENT 'AccessToken',
-  `refresh_token` varchar(64) NOT NULL DEFAULT '' COMMENT 'RefreshToken'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='第三方登陆插件表';
+  `refresh_token` varchar(64) NOT NULL DEFAULT '' COMMENT 'RefreshToken',
+  `ctime` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `utime` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `sort` int(11) NOT NULL DEFAULT '0' COMMENT '排序',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='第三方登陆插件表';
 
 
 
