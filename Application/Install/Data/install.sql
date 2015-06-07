@@ -274,7 +274,7 @@ CREATE TABLE `ct_system_config` (
 LOCK TABLES `ct_system_config` WRITE;
 /*!40000 ALTER TABLE `ct_system_config` DISABLE KEYS */;
 
-INSERT INTO `ct_system_config` (`id`, `title`, `name`, `value`, `group`, `type`, `options`, `tip`, `ctime`, `utime`, `sort`, `status`)
+INSERT INTO `ct_system_config` (`title`, `name`, `value`, `group`, `type`, `options`, `tip`, `ctime`, `utime`, `sort`, `status`)
 VALUES
 	('站点开关','TOGGLE_WEB_SITE','1',1,'select','0:关闭,1:开启','站点关闭后将不能访问',1378898976,1406992386,1,1),
 	('网站标题','WEB_SITE_TITLE','CoreThink框架',1,'text','','网站标题前台显示标题',1378898976,1379235274,2,1),

@@ -17,7 +17,7 @@ class UserController extends AdminController{
      * 用户列表
      * @author jry <598821125@qq.com>
      */
-    public function index($status = '0,1'){
+    public function index(){
         //搜索
         $keyword = (string)I('keyword');
         $condition = array('like','%'.$keyword.'%');

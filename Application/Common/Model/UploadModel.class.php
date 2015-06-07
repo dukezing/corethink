@@ -80,9 +80,9 @@ class UploadModel extends Model{
         );
 
         $upload_config = C('UPLOAD_CONFIG');
-        $upload_drier  = C('UPLOAD_DRIVER');
+        $upload_driver  = C('UPLOAD_DRIVER');
         $upload_config['removeTrash'] = array($this, 'removeTrash');
-        $upload = new \Think\Upload($upload_config, $upload_drier, C("UPLOAD_{$upload_drier}_CONFIG")); // 实例化上传类
+        $upload = new \Think\Upload($upload_config, $upload_driver, C("UPLOAD_{$upload_driver}_CONFIG")); // 实例化上传类
         $upload->exts = $ext_arr[$dir]; //设置附件上传类型
         $info = $upload->upload($_FILES); //上传文件
         $info = $info['imgFile'];

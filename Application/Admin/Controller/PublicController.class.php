@@ -14,7 +14,7 @@ use Think\Controller;
  */
 class PublicController extends Controller{
     /**
-     * 登陆
+     * 后台登陆
      * @author jry <598821125@qq.com>
      */
     public function login(){
@@ -22,11 +22,12 @@ class PublicController extends Controller{
             $username = I('username');
             $password = I('password');
             $map['group'] = array('egt', 1); //后台部门
-            $uid = D('User')->login($username, $password, $map);
+            $user_object = D('User');
+            $uid = $user_object->login($username, $password, $map);
             if(0 < $uid){
                 $this->success('登录成功！', U('Index/index'));
             }else{
-                $this->error('登录失败！');
+                $this->error($user_object->getError());
             }
         }else{
             //读取数据库中的配置

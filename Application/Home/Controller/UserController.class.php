@@ -47,11 +47,12 @@ class UserController extends HomeController{
             if(!$password){
                 $this->error('请输入密码！');
             }
-            $uid = D('User')->login($username, $password);
+            $user_object = D('User');
+            $uid = $user_object->login($username, $password);
             if(0 < $uid){
                 $this->success('登录成功！', Cookie('__forward__') ? : C('HOME_PAGE'));
             }else{
-                $this->error('登录失败，'. $uid);
+                $this->error($user_object->getError());
             }
         }else{
             if(is_login()){

@@ -147,10 +147,10 @@ class UserModel extends Model{
         $map['status']   = array('eq', 1);
         $user = $this->where($map)->find(); //查找用户
         if(!$user){
-            return '用户不存在或被禁用！';
+            $this->error = '用户不存在或被禁用！';
         }else{
             if(user_md5($password) !== $user['password']){
-                return '密码错误！';
+                $this->error = '密码错误！';
             }else{
                 //更新登录信息
                 $data = array(
