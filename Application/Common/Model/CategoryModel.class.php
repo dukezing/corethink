@@ -53,17 +53,19 @@ class CategoryModel extends Model{
      * @return array 参数分类和父类的信息集合
      * @author jry <598821125@qq.com>
      */
-    public function getParentCategory($cid){
+    public function getParentCategory($cid, $group = 1){
         if(empty($cid)){
             return false;
         }
-        $cates = $this->where(array('status'=>1))->field('id,pid,title,url')->order('sort')->select();
+        $con['status'] = 1;
+        $con['group'] = $group;
+        $cates = $this->where($con)->field('id,pid,title,url')->order('sort')->select();
         $child = $this->field('id,pid,title,url')->find($cid); //获取参数分类的信息
         $pid   = $child['pid'];
         $temp  = array();
         $res[] = $child;
         while(true){
-            foreach ($cates as $key=>$cate){
+            foreach($cates as $key=>$cate){
                 if($cate['id'] == $pid){
                     $pid = $cate['pid'];
                     array_unshift($res, $cate); //将父分类插入到数组第一个元素前
@@ -73,6 +75,7 @@ class CategoryModel extends Model{
                 break;
             }
         }
+        return $res;
     }
 
     /**

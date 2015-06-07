@@ -23,7 +23,8 @@ class FormBuilder extends Controller{
     private $_extra_items = array(); //额外已经构造好的表单项目
     private $_form_data = array(); //表单数据
     private $_extra; //额外参数
-    private $_template = 'adminformbuilder.html'; //模版
+    private $_builder_class; //Builder最外层div样式
+    private $_template = 'formbuilder.html'; //模版
 
     /**设置页面标题
      * @param $title 标题文本
@@ -85,16 +86,18 @@ class FormBuilder extends Controller{
      * @param $tip 表单提示说明
      * @param $name 表单名
      * @param $options 表单options
-     * @param $extra_class 表单额外CSS类名
+     * @param $extra_class 表单项是否隐藏
+     * @param $extra_attr 表单项额外属性
      * @return $this
      */
-    public function addItem($name, $type, $title, $tip, $options = array(), $extra_class = ''){
+    public function addItem($name, $type, $title, $tip, $options = array(), $extra_class = '', $extra_attr = ''){
         $item['name'] = $name;
         $item['type'] = $type;
         $item['title'] = $title;
         $item['tip'] = $tip;
         $item['options'] = $options;
         $item['extra_class'] = $extra_class;
+        $item['extra_attr'] = $extra_attr;
         $this->_form_items[] = $item;
         return $this;
     }
@@ -126,6 +129,15 @@ class FormBuilder extends Controller{
         return $this;
     }
 
+    /**Builder最外层div样式
+     * @param $builder_class 样式
+     * @return $this
+     */
+    public function setBuilderClass($builder_class){
+        $this->_builder_class = $builder_class;
+        return $this;
+    }
+
     //显示页面
     public function display(){
         //额外已经构造好的表单项目与单个组装的的表单项目进行合并
@@ -145,6 +157,7 @@ class FormBuilder extends Controller{
         $this->assign('url', $this->_url);
         $this->assign('form_items', $this->_form_items);
         $this->assign('extra', $this->_extra);
+        $this->assign('builder_class', $this->_builder_class);
         parent::display(dirname(__FILE__).'/'.$this->_template);
     }
 }

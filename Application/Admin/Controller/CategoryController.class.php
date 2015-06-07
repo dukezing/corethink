@@ -29,7 +29,8 @@ class CategoryController extends AdminController{
             $map['pid'] = array('eq', I('get.pid')); //父分类ID
         }
         $map['group'] = array('eq', $tab);
-        $data_list = D('Category')->where($map)->order('sort asc,id asc')->select();
+        $data_list = D('Category')->field('id,pid,group,doc_type,title,url,icon,ctime,sort,status')
+                                  ->where($map)->order('sort asc,id asc')->select();
         foreach($data_list as &$item){
             if($item['doc_type'] >= 3){
                 $item['title'] = '<a href="'.U('Document/index', array('cid' => $item['id'])).'">'.$item['title'].'</a>';
@@ -97,7 +98,7 @@ class CategoryController extends AdminController{
             $builder = new \Common\Builder\FormBuilder();
             $builder->title('新增分类')  //设置页面标题
                     ->setUrl(U('add')) //设置表单提交地址
-                    ->addItem('group', 'select', '分组', '分组', C('CATEGORY_GROUP_LIST'))
+                    ->addItem('group', 'select', '分组', '分组', C('CATEGORY_GROUP_LIST'), '', 'disabled="disabled"')
                     ->addItem('pid', 'select', '上级分类', '所属的上级分类', $this->selectListAsTree('Category', array('group' => $tab), '顶级分类'))
                     ->addItem('title', 'text', '分类标题', '分类标题')
                     ->addItem('doc_type', 'select', '分类内容模型', '分类内容模型', $this->selectListAsTree('DocumentType'))
@@ -146,7 +147,7 @@ class CategoryController extends AdminController{
             $builder->title('编辑分类')  //设置页面标题
                     ->setUrl(U('admin/Category/edit/id/'.$id.'/tab/'.$tab)) //设置表单提交地址
                     ->addItem('id', 'hidden', 'ID', 'ID')
-                    ->addItem('group', 'select', '分组', '分组', C('CATEGORY_GROUP_LIST'))
+                    ->addItem('group', 'select', '分组', '分组', C('CATEGORY_GROUP_LIST'), '', 'disabled="disabled"')
                     ->addItem('pid', 'select', '上级分类', '所属的上级分类', $this->selectListAsTree('Category', array('group' => $tab), '顶级分类'))
                     ->addItem('title', 'text', '分类标题', '分类标题')
                     ->addItem('doc_type', 'select', '分类内容模型', '分类内容模型', $this->selectListAsTree('DocumentType'))

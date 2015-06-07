@@ -200,7 +200,14 @@
             };
 
             $('#daterange_set').daterangepicker(option_set, function(start, end, label){
-                location.href = '{:U("Index/index")}'+'&start_date='+start+'&end_date='+end;
+                var url = '{:U("Index/index")}';
+                var query  = 'start_date='+start+'&end_date='+end;
+                if(url.indexOf('?')>0){
+                    url += '&' + query;
+                }else{
+                    url += '?' + query;
+                }
+                window.location.href = url;
             });
         });
     </script>

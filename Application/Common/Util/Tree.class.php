@@ -27,7 +27,7 @@ class Tree{
     private function _toFormatTree($list, $level = 0, $title = 'title'){
         foreach($list as $key=>$val){
             $title_prefix = str_repeat("&nbsp;", $level*4);
-            $title_prefix .= "└";
+            $title_prefix .= "┝ ";
             $val['level'] = $level;
             $val['title_prefix'] = $level == 0 ? '' : $title_prefix;
             $val['title_show'] = $level == 0 ? $val[$title] : $title_prefix.$val[$title];

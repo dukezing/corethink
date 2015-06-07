@@ -86,6 +86,7 @@ class DocumentController extends AdminController{
         $new_attribute_list = array();
         foreach($attribute_list as $attr){
             if($attr['name'] == 'cid'){
+                $con['group'] = $category_info['group'];
                 $con['doc_type'] = $category_info['doc_type'];
                 $attr['value'] = $cid;
                 $attr['options'] = $this->selectListAsTree('Category', $con);
@@ -140,6 +141,7 @@ class DocumentController extends AdminController{
         $new_attribute_list = array();
         foreach($attribute_list as $attr){
             if($attr['name'] == 'cid'){
+                $con['group'] = $category_info['group'];
                 $con['doc_type'] = $category_info['doc_type'];
                 $attr['options'] = $this->selectListAsTree('Category', $con);
             }else{

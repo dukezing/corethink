@@ -4,7 +4,7 @@
     </header>
     <section class="comments-list">
         <!-- 模版标签 -->
-            <corethink:comment name="vo" doc_id="$info['id']">
+            <corethink:comment_list name="vo" doc_id="$info['id']">
                 <div class="comment">
                     <a href="{:U('User/index/uid/'.$vo['uid'])}" class="avatar">
                         <img src="{$vo.avatar|get_cover='avatar'}" style="width:40px;height:40px;">
@@ -29,7 +29,7 @@
                         </div>
                     </div>
                 </div>
-            </corethink:comment>
+            </corethink:comment_list>
         <!-- /模版标签 -->
     </section>
     <php>if(C('TOGGLE_USER_COMMENT')):</php>

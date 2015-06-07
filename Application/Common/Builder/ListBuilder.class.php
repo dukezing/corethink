@@ -25,7 +25,8 @@ class ListBuilder extends Controller{
     private $_right_button_list = array(); //表格右侧操作按钮组
     private $_page; //分页
     private $_extra; //额外参数
-    private $_template = 'adminlistbuilder.html'; //模版
+    private $_builder_class; //Builder最外层div样式
+    private $_template = 'listbuilder.html'; //模版
 
     /**设置页面标题
      * @param $title 标题文本
@@ -190,6 +191,15 @@ class ListBuilder extends Controller{
         return $this;
     }
 
+    /**Builder最外层div样式
+     * @param $builder_class 样式
+     * @return $this
+     */
+    public function setBuilderClass($builder_class){
+        $this->_builder_class = $builder_class;
+        return $this;
+    }
+
     //显示页面
     public function display(){
         //编译button_list中的HTML属性
@@ -276,6 +286,7 @@ class ListBuilder extends Controller{
         $this->assign('right_button_list', $this->_right_button_list);
         $this->assign('page', $this->_page);
         $this->assign('extra', $this->_extra);
+        $this->assign('builder_class', $this->_builder_class);
         parent::display(dirname(__FILE__).'/'.$this->_template);
     }
 

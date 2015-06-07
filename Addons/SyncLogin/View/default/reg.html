@@ -19,7 +19,7 @@
                 </ul>
                 <div class="tab-content">
                     <div id="reg1" class='tab-pane active'>
-                        <form class="reg-form" action="{:U('home/addon/execute',array('_addons'=>'SyncLogin','_controller'=>'Login','_action'=>'doregister'))}" method="post">
+                        <form class="form reg-form" action="{:U('home/addon/execute',array('_addons'=>'SyncLogin','_controller'=>'Login','_action'=>'doregister'))}" method="post">
                             <div class="form-group">
                                 <label class="control-label">用户名</label>
                                 <div class="controls">
@@ -46,7 +46,7 @@
                     </div>
                     <div id="reg2" class='tab-pane'>
                         <form class="login-form" action="{:U('home/addon/execute',array('_addons'=>'SyncLogin','_controller'=>'Login','_action'=>'dobind'))}" method="post">
-                            <div class="form-group">
+                            <div class="form form-group">
                                 <label class="control-label">用户名</label>
                                 <div class="controls">
                                     <input type="text" class="form-control" placeholder="请输入邮箱/手机号/用户名" name="username">

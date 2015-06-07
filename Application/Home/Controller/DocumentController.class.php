@@ -26,7 +26,7 @@ class DocumentController extends HomeController{
                 redirect($category['url']);
                 break;
             case 2: //单页
-                $this->redirect('Category/detail/id/'.$category['id']);
+                $this->redirect(U('Category/detail/id/'.$category['id']));
                 break;
             default :
                 $template = $category['template'] ? 'Document/'.$category['template'] : 'Document/index_default';
@@ -72,6 +72,7 @@ class DocumentController extends HomeController{
         $new_attribute_list = array();
         foreach($attribute_list as $attr){
             if($attr['name'] == 'cid'){
+                $con['group'] = $category_info['group'];
                 $con['doc_type'] = $category_info['doc_type'];
                 $attr['value'] = $cid;
                 $attr['options'] = $this->selectListAsTree('Category', $con);
@@ -99,7 +100,7 @@ class DocumentController extends HomeController{
         $builder->title('新增文章')  //设置页面标题
                 ->setUrl(U('update')) //设置表单提交地址
                 ->setExtraItems($new_attribute_list)
-                ->setTemplate('homeformbuilder.html')
+                ->setBuilderClass('container')
                 ->display();
     }
 
@@ -128,6 +129,7 @@ class DocumentController extends HomeController{
         $new_attribute_list = array();
         foreach($attribute_list as $attr){
             if($attr['name'] == 'cid'){
+                $con['group'] = $category_info['group'];
                 $con['doc_type'] = $category_info['doc_type'];
                 $attr['options'] = $this->selectListAsTree('Category', $con);
             }else{
@@ -157,6 +159,7 @@ class DocumentController extends HomeController{
                 ->addItem('id', 'hidden', 'ID', 'ID')
                 ->setExtraItems($new_attribute_list)
                 ->setFormData($document_info)
+                ->setBuilderClass('container')
                 ->display();
     }
 
