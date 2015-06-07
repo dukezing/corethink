@@ -48,7 +48,10 @@ class ListBuilder extends Controller{
     }
 
     //加一个新增按钮
-    public function AddNewButton($url = CONTROLLER_NAME.'/add'){
+    public function AddNewButton($url){
+        if(!$url){
+            $url = CONTROLLER_NAME.'/add';
+        }
         $attr['class'] = 'btn';
         $attr['href'] =  U($url);
         $this->addButton('新 增', $attr);
@@ -155,10 +158,13 @@ class ListBuilder extends Controller{
      * @param $attr
      * @return $this
      */
-    public function addRightButton($type, $attr = CONTROLLER_NAME, $url = CONTROLLER_NAME.'/edit'){
+    public function addRightButton($type, $attr = CONTROLLER_NAME, $url){
         if(is_array($attr)){
             $this->_right_button_list[] = array('type' => $type, 'attr' => $attr);
         }else{
+            if(!$url){
+                $url = CONTROLLER_NAME.'/edit';
+            }
             $this->_right_button_list[] = array('type' => $type, 'model' => $attr, 'url' => $url);
         }
         return $this;
