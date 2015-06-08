@@ -26,7 +26,7 @@ class DocumentController extends HomeController{
                 redirect($category['url']);
                 break;
             case 2: //单页
-                $this->redirect(U('Category/detail/id/'.$category['id']));
+                $this->redirect('Category/detail/id/'.$category['id']);
                 break;
             default :
                 $template = $category['template'] ? 'Document/'.$category['template'] : 'Document/index_default';

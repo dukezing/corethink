@@ -57,4 +57,28 @@ class HomeController extends Controller{
             $this->error('请先登陆', U('User/login'), $data);
         }
     }
+
+    /**
+     * 获取所有数据并转换成一维数组
+     * @author jry <598821125@qq.com>
+     */
+    public function selectListAsTree($model, $map = null, $extra = null){
+        //获取列表
+        $map['status'] = array('eq', 1);
+        $list = D($model)->where($map)->select();
+
+        //转换成树状列表
+        $tree = new \Common\Util\Tree();
+        $list = $tree->toFormatTree($list);
+
+        if($extra){
+            $result[0] = $extra;
+        }
+
+        //转换成一维数组
+        foreach($list as $val){
+            $result[$val['id']] = $val['title_show'];
+        }
+        return $result;
+    }
 }

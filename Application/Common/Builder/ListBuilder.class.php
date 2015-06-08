@@ -275,7 +275,8 @@ class ListBuilder extends Controller{
                         $data[$field['name']] = '<img src="'.get_cover($data[$field['name']]).'">';
                         break;
                     case 'type':
-                        $data[$field['name']] = C('FORM_ITEM_TYPE')[$data[$field['name']]];
+                        $form_item_type = C('FORM_ITEM_TYPE');
+                        $data[$field['name']] = $form_item_type[$data[$field['name']]];
                         break;
                 }
             }

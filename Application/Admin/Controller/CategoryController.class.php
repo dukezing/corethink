@@ -41,7 +41,7 @@ class CategoryController extends AdminController{
         $tree = new \Common\Util\Tree();
         $data_list = $tree->toFormatTree($data_list);
 
-        $attr['title'] = '编 辑';
+        $attr['title'] = '编辑';
         $attr['href'] = 'Admin/Category/edit/tab/'.$tab.'/id/';
 
         //使用Builder快速建立列表页面。
@@ -50,7 +50,7 @@ class CategoryController extends AdminController{
                 ->AddNewButton('Admin/Category/add/tab/'.$tab) //添加新增按钮
                 ->addResumeButton() //添加启用按钮
                 ->addForbidButton() //添加禁用按钮
-                ->setSearch('请输入ID/分类名称', U('index'))
+                ->setSearch('请输入ID/分类名称', U('Admin/Category/index/tab/'.$tab))
                 ->SetTablist(C('CATEGORY_GROUP_LIST')) //设置Tab按钮列表
                 ->SetCurrentTab($tab) //设置当前Tab
                 ->addField('id', 'ID', 'text')
@@ -98,7 +98,7 @@ class CategoryController extends AdminController{
             $builder = new \Common\Builder\FormBuilder();
             $builder->title('新增分类')  //设置页面标题
                     ->setUrl(U('add')) //设置表单提交地址
-                    ->addItem('group', 'select', '分组', '分组', C('CATEGORY_GROUP_LIST'), '', 'disabled="disabled"')
+                    ->addItem('group', 'select', '分组', '分组', C('CATEGORY_GROUP_LIST'))
                     ->addItem('pid', 'select', '上级分类', '所属的上级分类', $this->selectListAsTree('Category', array('group' => $tab), '顶级分类'))
                     ->addItem('title', 'text', '分类标题', '分类标题')
                     ->addItem('doc_type', 'select', '分类内容模型', '分类内容模型', $this->selectListAsTree('DocumentType'))
@@ -147,7 +147,7 @@ class CategoryController extends AdminController{
             $builder->title('编辑分类')  //设置页面标题
                     ->setUrl(U('admin/Category/edit/id/'.$id.'/tab/'.$tab)) //设置表单提交地址
                     ->addItem('id', 'hidden', 'ID', 'ID')
-                    ->addItem('group', 'select', '分组', '分组', C('CATEGORY_GROUP_LIST'), '', 'disabled="disabled"')
+                    ->addItem('group', 'select', '分组', '分组', C('CATEGORY_GROUP_LIST'))
                     ->addItem('pid', 'select', '上级分类', '所属的上级分类', $this->selectListAsTree('Category', array('group' => $tab), '顶级分类'))
                     ->addItem('title', 'text', '分类标题', '分类标题')
                     ->addItem('doc_type', 'select', '分类内容模型', '分类内容模型', $this->selectListAsTree('DocumentType'))
