@@ -56,13 +56,11 @@
             <div class="collapse navbar-collapse navbar-collapse-main">
                 <ul class="nav navbar-nav">
                     <li><a href="__ROOT__/">首页</a></li>
-                    <!-- 模版标签 -->
-                        <corethink:category_list name="_category">
-                            <li <if condition='$_category.id eq $__CURRENT_CATEGORY__'> class="active"</if> >
-                                <a href="{:U('Document/index', array('cid' => $_category['id']))}">{$_category.title}</a>
-                            </li>
-                        </corethink:category_list>
-                    <!-- /模版标签 -->
+                    <corethink:category_list name="_category">
+                        <li <if condition='$_category.id eq $__CURRENT_CATEGORY__'> class="active"</if> >
+                            <a href="{:U('Document/index', array('cid' => $_category['id']))}">{$_category.title}</a>
+                        </li>
+                    </corethink:category_list>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <present name="__USER__">
@@ -94,11 +92,9 @@
                     <ul class="breadcrumb">
                         <li><i class="icon-location-arrow"></i></li>
                         <li><a href="__ROOT__/">首页</a></li>
-                        <!-- 模版标签 -->
-                            <corethink:breadcrumb name="_breadcrumb" cid="$__CURRENT_CATEGORY__">
-                                <li><a href="{:U('Document/index', array('cid' => $_breadcrumb['id']))}">{$_breadcrumb.title}</a></li>
-                            </corethink:breadcrumb>
-                        <!-- /模版标签 -->
+                        <corethink:breadcrumb name="_breadcrumb" cid="$__CURRENT_CATEGORY__" group="$__CURRENT_CATEGORY_GROUP__">
+                            <li><a href="{:U('Document/index', array('cid' => $_breadcrumb['id']))}">{$_breadcrumb.title}</a></li>
+                        </corethink:breadcrumb>
                     </ul>
                  </div>
             </div>

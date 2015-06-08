@@ -58,24 +58,23 @@ class CategoryModel extends Model{
             return false;
         }
         $con['status'] = 1;
-        $con['group'] = $group;
-        $cates = $this->where($con)->field('id,pid,title,url')->order('sort')->select();
-        $child = $this->field('id,pid,title,url')->find($cid); //获取参数分类的信息
-        $pid   = $child['pid'];
-        $temp  = array();
-        $res[] = $child;
+        $con['group']  = $group;
+        $category_list = $this->where($con)->field('id,pid,group,title,url')->select();
+        $current_category = $this->field('id,pid,group,title,url')->find($cid); //获取当前分类的信息
+        $result[] = $current_category;
+        $pid = $current_category['pid'];
         while(true){
-            foreach($cates as $key=>$cate){
-                if($cate['id'] == $pid){
-                    $pid = $cate['pid'];
-                    array_unshift($res, $cate); //将父分类插入到数组第一个元素前
+            foreach($category_list as $key => $val){
+                if($val['id'] == $pid){
+                    $pid = $val['pid'];
+                    array_unshift($result, $val); //将父分类插入到数组第一个元素前
                 }
             }
-            if($pid == 0){
+            if($pid == 0 || count($result) == 1){ //已找到顶级分类或者没有任何父分类
                 break;
             }
         }
-        return $res;
+        return $result;
     }
 
     /**

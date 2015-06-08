@@ -31,8 +31,9 @@ class CoreThink extends TagLib{
     public function _breadcrumb($tag, $content){
         $name   = $tag['name'];
         $cid    = $tag['cid'];
+        $group  = $tag['group'] ? : 1;
         $parse  = '<?php ';
-        $parse .= '$__PARENT_CATEGORY__ = D(\'Category\')->getParentCategory('.$cid.');';
+        $parse .= '$__PARENT_CATEGORY__ = D(\'Category\')->getParentCategory('.$cid.', '.$group.');';
         $parse .= ' ?>';
         $parse .= '<volist name="__PARENT_CATEGORY__" id="'. $name .'">';
         $parse .= $content;
