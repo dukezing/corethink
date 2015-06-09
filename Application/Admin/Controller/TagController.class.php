@@ -111,7 +111,7 @@ class TagController extends AdminController{
 
     /**
      * 搜索相关标签
-     *@ param string 搜索关键字
+     * @param string 搜索关键字
      * @return array 相关标签
      * @author jry <598821125@qq.com>
      */

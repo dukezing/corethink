@@ -27,8 +27,15 @@ return array(
     //URL模式
     'URL_MODEL' => '3',
 
+    //模版
+    'DEFAULT_THEME'   => 'default', //默认主题
+    'TMPL_DETECT_THEME' => true, //自动侦测主题
+
     //全局过滤配置
     'DEFAULT_FILTER' => '', //默认为htmlspecialchars
+
+    //预先加载的标签库
+    'TAGLIB_PRE_LOAD' => 'Home\\TagLib\\Corethink',
 
     //URL配置
     'URL_CASE_INSENSITIVE' => true, //不区分大小写
