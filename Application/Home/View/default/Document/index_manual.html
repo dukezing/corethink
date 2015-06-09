@@ -1,7 +1,23 @@
 <extend name="Public/layout"/>
 
 <block name="script">
-    <style type="text/css">.ztree-manual{min-height: 500px;}</style>
+    <style type="text/css">
+    .ztree-manual{min-height: 500px;}
+    .manual-left{
+        top: 110px;
+        bottom: 50px;
+        position: absolute;
+        padding-right: 0px;
+        overflow: auto;
+    }
+    .manual-right{
+        top: 110px;
+        right: 0px;
+        bottom: 50px;
+        position: absolute;
+        overflow: auto;
+    }
+    </style>
     <link rel="stylesheet" type="text/css" href="__PUBLIC__/ztree/css/zTreeStyle/zTreeStyle.css">
     <script type="text/javascript" src="__PUBLIC__/ztree/js/jquery.ztree.all-3.5.min.js" charset="utf-8"></script>
     <script type="text/javascript">
@@ -12,7 +28,6 @@
                     key:{
                         children:'_child',
                         name:'title',
-                        children:'_child',
                     }
                 },
                 callback:{
@@ -49,10 +64,10 @@
 
 <block name="body">
     <section class="main">
-        <div class="col-xs-12 col-sm-2">
+        <div class="col-xs-12 col-sm-2 manual-left">
             <div class="ztree ztree-manual box" id="ztree-manual"></div>
         </div>
-        <div class="col-xs-12 col-sm-10">
+        <div class="col-xs-12 col-sm-10 manual-right">
             <div class="ztree-manual box" id="ztree-manual-content">{$info.content}</div>
         </div>
     </section>
