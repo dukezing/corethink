@@ -39,6 +39,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <input type="hidden" name="reg_type" value="3">
                                 <input type="hidden" name="avatar" value="{$user_sns_info.head}">
                                 <button type="submit" class="btn btn-success btn-block ajax-post" target-form="reg-form">注 册</button>
                             </div>
@@ -47,7 +48,7 @@
                     <div id="reg2" class='tab-pane'>
                         <form class="login-form" action="{:U('home/addon/execute',array('_addons'=>'SyncLogin','_controller'=>'Login','_action'=>'dobind'))}" method="post">
                             <div class="form form-group">
-                                <label class="control-label">用户名</label>
+                                <label class="control-label">账号</label>
                                 <div class="controls">
                                     <input type="text" class="form-control" placeholder="请输入邮箱/手机号/用户名" name="username">
                                 </div>

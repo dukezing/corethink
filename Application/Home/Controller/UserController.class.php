@@ -84,13 +84,13 @@ class UserController extends HomeController{
             }
             $reg_type = I('post.reg_type');
             switch($reg_type){
-                case 'email':
+                case '1': //邮箱注册
                     $username = I('post.email');
-                    $_POST['username'] = 'Email_'.NOW_TIME;
+                    $_POST['username'] = 'U'.NOW_TIME;
                     break;
-                case 'mobile':
+                case '2': //手机号注册
                     $username = I('post.mobile');
-                    $_POST['username'] = 'Mobile_'.NOW_TIME;
+                    $_POST['username'] = 'U'.NOW_TIME;
                     break;
             }
             //验证码严格加盐加密验证

@@ -18,6 +18,9 @@ class UserModel extends Model{
      * @author jry <598821125@qq.com>
      */
     protected $_validate = array(
+        //验证注册类型
+        array('reg_type', 'require', '注册类型不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
+
         //验证邮箱
         array('email', 'email', '邮箱格式不正确', self::EXISTS_VALIDATE, 'regex', self::MODEL_BOTH),
         array('email', '1,32', '邮箱长度为1-32个字符', self::EXISTS_VALIDATE, 'length', self::MODEL_BOTH),
@@ -28,16 +31,16 @@ class UserModel extends Model{
         array('mobile', '', '手机号被占用', self::EXISTS_VALIDATE, 'unique', self::MODEL_BOTH),
 
         //验证密码
-        array('password', 'require', '密码不能为空', self::EXISTS_VALIDATE, 'regex', self::MODEL_INSERT),
-        array('password', '6,30', '密码长度为6-30位', self::EXISTS_VALIDATE, 'length', self::MODEL_INSERT),
-        array('password', '/(?!^(\d+|[a-zA-Z]+|[~!@#$%^&*()_+{}:"<>?\-=[\];\',.\/]+)$)^[\w~!@#$%^&*()_+{}:"<>?\-=[\];\',.\/]+$/', '密码至少由数字、字符、特殊字符三种中的两种组成', self::EXISTS_VALIDATE, 'regex', self::MODEL_INSERT),
+        array('password', 'require', '密码不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_INSERT),
+        array('password', '6,30', '密码长度为6-30位', self::MUST_VALIDATE, 'length', self::MODEL_INSERT),
+        array('password', '/(?!^(\d+|[a-zA-Z]+|[~!@#$%^&*()_+{}:"<>?\-=[\];\',.\/]+)$)^[\w~!@#$%^&*()_+{}:"<>?\-=[\];\',.\/]+$/', '密码至少由数字、字符、特殊字符三种中的两种组成', self::MUST_VALIDATE, 'regex', self::MODEL_INSERT),
 
         //验证用户名
         array('username', 'require', '用户名不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
-        array('username', '3,32', '用户名长度为1-32个字符', self::EXISTS_VALIDATE, 'length', self::MODEL_BOTH),
-        array('username', '', '用户名被占用', self::VALUE_VALIDATE, 'unique', self::MODEL_BOTH),
-        array('username', 'checkIP', '注册太频繁请稍后再试', self::EXISTS_VALIDATE, 'callback', self::MODEL_INSERT), //IP限制
-        array('username', '/^(?!_)(?!\d)(?!.*?_$)[\w\一-\龥]+$/', '用户名只可含有汉字、数字、字母、下划线且不以下划线开头结尾，不以数字开头！', self::EXISTS_VALIDATE, 'regex', self::MODEL_BOTH),
+        array('username', '3,32', '用户名长度为1-32个字符', self::MUST_VALIDATE, 'length', self::MODEL_BOTH),
+        array('username', '', '用户名被占用', self::MUST_VALIDATE, 'unique', self::MODEL_BOTH),
+        array('username', 'checkIP', '注册太频繁请稍后再试', self::MUST_VALIDATE, 'callback', self::MODEL_INSERT), //IP限制
+        array('username', '/^(?!_)(?!\d)(?!.*?_$)[\w\一-\龥]+$/', '用户名只可含有汉字、数字、字母、下划线且不以下划线开头结尾，不以数字开头！', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
 
         array('sex', 'number', '请选择性别', self::EXISTS_VALIDATE, 'regex', self::MODEL_BOTH),
         array('avatar', 'number', '请上传头像', self::EXISTS_VALIDATE, 'regex', self::MODEL_BOTH),

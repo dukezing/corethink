@@ -460,6 +460,7 @@ DROP TABLE IF EXISTS `ct_user`;
 
 CREATE TABLE `ct_user` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户ID',
+  `usertype` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '用户类型',
   `username` varchar(32) NOT NULL DEFAULT '' COMMENT '用户名或昵称',
   `email` varchar(32) NOT NULL DEFAULT '' COMMENT '用户邮箱',
   `mobile` char(11) NOT NULL DEFAULT '' COMMENT '手机号',
@@ -477,6 +478,7 @@ CREATE TABLE `ct_user` (
   `last_login_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '最近登陆时间',
   `last_login_ip` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '最近登陆IP',
   `reg_ip` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '注册IP',
+  `reg_type` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '注册方式',
   `ctime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `utime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   `sort` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
