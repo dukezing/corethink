@@ -112,6 +112,7 @@ CREATE TABLE `ct_category` (
   `url` varchar(128) NOT NULL COMMENT '链接地址',
   `content` text NOT NULL COMMENT '内容',
   `template` varchar(32) NOT NULL DEFAULT '' COMMENT '模版',
+  `post_auth` tinyint(4) NOT NULL DEFAULT '0' COMMENT '投稿权限',
   `icon` varchar(32) NOT NULL DEFAULT '' COMMENT '缩略图',
   `ctime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `utime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改时间',

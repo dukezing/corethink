@@ -18,10 +18,11 @@ class DocumentModel extends Model{
      * @author jry <598821125@qq.com>
      */
     protected $_validate = array(
-        array('cid', 'require', '分类不能为空', self::EXISTS_VALIDATE, 'regex', self::MODEL_BOTH),
-        array('title', 'require', '文档标题不能为空', self::EXISTS_VALIDATE, 'regex', self::MODEL_BOTH),
-        array('title', '1,127', '文档标题长度为1-127个字符', self::EXISTS_VALIDATE, 'length', self::MODEL_BOTH),
-        array('title', '', '文档标题已经存在', self::VALUE_VALIDATE, 'unique', self::MODEL_BOTH),
+        array('cid', 'require', '分类不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
+        array('cid', 'checkPostAuth', '该分类禁止投稿', self::MUST_VALIDATE, 'callback', self::MODEL_BOTH),
+        array('title', 'require', '文档标题不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
+        array('title', '1,127', '文档标题长度为1-127个字符', self::MUST_VALIDATE, 'length', self::MODEL_BOTH),
+        array('title', '', '文档标题已经存在', self::MUST_VALIDATE, 'unique', self::MODEL_BOTH),
     );
 
     /**
@@ -43,6 +44,21 @@ class DocumentModel extends Model{
     protected function getCreateTime(){
         $ctime  = I('post.ctime');
         return $ctime ? strtotime($ctime) : NOW_TIME;
+    }
+
+    /**
+     * 检查分类是否允许前台会员投稿
+     * @return int 时间戳
+     * @author jry <598821125@qq.com>
+     */
+    protected function checkPostAuth(){
+        if(MODULE_NAME == 'Home'){
+            $category_post_auth = D('Category')->getFieldById(I('post.cid'), 'post_auth');
+            if(!$category_post_auth){
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -95,7 +111,11 @@ class DocumentModel extends Model{
         }
         return false;
     }
-    
+
+    /**
+     * 获取文章详情
+     * @author jry <598821125@qq.com>
+     */
     public function detail($id){
         $info = $this->find($id);
         if(!(is_array($info) || 1 !== $info['status'])){

@@ -58,6 +58,9 @@ class DocumentController extends HomeController{
         //获取当前分类
         $cid = I('get.cid');
         $category_info = D('Category')->find($cid);
+        if(!$category_info['post_auth']){
+            $this->error('该分类禁止投稿');
+        }
         $doc_type = D('DocumentType')->find($category_info['doc_type']);
         $field_sort = json_decode($doc_type['field_sort'], true);
         $field_group = parse_attr($doc_type['field_group']);
@@ -115,6 +118,9 @@ class DocumentController extends HomeController{
 
         //获取当前分类
         $category_info = D('Category')->find($document_info['cid']);
+        if(!$category_info['post_auth']){
+            $this->error('该分类禁止投稿');
+        }
         $doc_type = D('DocumentType')->find($category_info['doc_type']);
         $field_sort = json_decode($doc_type['field_sort'], true);
         $field_group = parse_attr($doc_type['field_group']);

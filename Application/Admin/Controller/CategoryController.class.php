@@ -98,16 +98,17 @@ class CategoryController extends AdminController{
             $builder = new \Common\Builder\FormBuilder();
             $builder->title('新增分类')  //设置页面标题
                     ->setUrl(U('add')) //设置表单提交地址
-                    ->addItem('group', 'select', '分组', '分组', C('CATEGORY_GROUP_LIST'))
+                    ->addItem('group', 'radio', '分组', '分组', C('CATEGORY_GROUP_LIST'))
                     ->addItem('pid', 'select', '上级分类', '所属的上级分类', $this->selectListAsTree('Category', array('group' => $tab), '顶级分类'))
                     ->addItem('title', 'text', '分类标题', '分类标题')
-                    ->addItem('doc_type', 'select', '分类内容模型', '分类内容模型', $this->selectListAsTree('DocumentType'))
+                    ->addItem('doc_type', 'radio', '分类内容模型', '分类内容模型', $this->selectListAsTree('DocumentType'))
                     ->addItem('url', 'text', '链接', 'U函数解析的URL或者外链', null, 'hidden')
                     ->addItem('content', 'kindeditor', '内容', '单页模型填写内容', null, 'hidden')
                     ->addItem('template', 'select', '模版', '单页使用的模版或其他模型文档列表模版', $new_template_list, 'hidden')
                     ->addItem('icon', 'icon', '图标', '菜单图标')
                     ->addItem('sort', 'num', '排序', '用于显示的顺序')
-                    ->setFormData(array('group' => $tab))
+                    ->addItem('post_auth', 'radio', '投稿权限', '前台用户投稿权限', C('CATEGORY_POST_AUTH'))
+                    ->setFormData(array('group' => $tab, 'post_auth' => 1))
                     ->setExtra('category')
                     ->display();
         }
@@ -147,15 +148,16 @@ class CategoryController extends AdminController{
             $builder->title('编辑分类')  //设置页面标题
                     ->setUrl(U('admin/Category/edit/id/'.$id.'/tab/'.$tab)) //设置表单提交地址
                     ->addItem('id', 'hidden', 'ID', 'ID')
-                    ->addItem('group', 'select', '分组', '分组', C('CATEGORY_GROUP_LIST'))
+                    ->addItem('group', 'radio', '分组', '分组', C('CATEGORY_GROUP_LIST'))
                     ->addItem('pid', 'select', '上级分类', '所属的上级分类', $this->selectListAsTree('Category', array('group' => $tab), '顶级分类'))
                     ->addItem('title', 'text', '分类标题', '分类标题')
-                    ->addItem('doc_type', 'select', '分类内容模型', '分类内容模型', $this->selectListAsTree('DocumentType'))
+                    ->addItem('doc_type', 'radio', '分类内容模型', '分类内容模型', $this->selectListAsTree('DocumentType'))
                     ->addItem('url', 'text', '链接', 'U函数解析的URL或者外链', null, $info['doc_type'] == 1 ? : 'hidden')
                     ->addItem('content', 'kindeditor', '内容', '单页模型填写内容', null, $info['doc_type'] == 2 ? : 'hidden')
                     ->addItem('template', 'select', '模版', '单页使用的模版或其他模型文档列表模版', $new_template_list, $info['doc_type'] != 1 ? : 'hidden')
                     ->addItem('icon', 'icon', '图标', '菜单图标')
                     ->addItem('sort', 'num', '排序', '用于显示的顺序')
+                    ->addItem('post_auth', 'radio', '投稿权限', '前台用户投稿权限', C('CATEGORY_POST_AUTH'))
                     ->setFormData($info)
                     ->setExtra('category')
                     ->display();

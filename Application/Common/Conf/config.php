@@ -66,6 +66,12 @@ return array(
         'board  '    => '拖动排序',
     ),
 
+    //栏目分类前台用户投稿权限
+    'CATEGORY_POST_AUTH' => array(
+        '1'  => '允许投稿',
+        '0'  => '禁止投稿',
+    ),
+
     //文件上传相关配置
     'UPLOAD_CONFIG' => array(
         'mimes'    => '', //允许上传的文件MiMe类型
