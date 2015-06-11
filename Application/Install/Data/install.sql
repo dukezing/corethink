@@ -466,6 +466,7 @@ CREATE TABLE `ct_user` (
   `mobile` char(11) NOT NULL DEFAULT '' COMMENT '手机号',
   `password` varchar(64) NOT NULL DEFAULT '' COMMENT '用户密码',
   `group` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '部门/用户组ID',
+  `vip` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT ' VIP等级',
   `avatar` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '用户头像',
   `score` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '用户积分',
   `money` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '账户余额',
