@@ -1,0 +1,37 @@
+<extend name="Public/layout"/>
+
+<block name="header">
+    <div class="header">
+        <div class="container">
+            <ul class="breadcrumb">
+                <li><i class="icon-location-arrow"></i></li>
+                <li><a href="__ROOT__/">首页</a></li>
+                <li><a href="{:U('')}">{$meta_title}</a></li>
+            </ul>
+         </div>
+    </div>
+</block>
+
+<block name="body">
+    <section class="container main">
+        <div class="cards cards-borderless">
+            <volist name="user_list" id="vo">
+                <div class="col-xs-12 col-sm-2">
+                    <div class="card">
+                        <a href="{:U('User/index', array('uid' => $vo['id']))}">
+                            <img class="  img-responsive"src="{$vo.avatar|get_cover='avatar'}" alt="{$vo.username}" width="100%">
+                        </a>
+                        <div class="card-heading">
+                            <span class="pull-right"><a href="###"><i class="icon-heart-empty"></i> {$vo.good}</a></span>
+                            <a href="{:U('User/index', array('uid' => $vo['id']))}"><strong>{$vo.username}</strong></a>
+                          </div>
+                          <div class="card-actions">
+                            <span class="text-muted">加入时间：{$vo.ctime|time_format='Y-m-d'}</span>
+                        </div>
+                    </div>
+                </div>
+            </volist>
+        </div>
+        <ul class="pager pager-loose pager-pills"><notempty name="page">{$page}</notempty></ul>
+    </section>
+</block>

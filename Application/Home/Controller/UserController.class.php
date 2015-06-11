@@ -15,6 +15,24 @@ use \Org\Util\Date;
  */
 class UserController extends HomeController{
     /**
+     * 用户列表
+     * @author jry <598821125@qq.com>
+     */
+    public function lists(){
+        $usertype = I('get.usertype');
+        if($usertype){
+            $map['usertype'] = $usertype;
+        }
+        $user_list = D('User')->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))
+                              ->where($map)->order('id desc')->select();
+        $page = new \Common\Util\Page(D('User')->where($map)->count(), C('ADMIN_PAGE_ROWS'));
+        $this->assign('page', $page->show());
+        $this->assign('meta_title', '会员');
+        $this->assign('user_list', $user_list);
+        $this->display();
+    }
+
+    /**
      * 默认方法
      * @author jry <598821125@qq.com>
      */

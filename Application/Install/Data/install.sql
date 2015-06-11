@@ -472,6 +472,7 @@ CREATE TABLE `ct_user` (
   `money` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '账户余额',
   `sex` enum('-1','0','1') NOT NULL DEFAULT '0' COMMENT '用户性别',
   `age` int(4) NOT NULL DEFAULT '0' COMMENT '年龄',
+  `realname` varchar(15) NOT NULL DEFAULT '' COMMENT '真实姓名',
   `birthday` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '生日',
   `summary` varchar(127) NOT NULL DEFAULT '' COMMENT '心情',
   `extend` varchar(1024) NOT NULL DEFAULT '' COMMENT '用户信息扩展',
