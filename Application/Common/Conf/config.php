@@ -85,6 +85,13 @@ return array(
         '1'  => '企业',
     ),
 
+    //前台用户VIP等级
+    'USER_VIP_LEVEL' => array(
+        '0'  => '普通用户',
+        '1'  => '普通VIP',
+        '2'  => '高级VIP',
+    ),
+
     //文件上传相关配置
     'UPLOAD_CONFIG' => array(
         'mimes'    => '', //允许上传的文件MiMe类型

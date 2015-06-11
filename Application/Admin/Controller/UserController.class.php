@@ -37,12 +37,15 @@ class UserController extends AdminController{
                 ->addDeleteButton() //添加删除按钮
                 ->setSearch('请输入ID/用户名/邮箱/手机号', U('index'))
                 ->addField('id', 'UID', 'text')
+                ->addField('usertype', '类型', 'text')
                 ->addField('username', '用户名', 'text')
                 ->addField('email', '邮箱', 'text')
                 ->addField('mobile', '手机号', 'text')
+                ->addField('vip', 'VIP', 'text')
                 ->addField('score', '积分', 'text')
                 ->addField('money', '余额', 'text')
                 ->addField('last_login_time', '最后登录时间时间', 'time')
+                ->addField('reg_type', '注册方式', 'text')
                 ->addField('sort', '排序', 'text')
                 ->addField('status', '状态', 'status')
                 ->addField('right_button', '操作', 'btn')
@@ -77,12 +80,16 @@ class UserController extends AdminController{
             $builder = new \Common\Builder\FormBuilder();
             $builder->title('新增用户')  //设置页面标题
                     ->setUrl(U('add')) //设置表单提交地址
+                    ->addItem('reg_type', 'hidden', '注册方式', '注册方式')
+                    ->addItem('usertype', 'radio', '用户类型', '用户类型', C('USER_TYPE_LIST'))
                     ->addItem('group', 'select', '部门', '所属部门', $this->selectListAsTree('UserGroup', null, '默认部门'))
                     ->addItem('username', 'text', '用户名', '用户名')
                     ->addItem('email', 'text', '邮箱', '邮箱')
                     ->addItem('mobile', 'text', '手机号码', '手机号码')
                     ->addItem('password', 'password', '密码', '密码')
                     ->addItem('avatar', 'picture', '用户头像', '用户头像')
+                    ->addItem('vip', 'radio', 'VIP等级', 'VIP等级', C('USER_VIP_LEVEL'))
+                    ->setFormData(array('reg_type' => 0))
                     ->display();
         }
     }
@@ -118,12 +125,14 @@ class UserController extends AdminController{
             $builder->title('编辑用户')  //设置页面标题
                     ->setUrl(U('edit')) //设置表单提交地址
                     ->addItem('id', 'hidden', 'ID', 'ID')
+                    ->addItem('usertype', 'radio', '用户类型', '用户类型', C('USER_TYPE_LIST'))
                     ->addItem('group', 'select', '部门', '所属部门', $this->selectListAsTree('UserGroup', null, '默认部门'))
                     ->addItem('username', 'text', '用户名', '用户名')
                     ->addItem('email', 'text', '邮箱', '邮箱')
                     ->addItem('mobile', 'text', '手机号码', '手机号码')
                     ->addItem('password', 'password', '密码', '密码')
                     ->addItem('avatar', 'picture', '用户头像', '用户头像')
+                    ->addItem('vip', 'radio', 'VIP等级', 'VIP等级', C('USER_VIP_LEVEL'))
                     ->setFormData(D('User')->find($id))
                     ->display();
         }

@@ -70,7 +70,7 @@ class AddonModel extends Model{
             switch($val['status']){
                 case '-1': //未安装
                     $val['status'] = '<i class="icon-trash" style="color:red"></i>';
-                    $val['right_button']  = '<a class="ajax-get" href="'.U('install?addon_name='.$vo['name']).'">安装</a>';
+                    $val['right_button']  = '<a class="ajax-get" href="'.U('install?addon_name='.$val['name']).'">安装</a>';
                     break;
                 case '0': //禁用
                     $val['status'] = '<i class="icon-ban-circle" style="color:red"></i>';

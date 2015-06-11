@@ -129,24 +129,24 @@ class AddonController extends AdminController {
         if(!$install_flag){
             $this->error('执行插件预安装操作失败'.session('addons_install_error'));
         }
-        $addonsModel = D('Addon');
-        $data = $addonsModel->create($info);
+        $addon_object = D('Addon');
+        $data = $addon_object->create($info);
         if(is_array($addons->admin_list) && $addons->admin_list !== array()){
             $data['adminlist'] = 1;
         }else{
             $data['adminlist'] = 0;
         }
         if(!$data)
-            $this->error($addonsModel->getError());
-        if($addonsModel->add($data)){
+            $this->error($addon_object->getError());
+        if($addon_object->add($data)){
             $config = array('config'=>json_encode($addons->getConfig()));
-            $addonsModel->where("name='{$addon_name}'")->save($config);
+            $addon_object->where("name='{$addon_name}'")->save($config);
             $hooks_update = D('AddonHook')->updateHooks($addon_name);
             if($hooks_update){
                 S('hooks', null);
                 $this->success('安装成功');
             }else{
-                $addonsModel->where("name='{$addon_name}'")->delete();
+                $addon_object->where("name='{$addon_name}'")->delete();
                 $this->error('更新钩子处插件失败,请卸载后尝试重新安装');
             }
         }else{
@@ -159,9 +159,9 @@ class AddonController extends AdminController {
      * @author jry <598821125@qq.com>
      */
     public function uninstall(){
-        $addonsModel = M('Addon');
+        $addon_object = M('Addon');
         $id = trim(I('id'));
-        $db_addons = $addonsModel->find($id);
+        $db_addons = $addon_object->find($id);
         $class = get_addon_class($db_addons['name']);
         $this->assign('jumpUrl',U('index'));
         if(!$db_addons || !class_exists($class))
@@ -176,7 +176,7 @@ class AddonController extends AdminController {
             $this->error('卸载插件所挂载的钩子数据失败');
         }
         S('hooks', null);
-        $delete = $addonsModel->where("name='{$db_addons['name']}'")->delete();
+        $delete = $addon_object->where("name='{$db_addons['name']}'")->delete();
         if($delete === false){
             $this->error('卸载插件失败');
         }else{
