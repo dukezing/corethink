@@ -70,26 +70,7 @@ sql;
      * @param $param
      */
     public function PageHeader($param){
-        if(!is_login()){
-            if($this->is_weixin()){
-                redirect(addons_url('SyncLogin://Login/login', array('type'=>'weixin')));
-            }
-        }
         $platform_options = $this->getConfig();
         echo $platform_options['meta'];
-    }
-
-    /**
-     * 判断浏览器是否是微信
-     * @author jry <598821125@qq.com>
-     */
-    function is_weixin(){
-        $agent = strtolower($_SERVER['HTTP_USER_AGENT']);
-        $is_weixin = strpos($agent, 'micromessenger') ? true : false ;
-        if($is_weixin){
-            return true;
-        }else{
-            return false;
-        }
     }
 }

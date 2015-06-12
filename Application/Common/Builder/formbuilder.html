@@ -13,40 +13,15 @@
         .builder .toolbar .tab{
             margin:0px 10px;
         }
-        .builder .uploadify-button,
-        .builder .form .controls>select{
-            width: 100%;
-        }
-        .builder .form textarea{
-            height: 150px;
-        }
-        .builder .form .submit,
-        .builder .form .reset,
-        .builder .form .return{
-            min-width:120px;
-        }
-        @media (max-width: 768px){
-            .builder .form .submit,
-            .builder .form .reset,
-            .builder .form .return{
-                width: 100%;
-                margin-bottom: 10px;
-            }
-        }
-        @media (min-width: 768px){
-            .builder .form .controls>input[type=text],
-            .builder .form .controls>input[type=password],
-            .builder .form .controls .chosen-container,
-            .builder .form .controls .token-input-list,
-            .builder .form .controls>textarea,
-            .builder .form .controls>select,
-            .builder .uploadify-button{
-                width: 50% !important;
-                max-width: 640px;
-            }
-            .builder .ke-container{
-                max-width: 960px;
-            }
+        .form select,
+        .form textarea,
+        .form input[type=text],
+        .form input[type=password],
+        .form .chosen-container,
+        .form .token-input-list{
+            width: 50% !important;
+            max-width: 600px;
+            border-color: #ddd;
         }
     </style>
 </block>
@@ -158,7 +133,7 @@
                             </case>
                             <!-- 日期 -->
                             <case value="date">
-                                <input type="text" class="form-control time_{$key}" name="{$form.name}" value="<notempty name='form.value'>{$form.value|time_format='Y-m-d'}</notempty>" {$form.extra_attr}>
+                                <input type="text" class="form-control date time_{$key}" name="{$form.name}" value="<notempty name='form.value'>{$form.value|time_format='Y-m-d'}</notempty>" {$form.extra_attr}>
                                 <script type="text/javascript">
                                     $(function(){
                                         $(".time_{$key}").daterangepicker({
@@ -171,7 +146,7 @@
                             </case>
                             <!-- 时间 -->
                             <case value="time">
-                                <input type="text" class="form-control time_{$key}" name="{$form.name}" value="<notempty name='form.value'>{$form.value|time_format}</notempty>" {$form.extra_attr}>
+                                <input type="text" class="form-control time time_{$key}" name="{$form.name}" value="<notempty name='form.value'>{$form.value|time_format}</notempty>" {$form.extra_attr}>
                                 <script type="text/javascript">
                                     $(function(){
                                         $(".time_{$key}").daterangepicker({
@@ -385,7 +360,7 @@
                                                                 </case>
                                                                 <!-- 日期 -->
                                                                 <case value="date">
-                                                                    <input type="text" class="form-control time_{$tab_key}" name="{$tab_form.name}" value="<notempty name='tab_form.value'>{$tab_form.value|time_format='Y-m-d'}</notempty>" {$tab_form.extra_attr}>
+                                                                    <input type="text" class="form-control date time_{$tab_key}" name="{$tab_form.name}" value="<notempty name='tab_form.value'>{$tab_form.value|time_format='Y-m-d'}</notempty>" {$tab_form.extra_attr}>
                                                                     <script type="text/javascript">
                                                                         $(function(){
                                                                             $(".time_{$tab_key}").daterangepicker({
@@ -398,7 +373,7 @@
                                                                 </case>
                                                                 <!-- 时间 -->
                                                                 <case value="time">
-                                                                    <input type="text" class="form-control time_{$tab_key}" name="{$tab_form.name}" value="<notempty name='tab_form.value'>{$tab_form.value|time_format}</notempty>" {$tab_form.extra_attr}>
+                                                                    <input type="text" class="form-control time time_{$tab_key}" name="{$tab_form.name}" value="<notempty name='tab_form.value'>{$tab_form.value|time_format}</notempty>" {$tab_form.extra_attr}>
                                                                     <script type="text/javascript">
                                                                         $(function(){
                                                                             $(".time_{$tab_key}").daterangepicker({
@@ -558,6 +533,7 @@
             </volist>
             <div class="form-group">
                 <button class="btn btn-primary submit ajax-post"  type="submit" target-form="form">确 定</button>
+                <button class="btn return" onclick="javascript:history.back(-1);return false;">返 回</button>
             </div>
         </form>
         <!-- 额外参数 -->

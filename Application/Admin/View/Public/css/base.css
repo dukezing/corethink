@@ -5,25 +5,67 @@
 .panel,
 .breadcrumb,
 .form-control,
-.chosen-single,
 .nav-tabs>li>a,
 .input-group-addon,
-.chosen-single{
+.dashboard .panel{
     border-radius: 0px !important;
-}
-.chosen-single,
-.dashboard .panel,
-.form-control:focus{
     box-shadow: none !important;
-}
-.messager.top{
-    top: 53px;
-    font-weight: bold;
+    -webkit-box-shadow: none !important;
+    transition: none !important;
 }
 .tab-content{
     margin-top: 10px;
 }
+.nav-tabs>li>a{
+    padding: 10px 20px;
+}
 
+/* 表单样式
+-------------------------------------------------- */
+.form .btn,
+.form .form-control,
+.form .input-group-addon,
+.form .chosen-container,
+.form .chosen-single,
+.form .token-input-list{
+    border-radius: 0px !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    transition: none !important;
+    min-width: 150px;
+}
+.form .btn{
+    min-width: 150px;
+    height: 38px;
+    line-height: 26px;
+    border-color: #ddd;
+}
+.form input[type=text],
+.form input[type=password],
+.form .token-input-list{
+    height: 38px;
+}
+.form li.token-input-token{
+    margin: 5px;
+}
+.form select,
+.form .chosen-single{
+    height: 36px !important;
+    line-height: 23px !important;
+}
+.form textarea{
+    height: 150px;
+}
+.form .ke-container {
+    max-width: 960px;
+}
+.form .input-group-addon {
+    border-left: 0px;
+    border-right: 0px;
+    background-color: #fff;
+    padding: 5px 2px 5px 12px;
+    color: #999;
+}
 
 /* 布局绝对定位
 -------------------------------------------------- */
@@ -107,7 +149,7 @@
 }
 @media (min-width: 768px){
     .navbar-corethink .navbar-brand{
-        font-size: 26px;
+        font-size: 30px;
         padding: 15px;
     }
     .navbar-corethink .navbar-brand img{

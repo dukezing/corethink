@@ -15,64 +15,68 @@ body {
 .tab-content{
     margin-top: 10px;
 }
+.nav-tabs>li>a{
+    padding: 10px 20px;
+}
+.form .btn{
+    background: #fff;
+    color: #333;
+}
 pre,
 .btn,
 .alert,
 .panel,
 .form-control,
 .navbar-toggle,
-.chosen-single,
 .dropdown-menu,
 .nav-tabs > li > a,
 .input-group-addon,
 .article > header > dl,
 .article > header > .abstract {
     border-radius: 0px !important;
-    box-shadow: none;
-    -webkit-box-shadow: none;
-}
-
-
-/* 表单
--------------------------------------------------- */
-.form .btn,
-.form.chosen-single,
-.form .form-control {
-    border-left: 0px;
-    border-right: 0px;
-    box-shadow: none;
-    -webkit-box-shadow: none;
-    transition: none;
-    background-color: #fff;
-    color: #333;
-    width: 100%;
-}
-.form .chosen-single,
-.form .form-control:focus {
     box-shadow: none !important;
     -webkit-box-shadow: none !important;
     transition: none !important;
 }
+
+/* 表单样式
+-------------------------------------------------- */
 .form .btn,
-.form input {
+.form .form-control,
+.form .input-group-addon,
+.form .chosen-container,
+.form .chosen-single,
+.form .token-input-list{
+    border-radius: 0px !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    transition: none !important;
+    min-width: 150px;
+}
+.form .btn{
+    min-width: 150px;
     height: 38px;
-    line-height: 28px;
+    line-height: 26px;
     border-color: #ddd;
 }
-.form .chosen-single {
-    height: 38px !important;
-    line-height: 25px !important;
+.form input[type=text],
+.form input[type=password],
+.form .token-input-list{
+    height: 38px;
 }
-.chosen-results li {
-    height: 32px !important;
-    line-height: 20px !important;
+.form li.token-input-token{
+    margin: 5px;
 }
-.form textarea {
+.form select,
+.form .chosen-single{
+    height: 36px !important;
+    line-height: 23px !important;
+}
+.form textarea{
     height: 150px;
 }
-.form .item-label {
-     color: #666;
-     font-size: 12px;
+.form .ke-container {
+    max-width: 960px;
 }
 .form .input-group-addon {
     border-left: 0px;
@@ -80,31 +84,6 @@ pre,
     background-color: #fff;
     padding: 5px 2px 5px 12px;
     color: #999;
-}
-.form .chosen-single {
-    height: 40px;
-    padding: 9px 8px;
-    border-left: 0px;
-    border-right: 0px;
-    border-radius: 0px;
-    box-shadow: none;
-    -webkit-box-shadow: none;
-    transition: none;
-}
-.form .chosen-single div {
-    padding: 9px 8px;
-}
-.form .chosen-results li {
-    line-height: 25px;
-}
-@media (max-width: 768px) {
-    .container {
-        padding: 0px;
-    }
-    .form .item-label {
-        margin-left: 5px;
-        font-size: 11px;
-    }
 }
 
 
@@ -153,7 +132,7 @@ pre,
 @media (min-width: 768px) {
     .navbar-corethink .navbar-brand {
         font-size: 30px;
-        padding: 10px;
+        padding: 15px;
     }
     .navbar-corethink .navbar-brand img {
         height: 30px;

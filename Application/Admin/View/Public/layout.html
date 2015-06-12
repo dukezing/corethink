@@ -45,7 +45,7 @@
             <php>if(C('WEB_SITE_LOGO')):</php>
                 <a class="navbar-brand" target="_blank" href="__ROOT__/"><img class="logo" src="{$Think.config.WEB_SITE_LOGO|get_cover='path'}"></a>
             <php>else:</php>
-                <a class="navbar-brand" target="_blank" href="__ROOT__/"><img class="logo" src="__PUBLIC__/corethink/img/logo_light_title.png"></a>
+                <a class="navbar-brand" target="_blank" href="__ROOT__/">{:C('WEB_SITE_TITLE')}</a>
             <php>endif;</php>
         </div>
         <div class="collapse navbar-collapse navbar-collapse-top">

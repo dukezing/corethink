@@ -11,7 +11,7 @@
     <meta name="apple-mobile-web-app-title" content="{:C('WEB_SITE_TITLE')}">
     <meta name="format-detection" content="telephone=no,email=no">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <block name="title"><title>{$meta_title}｜{:C('WEB_SITE_TITLE')}</title></block>
+    <block name="title"><title>{$meta_title}｜{:C('WEB_SITE_TITLE')}－{:C('WEB_SITE_SLOGAN')}</title></block>
     <link rel="apple-touch-icon" type="image/x-icon" href="__ROOT__/favicon.ico">
     <link rel="stylesheet" type="text/css" href="__PUBLIC__/zui/css/zui.min.css">
     <link rel="stylesheet" type="text/css" href="__PUBLIC__/fontawesome/css/font-awesome.min.css">
@@ -50,7 +50,7 @@
                 <php>if(C('WEB_SITE_LOGO')):</php>
                     <a class="navbar-brand" href="__ROOT__/"><img class="logo" src="{$Think.config.WEB_SITE_LOGO|get_cover='path'}"></a>
                 <php>else:</php>
-                    <a class="navbar-brand" href="__ROOT__/"><img class="logo" src="__PUBLIC__/corethink/img/logo_title.png"></a>
+                    <a class="navbar-brand" href="__ROOT__/">{:C('WEB_SITE_TITLE')}</a>
                 <php>endif;</php>
             </div>
             <div class="collapse navbar-collapse navbar-collapse-main">
@@ -104,13 +104,6 @@
 
     <footer class="footer">
         <div class="container">
-            <div class="row navlink">
-                <div class="col-xs-12 col-sm-8"></div>
-                <div class="col-xs-12 col-sm-4 hidden-xs">
-                    <div class="logo"><a href="__ROOT__/"><img src="__PUBLIC__/corethink/img/logo_title.png"></a></div>
-                    <div class="info">{:C('WEB_SITE_DESCRIPTION')}</div>
-                </div>
-            </div>
             <div class="copyright">
                 <div>{:C('WEB_SITE_COPYRIGHT')}</div>
                 <div>服务咨询请拨打：150-0517-3785</div>
@@ -158,7 +151,7 @@
                             <a href="{:U('User/register')}">立刻注册</a> 
                             <a href="{:U('User/resetPassword')}">忘记密码</a>
                         </label>
-                        <button type="submit" class="btn ajax-post submit" target-form="login-modal" data-loading-text="正在登录...">登 录</button>
+                        <button type="submit" class="btn btn-block ajax-post submit" target-form="login-modal" data-loading-text="正在登录...">登 录</button>
                     </div>
                 </form>
                 {:hook('SyncLogin')} <!-- 第三方登陆钩子 -->
