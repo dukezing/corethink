@@ -1,7 +1,22 @@
 <extend name="Public/layout"/>
 
+<block name="style">
+    <style type="text/css">
+        .builder .toolbar>div>.btn{
+            margin-right: 5px;
+        }
+        .builder .toolbar .btn,
+        .builder .toolbar .nav-pills{
+            margin-bottom: 10px;
+        }
+        .builder .toolbar .tab{
+            margin:0px 10px;
+        }
+    </style>
+</block>
+
 <block name="body">
-    <div class="{$builder_class}">
+    <div class="builder {$builder_class}">
         <div class="row toolbar">
             <notempty name="button_list">
                 <div class="col-xs-12 col-sm-9">

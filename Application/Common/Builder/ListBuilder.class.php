@@ -268,6 +268,9 @@ class ListBuilder extends Controller{
                     case 'icon':
                         $data[$field['name']] = '<i class="'.$data[$field['name']].'"></i>';
                         break;
+                    case 'date':
+                        $data[$field['name']] = time_format($data[$field['name']], 'Y-m-d');
+                        break;
                     case 'time':
                         $data[$field['name']] = time_format($data[$field['name']]);
                         break;

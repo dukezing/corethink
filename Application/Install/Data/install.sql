@@ -25,6 +25,7 @@ CREATE TABLE `ct_addon` (
   `author` varchar(32) NOT NULL DEFAULT '' COMMENT '作者',
   `version` varchar(8) NOT NULL DEFAULT '' COMMENT '版本号',
   `adminlist` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '是否有后台列表',
+  `type` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '插件类型',
   `ctime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '安装时间',
   `utime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改时间',
   `sort` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '排序',

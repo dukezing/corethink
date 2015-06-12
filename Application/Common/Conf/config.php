@@ -92,6 +92,12 @@ return array(
         '2'  => '高级VIP',
     ),
 
+    //插件类型
+    'ADDON_TYPE_LIST' => array(
+        '0'  => '系统插件',
+        '1'  => '微信插件',
+    ),
+
     //文件上传相关配置
     'UPLOAD_CONFIG' => array(
         'mimes'    => '', //允许上传的文件MiMe类型

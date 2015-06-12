@@ -1,5 +1,56 @@
 <extend name="Public/layout"/>
 
+<block name="style">
+    <style type="text/css">
+        .builder .toolbar>div>.btn{
+            margin-right: 5px;
+        }
+        .builder .toolbar .btn,
+        .builder .toolbar input,
+        .builder .toolbar .nav-pills{
+            margin-bottom: 10px;
+        }
+        .builder .toolbar .tab{
+            margin:0px 10px;
+        }
+        .builder .uploadify-button,
+        .builder .form .controls>select{
+            width: 100%;
+        }
+        .builder .form textarea{
+            height: 150px;
+        }
+        .builder .form .submit,
+        .builder .form .reset,
+        .builder .form .return{
+            min-width:120px;
+        }
+        @media (max-width: 768px){
+            .builder .form .submit,
+            .builder .form .reset,
+            .builder .form .return{
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+        @media (min-width: 768px){
+            .builder .form .controls>input[type=text],
+            .builder .form .controls>input[type=password],
+            .builder .form .controls .chosen-container,
+            .builder .form .controls .token-input-list,
+            .builder .form .controls>textarea,
+            .builder .form .controls>select,
+            .builder .uploadify-button{
+                width: 50% !important;
+                max-width: 640px;
+            }
+            .builder .ke-container{
+                max-width: 960px;
+            }
+        }
+    </style>
+</block>
+
 <block name="script">
     <link rel="stylesheet" type="text/css" href="__PUBLIC__/huploadify/huploadify.css">
     <link rel="stylesheet" type="text/css" href="__PUBLIC__/chosen/chosen.min.css">
@@ -33,7 +84,7 @@
 </block>
 
 <block name="body">
-    <div class="{$builder_class}">
+    <div class="builder {$builder_class}">
         <div class="row toolbar">
             <notempty name="tab_list">
                 <div class="tab">
