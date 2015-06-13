@@ -37,129 +37,132 @@
     <block name="script"></block>
 </head>
 <body>
-    {:hook('PageHeader')} <!-- 文档开始钩子 -->
-    <nav class="navbar navbar-default navbar-fixed-top navbar-corethink top_nav" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-main">
-                    <span class="sr-only">切换导航</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <php>if(C('WEB_SITE_LOGO')):</php>
-                    <a class="navbar-brand" href="__ROOT__/"><img class="logo" src="{$Think.config.WEB_SITE_LOGO|get_cover='path'}"></a>
-                <php>else:</php>
-                    <a class="navbar-brand" href="__ROOT__/">{:C('WEB_SITE_TITLE')}</a>
-                <php>endif;</php>
-            </div>
-            <div class="collapse navbar-collapse navbar-collapse-main">
-                <ul class="nav navbar-nav">
-                    <li><a href="__ROOT__/">首页</a></li>
-                    <corethink:category_list name="_category">
-                        <li <if condition='$_category.id eq $__CURRENT_CATEGORY__'> class="active"</if> >
-                            <a href="{:U('Document/index', array('cid' => $_category['id']))}">{$_category.title}</a>
-                        </li>
-                    </corethink:category_list>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <present name="__USER__">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="icon-user"></i> {$__USER__.username}
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="{:U('User/index')}"><i class="icon-home"></i> 个人中心</a></li>
-                                <li><a href="{:U('UserMessage/index')}"><i class="icon-bell-alt"></i> 消息中心</a></li>
-                                <li class="divider hidden-xs"></li>
-                                <li><a href="{:U('User/logout')}" class="ajax-get"><i class="icon-signout"></i> 退出登录</a></li>
-                            </ul>
-                        </li>
-                    <else />
-                        <li><a href="#" data-toggle="modal" data-target="#login-modal">登录</a></li>
-                        <li><a href="{:U('User/register')}">注册</a></li>
-                    </present>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
     <block name="wrap">
-        <block name="header">
-            <div class="header">
-                <div class="container">
-                    <ul class="breadcrumb">
-                        <li><i class="icon-location-arrow"></i></li>
+        {:hook('PageHeader')} <!-- 文档开始钩子 -->
+        <nav class="navbar navbar-default navbar-fixed-top navbar-corethink top_nav" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-main">
+                        <span class="sr-only">切换导航</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <php>if(C('WEB_SITE_LOGO')):</php>
+                        <a class="navbar-brand" href="__ROOT__/"><img class="logo" src="{$Think.config.WEB_SITE_LOGO|get_cover='path'}"></a>
+                    <php>else:</php>
+                        <a class="navbar-brand" href="__ROOT__/">{:C('WEB_SITE_TITLE')}</a>
+                    <php>endif;</php>
+                </div>
+                <div class="collapse navbar-collapse navbar-collapse-main">
+                    <ul class="nav navbar-nav">
                         <li><a href="__ROOT__/">首页</a></li>
-                        <corethink:breadcrumb name="_breadcrumb" cid="$__CURRENT_CATEGORY__" group="$__CURRENT_CATEGORY_GROUP__">
-                            <li><a href="{:U('Document/index', array('cid' => $_breadcrumb['id']))}">{$_breadcrumb.title}</a></li>
-                        </corethink:breadcrumb>
+                        <corethink:category_list name="_category">
+                            <li <if condition='$_category.id eq $__CURRENT_CATEGORY__'> class="active"</if> >
+                                <a href="{:U('Document/index', array('cid' => $_category['id']))}">{$_category.title}</a>
+                            </li>
+                        </corethink:category_list>
                     </ul>
-                 </div>
+                    <ul class="nav navbar-nav navbar-right">
+                        <present name="__USER__">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-user"></i> {$__USER__.username}
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{:U('User/index')}"><i class="icon-home"></i> 个人中心</a></li>
+                                    <li><a href="{:U('UserMessage/index')}"><i class="icon-bell-alt"></i> 消息中心</a></li>
+                                    <li><a href="{:U('Addon/index')}"><i class="icon-bell-alt"></i> 微＋平台</a></li>
+                                    <li class="divider hidden-xs"></li>
+                                    <li><a href="{:U('User/logout')}" class="ajax-get"><i class="icon-signout"></i> 退出登录</a></li>
+                                </ul>
+                            </li>
+                        <else />
+                            <li><a href="#" data-toggle="modal" data-target="#login-modal">登录</a></li>
+                            <li><a href="{:U('User/register')}">注册</a></li>
+                        </present>
+                    </ul>
+                </div>
             </div>
+        </nav>
+
+        <block name="wrap">
+            <block name="header">
+                <div class="header">
+                    <div class="container">
+                        <ul class="breadcrumb">
+                            <li><i class="icon-location-arrow"></i></li>
+                            <li><a href="__ROOT__/">首页</a></li>
+                            <corethink:breadcrumb name="_breadcrumb" cid="$__CURRENT_CATEGORY__" group="$__CURRENT_CATEGORY_GROUP__">
+                                <li><a href="{:U('Document/index', array('cid' => $_breadcrumb['id']))}">{$_breadcrumb.title}</a></li>
+                            </corethink:breadcrumb>
+                        </ul>
+                     </div>
+                </div>
+            </block>
+            <block name="body">这里是内容</block>
         </block>
-        <block name="body">这里是内容</block>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="copyright">
+                    <div>{:C('WEB_SITE_COPYRIGHT')}</div>
+                    <div>服务咨询请拨打：150-0517-3785</div>
+                </div>
+            </div>
+        </footer>
+
+        <nav class="bottom_nav navbar-fixed-bottom">
+            <a class="item" href="__ROOT__/"><img src="__IMG__/tab1.png">首页</a>
+            <a class="item" href="{:U('User/index')}"><img src="__IMG__/tab2.png">余额</a>
+            <a class="item" href="{:U('UserMessage/index')}"><img src="__IMG__/tab3.png">消息</a>
+            <div class="item has_nav" onclick="$(this).find('.more_nav').toggle();">
+                <img src="__IMG__/tab4.png">我
+                <div class="more_nav">
+                    <em></em>
+                    <a href="{:U('User/index')}">个人主页</a>
+                    <a href="{:U('UserMessage/index')}">消息中心</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- 登录弹窗 -->
+        <div class="modal fade" id="login-modal">
+            <div class="modal-dialog">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+                    <h4 class="modal-title">用户登录</h4>
+                </div>
+                <div class="modal-content" style="padding: 10px;">
+                    <form class="form login-modal" action="{:U('User/login')}" method="post">
+                        <div class="form-group">
+                            <label class="item-label">账号<span class="check-tips"></span></label>
+                            <div class="control">
+                                <input type="text" class="form-control" placeholder="请输入邮箱/手机号/用户名" name="username">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="item-label">密码<span class="check-tips"></span></label>
+                            <div class="control">
+                                <input type="password" class="form-control" placeholder="请输入密码" name="password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="item-label">
+                                <a href="{:U('User/register')}">立刻注册</a> 
+                                <a href="{:U('User/resetPassword')}">忘记密码</a>
+                            </label>
+                            <button type="submit" class="btn btn-block ajax-post submit" target-form="login-modal" data-loading-text="正在登录...">登 录</button>
+                        </div>
+                    </form>
+                    {:hook('SyncLogin')} <!-- 第三方登陆钩子 -->
+                </div>
+            </div>
+        </div>
+
+        {:hook('PageFooter')} <!-- 文档末尾钩子 -->
+        {:C('WEB_SITE_STATISTICS')} <!-- 站点统计代码 -->
     </block>
-
-    <footer class="footer">
-        <div class="container">
-            <div class="copyright">
-                <div>{:C('WEB_SITE_COPYRIGHT')}</div>
-                <div>服务咨询请拨打：150-0517-3785</div>
-            </div>
-        </div>
-    </footer>
-
-    <nav class="bottom_nav navbar-fixed-bottom">
-        <a class="item" href="__ROOT__/"><img src="__IMG__/tab1.png">首页</a>
-        <a class="item" href="{:U('User/index')}"><img src="__IMG__/tab2.png">余额</a>
-        <a class="item" href="{:U('UserMessage/index')}"><img src="__IMG__/tab3.png">消息</a>
-        <div class="item has_nav" onclick="$(this).find('.more_nav').toggle();">
-            <img src="__IMG__/tab4.png">我
-            <div class="more_nav">
-                <em></em>
-                <a href="{:U('User/index')}">个人主页</a>
-                <a href="{:U('UserMessage/index')}">消息中心</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- 登录弹窗 -->
-    <div class="modal fade" id="login-modal">
-        <div class="modal-dialog">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
-                <h4 class="modal-title">用户登录</h4>
-            </div>
-            <div class="modal-content" style="padding: 10px;">
-                <form class="form login-modal" action="{:U('User/login')}" method="post">
-                    <div class="form-group">
-                        <label class="item-label">账号<span class="check-tips"></span></label>
-                        <div class="control">
-                            <input type="text" class="form-control" placeholder="请输入邮箱/手机号/用户名" name="username">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="item-label">密码<span class="check-tips"></span></label>
-                        <div class="control">
-                            <input type="password" class="form-control" placeholder="请输入密码" name="password">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="item-label">
-                            <a href="{:U('User/register')}">立刻注册</a> 
-                            <a href="{:U('User/resetPassword')}">忘记密码</a>
-                        </label>
-                        <button type="submit" class="btn btn-block ajax-post submit" target-form="login-modal" data-loading-text="正在登录...">登 录</button>
-                    </div>
-                </form>
-                {:hook('SyncLogin')} <!-- 第三方登陆钩子 -->
-            </div>
-        </div>
-    </div>
-
-    {:hook('PageFooter')} <!-- 文档末尾钩子 -->
-    {:C('WEB_SITE_STATISTICS')} <!-- 站点统计代码 -->
 </body>
 </html>

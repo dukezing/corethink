@@ -241,7 +241,11 @@ class ListBuilder extends Controller{
                         $right_button['link'] = '<a href="'.U(CONTROLLER_NAME.'/setStatus', array('status'=>'recycle', 'ids' => $data['id'])).'" class="ajax-get confirm">回收</a> ';
                         break;
                     case 'self':
-                        $right_button['attr']['href'] = U($right_button['attr']['href'].$data['id']);
+                        if(!$right_button['attr']['addon']){
+                            $right_button['attr']['href'] = U($right_button['attr']['href'].$data['id']);
+                        }else{
+                            $right_button['attr']['href'] = addons_url($right_button['attr']['href'].'/id/'.$data['id']);
+                        }
                         $attr = $this->compileHtmlAttr($right_button['attr']);
                         $right_button['link'] = '<a '.$attr .'>'.$right_button['attr']['title'].'</a> ';
                         break;
