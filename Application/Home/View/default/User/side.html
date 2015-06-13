@@ -1,0 +1,45 @@
+<?php 
+    $userinfo = D('User')->find(is_login());
+    $date = new \Org\Util\Date((int)$userinfo['birthday']);
+    $userinfo['gz'] = $date->magicInfo('GZ');
+    $userinfo['xz'] = $date->magicInfo('XZ');
+    $userinfo['sx'] = $date->magicInfo('SX');
+?>
+
+<div class="panel">
+    <div class="panel-heading text-center">
+        <img class="img-circle" src="{$userinfo.avatar|get_cover='avatar'}"  style="width:120px;">
+    </div>
+    <div class="panel-body">
+        <div class="data-table">
+            <table class="table table-hover">
+                <tbody>
+                        <tr>
+                            <td>关注：90</td>
+                            <td>粉丝：89</td>
+                        </tr>
+                        <tr>
+                            <td>积分：{$userinfo.score}</td>
+                            <td>余额：¥{$userinfo.money}</td>
+                        </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<nav class="menu menu-corethink" data-toggle="menu">
+    <!-- 侧边导航 -->
+    <ul class="nav nav-primary">
+        <li class="show">
+            <a href="#"><i class="icon-folder-open-alt"></i> 个人</a>
+            <ul class="nav">
+                <li><a href="{:U('User/index')}"><i class=""></i> 个人主页</a></li>
+                <li><a href="{:U('User/profile')}"><i class=""></i> 修改信息</a></li>
+                <li><a href="{:U('UserMessage/index')}"><i class=""></i> 消息中心</a></li>
+                <li><a href="{:U('User/safe')}"><i class=""></i> 账号安全</a></li>
+                <li><a href="{:U('User/smrz')}"><i class=""></i> 实名认证</a></li>
+                <li><a href="{:U('UserAddress/index')}"><i class=""></i> 收获地址</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>

@@ -1,0 +1,27 @@
+<extend name="Public/layout"/>
+
+<block name="header">
+    <div class="header">
+        <div class="container">
+            <ul class="breadcrumb">
+                <li><i class="icon-location-arrow"></i></li>
+                <li><a href="__ROOT__/">首页</a></li>
+                <li><a href="__ROOT__/">{$meta_title}</a></li>
+            </ul>
+         </div>
+    </div>
+</block>
+
+
+<block name="body">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-3">
+                <include file="User/side" /><!-- 包含用户中心侧边导航 -->
+            </div>
+            <div class="col-xs-12 col-sm-9">
+                <include file="./Application/Common/Builder/formbuilder.html" />
+            </div>
+        </div>
+    </div>
+</block>

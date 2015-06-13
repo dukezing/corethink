@@ -26,7 +26,7 @@ class ListBuilder extends Controller{
     private $_page; //分页
     private $_extra; //额外参数
     private $_builder_class; //Builder最外层div样式
-    private $_template = 'listbuilder.html'; //模版
+    private $_template = 'Builder/listbuilder'; //模版
 
     /**设置页面标题
      * @param $title 标题文本
@@ -301,7 +301,7 @@ class ListBuilder extends Controller{
         $this->assign('page', $this->_page);
         $this->assign('extra', $this->_extra);
         $this->assign('builder_class', $this->_builder_class);
-        parent::display(dirname(__FILE__).'/'.$this->_template);
+        parent::display($this->_template);
     }
 
     //编译HTML属性

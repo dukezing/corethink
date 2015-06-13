@@ -24,7 +24,7 @@ class FormBuilder extends Controller{
     private $_form_data = array(); //表单数据
     private $_extra; //额外参数
     private $_builder_class; //Builder最外层div样式
-    private $_template = 'formbuilder.html'; //模版
+    private $_template = 'Builder/formbuilder'; //模版
 
     /**设置页面标题
      * @param $title 标题文本
@@ -158,6 +158,6 @@ class FormBuilder extends Controller{
         $this->assign('form_items', $this->_form_items);
         $this->assign('extra', $this->_extra);
         $this->assign('builder_class', $this->_builder_class);
-        parent::display(dirname(__FILE__).'/'.$this->_template);
+        parent::display($this->_template);
     }
 }

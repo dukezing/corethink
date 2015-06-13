@@ -33,7 +33,7 @@ class UserController extends HomeController{
     }
 
     /**
-     * 默认方法
+     * 用户个人主页
      * @author jry <598821125@qq.com>
      */
     public function index(){
@@ -49,6 +49,54 @@ class UserController extends HomeController{
         $this->assign('meta_title', $userinfo['username'].'的主页');
         $this->assign('userinfo', $userinfo);
         $this->display();
+    }
+
+    /**
+     * 用户个人中心
+     * @author jry <598821125@qq.com>
+     */
+    public function center(){
+        $this->assign('meta_title', '个人中心');
+        $this->display();
+    }
+
+    /**
+     * 用户修改信息
+     * @author jry <598821125@qq.com>
+     */
+    public function profile(){
+        if(IS_POST){
+            $user_object = D('User');
+            $_POST['id'] = $this->is_login();
+            $result = $user_object->update($_POST);
+            if($result){
+                $this->success('信息修改成功');
+            }else{
+                $this->error($user_object->getError());
+            }
+        }else{
+            $userinfo = D('User')->find($this->is_login());
+            $date = new Date((int)$userinfo['birthday']);
+            $userinfo['gz'] = $date->magicInfo('GZ');
+            $userinfo['xz'] = $date->magicInfo('XZ');
+            $userinfo['sx'] = $date->magicInfo('SX');
+
+            //使用FormBuilder快速建立表单页面。
+            $builder = new \Common\Builder\FormBuilder();
+            $builder->title('修改'.$userinfo['username'].'的信息')  //设置页面标题
+                    ->setUrl(U('')) //设置表单提交地址
+                    ->addItem('email', 'text', '邮箱', '', null, null,'disabled')
+                    ->addItem('mobile', 'text', '手机号', '', null, null,'disabled')
+                    ->addItem('username', 'text', '用户名', '')
+                    ->addItem('avatar', 'picture', '头像', '')
+                    ->addItem('sex', 'radio', '性别', '', C('USER_SEX_LIST'))
+                    ->addItem('age', 'num', '年龄', '')
+                    ->addItem('birthday', 'date', '生日', '自动计算：'.$userinfo['gz'].' '.$userinfo['xz'].' '.$userinfo['sx'])
+                    ->addItem('summary', 'text', '签名', '一句话介绍')
+                    ->setFormData($userinfo)
+                    ->setTemplate('Builder/formbuilder_user')
+                    ->display();
+        }
     }
 
     /**
@@ -147,7 +195,7 @@ class UserController extends HomeController{
         if(IS_POST){
             $user_object = D('User');
             $_POST['id'] = is_login();
-            $result = $user_object->updateUserInfo($_POST);
+            $result = $user_object->update($_POST);
             if($result){
                 $user_info = $user_object->getUserById($_POST['id']);
                 $user_object->autoLogin($user_info);

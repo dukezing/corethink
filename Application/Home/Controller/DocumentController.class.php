@@ -103,7 +103,7 @@ class DocumentController extends HomeController{
         $builder->title('新增文章')  //设置页面标题
                 ->setUrl(U('update')) //设置表单提交地址
                 ->setExtraItems($new_attribute_list)
-                ->setBuilderClass('container')
+                ->setTemplate('Builder/formbuilder_user')
                 ->display();
     }
 
@@ -165,7 +165,7 @@ class DocumentController extends HomeController{
                 ->addItem('id', 'hidden', 'ID', 'ID')
                 ->setExtraItems($new_attribute_list)
                 ->setFormData($document_info)
-                ->setBuilderClass('container')
+                ->setTemplate('Builder/formbuilder_user')
                 ->display();
     }
 

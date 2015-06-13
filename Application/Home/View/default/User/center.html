@@ -1,0 +1,41 @@
+<extend name="Public/layout"/>
+
+<block name="header">
+    <div class="header">
+        <div class="container">
+            <ul class="breadcrumb">
+                <li><i class="icon-location-arrow"></i></li>
+                <li><a href="__ROOT__/">首页</a></li>
+                <li><a href="__ROOT__/">{$meta_title}</a></li>
+            </ul>
+         </div>
+    </div>
+</block>
+
+<block name="body">
+    <section class="container main">
+        <div class="row">
+            <div class="col-xs-12 col-md-3">
+                <include file="User:side" /><!-- 包含用户中心侧边导航 -->
+            </div>
+            <div class="col-xs-12 col-md-9">
+                <div class="userinfo box">
+                    <header>
+                        <h1>{$userinfo.username}</h1>
+                        <dl class="dl-inline">
+                            <dd>{$userinfo.age}岁</dd>
+                            <dd>{$userinfo.gz}</dd>
+                            <dd>{$userinfo.xz}</dd>
+                            <dd>{$userinfo.sx}</dd>
+                            <dt class="time">最后登录：</dt><dd class="time">{$userinfo.last_login_time|friendly_date}</dd>
+                            <dd class="pull-right"></dd>
+                        </dl>
+                        <div class="alert">签名：{$userinfo.summary}</div>
+                    </header>
+                    <section class="detail">
+                    </section>
+                </div>
+            </div>
+        </div>
+    </section>
+</block>

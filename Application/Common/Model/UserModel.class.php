@@ -19,7 +19,7 @@ class UserModel extends Model{
      */
     protected $_validate = array(
         //验证注册类型
-        array('reg_type', 'require', '注册类型不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
+        array('reg_type', 'require', '注册类型不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_INSERT),
 
         //验证邮箱
         array('email', 'email', '邮箱格式不正确', self::EXISTS_VALIDATE, 'regex', self::MODEL_BOTH),
@@ -60,6 +60,7 @@ class UserModel extends Model{
      */
     protected $_auto = array(
         array('password', 'user_md5', self::MODEL_INSERT, 'function'),
+        array('birthday', 'strtotime', self::MODEL_BOTH, 'function'),
         array('group', '0', self::MODEL_INSERT),
         array('score', '0', self::MODEL_INSERT),
         array('money', '0', self::MODEL_INSERT),
@@ -68,12 +69,15 @@ class UserModel extends Model{
         array('utime', NOW_TIME, self::MODEL_BOTH),
         array('sort', '0', self::MODEL_INSERT),
         array('status', '1', self::MODEL_INSERT),
+        array('reg_type', '', self::MODEL_UPDATE, 'ignore'),
         array('email', '', self::MODEL_UPDATE, 'ignore'),
         array('mobile', '', self::MODEL_UPDATE, 'ignore'),
         array('password', '', self::MODEL_UPDATE, 'ignore'),
         array('group', '', self::MODEL_UPDATE, 'ignore'),
         array('score', '', self::MODEL_UPDATE, 'ignore'),
         array('money', '', self::MODEL_UPDATE, 'ignore'),
+        array('realname', '', self::MODEL_BOTH, 'ignore'),
+        array('idcard_no', '', self::MODEL_BOTH, 'ignore'),
 
         //重置密码时自动完成规则
         array('password', 'user_md5', 5, 'function'),
@@ -115,7 +119,7 @@ class UserModel extends Model{
      * @return bool
      * @author jry <598821125@qq.com>
      */
-    public function updateUserInfo($data){
+    public function update($data){
         //不修改密码时销毁变量防止create报错
         if($data['password'] == ''){
             unset($data['password']);
