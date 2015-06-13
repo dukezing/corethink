@@ -232,6 +232,7 @@ CREATE TABLE `ct_document_type` (
   `icon` varchar(32) NOT NULL DEFAULT '' COMMENT '缩略图',
   `field_sort` text NOT NULL COMMENT '表单字段排序',
   `field_group` varchar(255) NOT NULL DEFAULT '' COMMENT '表单字段分组',
+  `system` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '系统类型',
   `ctime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `utime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改时间',
   `sort` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
@@ -242,11 +243,11 @@ CREATE TABLE `ct_document_type` (
 LOCK TABLES `ct_document_type` WRITE;
 /*!40000 ALTER TABLE `ct_document_type` DISABLE KEYS */;
 
-INSERT INTO `ct_document_type` (`id`, `name`, `title`, `icon`, `field_sort`, `field_group`, `ctime`, `utime`, `sort`, `status`)
+INSERT INTO `ct_document_type` (`id`, `name`, `title`, `icon`, `field_sort`, `field_group`, `system`, `ctime`, `utime`, `sort`, `status`)
 VALUES
-	(1,'Link','链接','icon-link','','',1426580628,1426580628,0,1),
-	(2,'Page','单页','icon-file','','',1426580628,1426580628,0,1),
-	(3,'Article','文章','icon-edit','{\"1\":[\"1\",\"3\",\"12\",\"13\",\"14\",\"15\"],\"2\":[\"10\",\"8\"]}','1:基础\n2:扩展',1426580628,1426580628,0,1);
+	(1,'Link','链接','icon-link','','',1426580628,1426580628,1,0,1),
+	(2,'Page','单页','icon-file','','',1426580628,1426580628,1,0,1),
+	(3,'Article','文章','icon-edit','{\"1\":[\"1\",\"3\",\"12\",\"13\",\"14\",\"15\"],\"2\":[\"10\",\"8\"]}','1:基础\n2:扩展',0,1426580628,1426580628,0,1);
 
 /*!40000 ALTER TABLE `ct_document_type` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -478,7 +479,7 @@ CREATE TABLE `ct_user` (
   `birthday` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '生日',
   `summary` varchar(127) NOT NULL DEFAULT '' COMMENT '心情',
   `realname` varchar(15) NOT NULL DEFAULT '' COMMENT '真实姓名',
-  `idcard_no` char(18) NOT NULL DEFAULT '' COMMENT '身份证号码',
+  `idcard_no` varchar(18) NOT NULL DEFAULT '' COMMENT '身份证号码',
   `extend` varchar(1024) NOT NULL DEFAULT '' COMMENT '用户信息扩展',
   `login` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '登录次数',
   `last_login_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '最近登陆时间',

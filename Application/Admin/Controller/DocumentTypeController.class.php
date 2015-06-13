@@ -24,6 +24,7 @@ class DocumentTypeController extends AdminController{
         $map['id|title|name'] = array($condition, $condition, $condition,'_multi'=>true);
 
         //获取所有类型
+        $map['system'] = array('eq', '0'); //非系统类型
         $map['status'] = array('egt', '0'); //禁用和正常状态
         $data_list = D('DocumentType')->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))->where($map)->order('sort asc,id asc')->select();
         $page = new \Common\Util\Page(D('DocumentType')->where($map)->count(), C('ADMIN_PAGE_ROWS'));

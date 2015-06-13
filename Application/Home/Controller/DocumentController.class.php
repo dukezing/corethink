@@ -14,7 +14,7 @@ use Think\Controller;
  */
 class DocumentController extends HomeController{
     /**
-     * 文章列表
+     * 文档列表
      * @author jry <598821125@qq.com>
      */
     public function index($cid){
@@ -30,7 +30,7 @@ class DocumentController extends HomeController{
                 break;
             default :
                 $template = $category['template'] ? 'Document/'.$category['template'] : 'Document/index_default';
-                $map['status'] = array('egt', 0);
+                $map['status'] = array('eq', 1);
                 $document_list = D('Document')->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))
                                               ->order('sort desc,id desc')->where($map)->select();
                 $this->assign('volist', $document_list);
@@ -48,6 +48,56 @@ class DocumentController extends HomeController{
         }
     }
 
+    /**
+     * 我的文档列表
+     * @author jry <598821125@qq.com>
+     */
+    public function mydoc(){
+        $uid = $this->is_login();
+
+        //搜索
+        $keyword = (string)I('keyword');
+        $condition = array('like','%'.$keyword.'%');
+        $map['id|title'] = array($condition, $condition,'_multi'=>true);
+
+        //获取分类ID
+        if(I('doc_type')){
+            $con['doc_type'] = I('doc_type');
+            $cid_list = D('Category')->where($con)->getField('id', true);
+            if($cid_list){
+                $map['cid'] = array('in', $cid_list);
+            }
+        }
+
+        $map['uid'] = $uid;
+        $map['status'] = array('egt', 0);
+        $document_list = D('Document')->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))
+                                      ->order('sort desc,id desc')->where($map)->select();
+        $page = new \Common\Util\Page(D('Document')->where($map)->count(), C('ADMIN_PAGE_ROWS'));
+
+        Cookie('__forward__', $_SERVER['REQUEST_URI']);
+
+        //使用Builder快速建立列表页面。
+        $builder = new \Common\Builder\ListBuilder();
+        $builder->title('我的文档') //设置页面标题
+                ->addResumeButton() //添加启用按钮
+                ->addForbidButton() //添加禁用按钮
+                ->addRecycleButton() //添加回收按钮
+                ->setSearch('请输入ID/标题', U('Document/mydoc', array('doc_type' => I('doc_type'))))
+                ->addField('id', 'ID', 'text')
+                ->addField('title', '标题', 'text')
+                ->addField('ctime', '发布时间', 'time')
+                ->addField('sort', '排序', 'text')
+                ->addField('status', '状态', 'status')
+                ->addField('right_button', '操作', 'btn')
+                ->dataList($document_list)    //数据列表
+                ->addRightButton('edit')   //添加编辑按钮
+                ->addRightButton('forbid') //添加禁用/启用按钮
+                ->addRightButton('recycle') //添加回收按钮
+                ->setPage($page->show())
+                ->setTemplate('Builder/listbuilder_user')
+                ->display();
+    }
 
     /**
      * 新增文档
@@ -55,9 +105,14 @@ class DocumentController extends HomeController{
      */
     public function add(){
         $this->is_login();
+
+        if(I('get.doc_type')){
+            $map['doc_type'] = I('get.doc_type');
+            $category_info = D('Category')->where($map)->order('id asc')->find();
+        }elseif(I('get.cid')){
+            $category_info = D('Category')->find(I('get.cid'));
+        }
         //获取当前分类
-        $cid = I('get.cid');
-        $category_info = D('Category')->find($cid);
         if(!$category_info['post_auth']){
             $this->error('该分类禁止投稿');
         }
@@ -66,6 +121,7 @@ class DocumentController extends HomeController{
         $field_group = parse_attr($doc_type['field_group']);
 
         //获取文档字段
+        $map = array();
         $map['status'] = array('eq', '1');
         $map['show'] = array('eq', '1');
         $map['doc_type'] = array('in', '0,'.$category_info['doc_type']);
@@ -75,9 +131,10 @@ class DocumentController extends HomeController{
         $new_attribute_list = array();
         foreach($attribute_list as $attr){
             if($attr['name'] == 'cid'){
+                $con = array();
                 $con['group'] = $category_info['group'];
                 $con['doc_type'] = $category_info['doc_type'];
-                $attr['value'] = $cid;
+                $attr['value'] = $category_info['id'];
                 $attr['options'] = $this->selectListAsTree('Category', $con);
             }else{
                 $attr['options'] = parse_attr($attr['options']);
@@ -126,6 +183,7 @@ class DocumentController extends HomeController{
         $field_group = parse_attr($doc_type['field_group']);
 
         //获取文档字段
+        $map = array();
         $map['status'] = array('eq', '1');
         $map['show'] = array('eq', '1');
         $map['doc_type'] = array('in', '0,'.$category_info['doc_type']);
@@ -135,6 +193,7 @@ class DocumentController extends HomeController{
         $new_attribute_list = array();
         foreach($attribute_list as $attr){
             if($attr['name'] == 'cid'){
+                $con = array();
                 $con['group'] = $category_info['group'];
                 $con['doc_type'] = $category_info['doc_type'];
                 $attr['options'] = $this->selectListAsTree('Category', $con);

@@ -4,6 +4,9 @@
     $userinfo['gz'] = $date->magicInfo('GZ');
     $userinfo['xz'] = $date->magicInfo('XZ');
     $userinfo['sx'] = $date->magicInfo('SX');
+    $map['status'] = 1;
+    $map['system'] = 0;
+    $doc_type_list = D('DocumentType')->where($map)->order('id asc')->select();
 ?>
 
 <div class="panel">
@@ -15,8 +18,8 @@
             <table class="table table-hover">
                 <tbody>
                         <tr>
-                            <td>关注：90</td>
-                            <td>粉丝：89</td>
+                            <td>关注：0</td>
+                            <td>粉丝：0</td>
                         </tr>
                         <tr>
                             <td>积分：{$userinfo.score}</td>
@@ -33,12 +36,28 @@
         <li class="show">
             <a href="#"><i class="icon-folder-open-alt"></i> 个人</a>
             <ul class="nav">
-                <li><a href="{:U('User/index')}"><i class=""></i> 个人主页</a></li>
-                <li><a href="{:U('User/profile')}"><i class=""></i> 修改信息</a></li>
-                <li><a href="{:U('UserMessage/index')}"><i class=""></i> 消息中心</a></li>
-                <li><a href="{:U('User/safe')}"><i class=""></i> 账号安全</a></li>
-                <li><a href="{:U('User/smrz')}"><i class=""></i> 实名认证</a></li>
-                <li><a href="{:U('UserAddress/index')}"><i class=""></i> 收获地址</a></li>
+                <li><a href="{:U('User/index')}" target="_blank"><i class="icon icon-home"></i> 个人主页</a></li>
+                <li><a href="{:U('User/profile')}"><i class="icon icon-edit"></i> 修改信息</a></li>
+                <li><a href="{:U('UserMessage/index')}"><i class="icon icon-chat-dot"></i> 消息中心</a></li>
+                <li><a href="{:U('User/safe')}"><i class="icon icon-lock"></i> 账号安全</a></li>
+                <li><a href="{:U('User/smrz')}"><i class="icon icon-user"></i> 实名认证</a></li>
+            </ul>
+        </li>
+        <li class="show">
+            <a href="#"><i class="icon-folder-open-alt"></i> 内容中心</a>
+            <ul class="nav">
+                <volist name="doc_type_list" id="doc_type">
+                    <li><a href="{:U('Document/mydoc/doc_type/'.$doc_type['id'])}"><i class="icon icon-list"></i> 我的{$doc_type.title}</a></li>
+                </volist>
+                <volist name="doc_type_list" id="doc_type">
+                    <li><a href="{:U('Document/add/doc_type/'.$doc_type['id'])}"><i class="icon {$doc_type.icon}"></i> 添加{$doc_type.title}</a></li>
+                </volist>
+            </ul>
+        </li>
+        <li class="show">
+            <a href="#"><i class="icon-folder-open-alt"></i> 订单中心</a>
+            <ul class="nav">
+                <li><a href="{:U('UserAddress/index')}"><i class="icon icon-globe"></i> 收获地址</a></li>
             </ul>
         </li>
     </ul>

@@ -48,8 +48,8 @@ class DocumentController extends AdminController{
                 ->addForbidButton() //添加禁用按钮
                 ->addRecycleButton() //添加回收按钮
                 ->AddButton('移 动', $move_attr) //添加移动按钮
-                ->setSearch('请输入ID/文档名称', U('index'))
-                ->addField('id', 'UID', 'text')
+                ->setSearch('请输入ID/标题', U('index'))
+                ->addField('id', 'ID', 'text')
                 ->addField('title', '标题', 'text')
                 ->addField('ctime', '发布时间', 'time')
                 ->addField('sort', '排序', 'text')
