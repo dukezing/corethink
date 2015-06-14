@@ -43,7 +43,7 @@ class DocumentController extends AdminController{
         //使用Builder快速建立列表页面。
         $builder = new \Common\Builder\ListBuilder();
         $builder->title($category['title'])  //设置页面标题
-                ->AddButton('新 增', $add_attr)    //添加新增按钮
+                ->addButton('新 增', $add_attr)    //添加新增按钮
                 ->addResumeButton() //添加启用按钮
                 ->addForbidButton() //添加禁用按钮
                 ->addRecycleButton() //添加回收按钮

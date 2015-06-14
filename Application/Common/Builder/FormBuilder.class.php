@@ -146,7 +146,9 @@ class FormBuilder extends Controller{
         //编译表单值
         if($this->_form_data){
             foreach($this->_form_items as &$item){
-                $item['value'] = $this->_form_data[$item['name']];
+                if($this->_form_data[$item['name']]){
+                    $item['value'] = $this->_form_data[$item['name']];
+                }
             }
         }
 
