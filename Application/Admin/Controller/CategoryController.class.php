@@ -146,7 +146,7 @@ class CategoryController extends AdminController{
             //使用FormBuilder快速建立表单页面。
             $builder = new \Common\Builder\FormBuilder();
             $builder->title('编辑分类')  //设置页面标题
-                    ->setUrl(U('admin/Category/edit/id/'.$id.'/tab/'.$tab)) //设置表单提交地址
+                    ->setUrl(U('Admin/Category/edit/id/'.$id.'/tab/'.$tab)) //设置表单提交地址
                     ->addItem('id', 'hidden', 'ID', 'ID')
                     ->addItem('group', 'radio', '分组', '分组', C('CATEGORY_GROUP_LIST'))
                     ->addItem('pid', 'select', '上级分类', '所属的上级分类', $this->selectListAsTree('Category', array('group' => $tab), '顶级分类'))

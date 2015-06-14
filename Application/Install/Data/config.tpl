@@ -6,11 +6,16 @@
 // +----------------------------------------------------------------------
 // | Author: jry <598821125@qq.com> <http://www.corethink.cn>
 // +----------------------------------------------------------------------
+
+/**
+ * CoreThink全局配置文件
+ */
 const THINK_ADDON_PATH = './Addons/';
 return array(
     //CoreThink当前版本
     'CORETHINK_VERSION' => '1.0Beta',
 
+    //数据库配置
     'DB_TYPE'   => $_SERVER[ENV_PRE.'DB_TYPE'] ? : '[DB_TYPE]', // 数据库类型
     'DB_HOST'   => $_SERVER[ENV_PRE.'DB_HOST'] ? : '[DB_HOST]', // 服务器地址
     'DB_NAME'   => $_SERVER[ENV_PRE.'DB_NAME'] ? : '[DB_NAME]', // 数据库名
@@ -24,6 +29,9 @@ return array(
 
     //全局过滤配置
     'DEFAULT_FILTER' => '', //默认为htmlspecialchars
+
+    //预先加载的标签库
+    'TAGLIB_PRE_LOAD' => 'Home\\TagLib\\Corethink',
 
     //URL配置
     'URL_CASE_INSENSITIVE' => true, //不区分大小写
@@ -50,7 +58,47 @@ return array(
         'datetime'   => '时间',
         'picture'    => '图片',
         'kindeditor' => '编辑器',
-        'tag  '      => '标签',
+        'tags'       => '标签',
+        'board  '    => '拖动排序',
+    ),
+
+    //栏目分类前台用户投稿权限
+    'CATEGORY_POST_AUTH' => array(
+        '1'  => '允许投稿',
+        '0'  => '禁止投稿',
+    ),
+
+    //注册方式列表
+    'REG_TYPE_LIST' => array(
+        '1'  => '邮箱',
+        '2'  => '手机号',
+        '3'  => '第三方',
+    ),
+
+    //前台用户类型
+    'USER_TYPE_LIST' => array(
+        '0'  => '个人',
+        '1'  => '企业',
+    ),
+
+    //前台用户VIP等级
+    'USER_VIP_LEVEL' => array(
+        '0'  => '普通用户',
+        '1'  => '普通VIP',
+        '2'  => '高级VIP',
+    ),
+
+    //前台用户性别
+    'USER_SEX_LIST' => array(
+        '1'  => '男',
+        '-1' => '女',
+        '0'  => '保密',
+    ),
+
+    //插件类型
+    'ADDON_TYPE_LIST' => array(
+        '0'  => '系统插件',
+        '1'  => '微＋插件',
     ),
 
     //文件上传相关配置

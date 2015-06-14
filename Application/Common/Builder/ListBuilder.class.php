@@ -219,7 +219,7 @@ class ListBuilder extends Controller{
             foreach($this->_right_button_list as $right_button){
                 switch($right_button['type']){
                     case 'edit':
-                        $right_button['link'] = '<a href="'.U($right_button['url'], array('id' => $data['id'], 'model' => $right_button['model'])).'">编辑</a> ';
+                        $right_button['link'] = '<a href="'.U($right_button['url'], array('id' => $data['id'])).'">编辑</a> ';
                         break;
                     case 'forbid':
                         switch($data['status']){
