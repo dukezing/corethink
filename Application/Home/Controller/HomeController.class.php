@@ -68,17 +68,6 @@ class HomeController extends Controller{
         if(empty($ids)){
             $this->error('请选择要操作的数据');
         }
-        //特殊情况处理
-        switch($model){
-            case 'User':
-                if(in_array(1, $ids, true) || 1 == $ids)
-                    $this->error('不允许更改超级管理员状态');
-                break;
-            case 'Group':
-                if(in_array(1, $ids, true) || 1 == $ids)
-                    $this->error('不允许更改超级管理员组状态');
-                break;
-        }
         $model_primary_key = D($model)->getPk();
         $map[$model_primary_key] = array('in',$ids);
         switch($status){

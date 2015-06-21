@@ -31,7 +31,9 @@ class DocumentTypeModel extends Model{
      * @author jry <598821125@qq.com>
      */
     protected $_auto = array(
+        array('field_sort', '{"1":["1","3"],"2":["10","8"]}', self::MODEL_INSERT),
         array('field_sort', 'json_encode', self::MODEL_UPDATE, 'function'),
+        array('field_group', '1:基础\n2:扩展', self::MODEL_INSERT),
         array('ctime', NOW_TIME, self::MODEL_INSERT),
         array('utime', NOW_TIME, self::MODEL_BOTH),
         array('status', '1', self::MODEL_INSERT),

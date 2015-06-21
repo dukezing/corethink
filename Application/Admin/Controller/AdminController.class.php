@@ -48,7 +48,7 @@ class AdminController extends Controller{
             $map['dev'] = array('neq', 1);
         }
         $tree = new \Common\Util\Tree();
-        $all_menu = $tree->list_to_tree(D('SystemMenu')->where($map)->select($map, $status="1")); //所有菜单
+        $all_menu = $tree->list_to_tree(D('SystemMenu')->where($map)->select()); //所有菜单
         foreach($all_menu as $key => $val){
             $all_menu_list[$val['id']] = $val;
         }

@@ -106,8 +106,8 @@ class DocumentTypeController extends AdminController{
             }
         }else{
             $document_type_info = D('DocumentType')->find($id);
-            $document_type_field_sort = json_decode($document_type_info['field_sort'], true);
             $document_type_field_group = parse_attr($document_type_info['field_group']);
+            $document_type_field_sort = json_decode($document_type_info['field_sort'], true);
 
             //获取文档字段
             $map['status'] = array('eq', '1');
@@ -126,7 +126,9 @@ class DocumentTypeController extends AdminController{
                 $field[$key]['title'] = $document_type_field_group[$key];
                 $temp = array();
                 foreach($val as $val2){
-                    $temp[$val2] = $new_attribute_list[$val2];
+                    if($new_attribute_list[$val2]){
+                        $temp[$val2] = $new_attribute_list[$val2];
+                    }
                     unset($new_attribute_list[$val2]);
                 }
                 $field[$key]['field'] = $temp;
