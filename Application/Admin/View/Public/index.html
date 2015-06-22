@@ -5,21 +5,18 @@
         body {
             background-color: #f6f6f6;
         }
-        .panel .logo {
-            height: 58px;
-        }
     </style>
 </block>
 
 <block name="wrap">
     <div class="container">
-        <div id="dashboard" class="dashboard dashboard-draggable" data-height="300">
+        <div class="dashboard margin-top">
             <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-4 " data-id="1">
-                    <div class="panel" id="panel1" data-id="1">
+                <div class="col-xs-12 col-sm-6 col-md-4 ">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="panel-actions"></div>
-                            <i class="icon-list-ul"></i> 关于CoreThink
+                            <i class="glyphicon glyphicon-home"></i> 关于CoreThink
                         </div>
                         <div class="panel-body">
                             <p>
@@ -28,11 +25,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-4 " data-id="2">
-                    <div class="panel" id="panel2" data-id="2">
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="panel-actions"></div>
-                            <i class="icon-list-ul"></i> 系统信息
+                            <i class="glyphicon glyphicon-cog"></i> 系统信息
                         </div>
                         <div class="panel-body">
                             <table class="table table-condensed">
@@ -66,11 +63,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-4 " data-id="3">
-                    <div class="panel" id="panel3" data-id="3">
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <div class="panel-actions"></div>
-                            <i class="icon-list-ul"></i> 产品团队
+                            <i class="glyphicon glyphicon-th-list"></i> 产品团队
                         </div>
                         <div class="panel-body">
                             <table class="table table-condensed">
@@ -93,7 +90,11 @@
                                         </tr>
                                         <tr>
                                             <td>官方QQ群</td>
-                                            <td><a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=1ac8801c2f274de186f5c52203f428a1726ba9e3018aa579399b4c6161ca63cd"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="CoreThink交流群01" title="CoreThink交流群01"></a></td>
+                                            <td>
+                                                <a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=1ac8801c2f274de186f5c52203f428a1726ba9e3018aa579399b4c6161ca63cd">
+                                                    <img border="0" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAAAWCAMAAAB37HsnAAADAFBMVEVWHhOgZEUpcqtJcJWkt8wSjtK8//9Gs+6knJPQv7ZGlcJLeXkXoOlyvOT/8PJ+RSsMf8DO1N9tocdjs5Kh0uzYsJO0gmQzodsUlORTr+Dr7vZy4faTUzH/29ojlM+93e5jlLwugLPlz7NBndBsMxsOte9ku+qIp8Hd6PaBwuTNm3ludmPR4+0Vm+YilNJdWkCibVrFkGpCkL8ZpO27u9Lh19aU1fYmpOpJldqVXEJIz/mw2e+DyO21oaAZo/DgxK0Xnumvckhosdfe7/rt8vt6NCSLrKNYmcIwib+NoK5Sq9vdzNlzQDbGzNZ7Ukwoqu3+/v+/iFhzk3mFsdLTqI9Tf5/x9fzw18AlnuDc4+0UldupdmLR6fY0jcIPicyYYleSze1bJRvf8PmQyOei2fVMncp0wKRzl7VjPicZn+cynNTv+P3Pxsqa8f6ixeB3c3fUmWm+m4Xe1ev/4u60t5i0eU314MtXd2FSpNCFPy2lZlW7v91+SzuTYEgUwfZ0xvJWuu86lMhkv/CWu9YUrfDn5utoLyPy1rvj6vWVWjc0p+jB5vnm7vmsgnB0NSjU2+ZLo9G1dmI9i7rqxKWjbE20lY3oupW5zNxOg2tynb+EzfSESStBodXEq54uhLuateekcFZzwetruZoTkdVmJxlwqM8Sistjm8Mlm9yLU0eMSjvJlnI2re2y4fmcZkJyuN5vPTXh5/NUtepK0vupakLsyKq3n5Q1p+Xe0eN8m7jR7Puqbl7v0LSQWExtMyPY3unQooN5gGayfVgan+icXTbp7/osea4ajNY4sO+ZrtvZxLW1iXGERC1NdJnz28NeKiB6PSt5PiOdZEve8fRevOvQrpqx2/KXzvk+mcxznsBKmcbA4fPH1Niiz+be5fBCpdrDkXHg8PmSq8MNg8TBqaj/4/T/3uSAeHnw+f0nq+905P68w+M3kcZNoc62flJlxPTX3ejQ5/RzOiuKSyiqclBgKR+aXj3dtZiKttQXxvkzn9ij2/iCRzpWf6L35NCaV0Xk0jIHAAAACXBIWXMAAAsTAAALEwEAmpwYAAADyUlEQVQ4y7WSC1QUVRjHx2xDc8nESXSzl6mx1jVyLCrXusakSa9L7123NXDTZK0Ms8gyqDRGdwptfQHbA6gRZYp2N3LDzZ6opeCj2h5TyESWSVZSmSaY372zCHk4Rzvg/5yZ+93v+9/fvfPd4ZyVi06Icr7jrjmHdKbfuqrP93A54h2diAhd1c+LuByZoixLb8i4acb85/b16N1NaOF8QIuiaHl38+I5z765bvC4cW8tmQ+J7kP/8Nji1XPWZnBvpP86e/bSdnRRUUfzwYP/D72Hoif/u3ptcsuWlq3pHy5Iv6IdbbN1NJc7j+x0Gdy0Nw6Cja9D5L4ZohC9/ewDYeGq+z+hlq+4eyn62udXrZo0+YmWdQuu3rSt+Ci0F5bobJrmUY18tZ6mnK3tUgV1lzNL8TurIYfmfXZ5KFsIZe9+WWhHW179K3mT77YBzdxDh+7cPLQNncd+wzwtXkkz0MOJm425JAsJQpnuFtx6GRLQPyQXzsrcqfR1FgbTU9w3gK7ZnnFGJD/yd0byoUfqlmxrQyOF5xU9qJUIQQMdHUPYsaMaooPVI3iszKhFYad5dlMojIRQk/FlBtoyorkqvy6/qnlEXV1k31yK/oiV+XuEDmiVDOLZsTWeVUuIQEoMnxbrdXg367iBPjUJSF/08MGpfdvfj1RdMngsRU83U0VtZoo2B3U6c2sokag0rbGqLdUs2gwfbzY7QqMbG01lriubXC4EuV8AXVNTc+mkBl+Vr+GVP2fOLP54BiTIdEzlGY4pGgd1mDxNdmA0xQtRPFFpVecxTwtYJfHwps3eiXGoiS3Fdxto+YIXKyoq3v6p77Jlff/oRdGsmifehcU1MXScx4owLteLMHbsrc7DKV4xESeKXhXHVe91YHwgM9w4bOcptCGnIYYelSTL8vd28mlDb2J/MOIbUHzxt7LM0Cm6FaWQhRqYM3HQY4X1GO3wuDE28ZCL+hFGWbTKj4TKmV+G0ZOzXKwhjiPod6YtJ9KtElk+beKQhz8YeiGgEajEWU6IhrRKJS1T1a0OxOTXixAqU/ypzjV0alIqSZQGLnqPsxAKNRm+67gXkmSpdf/XlsKEQqlwf+vUqaW33CcZaIeCFMWETA4WxcioLRo5hpBcZvM7CVGBef3pw36E4fH/oBNWnrvyNXgSbi8t7d//0Rj6GDIpsU0GKopCtzBBDj6o0Si/xNAnt9b2rK2lT58VoPHHhz6GDHT9ewUFBf1uBPWD4Hd7N6EnPCDLkiQFAvV2UH0gEJAkuMaBXdWG9dxFE87rTCd1Wc8cBolttvN3y+WLAAAAAElFTkSuQmCC" alt="CoreThink交流群01" title="CoreThink交流群01">
+                                                </a>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>联系我们</td>
@@ -104,15 +105,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-12 " data-id="4">
-                    <div class="panel" id="panel4" data-id="4">
+                <div class="col-xs-12 col-sm-6 col-md-12">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
-                            <div class="panel-actions">
-                                <button id="daterange_set" class="btn btn-mini"><span class="icon-cog"></span></button>
+                            <div class="pull-right">
+                                <button id="daterange_set" class="btn btn-default btn-sm" style="margin-top:-5px;margin-right:-5px;"><span class="glyphicon glyphicon-cog"></span></button>
                             </div>
-                            <i class="icon-user"></i> 用户增长统计
+                            <i class="glyphicon glyphicon-stats"></i> 用户增长统计
                         </div>
-                        <div class="panel-body" id="user-chart"></div>
+                        <div class="panel-body">
+                            <h5 class="text-center">{$start_date}－{$end_date} {$count_day}天用户增长</h5>
+                            <canvas id="mychart" style="width:100%;height:300px;"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -122,93 +126,73 @@
 
 <block name="script">
     <script type="text/javascript" src="__PUBLIC__/highcharts/highcharts.js" charset="utf-8"></script>
-    <link rel="stylesheet" type="text/css" href="__PUBLIC__/daterangepicker/daterangepicker-bs3.css" />
-    <script type="text/javascript" src="__PUBLIC__/daterangepicker/moment.min.js" charset="utf-8"></script>
-    <script type="text/javascript" src="__PUBLIC__/daterangepicker/daterangepicker.js" charset="utf-8"></script>
     <script>
         $(function (){
-            //dashboard
-            if($.fn.dashboard) $('#dashboard').dashboard({shadowType: 'normal'});
-
-            $('#user-chart').highcharts({
-                chart: {
-                    type: "spline",
-                    style: {
-                        fontFamily: '"Microsoft Yahei", "宋体"'
-                    }
+            //用户增长曲线图
+            var mychart = new Chart($("#mychart").get(0).getContext("2d")).Line(
+                {
+                    labels : {$user_reg_date},
+                    datasets : [
+                        {
+                            fillColor : "#337ab7",
+                            strokeColor : "#337ab7",
+                            pointColor : "#337ab7",
+                            pointStrokeColor : "#fff",
+                            data : {$user_reg_count}
+                        }
+                    ]
                 },
-                title: {
-                    text: '{$start_date}－{$end_date} {$count_day}天用户增长',
-                    x: -20 //center
-                },
-                xAxis: {
-                    categories: eval('{$user_reg_date}'),
-                    title: {
-                        text: '当天新注册会员',
-                        enabled: false
-                    }
-                },
-                yAxis: {
-                    title: '用户数'
-                },
-                legend: {
-                    layout: 'vertical',
-                    verticalAlign: 'middle',
-                    borderWidth: 0,
-                    enabled: false
-                },
-                series: [{
-                    name: '当天新注册会员',
-                    data: eval('{$user_reg_count}'),
-                    enable: true
-                }], credits: {enabled: false}
-            });
+                {
+                    scaleLineColor : "rgba(0,0,0,.1)", //X/Y轴的颜色
+                    scaleLineWidth : 1 //X/Y轴的宽度
+                }
+            );
 
             //图表时间段选择
-            var option_set = {
-                startDate: moment().subtract(29, 'days'),
-                endDate: moment(),
-                minDate: '01/01/2015',
-                maxDate: '12/31/2100',
-                dateLimit: { days: 360 },
-                showDropdowns: true,
-                showWeekNumbers: true,
-                timePicker: false,
-                timePickerIncrement: 1,
-                timePicker12Hour: true,
-                ranges: {
-                   '最近7天': [moment().subtract(6, 'days'), moment()],
-                   '这个月': [moment().startOf('month'), moment().endOf('month')],
-                   '上个月': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-                },
-                opens: 'left',
-                buttonClasses: ['btn btn-default'],
-                applyClass: 'btn-sm btn-primary',
-                cancelClass: 'btn-sm',
-                format: 'MM/DD/YYYY',
-                separator: ' to ',
-                locale: {
-                    applyLabel: '确定',
-                    cancelLabel: '清除',
-                    fromLabel: '从',
-                    toLabel: '到',
-                    customRangeLabel: '自定义',
-                    daysOfWeek: ['日', '一', '二', '三', '四', '五','六'],
-                    monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
-                    firstDay: 1
+            $('#daterange_set').daterangepicker({
+                    startDate: moment().subtract(29, 'days'),
+                    endDate: moment(),
+                    minDate: '01/01/2015',
+                    maxDate: '12/31/2100',
+                    dateLimit: { days: 360 },
+                    showDropdowns: true,
+                    showWeekNumbers: true,
+                    timePicker: false,
+                    timePickerIncrement: 1,
+                    timePicker12Hour: true,
+                    ranges: {
+                       '最近7天': [moment().subtract(6, 'days'), moment()],
+                       '这个月': [moment().startOf('month'), moment().endOf('month')],
+                       '上个月': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                    },
+                    opens: 'left',
+                    buttonClasses: ['btn btn-default'],
+                    applyClass: 'btn-sm btn-primary',
+                    cancelClass: 'btn-sm',
+                    format: 'MM/DD/YYYY',
+                    separator: ' to ',
+                    locale: {
+                        applyLabel: '确定',
+                        cancelLabel: '清除',
+                        fromLabel: '从',
+                        toLabel: '到',
+                        customRangeLabel: '自定义',
+                        daysOfWeek: ['日', '一', '二', '三', '四', '五','六'],
+                        monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+                        firstDay: 1
+                    }
+                }, 
+                function(start, end, label){
+                    var url = '{:U("Index/index")}';
+                    var query  = 'start_date='+start+'&end_date='+end;
+                    if(url.indexOf('?')>0){
+                        url += '&' + query;
+                    }else{
+                        url += '?' + query;
+                    }
+                    window.location.href = url;
                 }
-            };
-
-            $('#daterange_set').daterangepicker(option_set, function(start, end, label){
-                var url = '{:U("Index/index")}';
-                var query  = 'start_date='+start+'&end_date='+end;
-                if(url.indexOf('?')>0){
-                    url += '&' + query;
-                }else{
-                    url += '?' + query;
-                }
-                window.location.href = url;
-            });
+            );
         });
     </script>
 </block>

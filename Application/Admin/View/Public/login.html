@@ -5,19 +5,18 @@
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>{$meta_title}｜{:C('WEB_SITE_TITLE')}后台管理</title>
-    <link rel="stylesheet" type="text/css" href="__PUBLIC__/zui/css/zui.min.css">
-    <link rel="stylesheet" type="text/css" href="__CSS__/base.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/bootstrapextend/css/bootstrap.extend.css">
     <script type="text/javascript" src="__PUBLIC__/jquery/jquery-1.11.1.min.js" charset="utf-8"></script>
-    <script type="text/javascript" src="__PUBLIC__/zui/js/zui.min.js" charset="utf-8"></script>
-    <script type="text/javascript" src="__PUBLIC__/corethink/js/base.js" charset="utf-8"></script>
-    <block name="script"></block>
+    <script type="text/javascript" src="__PUBLIC__/bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="__PUBLIC__/bootstrapextend/js/bootstrap.extend.js" charset="utf-8"></script>
     <style>
          body{background-color: #f6f6f6;}
          @media (min-width: 768px){body{padding-top:120px;}}
-        .login{background-color: #fff;border-left:5px #39b3d7 solid;padding-top: 10px;}
+        .login{background-color: #fff;padding-top: 10px;}
         .login .submit{border: 0px;width: 48%; margin-right: 2%;height: 40px;margin-bottom:20px;}
         .login .reset{border: 0px;width: 48%; height: 40px;margin-bottom:20px;}
-        .login .title{color:#279dc0;}
+        .login .title{color:#337ab7;}
         .login .logo{margin-top: 60px;max-width:120px;}
         .login .input-group-addon{border: 0px;background-color: #f2f2f2;padding: 5px 2px 5px 12px;color: #999;}
         .login .form-control{border: 0px;box-shadow: none;-webkit-box-shadow: none;transition: none;background-color: #f2f2f2;height: 40px;color: #999;}
@@ -37,7 +36,7 @@
                         </div>
                     </div>
                     <div class="col-xs-12 col-md-8">
-                        <h2 class="text-center title">{:C('WEB_SITE_TITLE')} 后台管理登录</h2><br>
+                        <h3 class="text-center title">{:C('WEB_SITE_TITLE')} 后台管理登录</h3><br>
                         <form class="login-form" action="{:U('Public/login')}" method="post">
                             <div class="form-group">
                                 <div class="input-group">
@@ -52,8 +51,8 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-info submit ajax-post" target-form="login-form" data-loading-text="正在登录...">登 录</button>
-                                <button type="reset" class="btn reset">重 置</button>
+                                <button type="submit" class="btn btn-success submit ajax-post" target-form="login-form" data-loading-text="正在登录...">登 录</button>
+                                <button type="reset" class="btn btn-danger reset">重 置</button>
                             </div>
                         </form>
                     </div>

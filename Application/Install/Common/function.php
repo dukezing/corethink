@@ -13,11 +13,11 @@
  */
 function check_env(){
     $items = array(
-        'os'      => array('操作系统', '不限制', '类Unix', PHP_OS, 'ok'),
-        'php'     => array('PHP版本', '5.3', '5.3+', PHP_VERSION, 'ok'),
-        'upload'  => array('附件上传', '不限制', '2M+', '未知', 'ok'),
-        'gd'      => array('GD库', '2.0', '2.0+', '未知', 'ok'),
-        'disk'    => array('磁盘空间', '5M', '不限制', '未知', 'ok'),
+        'os'      => array('操作系统', '不限制', '类Unix', PHP_OS, 'glyphicon-ok text-success'),
+        'php'     => array('PHP版本', '5.3', '5.3+', PHP_VERSION, 'glyphicon-ok text-success'),
+        'upload'  => array('附件上传', '不限制', '2M+', '未知', 'glyphicon-ok text-success'),
+        'gd'      => array('GD库', '2.0', '2.0+', '未知', 'glyphicon-ok text-success'),
+        'disk'    => array('磁盘空间', '5M', '不限制', '未知', 'glyphicon-ok text-success'),
     );
 
     //PHP环境检测
@@ -55,10 +55,10 @@ function check_env(){
  */
 function check_dirfile(){
     $items = array(
-        array('dir',  '可写', 'ok', APP_PATH . 'Common/Conf'),
-        array('file', '可写', 'ok', APP_PATH . 'Common/Conf/config.php'),
-        array('dir',  '可写', 'ok', './Runtime'),
-        array('dir',  '可写', 'ok', './Uploads'),
+        array('dir',  '可写', 'glyphicon-ok text-success', APP_PATH . 'Common/Conf'),
+        array('file', '可写', 'glyphicon-ok text-success', APP_PATH . 'Common/Conf/config.php'),
+        array('dir',  '可写', 'glyphicon-ok text-success', './Runtime'),
+        array('dir',  '可写', 'glyphicon-ok text-success', './Uploads'),
     );
 
     foreach ($items as &$val){
@@ -67,11 +67,11 @@ function check_dirfile(){
             if(!is_writable($item)){
                 if(is_dir($item)) {
                     $val[1] = '不可写';
-                    $val[2] = 'remove';
+                    $val[2] = 'glyphicon-remove text-danger';
                     session('error', true);
                 }else{
                     $val[1] = '不存在';
-                    $val[2] = 'remove';
+                    $val[2] = 'glyphicon-remove text-danger';
                     session('error', true);
                 }
             }
@@ -79,13 +79,13 @@ function check_dirfile(){
             if(file_exists($item)){
                 if(!is_writable($item)){
                     $val[1] = '不可写';
-                    $val[2] = 'remove';
+                    $val[2] = 'glyphicon-remove text-danger';
                     session('error', true);
                 }
             }else{
                 if(!is_writable(dirname($item))) {
                     $val[1] = '不存在';
-                    $val[2] = 'remove';
+                    $val[2] = 'glyphicon-remove text-danger';
                     session('error', true);
                 }
             }
@@ -100,14 +100,14 @@ function check_dirfile(){
  */
 function check_func(){
     $items = array(
-        array('mysql_connect',     '支持', 'ok'),
-        array('file_get_contents', '支持', 'ok'),
-        array('mb_strlen',         '支持', 'ok'),
+        array('mysql_connect',     '支持', 'glyphicon-ok text-success'),
+        array('file_get_contents', '支持', 'glyphicon-ok text-success'),
+        array('mb_strlen',         '支持', 'glyphicon-ok text-success'),
     );
     foreach ($items as &$val) {
         if(!function_exists($val[0])){
             $val[1] = '不支持';
-            $val[2] = 'remove';
+            $val[2] = 'glyphicon-remove text-danger';
             $val[3] = '开启';
             session('error', true);
         }

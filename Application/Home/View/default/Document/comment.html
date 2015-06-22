@@ -1,68 +1,59 @@
-<div class="comments box">
-    <header>
-        <h3><i class="icon-comments icon-border-circle"></i> {$info.comment} 条评论</h3>
-    </header>
-    <section class="comments-list">
-        <!-- 模版标签 -->
-            <corethink:comment_list name="vo" doc_id="$info['id']">
-                <div class="comment">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">{$info.comment} 条评论</h3>
+    </div>
+    <div class="panel-body">
+        <corethink:comment_list name="vo" doc_id="$info['id']">
+            <div class="media border-bottom padding-bottom">
+                <div class="media-left">
                     <a href="{:U('User/index/uid/'.$vo['uid'])}" class="avatar">
                         <img src="{$vo.avatar|get_cover='avatar'}" style="width:40px;height:40px;">
                     </a>
-                    <div class="content">
-                        <div class="pull-right">
-                            <span class="text-muted">{$vo.ctime}</span> &nbsp;
-                            <strong class="floor">#{$i}</strong>
-                        </div>
-                        <span class="author">
-                            <a href="#"><strong>{$vo.username}</strong></a>
-                            <notempty name="vo.pid">
-                                <span class="reply">
-                                    <span class="text-muted small"> 回复 </span>
-                                    <a href="#">{$vo.parentvo_username}</a>
-                                </span>
-                            </notempty>
-                        </span>
-                        <div class="text">{$vo.content}</div>
-                        <div class="actions small">
-                            <a href="javascript:void(0);" class="reply-action" comment_id="{$vo.id}" username="{$vo.username}">回复</a>
-                        </div>
+                </div>
+                <div class="media-body">
+                    <div class="pull-right">
+                        <span class="text-muted small">{$vo.ctime}</span> &nbsp;
+                        <strong class="text-muted small">#{$i}</strong>
+                    </div>
+                    <span class="author">
+                        <a href="#"><strong>{$vo.username}</strong></a>
+                        <notempty name="vo.pid">
+                            <span class="reply">
+                                <span class="text-muted small"> 回复 </span>
+                                <a href="#">{$vo.parentvo_username}</a>
+                            </span>
+                        </notempty>
+                    </span>
+                    <div class="text">{$vo.content}</div>
+                    <div class="small">
+                        <a href="javascript:void(0);" class="reply-action" comment_id="{$vo.id}" username="{$vo.username}">回复</a>
                     </div>
                 </div>
-            </corethink:comment_list>
-        <!-- /模版标签 -->
-    </section>
-    <php>if(C('TOGGLE_USER_COMMENT')):</php>
-        <footer>
-            <div class="reply-form" id="commentReplyForm">
-                <notempty name="__USER__">
-                    <a href="#" class="avatar"><i class="icon-user icon-border icon-2x icon-muted"></i></a>
-                    <div class="form">
-                        <form action="{:U('UserComment/add')}" method="post" class="form comment-form">
-                            <div class="form-group">
-                                <textarea name="content" class="form-control new-comment-text" rows="3" placeholder="评论是一种态度..."></textarea>
-                            </div>
-                            <div class="form-group">
-                                <input type="hidden" name="pid" value="0">
-                                <input type="hidden" name="doc_id" value="{$info.id}">
-                                <a id="submit" type="submit" class="btn btn-primary ajax-post block-xs" target-form="comment-form"><i class="icon-comment-alt"></i> 发表评论</a>
-                            </div>
-                        </form>
-                    </div>
-                <else />
-                    <div class="">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <a class="btn" href="{:U('User/register')}">注 册</a>
-                                <a class="btn btn-info" data-toggle="modal" data-target="#login-modal">登 录</a> &nbsp;
-                            </div>
-                        </div>
-                    </div>
-                </notempty>
             </div>
-        </footer>
-    <php>endif;</php>
+        </corethink:comment_list>
+    </div>
 </div>
+<php>if(C('TOGGLE_USER_COMMENT')):</php>
+    <div class="comment margin-bottom">
+        <notempty name="__USER__">
+            <form action="{:U('UserComment/add')}" method="post" class="form comment-form">
+                <div class="form-group">
+                    <textarea name="content" class="form-control" rows="3" placeholder="评论是一种态度..."></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="hidden" name="pid" value="0">
+                    <input type="hidden" name="doc_id" value="{$info.id}">
+                    <a id="submit" type="submit" class="btn btn-primary ajax-post block-xs" target-form="comment-form"><i class="icon-comment-alt"></i> 发表评论</a>
+                </div>
+            </form>
+        <else />
+            <div>
+                <a class="btn btn-success" href="{:U('User/register')}">注 册</a>
+                <a class="btn btn-primary" data-toggle="modal" data-target="#login-modal">登 录</a>
+            </div>
+        </notempty>
+    </div>
+<php>endif;</php>
 
 <script type="text/javascript">
     $(function(){

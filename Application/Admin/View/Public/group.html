@@ -1,12 +1,15 @@
 <extend name="Public/layout"/>
 
 <block name="body">
+    <div class="row">
+    <div class="col-xs-12">
     <form action="__SELF__" method="post" class="form">
         <ul class="nav-tabs nav">
             <li class="active"><a href="#tab1" data-toggle="tab">部门信息</a></li>
             <neq name="info.id" value="1"><li><a href="#tab2" data-toggle="tab">部门权限</a></li></neq>
         </ul>
         <div class="tab-content">
+            <div class="blank"></div>
             <div id="tab1" class='tab-pane active'>
                 <neq name="info.id" value="1">
                     <div class="form-group">
@@ -34,7 +37,7 @@
                 <div class="form-group">
                     <label class="item-label">图标<span class="check-tips">（部门图标）</span></label>
                     <div class="controls">
-                        <select class="chosen-icon" name="icon" data-value="{$info.icon|default=''}"><select>
+                        <input type="text" class="form-control" name="icon" value="{$info.icon|default=''}">
                     </div>
                 </div>
                 <div class="form-group">
@@ -89,17 +92,13 @@
             <button class="btn return" onclick="javascript:history.back(-1);return false;">返 回</button>
         </div>
     </form>
+    </div>
+    </div>
 </block>
 
 <block name="script">
-    <link rel="stylesheet" type="text/css" href="__PUBLIC__/chosen/chosen.min.css">
-    <link rel="stylesheet" type="text/css" href="__PUBLIC__/chosen/chosen.icons.min.css">
-    <script type="text/javascript" src="__PUBLIC__/chosen/chosen.min.js" charset="utf-8"></script>
-    <script type="text/javascript" src="__PUBLIC__/chosen/chosen.icons.min.js" charset="utf-8"></script>
     <script type="text/javascript">
         $(function(){
-            $(".form .controls select.form-control").chosen({disable_search_threshold: 10}); //使用chosen插件接管select
-            $('.form .chosen-icon').chosenIcons(); //使用chosen插件选择WebFont
             //遍历选中当前权限的子权限
             $('.auth input[type="checkbox"]').on('change',function(){
                 $('.auth'+$(this).val()).find('input').prop('checked',this.checked);

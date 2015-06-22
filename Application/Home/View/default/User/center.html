@@ -1,41 +1,35 @@
 <extend name="Public/layout"/>
 
-<block name="header">
-    <div class="header">
-        <div class="container">
-            <ul class="breadcrumb">
-                <li><i class="icon-location-arrow"></i></li>
-                <li><a href="__ROOT__/">首页</a></li>
-                <li><a href="__ROOT__/">{$meta_title}</a></li>
-            </ul>
-         </div>
+<block name="breadcrumb">
+    <div class="container">
+        <ul class="breadcrumb">
+            <li><i class="icon-location-arrow"></i></li>
+            <li><a href="__ROOT__/">首页</a></li>
+            <li><a href="{:U('')}">{$meta_title}</a></li>
+        </ul>
     </div>
 </block>
 
 <block name="body">
-    <section class="container main">
+    <div class="container main">
         <div class="row">
             <div class="col-xs-12 col-md-3">
-                <include file="User:side" /><!-- 包含用户中心侧边导航 -->
+                <include file="User/side" /><!-- 包含用户中心侧边导航 -->
             </div>
             <div class="col-xs-12 col-md-9">
-                <div class="userinfo box">
-                    <header>
-                        <h1>{$userinfo.username}</h1>
-                        <dl class="dl-inline">
-                            <dd>{$userinfo.age}岁</dd>
-                            <dd>{$userinfo.gz}</dd>
-                            <dd>{$userinfo.xz}</dd>
-                            <dd>{$userinfo.sx}</dd>
-                            <dt class="time">最后登录：</dt><dd class="time">{$userinfo.last_login_time|friendly_date}</dd>
-                            <dd class="pull-right"></dd>
-                        </dl>
-                        <div class="alert">签名：{$userinfo.summary}</div>
-                    </header>
-                    <section class="detail">
-                    </section>
+                <div class="blank"></div>
+                <div>
+                    <dl class="dl-horizontal">
+                        <dt class="time">用户名：</dt><dd>{$userinfo.username}</dd>
+                        <dt class="time">年龄：</dt><dd>{$userinfo.age}岁</dd>
+                        <dt class="time">干支：</dt><dd>{$userinfo.gz}</dd>
+                        <dt class="time">星座：</dt><dd>{$userinfo.xz}</dd>
+                        <dt class="time">生肖：</dt><dd>{$userinfo.sx}</dd>
+                        <dt class="time">最后登录：</dt><dd class="time">{$userinfo.last_login_time|friendly_date}</dd>
+                    </dl>
+                    <div class="alert alert-warning">签名：{$userinfo.summary}</div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 </block>

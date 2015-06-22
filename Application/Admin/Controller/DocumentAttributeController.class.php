@@ -32,7 +32,7 @@ class DocumentAttributeController extends AdminController{
         $page = new \Common\Util\Page(D('DocumentAttribute')->where($map)->count(), C('ADMIN_PAGE_ROWS'));
 
         $attr['href'] = U('add', array('doc_type' => $doc_type));
-        $attr['class'] = 'btn';
+        $attr['class'] = 'btn btn-primary';
 
         //使用Builder快速建立列表页面。
         $builder = new \Common\Builder\ListBuilder();

@@ -43,7 +43,7 @@ class UserModel extends Model{
         array('username', 'checkIP', '注册太频繁请稍后再试', self::MUST_VALIDATE, 'callback', self::MODEL_INSERT), //IP限制
         array('username', '/^(?!_)(?!\d)(?!.*?_$)[\w\一-\龥]+$/', '用户名只可含有汉字、数字、字母、下划线且不以下划线开头结尾，不以数字开头！', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
 
-        array('sex', 'number', '请选择性别', self::EXISTS_VALIDATE, 'regex', self::MODEL_BOTH),
+        array('sex', 'require', '请选择性别', self::EXISTS_VALIDATE, 'regex', self::MODEL_BOTH),
         array('avatar', 'number', '请上传头像', self::EXISTS_VALIDATE, 'regex', self::MODEL_BOTH),
 
         //重置密码时自动验证规则

@@ -27,7 +27,7 @@ function randString($len = 6, $type = 1){
  * @author jry <598821125@qq.com>
  */
 function parse_content($str){
-    return preg_replace('/(<img.*?)src=/i', "$1 data-original=", $str);//将img标签的src改为data-origin用户前台图片lazyload加载
+    return preg_replace('/(<img.*?)src=/i', "$1 data-original=", $str);//将img标签的src改为data-original用户前台图片lazyload加载
 }
 
 /**

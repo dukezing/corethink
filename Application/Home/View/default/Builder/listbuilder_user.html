@@ -1,14 +1,12 @@
 <extend name="Public/layout"/>
 
-<block name="header">
-    <div class="header">
-        <div class="container">
-            <ul class="breadcrumb">
-                <li><i class="icon-location-arrow"></i></li>
-                <li><a href="__ROOT__/">首页</a></li>
-                <li><a href="{:U('')}">{$meta_title}</a></li>
-            </ul>
-         </div>
+<block name="breadcrumb">
+    <div class="container">
+        <ul class="breadcrumb">
+            <li><i class="icon-location-arrow"></i></li>
+            <li><a href="__ROOT__/">首页</a></li>
+            <li><a href="{:U('')}">{$meta_title}</a></li>
+        </ul>
     </div>
 </block>
 

@@ -13,99 +13,113 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>{$meta_title}｜{:C('WEB_SITE_TITLE')}后台管理</title>
     <link rel="shortcut icon" type="image/x-icon" href="__ROOT__/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="__PUBLIC__/zui/css/zui.min.css">
-    <link rel="stylesheet" type="text/css" href="__PUBLIC__/fontawesome/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="__CSS__/base.css">
-    <block name="style"></block>
     <link rel="apple-touch-icon" type="image/x-icon" href="__ROOT__/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/bootstrapextend/css/bootstrap.extend.css">
+    <block name="style"></block>
     <script type="text/javascript" src="__PUBLIC__/jquery/jquery-1.11.1.min.js" charset="utf-8"></script>
-    <script type="text/javascript" src="__PUBLIC__/zui/js/zui.min.js" charset="utf-8"></script>
-    <!--[if lt IE 9]>
-        <script type="text/javascript" src=""__PUBLIC__/ieonly/html5shiv.js" charset="utf-8"></script>
-        <script type="text/javascript" src=""__PUBLIC__/ieonly/respond.js" charset="utf-8"></script>
-        <script type="text/javascript" src=""__PUBLIC__/ieonly/excanvas.js" charset="utf-8"></script>
-    <![endif]-->
-    <script type="text/javascript" src="__PUBLIC__/corethink/js/base.js" charset="utf-8"></script>
-    <script type="text/javascript">
-        $(function(){
-            $("[data-toggle='tooltip']").tooltip(); //启用工具提示
-        });
-    </script>
+    <script type="text/javascript" src="__PUBLIC__/bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="__PUBLIC__/bootstrapextend/js/bootstrap.extend.js" charset="utf-8"></script>
+    <style rel="stylesheet" type="text/css">
+        @media (min-width: 768px){
+            .wrap>.left{
+                padding: 0px;
+                top: 52px;
+                bottom: 0px;
+                position: absolute;
+                overflow: auto;
+                background: rgb(245, 246, 247);
+            }
+            .wrap>.right{
+                top: 52px;
+                right: 0px;
+                bottom: 0px;
+                position: absolute;
+                overflow: auto;
+            }
+        }
+        @media (max-width: 768px){
+            .wrap>.left{
+                padding: 0px;
+            }
+        }
+    </style>
     <block name="script"></block>
 </head>
 <body>
-    <nav class="navbar navbar-corethink" role="navigation">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-top">
-                <span class="sr-only">切换导航</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <php>if(C('WEB_SITE_LOGO')):</php>
-                <a class="navbar-brand" target="_blank" href="__ROOT__/"><img class="logo" src="{$Think.config.WEB_SITE_LOGO|get_cover='path'}"></a>
-            <php>else:</php>
-                <a class="navbar-brand" target="_blank" href="__ROOT__/">{:C('WEB_SITE_TITLE')}</a>
-            <php>endif;</php>
-        </div>
-        <div class="collapse navbar-collapse navbar-collapse-top">
-            <!-- 顶部主导航 -->
-            <ul class="nav navbar-nav">
-                <volist name="__ALLMENULIST__" id="vo">
-                    <li <php>if($vo['id'] == $__CURRENT_ROOTMENU__) echo 'class="active"';</php> >
-                        <a href="{:U($vo['url'])}"><i class="{$vo.icon}"></i> {$vo.title}</a>
+    <nav class="navbar navbar-inverse margin-none border-radius-none" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-top">
+                    <span class="sr-only">切换导航</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <php>if(C('WEB_SITE_LOGO')):</php>
+                    <a class="navbar-brand" target="_blank" href="__ROOT__/"><img class="logo" src="{$Think.config.WEB_SITE_LOGO|get_cover='path'}"></a>
+                <php>else:</php>
+                    <a class="navbar-brand" target="_blank" href="__ROOT__/">{:C('WEB_SITE_TITLE')}</a>
+                <php>endif;</php>
+            </div>
+            <div class="collapse navbar-collapse navbar-collapse-top">
+                <!-- 顶部主导航 -->
+                <ul class="nav navbar-nav">
+                    <volist name="__ALLMENULIST__" id="vo">
+                        <li <php>if($vo['id'] == $__CURRENT_ROOTMENU__) echo 'class="active"';</php> >
+                            <a href="{:U($vo['url'])}"><i class="{$vo.icon}"></i> {$vo.title}</a>
+                        </li>
+                    </volist>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{:U('Index/rmdirr')}" class="ajax-get"><i class="glyphicon glyphicon-trash"></i> 清空缓存</a></li>
+                    <li><a target="_blank" href="__ROOT__/"><i class="glyphicon glyphicon-new-window"></i> 打开前台</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="glyphicon glyphicon-user"></i> {$__USER__.username} <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a target="_blank" href="{:U('Home/User/center')}"><i class="glyphicon glyphicon-home"></i> 个人中心</a></li>
+                            <li><a href="{:U('User/edit', array('id' => is_login()))}"><i class="glyphicon glyphicon-edit"></i> 修改信息</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{:U('Public/logout')}" class="ajax-get"><i class="glyphicon glyphicon-log-out"></i> 退出</a></li>
+                        </ul>
                     </li>
-                </volist>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="{:U('Index/rmdirr')}" class="ajax-get"><i class="icon-trash"></i> 清空缓存</a></li>
-                <li><a target="_blank" href="__ROOT__/"><i class="icon-copy"></i> 打开前台</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="icon-user"></i> {$__USER__.username} <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="{:U('User/edit', array('id' => is_login()))}"><i class="icon-user"></i> 修改昵称</a></li>
-                        <li><a href="{:U('User/edit', array('id' => is_login()))}"><i class="icon-lock"></i> 修改密码</a></li>
-                        <li class="divider"></li>
-                        <li><a href="{:U('Public/logout')}" class="ajax-get"><i class="icon-signout"></i> 退出</a></li>
-                    </ul>
-                </li>
-            </ul>
+                </ul>
+            </div>
         </div>
     </nav>
 
     <div class="wrap">
         <block name="wrap">
             <div class="col-xs-12 col-sm-2 left">
-                <nav class="menu menu-corethink" data-toggle="menu">
-                    <!-- 侧边导航 -->
-                    <ul class="nav nav-primary">
-                        <php>$__SIDEMENU__ = $__ALLMENULIST__[$__CURRENT_ROOTMENU__]['_child'];</php>
-                        <volist name="__SIDEMENU__" id="vo">
-                            <li class="show">
-                                <a href="#"><i class="icon-folder-open-alt"></i> {$vo.title}</a>
-                                <ul class="nav">
+                <!-- 侧边导航 -->
+                <div class="panel-group margin-none" role="tablist">
+                    <php>$__SIDEMENU__ = $__ALLMENULIST__[$__CURRENT_ROOTMENU__]['_child'];</php>
+                    <volist name="__SIDEMENU__" id="vo">
+                        <div class="panel panel-default margin-none border-radius-none border-bottom-none">
+                            <div class="panel-heading" role="tab">
+                                <h4 class="panel-title"><a data-toggle="collapse" href="#side-menu{$key}"><i class="{$vo.icon}"></i> {$vo.title}</a></h4>
+                            </div>
+                            <div id="side-menu{$key}" class="panel-collapse collapse in" role="tabpanel">
+                                <div class="list-group">
                                     <volist name="vo._child" id="vo_child">
-                                        <li <php>if(in_array($vo_child['id'], $__PARENT_MENU_ID__)) echo 'class="active"';</php> >
-                                            <a href="{:U($vo_child['url'])}"><i class="{$vo_child.icon}"></i> {$vo_child.title}</a>
-                                        </li>
+                                        <a class="list-group-item border-radius-none <php>if(in_array($vo_child['id'], $__PARENT_MENU_ID__)) echo 'active';</php>"
+                                        href="{:U($vo_child['url'])}"><i class="{$vo_child.icon}"></i> {$vo_child.title}</a>
                                     </volist>
-                                </ul>
-                            </li>
-                        </volist>
-                    </ul>
-                </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </volist>
+                </div>
             </div>
             <div class="col-xs-12 col-sm-10 right">
-                <div class="title">
-                    <ul class="breadcrumb">
-                        <li><i class="icon-location-arrow"></i></li>
-                        <volist name="__PARENT_MENU__" id="vo">
-                            <li><a href="{:U($vo['url'])}">{$vo.title}</a></li>
-                        </volist>
-                    </ul>
-                </div>
+                <ul class="breadcrumb margin-bottom border-radius-none" style="margin-left:-15px;margin-right:-15px;">
+                    <li><i class="icon-location-arrow"></i></li>
+                    <volist name="__PARENT_MENU__" id="vo">
+                        <li><a href="{:U($vo['url'])}">{$vo.title}</a></li>
+                    </volist>
+                </ul>
                 <block name="body">这是内容</block>
             </div>
         </block>

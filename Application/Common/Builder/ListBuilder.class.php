@@ -52,7 +52,7 @@ class ListBuilder extends Controller{
         if(!$url){
             $url = CONTROLLER_NAME.'/add';
         }
-        $attr['class'] = 'btn';
+        $attr['class'] = 'btn btn-primary';
         $attr['href'] =  U($url);
         $this->addButton('新 增', $attr);
         return $this;
@@ -60,7 +60,7 @@ class ListBuilder extends Controller{
 
     //加一个启用按钮
     public function addResumeButton($model = CONTROLLER_NAME){
-        $attr['class'] = 'btn ajax-post confirm';
+        $attr['class'] = 'btn btn-success ajax-post confirm';
         $attr['href'] = U(CONTROLLER_NAME.'/setStatus', array('status' => 'resume', 'model' =>$model));
         $attr['target-form'] = 'ids';
         $this->addButton('启 用', $attr);
@@ -69,7 +69,7 @@ class ListBuilder extends Controller{
 
     //加一个禁用按钮
     public function addForbidButton($model = CONTROLLER_NAME){
-        $attr['class'] = 'btn ajax-post confirm';
+        $attr['class'] = 'btn btn-warning ajax-post confirm';
         $attr['href'] = U(CONTROLLER_NAME.'/setStatus', array('status' => 'forbid', 'model' =>$model));
         $attr['target-form'] = 'ids';
         $this->addButton('禁 用', $attr);
@@ -78,7 +78,7 @@ class ListBuilder extends Controller{
 
     //加一个删除按钮
     public function addDeleteButton($model = CONTROLLER_NAME){
-        $attr['class'] = 'btn ajax-post confirm';
+        $attr['class'] = 'btn btn-danger ajax-post confirm';
         $attr['href'] = U(CONTROLLER_NAME.'/setStatus', array('status' => 'delete', 'model' =>$model));
         $attr['target-form'] = 'ids';
         $this->addButton('删 除', $attr);
@@ -87,7 +87,7 @@ class ListBuilder extends Controller{
 
     //加一个回收按钮
     public function addRecycleButton($model = CONTROLLER_NAME){
-        $attr['class'] = 'btn ajax-post confirm';
+        $attr['class'] = 'btn btn-danger ajax-post confirm';
         $attr['href'] = U(CONTROLLER_NAME.'/setStatus', array('status' => 'recycle', 'model' =>$model));
         $attr['target-form'] = 'ids';
         $this->addButton('回 收', $attr);
@@ -96,7 +96,7 @@ class ListBuilder extends Controller{
 
     //加一个还原按钮
     public function addRestoreButton($model = CONTROLLER_NAME){
-        $attr['class'] = 'btn ajax-post confirm';
+        $attr['class'] = 'btn btn-success ajax-post confirm';
         $attr['href'] = U(CONTROLLER_NAME.'/setStatus', array('status' => 'restore', 'model' =>$model));
         $attr['target-form'] = 'ids';
         $this->addButton('还 原', $attr);
@@ -259,13 +259,13 @@ class ListBuilder extends Controller{
                     case 'status':
                         switch($data[$field['name']]){
                             case '-1':
-                                $data[$field['name']] = '<i class="icon-trash" style="color:red"></i>';
+                                $data[$field['name']] = '<i class="glyphicon glyphicon-trash" style="color:red"></i>';
                                 break;
                             case '0':
-                                $data[$field['name']] = '<i class="icon-ban-circle" style="color:red"></i>';
+                                $data[$field['name']] = '<i class="glyphicon glyphicon-ban-circle" style="color:red"></i>';
                                 break;
                             case '1':
-                                $data[$field['name']] = '<i class="icon-ok" style="color:green"></i>';
+                                $data[$field['name']] = '<i class="glyphicon glyphicon-ok" style="color:green"></i>';
                                 break;
                         }
                         break;

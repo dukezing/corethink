@@ -1,19 +1,17 @@
 <extend name="Public/layout"/>
 
-<block name="header">
-    <div class="header">
-        <div class="container">
-            <ul class="breadcrumb">
-                <li><i class="icon-location-arrow"></i></li>
-                <li><a href="__ROOT__/">首页</a></li>
-                <li><a href="{:U('User/login')}">用户登录</a></li>
-            </ul>
-         </div>
+<block name="breadcrumb">
+    <div class="container">
+        <ul class="breadcrumb">
+            <li><i class="icon-location-arrow"></i></li>
+            <li><a href="__ROOT__/">首页</a></li>
+            <li><a href="{:U('')}">用户登录</a></li>
+        </ul>
     </div>
 </block>
 
 <block name="body">
-    <section class="container main">
+    <div class="container main">
         <div class="row">
             <div class="col-xs-12 col-md-5">
                 <div class="login">
@@ -35,12 +33,12 @@
                                 <a href="{:U('User/register')}">立刻注册</a> 
                                 <a href="{:U('User/resetPassword')}">忘记密码</a>
                             </label>
-                            <button type="submit" class="btn btn-block ajax-post submit" target-form="login-form" data-loading-text="正在登录...">登 录</button>
+                            <button type="submit" class="btn btn-primary btn-block ajax-post submit" target-form="login-form" data-loading-text="正在登录...">登 录</button>
                         </div>
                     </form>
                     {:hook('SyncLogin')} <!-- 第三方登陆钩子 -->
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 </block>

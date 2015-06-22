@@ -9,56 +9,56 @@
     $doc_type_list = D('DocumentType')->where($map)->order('id asc')->select();
 ?>
 
-<div class="panel">
+<div class="panel panel-default">
     <div class="panel-heading text-center">
-        <img class="img-circle" src="{$userinfo.avatar|get_cover='avatar'}"  style="width:120px;">
+        <h3 class="panel-title"><img class="img-circle" src="{$userinfo.avatar|get_cover='avatar'}"  style="width:120px;height:120px;"></h3>
     </div>
     <div class="panel-body">
-        <div class="data-table">
-            <table class="table table-hover">
-                <tbody>
-                        <tr>
-                            <td>关注：0</td>
-                            <td>粉丝：0</td>
-                        </tr>
-                        <tr>
-                            <td>积分：{$userinfo.score}</td>
-                            <td>余额：¥{$userinfo.money}</td>
-                        </tr>
-                </tbody>
-            </table>
-        </div>
+        <table class="table margin-none">
+            <tbody>
+                <tr>
+                    <td class="border-none">关注：0</td>
+                    <td class="border-none">粉丝：0</td>
+                </tr>
+                <tr>
+                    <td class="border-none">积分：{$userinfo.score}</td>
+                    <td class="border-none">余额：¥{$userinfo.money}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 <nav class="menu menu-corethink" data-toggle="menu">
     <!-- 侧边导航 -->
-    <ul class="nav nav-primary">
-        <li class="show">
-            <a href="#"><i class="icon-folder-open-alt"></i> 个人</a>
-            <ul class="nav">
-                <li><a href="{:U('User/index')}" target="_blank"><i class="icon icon-home"></i> 个人主页</a></li>
-                <li><a href="{:U('User/profile')}"><i class="icon icon-edit"></i> 修改信息</a></li>
-                <li><a href="{:U('UserMessage/index')}"><i class="icon icon-chat-dot"></i> 消息中心</a></li>
-                <li><a href="{:U('User/safe')}"><i class="icon icon-lock"></i> 账号安全</a></li>
-                <li><a href="{:U('User/smrz')}"><i class="icon icon-user"></i> 实名认证</a></li>
-            </ul>
-        </li>
-        <li class="show">
-            <a href="#"><i class="icon-folder-open-alt"></i> 内容中心</a>
-            <ul class="nav">
-                <volist name="doc_type_list" id="doc_type">
-                    <li><a href="{:U('Document/mydoc/doc_type/'.$doc_type['id'])}"><i class="icon icon-list"></i> 我的{$doc_type.title}</a></li>
-                </volist>
-                <volist name="doc_type_list" id="doc_type">
-                    <li><a href="{:U('Document/add/doc_type/'.$doc_type['id'])}"><i class="icon {$doc_type.icon}"></i> 添加{$doc_type.title}</a></li>
-                </volist>
-            </ul>
-        </li>
-        <li class="show">
-            <a href="#"><i class="icon-folder-open-alt"></i> 订单中心</a>
-            <ul class="nav">
-                <li><a href="{:U('UserAddress/index')}"><i class="icon icon-globe"></i> 收获地址</a></li>
-            </ul>
-        </li>
-    </ul>
+    <div class="panel-group" role="tablist">
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab">
+                <h4 class="panel-title"><a class="" data-toggle="collapse" href="#list1">个人</a></h4>
+            </div>
+            <div id="list1" class="panel-collapse collapse in" role="tabpanel">
+                <div class="list-group">
+                    <a class="list-group-item"href="{:U('User/index')}" target="_blank"><i class="icon icon-home"></i> 个人主页</a>
+                    <a class="list-group-item" href="{:U('User/profile')}"><i class="icon icon-edit"></i> 修改信息</a>
+                    <a class="list-group-item" href="{:U('UserMessage/index')}"><i class="icon icon-chat-dot"></i> 消息中心</a>
+                    <a class="list-group-item" href="{:U('User/safe')}"><i class="icon icon-lock"></i> 账号安全</a>
+                    <a class="list-group-item" href="{:U('User/smrz')}"><i class="icon icon-user"></i> 实名认证</a>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading" role="tab">
+                <h4 class="panel-title"><a class="" data-toggle="collapse" href="#list2">内容中心</a></h4>
+            </div>
+            <div id="list2" class="panel-collapse collapse in" role="tabpanel">
+                <div class="list-group">
+                    <volist name="doc_type_list" id="doc_type">
+                        <a class="list-group-item" href="{:U('Document/mydoc/doc_type/'.$doc_type['id'])}"><i class="icon icon-list"></i> 我的{$doc_type.title}</a>
+                    </volist>
+                    <volist name="doc_type_list" id="doc_type">
+                        <a class="list-group-item" href="{:U('Document/add/doc_type/'.$doc_type['id'])}"><i class="icon {$doc_type.icon}"></i> 添加{$doc_type.title}</a>
+                    </volist>
+                </div>
+            </div>
+        </div>
+    </div>
 </nav>

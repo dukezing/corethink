@@ -249,7 +249,8 @@ class DocumentController extends HomeController{
      */
     public function detail($id){
         $info = D('Document')->detail($id);
-        $category = D('Document')->find($info['cid']);
+        $result = D('Document')->where(array('id' => $id))->SetInc('view'); //阅读量加1
+        $category = D('Category')->find($info['cid']);
         $this->assign('info', $info);
         $this->assign('__CURRENT_CATEGORY__', $category['id']);
         $this->meta_title = $info['title'];

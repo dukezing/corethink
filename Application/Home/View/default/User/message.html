@@ -1,19 +1,17 @@
 <extend name="Public/layout"/>
 
-<block name="header">
-    <div class="header">
-        <div class="container">
-            <ul class="breadcrumb">
-                <li><i class="icon-location-arrow"></i></li>
-                <li><a href="__ROOT__/">首页</a></li>
-                <li><a href="{:U('UserMessage/index')}">消息中心</a></li>
-            </ul>
-         </div>
+<block name="breadcrumb">
+    <div class="container">
+        <ul class="breadcrumb ">
+            <li><i class="icon-location-arrow"></i></li>
+            <li><a href="__ROOT__/">首页</a></li>
+            <li><a href="{:U('')}">消息中心</a></li>
+        </ul>
     </div>
 </block>
 
 <block name="body">
-    <section class="container main">
+    <div class="container main">
         <div class="row">
             <div class="col-xs-12 col-md-3">
                 <include file="User/side" /><!-- 包含用户中心侧边导航 -->
@@ -48,5 +46,5 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 </block>

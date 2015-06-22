@@ -13,13 +13,12 @@
         defined('SAE_MYSQL_HOST_M') or define('SAE_MYSQL_HOST_M', '127.0.0.1');
         defined('SAE_MYSQL_HOST_M') or define('SAE_MYSQL_PORT', '3306');
     ?>
-    <div class="article">
-        <header>
-            <h1 class="text-center">参数设置</h1>
-            <section class="abstract">版权所有 (c) 2014－<php>echo date("Y",time());</php>{:C('INSTALL_COMPANY_NAME')}保留所有权利。</section>
-        </header>
-        <section>
-            <form class="form container" action="__SELF__" method="post" target="_self">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span>参数设置</span>
+        </div>
+        <div class="panel-body">
+            <form class="form" action="__SELF__" method="post" target="_self">
                 <div class="row">
                     <div class="col-xs-12 col-sm-6">
                         <h2>数据库连接信息</h2>
@@ -103,10 +102,11 @@
                     </div>
                 </div>
             </form>
-        </section>
-        <div>
             <input type="submit" class="btn btn-primary btn-block ajax-post" target-form="form" value="下一步">
-            <a class="btn btn btn-block" href="{:U('Install/step1')}">上一步</a>
+            <a class="btn btn btn-default btn-block" href="{:U('Install/step1')}">上一步</a>
         </div>
-    </div>    
+        <div class="panel-footer">
+            <span>版权所有 (c) 2014－<php>echo date("Y",time());</php>{:C('INSTALL_COMPANY_NAME')} 保留所有权利。</span>
+        </div>
+    </div> 
 </block>

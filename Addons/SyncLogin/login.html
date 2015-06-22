@@ -3,28 +3,28 @@
         <label class="item-label">第三方账号快速登录<span class="check-tips"></span></label>
         <php>if(in_array('Weixin',$config['type'])):</php>
             <div class="form-group">
-                <a class="btn btn-block" style="color:#44b549" href="<php>echo addons_url('SyncLogin://Login/login', array('type'=>'weixin'));</php>">
+                <a class="btn btn-default btn-block" style="color:#44b549" href="<php>echo addons_url('SyncLogin://Login/login', array('type'=>'weixin'));</php>">
                     <i class="fa fa-weixin"></i> 用微信账号登录
                 </a>
             </div>
         <php>endif;</php>
         <php>if(in_array('Qq',$config['type'])):</php>
             <div class="form-group">
-                <a class="btn btn-block" style="color:#12b7f5" href="<php>echo addons_url('SyncLogin://Login/login', array('type'=>'qq'));</php>">
+                <a class="btn btn-default btn-block" style="color:#12b7f5" href="<php>echo addons_url('SyncLogin://Login/login', array('type'=>'qq'));</php>">
                     <i class="fa fa-qq"></i> 用QQ账号登录
                 </a>
             </div>
         <php>endif;</php>
         <php>if(in_array('Sina',$config['type'])):</php>
             <div class="form-group">
-                <a class="btn btn-block" style="color:#F30002" href="<php>echo addons_url('SyncLogin://Login/login', array('type'=>'sina'));</php>">
+                <a class="btn btn-default btn-block" style="color:#F30002" href="<php>echo addons_url('SyncLogin://Login/login', array('type'=>'sina'));</php>">
                     <i class="fa fa-weibo"></i> 用微博账号登录
                 </a>
             </div>
         <php>endif;</php>
         <php>if(in_array('Renren',$config['type'])):</php>
             <div class="form-group">
-                <a class="btn btn-block" style="color:#1965B5" href="<php>echo addons_url('SyncLogin://Login/login', array('type'=>'renren'));</php>">
+                <a class="btn btn-default btn-block" style="color:#1965B5" href="<php>echo addons_url('SyncLogin://Login/login', array('type'=>'renren'));</php>">
                     <i class="fa fa-renren"></i> 用人人账号登录
                 </a>
             </div>

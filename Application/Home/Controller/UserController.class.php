@@ -41,7 +41,7 @@ class UserController extends HomeController{
         if(!$uid){
             $uid  = is_login();
         }
-        $userinfo = D('User')->getUserById($uid);
+        $userinfo = D('User')->find($uid);
         $date = new Date((int)$userinfo['birthday']);
         $userinfo['gz'] = $date->magicInfo('GZ');
         $userinfo['xz'] = $date->magicInfo('XZ');
@@ -85,8 +85,6 @@ class UserController extends HomeController{
             $builder = new \Common\Builder\FormBuilder();
             $builder->title('修改'.$userinfo['username'].'的信息')  //设置页面标题
                     ->setUrl(U('')) //设置表单提交地址
-                    ->addItem('email', 'text', '邮箱', '', null, null,'disabled')
-                    ->addItem('mobile', 'text', '手机号', '', null, null,'disabled')
                     ->addItem('username', 'text', '用户名', '')
                     ->addItem('avatar', 'picture', '头像', '')
                     ->addItem('sex', 'radio', '性别', '', C('USER_SEX_LIST'))
@@ -171,7 +169,7 @@ class UserController extends HomeController{
                 if($id){
                     session('reg_verify', null);
                     $uid = $user_object->login($username, $password);
-                    $this->success('注册成功', U('register2'));
+                    $this->success('注册成功', U('User/profile'));
                 }else{
                     $this->error('注册失败');
                 }
@@ -183,30 +181,6 @@ class UserController extends HomeController{
                 $this->error("您已登陆系统", Cookie('__forward__') ? : C('HOME_PAGE'));
             }
             $this->meta_title = '用户注册';
-            $this->display();
-        }
-    }
-
-    /**
-     * 修改用户信息
-     * @author jry <598821125@qq.com>
-     */
-    public function register2(){
-        if(IS_POST){
-            $user_object = D('User');
-            $_POST['id'] = is_login();
-            $result = $user_object->update($_POST);
-            if($result){
-                $user_info = $user_object->getUserById($_POST['id']);
-                $user_object->autoLogin($user_info);
-                $this->success('更新成功', C('HOME_PAGE'));
-            }else{
-                $this->error($user_object->getError());
-            }
-        }else{
-            $uid = $this->is_login();
-            $this->assign('userinfo', D('User')->getUserById($uid));
-            $this->meta_title = '完善信息';
             $this->display();
         }
     }

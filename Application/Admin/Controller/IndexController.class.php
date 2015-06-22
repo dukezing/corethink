@@ -19,7 +19,7 @@ class IndexController extends AdminController{
      */
     public function index(){
         $today = strtotime(date('Y-m-d', time())); //今天
-        $start_date = I('get.start_date') ? I('get.start_date')/1000 : $today-10*86400;
+        $start_date = I('get.start_date') ? I('get.start_date')/1000 : $today-14*86400;
         $end_date   = I('get.end_date') ? (I('get.end_date')+1)/1000 : $today+86400;
         $count_day  = ($end_date-$start_date)/86400; //查询最近n天
         $user_object = D('User');

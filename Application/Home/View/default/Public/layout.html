@@ -12,35 +12,27 @@
     <meta name="format-detection" content="telephone=no,email=no">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <block name="title"><title>{$meta_title}｜{:C('WEB_SITE_TITLE')}－{:C('WEB_SITE_SLOGAN')}</title></block>
+    <link rel="shortcut icon" type="image/x-icon" href="__ROOT__/favicon.ico">
     <link rel="apple-touch-icon" type="image/x-icon" href="__ROOT__/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="__PUBLIC__/zui/css/zui.min.css">
-    <link rel="stylesheet" type="text/css" href="__PUBLIC__/fontawesome/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="__CSS__/base.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/bootstrapextend/css/bootstrap.extend.css">
     <block name="style"></block>
     <script type="text/javascript" src="__PUBLIC__/jquery/jquery-1.11.1.min.js" charset="utf-8"></script>
-    <script type="text/javascript" src="__PUBLIC__/jquery/jquery.lazyload.min.js" charset="utf-8"></script>
-    <!--[if lt IE 9]>
-        <script type="text/javascript" src=""__PUBLIC__/ieonly/html5shiv.js" charset="utf-8"></script>
-        <script type="text/javascript" src=""__PUBLIC__/ieonly/respond.js" charset="utf-8"></script>
-        <script type="text/javascript" src=""__PUBLIC__/ieonly/excanvas.js" charset="utf-8"></script>
-    <![endif]-->
-    <script type="text/javascript" src="__PUBLIC__/zui/js/zui.min.js" charset="utf-8"></script>
-    <script type="text/javascript" src="__PUBLIC__/jquery/jquery.bootstrap.autohidingnavbar.js"></script>
-    <script type="text/javascript" src="__PUBLIC__/corethink/js/base.js" charset="utf-8"></script>
+    <script type="text/javascript" src="__PUBLIC__/bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="__PUBLIC__/bootstrapextend/js/bootstrap.extend.js" charset="utf-8"></script>
     <script type="text/javascript">
         $(function(){
-            $(".top_nav").autoHidingNavbar(); //自动隐藏顶部导航
-            $('.lazy img').lazyload({effect: 'fadeIn'}); //图片lazyload
-            $(window).resize(function(){$('body .main').css("min-height", $(window).height()-178);}).resize(); //调整内容高度
+            $(window).resize(function(){$('body .main').css("min-height", $(window).height()-362);}).resize(); //调整内容高度
         });
     </script>
     <block name="script"></block>
 </head>
-<body>
+<body style="padding-top: 50px;">
     <block name="wrap">
         {:hook('PageHeader')} <!-- 文档开始钩子 -->
-        <block name="topnav">
-            <nav class="navbar navbar-default navbar-fixed-top navbar-corethink top_nav" role="navigation">
+
+        <block name="top-nav">
+            <nav class="navbar navbar-inverse navbar-fixed-top navbar-auto-hiding" role="navigation">
                 <div class="container">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-main">
@@ -50,7 +42,7 @@
                             <span class="icon-bar"></span>
                         </button>
                         <php>if(C('WEB_SITE_LOGO')):</php>
-                            <a class="navbar-brand" href="__ROOT__/"><img class="logo" src="{$Think.config.WEB_SITE_LOGO|get_cover='path'}"></a>
+                            <a class="navbar-brand" href="__ROOT__/"><img alt="Brand" class="brand" src="{$Think.config.WEB_SITE_LOGO|get_cover='path'}"></a>
                         <php>else:</php>
                             <a class="navbar-brand" href="__ROOT__/">{:C('WEB_SITE_TITLE')}</a>
                         <php>endif;</php>
@@ -58,9 +50,9 @@
                     <div class="collapse navbar-collapse navbar-collapse-main">
                         <ul class="nav navbar-nav">
                             <li><a href="__ROOT__/">首页</a></li>
-                            <corethink:category_list name="_category">
-                                <li <if condition='$_category.id eq $__CURRENT_CATEGORY__'> class="active"</if> >
-                                    <a href="{:U('Document/index', array('cid' => $_category['id']))}">{$_category.title}</a>
+                            <corethink:category_list name="vo">
+                                <li <if condition='$vo.id eq $__CURRENT_CATEGORY__'> class="active"</if> >
+                                    <a href="{:U('Document/index', array('cid' => $vo['id']))}">{$vo.title}</a>
                                 </li>
                             </corethink:category_list>
                         </ul>
@@ -68,16 +60,16 @@
                             <present name="__USER__">
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        <i class="icon-user"></i> {$__USER__.username}
+                                        <i class="fa fa-user"></i> {$__USER__.username}
                                         <span class="caret"></span>
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="{:U('User/index')}"><i class="icon icon-home"></i> 个人主页</a></li>
-                                        <li><a href="{:U('User/center')}"><i class="icon icon-cog"></i> 个人中心</a></li>
-                                        <li><a href="{:U('UserMessage/index')}"><i class="icon icon-chat-dot"></i> 消息中心</a></li>
-                                        <li><a href="{:U('Addon/index')}"><i class="icon icon-wechat"></i> 微＋平台</a></li>
+                                        <li><a href="{:U('User/index')}"><i class="fa fa-home"></i> 个人主页</a></li>
+                                        <li><a href="{:U('User/center')}"><i class="fa fa-tachometer"></i> 个人中心</a></li>
+                                        <li><a href="{:U('UserMessage/index')}"><i class="fa fa-envelope"></i> 消息中心</a></li>
+                                        <li><a href="{:U('Addon/index')}"><i class="fa fa-weixin"></i> 微＋平台</a></li>
                                         <li class="divider hidden-xs"></li>
-                                        <li><a href="{:U('User/logout')}" class="ajax-get"><i class="icon icon-signout"></i> 退出登录</a></li>
+                                        <li><a href="{:U('User/logout')}" class="ajax-get"><i class="fa fa-sign-out"></i> 退出登录</a></li>
                                     </ul>
                                 </li>
                             <else />
@@ -90,33 +82,39 @@
             </nav>
         </block>
 
-        <block name="header">
-            <div class="header">
+        <block name="jumbotron">
+            <div class="jumbotron jumbotron-primary margin-bottom">
                 <div class="container">
-                    <ul class="breadcrumb">
-                        <li><i class="icon-location-arrow"></i></li>
-                        <li><a href="__ROOT__/">首页</a></li>
-                        <corethink:breadcrumb name="_breadcrumb" cid="$__CURRENT_CATEGORY__" group="$__CURRENT_CATEGORY_GROUP__">
-                            <li><a href="{:U('Document/index', array('cid' => $_breadcrumb['id']))}">{$_breadcrumb.title}</a></li>
-                        </corethink:breadcrumb>
-                    </ul>
-                 </div>
+                    <h2>{:C('WEB_SITE_TITLE')}</h2>
+                    <p>{:C('WEB_SITE_SLOGAN')}</p>
+                </div>
             </div>
         </block>
+
+        <block name="breadcrumb">
+            <div class="container">
+                <ul class="breadcrumb">
+                    <li><a href="__ROOT__/">首页</a></li>
+                    <corethink:breadcrumb name="_breadcrumb" cid="$__CURRENT_CATEGORY__" group="$__CURRENT_CATEGORY_GROUP__">
+                        <li><a href="{:U('Document/index', array('cid' => $_breadcrumb['id']))}">{$_breadcrumb.title}</a></li>
+                    </corethink:breadcrumb>
+                </ul>
+            </div>
+        </block>
+
         <block name="body">这里是内容</block>
 
         <block name="footer">
             <footer class="footer">
                 <div class="container">
-                    <div class="copyright">
-                        <div>{:C('WEB_SITE_COPYRIGHT')}</div>
-                        <div>服务咨询请拨打：150-0517-3785</div>
+                    <div class="copyright text-center border-top padding-top">
+                        <p>{:C('WEB_SITE_COPYRIGHT')} {:C('WEB_SITE_ICP')}</p>
                     </div>
                 </div>
             </footer>
         </block>
 
-        <block name="bottomnav">
+        <block name="bottomn-nav">
             <nav class="bottom_nav navbar-fixed-bottom">
                 <a class="item" href="__ROOT__/"><img src="__IMG__/tab1.png">首页</a>
                 <a class="item" href="{:U('User/index')}"><img src="__IMG__/tab2.png">余额</a>
@@ -134,35 +132,39 @@
         </block>
 
         <!-- 登录弹窗 -->
-        <div class="modal fade" id="login-modal">
+        <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
-                    <h4 class="modal-title">用户登录</h4>
-                </div>
-                <div class="modal-content" style="padding: 10px;">
-                    <form class="form login-modal" action="{:U('User/login')}" method="post">
-                        <div class="form-group">
-                            <label class="item-label">账号<span class="check-tips"></span></label>
-                            <div class="control">
-                                <input type="text" class="form-control" placeholder="请输入邮箱/手机号/用户名" name="username">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="item-label">密码<span class="check-tips"></span></label>
-                            <div class="control">
-                                <input type="password" class="form-control" placeholder="请输入密码" name="password">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="item-label">
-                                <a href="{:U('User/register')}">立刻注册</a> 
-                                <a href="{:U('User/resetPassword')}">忘记密码</a>
-                            </label>
-                            <button type="submit" class="btn btn-block ajax-post submit" target-form="login-modal" data-loading-text="正在登录...">登 录</button>
-                        </div>
-                    </form>
-                    {:hook('SyncLogin')} <!-- 第三方登陆钩子 -->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">用户登录</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form login-modal" action="{:U('User/login')}" method="post">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="item-label">账号<span class="check-tips"></span></label>
+                                    <div class="control">
+                                        <input type="text" class="form-control" placeholder="请输入邮箱/手机号/用户名" name="username">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="item-label">密码<span class="check-tips"></span></label>
+                                    <div class="control">
+                                        <input type="password" class="form-control" placeholder="请输入密码" name="password">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="item-label">
+                                        <a href="{:U('User/register')}">立刻注册</a> 
+                                        <a href="{:U('User/resetPassword')}">忘记密码</a>
+                                    </label>
+                                    <button type="submit" class="btn btn-primary btn-block ajax-post submit" target-form="login-modal" data-loading-text="正在登录...">登 录</button>
+                                </div>
+                            </fieldset>
+                        </form>
+                        {:hook('SyncLogin')} <!-- 第三方登陆钩子 -->
+                    </div>
                 </div>
             </div>
         </div>

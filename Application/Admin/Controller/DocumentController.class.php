@@ -33,11 +33,11 @@ class DocumentController extends AdminController{
         $page = new \Common\Util\Page(D('Document')->where($map)->count(), C('ADMIN_PAGE_ROWS'));
 
         //新增按钮属性
-        $add_attr['class'] = 'btn';
+        $add_attr['class'] = 'btn btn-primary';
         $add_attr['href'] = U('add', array('cid' => $cid));
 
         //移动按钮属性
-        $move_attr['class'] = 'btn';
+        $move_attr['class'] = 'btn btn-info';
         $move_attr['onclick'] = 'move()';
 
         //使用Builder快速建立列表页面。

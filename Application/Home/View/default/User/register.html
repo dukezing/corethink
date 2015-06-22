@@ -1,19 +1,17 @@
 <extend name="Public/layout"/>
 
-<block name="header">
-    <div class="header">
-        <div class="container">
-            <ul class="breadcrumb">
-                <li><i class="icon-location-arrow"></i></li>
-                <li><a href="__ROOT__/">首页</a></li>
-                <li><a href="{:U('User/register')}">用户注册</a></li>
-            </ul>
-         </div>
+<block name="breadcrumb">
+    <div class="container">
+        <ul class="breadcrumb">
+            <li><i class="icon-location-arrow"></i></li>
+            <li><a href="__ROOT__/">首页</a></li>
+            <li><a href="{:U('')}">用户注册</a></li>
+        </ul>
     </div>
 </block>
 
 <block name="body">
-    <section class="container main">
+    <div class="container main">
         <div class="row">
             <div class="col-xs-12 col-md-5">
                 <div class="login">
@@ -24,62 +22,68 @@
                     <div class="tab-content">
                         <div id="reg1" class='tab-pane active'>
                             <form action="__SELF__" method="post" class="form reg-form-email">
-                                <div class="form-group">
-                                    <label class="item-label">邮箱<span class="check-tips"></span></label>
-                                    <div class="control">
-                                        <input type="text" class="form-control" name="email" placeholder="请输入邮箱">
+                                <fieldset>
+                                    <div class="blank"></div>
+                                    <div class="form-group">
+                                        <label class="item-label">邮箱<span class="check-tips"></span></label>
+                                        <div class="control">
+                                            <input type="text" class="form-control" name="email" placeholder="请输入邮箱">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="item-label">验证码<span class="check-tips"></span></label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" name="verify" placeholder="请输入验证码">
-                                        <span class="input-group-btn">
-                                            <button type="button" class="btn send-mail-verify">发送邮件验证码</button>
-                                        </span>
+                                    <div class="form-group">
+                                        <label class="item-label">验证码<span class="check-tips"></span></label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="verify" placeholder="请输入验证码">
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default send-mail-verify">发送邮件验证码</button>
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="item-label">密码<span class="check-tips"></span></label>
-                                    <div class="control">
-                                        <input type="text" class="form-control" name="password" placeholder="请输入密码">
+                                    <div class="form-group">
+                                        <label class="item-label">密码<span class="check-tips"></span></label>
+                                        <div class="control">
+                                            <input type="text" class="form-control" name="password" placeholder="请输入密码">
+                                        </div>
                                     </div>
-                                </div>
-                                <label class="item-label">点击下一步即表示您同意<a href="#">服务条款</a></label>
-                                <div class="form-group">
-                                    <input type="hidden" name="reg_type" value="1">
-                                    <button class="btn btn-block submit ajax-post" type="submit" target-form="reg-form-email">下 一 步</button>
-                                </div>
+                                    <label class="item-label">点击下一步即表示您同意<a href="#">服务条款</a></label>
+                                    <div class="form-group">
+                                        <input type="hidden" name="reg_type" value="1">
+                                        <button class="btn btn-primary btn-block submit ajax-post" type="submit" target-form="reg-form-email">下 一 步</button>
+                                    </div>
+                                </fieldset>
                             </form>
                         </div>
                         <div id="reg2" class='tab-pane'>
                             <form action="__SELF__" method="post" class="form reg-form-mobile">
-                                <div class="form-group">
-                                    <label class="item-label">手机号<span class="check-tips"></span></label>
-                                    <div class="control">
-                                        <input type="text" class="form-control" name="mobile" placeholder="请输入手机号">
+                                <fieldset>
+                                    <div class="blank"></div>
+                                    <div class="form-group">
+                                        <label class="item-label">手机号<span class="check-tips"></span></label>
+                                        <div class="control">
+                                            <input type="text" class="form-control" name="mobile" placeholder="请输入手机号">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="item-label">验证码<span class="check-tips"></span></label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" name="verify" placeholder="请输入验证码">
-                                        <span class="input-group-btn">
-                                            <button type="button" class="btn send-mobile-verify">发送短信验证码</button>
-                                        </span>
+                                    <div class="form-group">
+                                        <label class="item-label">验证码<span class="check-tips"></span></label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="verify" placeholder="请输入验证码">
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default send-mobile-verify">发送短信验证码</button>
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="item-label">密码<span class="check-tips"></span></label>
-                                    <div class="control">
-                                        <input type="text" class="form-control" name="password" placeholder="请输入密码">
+                                    <div class="form-group">
+                                        <label class="item-label">密码<span class="check-tips"></span></label>
+                                        <div class="control">
+                                            <input type="text" class="form-control" name="password" placeholder="请输入密码">
+                                        </div>
                                     </div>
-                                </div>
-                                <label class="item-label">点击下一步即表示您同意<a href="#">服务条款</a></label>
-                                <div class="form-group">
-                                    <input type="hidden" name="reg_type" value="2">
-                                    <button class="btn btn-block submit ajax-post" type="submit" target-form="reg-form-mobile">下 一 步</button>
-                                </div>
+                                    <label class="item-label">点击下一步即表示您同意<a href="#">服务条款</a></label>
+                                    <div class="form-group">
+                                        <input type="hidden" name="reg_type" value="2">
+                                        <button class="btn btn-primary btn-block submit ajax-post" type="submit" target-form="reg-form-mobile">下 一 步</button>
+                                    </div>
+                                </fieldset>
                             </form>
                         </div>
                     </div>
@@ -87,7 +91,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 </block>
 
 <block name="script">

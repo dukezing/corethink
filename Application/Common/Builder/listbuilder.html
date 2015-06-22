@@ -1,118 +1,133 @@
-<style type="text/css">
-    .builder .toolbar>div>.btn{
-        margin-right: 5px;
-    }
-    .builder .toolbar .btn,
-    .builder .toolbar .nav-pills{
-        margin-bottom: 10px;
-    }
-    .builder .toolbar .tab{
-        margin:0px 10px;
-    }
-</style>
-
 <div class="builder {$builder_class}">
-    <div class="row toolbar">
+    <div class="row">
         <notempty name="button_list">
-            <div class="col-xs-12 col-sm-9">
+            <div class="col-xs-12 col-sm-9 margin-bottom">
                 <volist name="button_list" id="button">
-                    <a {$button.attr}>{$button.title|htmlspecialchars}</a>
+                    <a style="margin-right:5px;" {$button.attr}>{$button.title}</a>
                 </volist>
             </div>
         </notempty>
         <notempty name="search">
-            <div class="col-xs-12 col-sm-3">
+            <div class="col-xs-12 col-sm-3 margin-bottom">
                 <div class="input-group search-form">
                     <input type="text" name="keyword" class="search-input form-control" value="{$_GET.keyword}" placeholder="{$search.title}">
-                    <span class="input-group-btn"><a class="btn btn-default" href="javascript:;" id="search" url="{$search.url}"><i class="icon-search"></i></a></span>
+                    <span class="input-group-btn"><a class="btn btn-default" href="javascript:;" id="search" url="{$search.url}"><i class="glyphicon glyphicon-search"></i></a></span>
                 </div>
             </div>
         </notempty>
         <notempty name="tab_list">
-            <div class="tab">
-                <ul class="nav nav-pills">
+            <div class="col-xs-12">
+                <ul class="nav nav-tabs">
                     <volist name="tab_list" id="tab">
                         <li class="<php>if($current_tab == $key) echo 'active';</php>"><a href="{:U($tab_url, array('tab' => $key))}">{$tab}</a></li>
                     </volist>
                 </ul>
+                <div class="blank"></div>
             </div>
         </notempty>
-        <!-- 额外参数 -->
-        <switch name="extra">
-            <case value="move"><!-- 设置移动（文档模型专用） -->
-                <div class="modal fade" id="moveModal">
-                    <div class="modal-dialog modal-sm">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
-                                <p class="modal-title">移动至</p>
-                            </div>
-                            <div class="modal-body">
-                                <php>
-                                    $map['status'] = array('eq', 1);
-                                    $category_list = D('Category')->where($map)->select();
-                                    $tree = new \Common\Util\Tree();
-                                    $category_list = $tree->toFormatTree($category_list);
-                                </php>
-                                <form action="{:U('Document/move')}" method="post" class="form">
-                                    <div class="form-group">
-                                        <select name="to_cid" class="form-control">
-                                            <volist name="category_list" id="vo">
-                                                <option value="{$vo.id}">{$vo.title_show}</option>
-                                            </volist>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="hidden" name="ids">
-                                        <input type="hidden" name="from_cid" value="{$_GET.cid}">
-                                        <button class="btn btn-primary btn-block submit ajax-post" type="submit" target-form="form">确 定</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <script type="text/javascript">
-                    function move(){
-                        var ids = '';
-                        $('input[name="ids[]"]:checked').each(function(){
-                           ids += ',' + $(this).val();
-                        });
-                        if(ids != ''){
-                            ids = ids.substr(1);
-                            $('input[name="ids"]').val(ids);
-                            $('.modal-title').html('移动选中的的文章至：');
-                            $('#moveModal').modal('show', 'fit')
-                        }else{
-                            alertMessager('请选择需要移动的文章', 'danger');
-                        }
-                    }
-                </script>
-            </case>
-        </switch>
-        <!-- 额外参数 -->
-    </div>
-    <div class="data-table">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th><input class="check-all" type="checkbox"></th>
-                    <volist name="field_list" id="field">
-                        <th>{$field.title|htmlspecialchars}</th>
-                    </volist>
-                </tr>
-            </thead>
-            <tbody>
-                <volist name="data_list" id="data">
-                    <tr>
-                        <td><input class="ids" type="checkbox" value="{$data['id']}" name="ids[]"></td>
-                        <volist name="field_list" id="field">
-                            <td>{$data[$field['name']]}</td>
+        <!-- 数据列表 -->
+        <div class="col-xs-12">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th><input class="check-all" type="checkbox"></th>
+                            <volist name="field_list" id="field">
+                                <th>{$field.title|htmlspecialchars}</th>
+                            </volist>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <volist name="data_list" id="data">
+                            <tr>
+                                <td><input class="ids" type="checkbox" value="{$data['id']}" name="ids[]"></td>
+                                <volist name="field_list" id="field">
+                                    <td>{$data[$field['name']]}</td>
+                                </volist>
+                            </tr>
                         </volist>
-                    </tr>
-                </volist>
-            </tbody>
-        </table>
-        <ul class="pager pager-loose pager-pills"><notempty name="page">{$page}</notempty></ul>
+                    </tbody>
+                </table>
+                <ul class="pagination"><notempty name="page">{$page}</notempty></ul>
+            </div>
+        </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    //搜索功能
+    $("#search").click(function(){
+        var url = $(this).attr('url');
+        var query  = $('.search-form').find('input').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        if(url.indexOf('?')>0){
+            url += '&' + query;
+        }else{
+            url += '?' + query;
+        }
+        window.location.href = url;
+    });
+
+    //回车搜索
+    $(".search-input").keyup(function(e){
+        if(e.keyCode === 13){
+            $("#search").click();
+            return false;
+        }
+    });
+</script>
+
+<!-- 额外参数 -->
+<switch name="extra">
+    <case value="move"><!-- 设置移动（文档模型专用） -->
+        <div class="modal fade" id="moveModal">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+                        <p class="modal-title">移动至</p>
+                    </div>
+                    <div class="modal-body">
+                        <php>
+                            $map['status'] = array('eq', 1);
+                            $category_list = D('Category')->where($map)->select();
+                            $tree = new \Common\Util\Tree();
+                            $category_list = $tree->toFormatTree($category_list);
+                        </php>
+                        <form action="{:U('Document/move')}" method="post" class="form">
+                            <div class="form-group">
+                                <select name="to_cid" class="form-control">
+                                    <volist name="category_list" id="vo">
+                                        <option value="{$vo.id}">{$vo.title_show}</option>
+                                    </volist>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" name="ids">
+                                <input type="hidden" name="from_cid" value="{$_GET.cid}">
+                                <button class="btn btn-primary btn-block submit ajax-post" type="submit" target-form="form">确 定</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            function move(){
+                var ids = '';
+                $('input[name="ids[]"]:checked').each(function(){
+                   ids += ',' + $(this).val();
+                });
+                if(ids != ''){
+                    ids = ids.substr(1);
+                    $('input[name="ids"]').val(ids);
+                    $('.modal-title').html('移动选中的的文章至：');
+                    $('#moveModal').modal('show', 'fit')
+                }else{
+                    alertMessager('请选择需要移动的文章', 'danger');
+                }
+            }
+        </script>
+    </case>
+</switch>

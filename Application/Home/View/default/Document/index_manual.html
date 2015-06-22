@@ -2,21 +2,21 @@
 
 <block name="script">
     <style type="text/css">
-    .ztree-manual{min-height: 500px;}
-    .manual-left{
-        top: 110px;
-        bottom: 50px;
-        position: absolute;
-        padding-right: 0px;
-        overflow: auto;
-    }
-    .manual-right{
-        top: 110px;
-        right: 0px;
-        bottom: 50px;
-        position: absolute;
-        overflow: auto;
-    }
+        .ztree-manual{min-height: 500px;}
+        .manual-left{
+            top: 110px;
+            bottom: 50px;
+            position: absolute;
+            padding-right: 0px;
+            overflow: auto;
+        }
+        .manual-right{
+            top: 110px;
+            right: 0px;
+            bottom: 50px;
+            position: absolute;
+            overflow: auto;
+        }
     </style>
     <link rel="stylesheet" type="text/css" href="__PUBLIC__/ztree/css/zTreeStyle/zTreeStyle.css">
     <script type="text/javascript" src="__PUBLIC__/ztree/js/jquery.ztree.all-3.5.min.js" charset="utf-8"></script>
@@ -60,6 +60,22 @@
 
         });
     </script>
+</block>
+
+<block name="jumbotron"></block>
+
+<block name="breadcrumb">
+    <div class="container-fluid">
+        <div class="row">
+            <ul class="breadcrumb">
+                <li><i class="icon-location-arrow"></i></li>
+                <li><a href="__ROOT__/">首页</a></li>
+                <corethink:breadcrumb name="_breadcrumb" cid="$__CURRENT_CATEGORY__" group="$__CURRENT_CATEGORY_GROUP__">
+                    <li><a href="{:U('Document/index', array('cid' => $_breadcrumb['id']))}">{$_breadcrumb.title}</a></li>
+                </corethink:breadcrumb>
+            </ul>
+        </div>
+    </div>
 </block>
 
 <block name="body">

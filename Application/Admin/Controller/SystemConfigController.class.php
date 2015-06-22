@@ -40,7 +40,7 @@ class SystemConfigController extends AdminController{
                 ->setSearch('请输入ID/配置名称/配置标题', U('index', array('tab' => $tab)))
                 ->SetTablist(C('CONFIG_GROUP_LIST')) //设置Tab按钮列表
                 ->SetCurrentTab($tab) //设置当前Tab
-                ->addField('id', 'UID', 'text')
+                ->addField('id', 'ID', 'text')
                 ->addField('name', '名称', 'text')
                 ->addField('title', '标题', 'text')
                 ->addField('sort', '排序', 'text')

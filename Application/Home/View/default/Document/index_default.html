@@ -29,25 +29,16 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-3 form">
-                <a href="{:U('Document/add', array('cid' => $__CURRENT_CATEGORY__))}" class="btn btn-block">发表</a>
-                <br>
-                <nav class="menu menu-corethink" data-toggle="menu">
-                    <!-- 侧边导航 -->
-                    <ul class="nav nav-primary">
-                        <corethink:category_list name="side_category">
-                            <li class="show">
-                                <a href="{:U('Document/index', array('cid' => $side_category['id']))}">{$side_category.title}</a>
-                                <ul class="nav">
-                                    <volist name="side_category._child" id="child_category">
-                                        <li <php>if($child_category['id'] == $__CURRENT_CATEGORY__) echo 'class="active"';</php> >
-                                            <a href="{:U('Document/index', array('cid' => $child_category['id']))}">{$child_category.title}</a>
-                                        </li>
-                                    </volist>
-                                </ul>
-                            </li>
-                        </corethink:category_list>
-                    </ul>
-                </nav>
+                <a href="{:U('Document/add', array('cid' => $__CURRENT_CATEGORY__))}" class="btn btn-primary btn-block">发表</a>
+                <div class="blank"></div>
+                <!-- 侧边导航 -->
+                <div class="list-group">
+                    <corethink:category_list name="vo">
+                        <a class="list-group-item <if condition='$vo.id eq $__CURRENT_CATEGORY__'>active</if>" href="{:U('Document/index', array('cid' => $vo['id']))}">
+                            {$vo.title}
+                        </a>
+                    </corethink:category_list>
+                </ul>
             </div>
         </div>
     </section>

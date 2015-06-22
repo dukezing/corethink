@@ -4,66 +4,49 @@
     <section class="container main">
         <div class="row">
             <div class="col-xs-12 col-sm-9">
-                <article class="article box">
-                    <header>
-                        <h1 class="text-center">{$info.title}</h1>
-                        <dl class="dl-inline">
-                            <dt>发布时间：</dt>
-                                <dd>{$info.utime|time_format}</dd>
-                            <dt>作者：</dt>
-                                <dd>{$info.uid|get_user_info="username"}</dd>
-                            <dd class="pull-right">
-                                <span class="label label-success">NEW</span>
-                                <span class="label label-warning">火爆</span>
-                                <span class="label label-info">原创</span>
-                                <span class="label label-danger"><i class="icon-eye-open"></i> {$info.view}</span>
-                            </dd>
-                        </dl>
-                        <notempty name="info.abstract">
-                            <section class="abstract">{$info.abstract}</section>
-                        </notempty>
-                    </header>
-                    <section class="article-content lazy">
-                        {$info.content|parse_content}
-                    </section>
-                    <footer>
-                        <p class="pull-right text-muted">
-                            发布时间：{$info.utime|time_format} &nbsp;点击数：{$info.view}
-                        </p>
-                        <p class="text-important">本文版权所有归<a href="#">@CoreThink</a></p>
-                        <ul class="pager pager-justify pager-pills">{$info.previous}{$info.next}</ul>
-                        <div class="digg text-center">
-                            <a href="{:U('UserDigg/digg/', array('type' => 'good', 'doc_id' => $info['id']))}" class="btn digg-good ajax-digg">
-                                <span class="text"><span class="fa fa-thumbs-o-up"></span> 点赞</span>
-                                <span class="num">{$info.good}</span>
-                            </a>
-                            <a href="{:U('UserDigg/digg/', array('type' => 'mark', 'doc_id' => $info['id']))}" class="btn digg-mark ajax-digg">
-                                <span class="text"><span class="fa fa-star-o"></span> 收藏</span>
-                                <span class="num">{$info.mark}</span>
-                            </a>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{$info.title}</h3>
+                    </div>
+                    <div class="panel-body article">
+                        <div class="article-title">
+                            <h2 class="text-center">{$info.title}</h2>
                         </div>
-                    </footer>
-                </article>
-                <include file="Document:comment" /><!-- 包含评论 -->
+                        <div class="article-info text-center margin-bottom">
+                            发布时间：{$info.utime|time_format}
+                            阅读：{$info.view}
+                        </div>
+                        <div class="article-body lazy margin-bottom">
+                            <notempty name="info.abstract">
+                                <section class="abstract">{$info.abstract}</section>
+                            </notempty>
+                            {$info.content|parse_content}
+                        </div>
+                        <div class="article-footer">
+                            <div class="digg text-center">
+                                <a href="{:U('UserDigg/digg/', array('type' => 'good', 'doc_id' => $info['id']))}" class="btn digg-good ajax-digg">
+                                    <span class="text"><span class="fa fa-thumbs-o-up"></span> 点赞</span>
+                                    <span class="num">{$info.good}</span>
+                                </a>
+                                <a href="{:U('UserDigg/digg/', array('type' => 'mark', 'doc_id' => $info['id']))}" class="btn digg-mark ajax-digg">
+                                    <span class="text"><span class="fa fa-star-o"></span> 收藏</span>
+                                    <span class="num">{$info.mark}</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <include file="Document/comment" /><!-- 包含评论 -->
             </div>
             <div class="col-xs-12 col-sm-3">
-                <nav class="menu menu-corethink" data-toggle="menu">
-                    <!-- 侧边导航 -->
-                    <ul class="nav nav-primary">
-                        <corethink:category_list name="side_category">
-                            <li class="show">
-                                <a href="{:U('Document/index', array('cid' => $side_category['id']))}">{$side_category.title}</a>
-                                <ul class="nav">
-                                    <volist name="side_category._child" id="child_category">
-                                        <li <php>if($child_category['id'] == $__CURRENT_CATEGORY__) echo 'class="active"';</php> >
-                                            <a href="{:U('Document/index', array('cid' => $child_category['id']))}">{$child_category.title}</a>
-                                        </li>
-                                    </volist>
-                                </ul>
-                            </li>
-                        </corethink:category_list>
-                    </ul>
-                </nav>
+                <!-- 侧边导航 -->
+                <div class="list-group">
+                    <corethink:category_list name="vo">
+                        <a class="list-group-item <if condition='$vo.id eq $__CURRENT_CATEGORY__'>active</if>" href="{:U('Document/index', array('cid' => $vo['id']))}">
+                            {$vo.title}
+                        </a>
+                    </corethink:category_list>
+                </ul>
             </div>
         </div>
     </section>

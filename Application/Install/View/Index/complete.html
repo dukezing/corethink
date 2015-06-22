@@ -9,19 +9,19 @@
 </block>
 
 <block name="body">
-    <div class="article">
-        <header>
-            <h1 class="text-center">恭喜您，{:C('INSTALL_PRODUCT_NAME')}安装完成！</h1>
-            <section class="abstract">版权所有 (c) 2014－<php>echo date("Y",time());</php>{:C('INSTALL_COMPANY_NAME')}保留所有权利。</section>
-        </header>
-        <section class="article-content">
-            <present name="info">
-                {$info}
-            </present>
-        </section>
-        <div>
-            <a class="btn btn-primary" href="{:U('Admin/Index/index')}">登录后台</a>
-            <a class="btn btn-success" href="__ROOT__/">访问首页</a>
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span>恭喜您，{:C('INSTALL_PRODUCT_NAME')}安装完成！</span>
+            </div>
+            <div class="panel-body">
+                <present name="info">{$info}</present>
+                <a class="btn btn-primary" href="{:U('Admin/Index/index')}">登录后台</a>
+                <a class="btn btn-success" href="__ROOT__/">访问首页</a>
+            </div>
+            <div class="panel-footer">
+                <span>版权所有 (c) 2014－<php>echo date("Y",time());</php>{:C('INSTALL_COMPANY_NAME')} 保留所有权利。</span>
+            </div>
         </div>
     </div>
 </block>
