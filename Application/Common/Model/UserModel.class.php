@@ -85,36 +85,6 @@ class UserModel extends Model{
     );
 
     /**
-     * 根据用户ID获取用户信息
-     * @param  integer $id 用户ID
-     * @param  string $field
-     * @return array  用户信息
-     * @author jry <598821125@qq.com>
-     */
-    public function getUserById($id = 0, $field){
-        $map['id'] = array('eq', $id);
-        $info = $this->where($map)->find();
-        if($info !== false){
-             $info['extend'] = json_decode($info['extend'], true);
-        }
-        if($field){
-            return $info[$field];
-        }
-        return $info;
-    }
-
-    /**
-     * 获取所有所有用户指定字段值
-     * @param string $field 字段
-     * @return array
-     * @author jry <598821125@qq.com>
-     */
-    public function getColumnByfield($field = 'email', $map){
-        $map['status'] = array('eq', 1);
-        return $this->where($map)->getField($field,true);
-    }
-
-    /**
      * 更新用户信息（前台用户使用，后台管理员更改用户信息不使用create及此方法）
      * @param  array $data 用户信息
      * @return bool
@@ -200,7 +170,7 @@ class UserModel extends Model{
     protected function checkIP(){
         $limit_time = C('LIMIT_TIME_BY_IP');
         $map['ctime'] = array('GT', time()-(int)$limit_time);
-        $reg_ip = $this->getColumnByfield('reg_ip', $map);
+        $reg_ip = $this->where($map)->getField('reg_ip', true);
         $key = array_search(get_client_ip(1), $reg_ip);
         if($reg_ip && $key !== false){
             return false;

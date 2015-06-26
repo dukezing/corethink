@@ -62,7 +62,11 @@ function user_md5($str, $key = 'CoreThink'){
  * @author jry <598821125@qq.com>
  */
 function get_user_info($id, $field){
-    return D('User')->getUserById($id, $field);
+    $userinfo = D('User')->find($id);
+    if($field){
+        $userinfo[$field];
+    }
+    return $userinfo;
 }
 
 /**

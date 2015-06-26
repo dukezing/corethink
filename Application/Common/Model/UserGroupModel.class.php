@@ -40,7 +40,7 @@ class UserGroupModel extends Model{
      */
     public function checkAuth(){
         $current_menu = D('SystemMenu')->getMenuByControllerAndAction(); //当前菜单id
-        $user_group = (int)D('User')->getUserById(session('user_auth.uid'), 'group'); //获得当前登录用户信息
+        $user_group = (int)D('User')->getFieldById(session('user_auth.uid'), 'group'); //获得当前登录用户信息
         if($user_group !== 1){
             $group_info = $this->find($user_group);
             $group_auth = explode(',', $group_info['auth']); //获得当前登录用户所属部门的权限列表

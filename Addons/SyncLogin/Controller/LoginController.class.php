@@ -42,7 +42,7 @@ class LoginController extends AddonController{
         $token = $sns->getAccessToken($code , $extend); //获取第三方Token
         $user_sns_info = \ThinkOauthInfo::$type($token); //获取第三方传递回来的用户信息
         $user_sync_info = D('Addons://SyncLogin/SyncLogin')->getUserByOpenidAndType($token['openid'], $type); //根据openid等参数查找同步登录表中的用户信息
-        $user_sys_info = D('User')->getUserById($user_sync_info ['uid']); //根据UID查找系统用户中是否有此用户
+        $user_sys_info = D('User')->find($user_sync_info ['uid']); //根据UID查找系统用户中是否有此用户
         if($user_sync_info['uid'] && $user_sys_info['id'] && $user_sync_info['uid'] == $user_sys_info['id']) { //曾经绑定过
             D('Addons://SyncLogin/SyncLogin')->updateTokenByTokenAndType($token, $type);
             D('User')->autoLogin($user_sys_info);

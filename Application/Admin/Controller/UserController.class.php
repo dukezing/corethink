@@ -99,10 +99,13 @@ class UserController extends AdminController{
      * @author jry <598821125@qq.com>
      */
     public function edit($id){
+        //获取用户信息
+        $info = D('User')->find($id);
+
         if(IS_POST){
             $user_object = D('User');
             //不修改密码时销毁变量
-            if($_POST['password'] == ''){
+            if($_POST['password'] == '' || $info['password'] == $_POST['password']){
                 unset($_POST['password']);
             }else{
                 $_POST['password'] = user_md5($_POST['password']);
@@ -120,6 +123,7 @@ class UserController extends AdminController{
                 $this->error('更新失败', $user_object->getError());
             }
         }else{
+            $info = D('User')->find($id);
             //使用FormBuilder快速建立表单页面。
             $builder = new \Common\Builder\FormBuilder();
             $builder->title('编辑用户')  //设置页面标题
@@ -133,7 +137,7 @@ class UserController extends AdminController{
                     ->addItem('password', 'password', '密码', '密码')
                     ->addItem('avatar', 'picture', '用户头像', '用户头像')
                     ->addItem('vip', 'radio', 'VIP等级', 'VIP等级', C('USER_VIP_LEVEL'))
-                    ->setFormData(D('User')->find($id))
+                    ->setFormData($info)
                     ->display();
         }
     }
