@@ -91,7 +91,11 @@ class CategoryController extends AdminController{
             $template_list = \Common\Util\File::get_dirs(getcwd().'/Application/Home/View/'.$default_theme.'/Document');
             foreach($template_list['file'] as $val){
                 $val = substr($val, 0, -5);
-                $new_template_list[$val] =  $val;
+                if(strstr($val, 'index')){
+                    $template_list_index[$val] =  $val;
+                }elseif(strstr($val, 'detail')){
+                    $template_list_detail[$val] =  $val;
+                }
             }
 
             //使用FormBuilder快速建立表单页面。
@@ -104,7 +108,8 @@ class CategoryController extends AdminController{
                     ->addItem('doc_type', 'radio', '分类内容模型', '分类内容模型', $this->selectListAsTree('DocumentType'))
                     ->addItem('url', 'text', '链接', 'U函数解析的URL或者外链', null, 'hidden')
                     ->addItem('content', 'kindeditor', '内容', '单页模型填写内容', null, 'hidden')
-                    ->addItem('template', 'select', '模版', '单页使用的模版或其他模型文档列表模版', $new_template_list, 'hidden')
+                    ->addItem('index_template', 'select', '列表模版', '文档列表或封面模版', $template_list_index, 'hidden')
+                    ->addItem('detail_template', 'select', '详情页模版', '单页使用的模版或其他模型文档详情页模版', $template_list_detail, 'hidden')
                     ->addItem('icon', 'icon', '图标', '菜单图标')
                     ->addItem('sort', 'num', '排序', '用于显示的顺序')
                     ->addItem('post_auth', 'radio', '投稿权限', '前台用户投稿权限', C('CATEGORY_POST_AUTH'))
@@ -140,7 +145,11 @@ class CategoryController extends AdminController{
             $template_list = \Common\Util\File::get_dirs(getcwd().'/Application/Home/View/'.$default_theme.'/Document');
             foreach($template_list['file'] as $val){
                 $val = substr($val, 0, -5);
-                $new_template_list[$val] =  $val;
+            if(strstr($val, 'index')){
+                    $template_list_index[$val] =  $val;
+                }elseif(strstr($val, 'detail')){
+                    $template_list_detail[$val] =  $val;
+                }
             }
 
             //使用FormBuilder快速建立表单页面。
@@ -154,7 +163,8 @@ class CategoryController extends AdminController{
                     ->addItem('doc_type', 'radio', '分类内容模型', '分类内容模型', $this->selectListAsTree('DocumentType'))
                     ->addItem('url', 'text', '链接', 'U函数解析的URL或者外链', null, $info['doc_type'] == 1 ? : 'hidden')
                     ->addItem('content', 'kindeditor', '内容', '单页模型填写内容', null, $info['doc_type'] == 2 ? : 'hidden')
-                    ->addItem('template', 'select', '模版', '单页使用的模版或其他模型文档列表模版', $new_template_list, $info['doc_type'] != 1 ? : 'hidden')
+                    ->addItem('index_template', 'select', '模版', '文档列表或封面模版', $template_list_index, $info['doc_type'] != 1 ? : 'hidden')
+                    ->addItem('detail_template', 'select', '详情页模版', '单页使用的模版或其他模型文档详情页模版', $template_list_detail, $info['doc_type'] != 1 ? : 'hidden')
                     ->addItem('icon', 'icon', '图标', '菜单图标')
                     ->addItem('sort', 'num', '排序', '用于显示的顺序')
                     ->addItem('post_auth', 'radio', '投稿权限', '前台用户投稿权限', C('CATEGORY_POST_AUTH'))

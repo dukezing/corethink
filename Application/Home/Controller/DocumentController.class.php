@@ -29,7 +29,7 @@ class DocumentController extends HomeController{
                 $this->redirect('Category/detail/id/'.$category['id']);
                 break;
             default :
-                $template = $category['template'] ? 'Document/'.$category['template'] : 'Document/index_default';
+                $template = $category['index_template'] ? 'Document/'.$category['index_template'] : 'Document/index_default';
                 $map['status'] = array('eq', 1);
                 $document_list = D('Document')->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))
                                               ->order('sort desc,id desc')->where($map)->select();
@@ -251,10 +251,11 @@ class DocumentController extends HomeController{
         $info = D('Document')->detail($id);
         $result = D('Document')->where(array('id' => $id))->SetInc('view'); //阅读量加1
         $category = D('Category')->find($info['cid']);
+        $template = $category['detail_template'] ? 'Document/'.$category['detail_template'] : 'Document/detail_default';
         $this->assign('info', $info);
         $this->assign('__CURRENT_CATEGORY__', $category['id']);
         $this->meta_title = $info['title'];
         Cookie('__forward__', $_SERVER['REQUEST_URI']);
-        $this->display('Document/detail_default');
+        $this->display($template);
     }
 }

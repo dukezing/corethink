@@ -112,7 +112,8 @@ CREATE TABLE `ct_category` (
   `title` varchar(32) NOT NULL DEFAULT '' COMMENT '分类名称',
   `url` varchar(128) NOT NULL COMMENT '链接地址',
   `content` text NOT NULL COMMENT '内容',
-  `template` varchar(32) NOT NULL DEFAULT '' COMMENT '模版',
+  `index_template` varchar(32) NOT NULL DEFAULT '' COMMENT '列表封面模版',
+  `detail_template` varchar(32) NOT NULL DEFAULT '' COMMENT '详情页模版',
   `post_auth` tinyint(4) NOT NULL DEFAULT '0' COMMENT '投稿权限',
   `icon` varchar(32) NOT NULL DEFAULT '' COMMENT '缩略图',
   `ctime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
@@ -125,9 +126,9 @@ CREATE TABLE `ct_category` (
 LOCK TABLES `ct_category` WRITE;
 /*!40000 ALTER TABLE `ct_category` DISABLE KEYS */;
 
-INSERT INTO `ct_category` (`id`, `pid`, `doc_type`, `title`, `url`, `content`, `template`, `icon`, `ctime`, `utime`, `sort`, `status`)
+INSERT INTO `ct_category` (`id`, `pid`, `doc_type`, `title`, `url`, `content`, `index_template`, `detail_template`, `icon`, `ctime`, `utime`, `sort`, `status`)
 VALUES
-	(1,0,3,'默认','','','','icon-location-arrow',1431926468,1431926468,0,1);
+	(1,0,3,'默认','','','','','',1431926468,1431926468,0,1);
 
 /*!40000 ALTER TABLE `ct_category` ENABLE KEYS */;
 UNLOCK TABLES;

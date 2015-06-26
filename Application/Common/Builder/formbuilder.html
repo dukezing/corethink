@@ -527,15 +527,18 @@
                         if(model_id == 1){ //超链接
                             $('.item_url').removeClass('hidden');
                             $('.item_content').addClass('hidden');
-                            $('.item_template').addClass('hidden');
+                            $('.item_index_template').addClass('hidden');
+                            $('.item_detail_template').addClass('hidden');
                         }else if(model_id == 2){ //单页文档
                             $('.item_url').addClass('hidden');
                             $('.item_content').removeClass('hidden');
-                            $('.item_template').addClass('hidden');
+                            $('.item_index_template').addClass('hidden');
+                            $('.item_detail_template').removeClass('hidden');
                         }else{
                             $('.item_url').addClass('hidden');
                             $('.item_content').addClass('hidden');
-                            $('.item_template').removeClass('hidden');
+                            $('.item_index_template').removeClass('hidden');
+                            $('.item_detail_template').removeClass('hidden');
                         }
                     });
                 });
