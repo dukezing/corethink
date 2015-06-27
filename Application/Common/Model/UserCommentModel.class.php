@@ -18,9 +18,11 @@ class UserCommentModel extends Model{
      * @author jry <598821125@qq.com>
      */
     protected $_validate = array(
-        array('doc_id', 'require', '文档ID不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
-        array('content', 'require', '评论内容不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
-        array('content', '1,1280', '评论内容长度不多于1280个字符', self::VALUE_VALIDATE, 'length'),
+        array('table', 'require', '数据表ID不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
+        array('data_id', 'require', '数据ID不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
+        array('content', 'require', '内容不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
+        array('content', '1,1280', '内容长度不多于1280个字符', self::VALUE_VALIDATE, 'length'),
+        array('content', 'checkContent', '至少包含2个中文字符', self::MUST_VALIDATE, 'callback', self::MODEL_BOTH),
     );
 
     /**
@@ -38,20 +40,34 @@ class UserCommentModel extends Model{
     );
 
     /**
-     * 根据文档获取评论列表
+     * 验证评论内容
      * @author jry <598821125@qq.com>
      */
-    public function getAllCommentByDocument($doc_id, $map){
-        $map['doc_id'] = $doc_id;
+    public function checkContent($map){
+        preg_match_all("/([\一-\龥]){1}/u", $_POST['content'], $num);
+        if(2 > count($num[0])){
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 根据条件获取评论列表
+     * @author jry <598821125@qq.com>
+     */
+    public function getCommentList($map){
         $map['status'] = 1;
         $comments = $this->where($map)->order('sort desc,id asc')->select();
         foreach($comments as $key => $val){
             $comments[$key]['ctime'] = friendly_date($val['ctime']);
-            $comments[$key]['username'] = get_user_info($val['uid'], 'username');
-            $comments[$key]['avatar'] = get_user_info($val['uid'], 'avatar');
+            $comments[$key]['username'] = D('User')->getFieldById($val['uid'], 'username');
+            $comments[$key]['avatar'] = D('User')->getFieldById($val['uid'], 'avatar');
+            if($comments[$key]['pictures']){
+                $comments[$key]['pictures'] = explode(',', $comments[$key]['pictures']); //解析图片列表
+            }
             if($comments[$key]['pid'] > 0){
                 $parent_comment = $this->find($comments[$key]['pid']);
-                $comments[$key]['parent_comment_username'] = get_user_info($parent_comment['uid'], 'username');
+                $comments[$key]['parent_comment_username'] = D('User')->getFieldById($parent_comment['uid'], 'username');
             }
         }
         return $comments;

@@ -518,15 +518,21 @@ CREATE TABLE `ct_user_comment` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '评论ID',
   `pid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '评论父ID',
   `uid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '用户ID',
-  `doc_id` int(11) unsigned NOT NULL COMMENT '评论文档ID',
-  `content` text COMMENT '评论内容',
+  `table` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '数据表ID',
+  `group` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '分组',
+  `data_id` int(11) unsigned NOT NULL COMMENT '数据ID',
+  `content` text NOT NULL COMMENT '评论内容',
+  `pictures` varchar(15) NOT NULL DEFAULT '' COMMENT '图片列表',
+  `rate` tinyint(3) NOT NULL DEFAULT '0' COMMENT '评价/评分',
+  `good` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '赞数',
+  `bad` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '踩数',
   `ctime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `utime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   `sort` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态',
   `ip` varchar(15) NOT NULL COMMENT '来源IP',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='评论表';
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COMMENT='评论表';
 
 
 

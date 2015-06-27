@@ -73,8 +73,11 @@ class UserCommentController extends AdminController{
             $builder = new \Common\Builder\FormBuilder();
             $builder->title('新增评论')  //设置页面标题
                     ->setUrl(U('add')) //设置表单提交地址
-                    ->addItem('doc_id', 'num', '文档ID', '文档ID')
+                    ->addItem('table', 'radio', '数据表', '数据表ID',C('TABLE_LIST'))
+                    ->addItem('data_id', 'num', '数据ID', '数据ID')
                     ->addItem('content', 'textarea', '评论内容', '评论内容')
+                    ->addItem('pictures', 'pictures', '图片列表', '图片列表')
+                    ->addItem('rate', 'num', '评分', '评分')
                     ->addItem('pid', 'num', '父评论ID', '父评论ID')
                     ->addItem('sort', 'num', '排序', '用于显示的顺序')
                     ->display();
@@ -104,8 +107,11 @@ class UserCommentController extends AdminController{
             $builder->title('编辑评论')  //设置页面标题
                     ->setUrl(U('edit')) //设置表单提交地址
                     ->addItem('id', 'hidden', 'ID', 'ID')
-                    ->addItem('doc_id', 'num', '文档ID', '文档ID')
+                    ->addItem('table', 'radio', '数据表', '数据表ID',C('TABLE_LIST'))
+                    ->addItem('data_id', 'num', '数据ID', '数据ID')
                     ->addItem('content', 'textarea', '评论内容', '评论内容')
+                    ->addItem('pictures', 'pictures', '图片列表', '图片列表')
+                    ->addItem('rate', 'num', '评分', '评分')
                     ->addItem('pid', 'num', '父评论ID', '父评论ID')
                     ->addItem('sort', 'num', '排序', '用于显示的顺序')
                     ->setFormData(D('UserComment')->find($id))

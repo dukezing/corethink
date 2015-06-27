@@ -20,22 +20,18 @@ class UserCommentController extends HomeController{
     public function add(){
         if(IS_POST){
             $this->is_login();
-            preg_match_all("/([\一-\龥]){1}/u", $_POST['content'], $num);
-            if(2 > count($num[0])){
-                $this->error('评论至少包含2个中文字符！');
-            }
-            $user_comment_model = D('UserComment');
-            $data = $user_comment_model->create();
+            $user_comment_object = D('UserComment');
+            $data = $user_comment_object->create();
             if($data){
-                $id = $user_comment_model->add();
+                $id = $user_comment_object->add();
                 if($id){
-                    D('Document')->where(array('id'=> (int)$data['doc_id']))->setInc('comment'); // 更新评论数
-                    $this->success('评论成功');
+                    D(C('TABLE_LIST.'.I('post.table')))->where(array('id'=> (int)$data['data_id']))->setInc('comment'); // 更新评论数
+                    $this->success('提交成功');
                 }else{
-                    $this->error('评论失败');
+                    $this->error('提交失败');
                 }
             }else{
-                $this->error($user_comment_model->getError());
+                $this->error($user_comment_object->getError());
             }
         }
     }

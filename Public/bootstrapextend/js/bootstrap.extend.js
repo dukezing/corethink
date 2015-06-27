@@ -168,7 +168,7 @@ $.fn.Huploadify = function(opts){
         inputStr += ' accept="';
         inputStr += getAcceptString(option.fileTypeExts);
         inputStr += '"/>';
-        inputStr += '<a id="file_upload_'+instanceNumber+'-button" href="javascript:void(0)" class="uploadify-button btn btn-primary">';
+        inputStr += '<a id="file_upload_'+instanceNumber+'-button" href="javascript:void(0)" class="uploadify-button btn btn-default">';
         inputStr += option.buttonText;
         inputStr += '</a>';
         var uploadFileListStr = '<div id="file_upload_'+instanceNumber+'-queue" class="uploadify-queue"></div>';

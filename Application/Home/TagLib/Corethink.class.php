@@ -20,7 +20,7 @@ class CoreThink extends TagLib{
     protected $tags = array(
         'breadcrumb'  => array('attr' => 'name,cid', 'close' => 1), //面包屑导航列表
         'category_list' => array('attr' => 'name,pid,group', 'close' => 1), //栏目分类列表
-        'comment_list'  => array('attr' => 'name,doc_id', 'close' => 1), //评论列表
+        'comment_list'  => array('attr' => 'name,table,data_id', 'close' => 1), //评论列表
         'document_list'  => array('attr' => 'name,cid,limit,order', 'close' => 1), //文档列表
     );
 
@@ -63,14 +63,17 @@ class CoreThink extends TagLib{
      * @author jry <598821125@qq.com>
      */
     public function _comment_list($tag, $content){
-        $name   = $tag['name'];
-        $doc_id = $tag['doc_id'];
-        $parse  = '<?php ';
-        $parse .= '$__COMMENT_LIST__ = D(\'UserComment\')->getAllCommentByDocument('.$doc_id.');';
-        $parse .= ' ?>';
-        $parse .= '<volist name="__COMMENT_LIST__" id="'. $name .'">';
-        $parse .= $content;
-        $parse .= '</volist>';
+        $name    = $tag['name'];
+        $table   = $tag['table'] ? : 0; //默认类型为文档评论
+        $data_id = $tag['data_id'];
+        $parse   = '<?php ';
+        $parse  .= '$map["table"] = array("eq", '.$table.');';
+        $parse  .= '$map["data_id"] = array("eq", '.$data_id.');';
+        $parse  .= '$__COMMENT_LIST__ = D(\'UserComment\')->getCommentList($map);';
+        $parse  .= ' ?>';
+        $parse  .= '<volist name="__COMMENT_LIST__" id="'. $name .'">';
+        $parse  .= $content;
+        $parse  .= '</volist>';
         return $parse;
     }
 

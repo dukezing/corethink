@@ -3,7 +3,7 @@
         <h3 class="panel-title">{$info.comment} 条评论</h3>
     </div>
     <div class="panel-body">
-        <corethink:comment_list name="vo" doc_id="$info['id']">
+        <corethink:comment_list name="vo" table="$__CURRENT_TABLE_ID__" data_id="$info['id']">
             <div class="media border-bottom padding-bottom">
                 <div class="media-left">
                     <a href="{:U('User/index/uid/'.$vo['uid'])}" class="avatar">
@@ -20,11 +20,16 @@
                         <notempty name="vo.pid">
                             <span class="reply">
                                 <span class="text-muted small"> 回复 </span>
-                                <a href="#">{$vo.parentvo_username}</a>
+                                <a href="#">{$vo.parent_comment_username}</a>
                             </span>
                         </notempty>
                     </span>
                     <div class="text">{$vo.content}</div>
+                    <div class="pictures">
+                        <foreach name="vo.pictures" item="img">
+                            <a href="#"><img src="{$img|get_cover}" style="width:50px;height:50px;margin:5px 5px 5px 0px;border:1px solid #eee;"></a>
+                        </foreach>
+                    </div>
                     <div class="small">
                         <a href="javascript:void(0);" class="reply-action" comment_id="{$vo.id}" username="{$vo.username}">回复</a>
                     </div>
@@ -38,12 +43,58 @@
         <notempty name="__USER__">
             <form action="{:U('UserComment/add')}" method="post" class="form comment-form">
                 <div class="form-group">
-                    <textarea name="content" class="form-control" rows="3" placeholder="评论是一种态度..."></textarea>
+                    <textarea name="content" class="form-control new-comment-text" rows="3" placeholder="评论是一种态度..."></textarea>
                 </div>
                 <div class="form-group">
                     <input type="hidden" name="pid" value="0">
-                    <input type="hidden" name="doc_id" value="{$info.id}">
-                    <a id="submit" type="submit" class="btn btn-primary ajax-post block-xs" target-form="comment-form"><i class="icon-comment-alt"></i> 发表评论</a>
+                    <input type="hidden" name="table" value="{$__CURRENT_TABLE_ID__}">
+                    <input type="hidden" name="data_id" value="{$info.id}">
+                    <table style="display:inline-block">
+                        <tr>
+                            <td>
+                                <div id="preview_comment_picture"></div>
+                            </td>
+                            <td>
+                                <input type="hidden" name="pictures">
+                                <div id="upload_comment_picture" title="上传图片"></div>
+                            </td>
+                        </tr>
+                    </table>
+                    <style type="text/css">
+                        /* 多图上传样式 */
+                        .img-box{
+                            position:relative;vertical-align: top;
+                        }
+                        .img-box img{
+                            width:30px;height:30px;margin-right:8px;
+                        }
+                        .img-box i{
+                            color:red;position:absolute;top:-8px;right:2px;background:#fff;border-radius:20px;
+                        }
+                    </style>
+                    <script type="text/javascript">
+                        $(function(){
+                            $('#upload_comment_picture').Huploadify({
+                                uploader:'{:U("Upload/upload")}',
+                                fileTypeExts:'*.gif;*.jpg;*.jpeg;*.png;*.bmp',
+                                fileSizeLimit:{:C('UPLOAD_IMAGE_SIZE')}*1024,
+                                buttonText:'<span class="glyphicon glyphicon-plus"></span>',
+                                onUploadComplete:function(file, data){
+                                    var data = $.parseJSON(data);
+                                    var input = $('input[name="pictures"]');
+                                    var new_img = '<span class="img-box"><img class="img" src="' + data.url + '"><i class="glyphicon glyphicon-remove-sign"></i></span>';
+                                    $('#preview_comment_picture').append(new_img);
+                                    if(input.val()){
+                                        input.val(input.val() + ',' + data.id);
+                                    }else{
+                                        input.val(data.id);
+                                    }
+                                }
+                            });
+                        });
+                    </script>
+                    <a id="submit" type="submit" class="btn btn-primary ajax-post pull-right hidden-xs" target-form="comment-form"><i class="fa fa-comment-o"></i> 发表评论</a>
+                    <a id="submit" type="submit" class="btn btn-primary btn-block ajax-post margin-top visible-xs" target-form="comment-form"><i class="fa fa-comment-o"></i> 发表评论</a>
                 </div>
             </form>
         <else />
@@ -52,14 +103,13 @@
                 <a class="btn btn-primary" data-toggle="modal" data-target="#login-modal">登 录</a>
             </div>
         </notempty>
+        <script type="text/javascript">
+            $(function(){
+                $('.reply-action').click(function(){
+                    $('input[name=pid]').val($(this).attr('comment_id'));
+                    $('.new-comment-text').focus().attr('placeholder', '回复'+$(this).attr('username'));
+                });
+            });
+        </script>
     </div>
 <php>endif;</php>
-
-<script type="text/javascript">
-    $(function(){
-        $('.reply-action').click(function(){
-            $('input[name=pid]').val($(this).attr('comment_id'));
-            $('.new-comment-text').focus().attr('placeholder', '回复'+$(this).attr('username'));
-        });
-    });
-</script>

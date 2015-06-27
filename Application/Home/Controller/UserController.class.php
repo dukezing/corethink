@@ -47,7 +47,7 @@ class UserController extends HomeController{
         $userinfo['xz'] = $date->magicInfo('XZ');
         $userinfo['sx'] = $date->magicInfo('SX');
         $this->assign('meta_title', $userinfo['username'].'的主页');
-        $this->assign('userinfo', $userinfo);
+        $this->assign('info', $userinfo);
         $this->display();
     }
 
