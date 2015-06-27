@@ -23,7 +23,11 @@ class DocumentController extends HomeController{
         $category = D('Category')->find($cid);
         switch($category['doc_type']){
             case 1: //链接
-                redirect($category['url']);
+                if(stristr($category['url'], 'http://')){
+                    redirect($category['url']);
+                }else{
+                    $this->redirect($category['url']);
+                }
                 break;
             case 2: //单页
                 $this->redirect('Category/detail/id/'.$category['id']);

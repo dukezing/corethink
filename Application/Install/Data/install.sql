@@ -474,7 +474,7 @@ CREATE TABLE `ct_user` (
   `vip` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT ' VIP等级',
   `avatar` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '用户头像',
   `score` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '用户积分',
-  `money` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '账户余额',
+  `money` decimal(11,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '账户余额',
   `sex` enum('-1','0','1') NOT NULL DEFAULT '0' COMMENT '用户性别',
   `age` int(4) NOT NULL DEFAULT '0' COMMENT '年龄',
   `birthday` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '生日',
