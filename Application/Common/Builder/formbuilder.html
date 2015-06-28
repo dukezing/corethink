@@ -97,7 +97,12 @@
                                 </case>
                                 <!-- 图标 -->
                                 <case value="icon">
-                                    <input type="text" class="form-control" name="{$form.name}" value="{$form.value}" {$form.extra_attr}>
+                                    <input type="text" class="form-control icon_{$key}" name="{$form.name}" value="{$form.value}" {$form.extra_attr}>
+                                    <script type="text/javascript">
+                                        $(function(){
+                                            $(".icon_{$key}").iconChoosen({});
+                                        });
+                                    </script>
                                 </case>
                                 <!-- 日期 -->
                                 <case value="date">
@@ -166,7 +171,7 @@
                                                     width: '100%',
                                                     height: '500px',
                                                     cssPath : [
-                                                        '__PUBLIC__/zui/css/zui.min.css',
+                                                        '__PUBLIC__/bootstrap/css/bootstrap.min.css',
                                                         '__PUBLIC__/kindeditor/plugins/code/prettify.css'
                                                     ],
                                                     resizeType: 1,
@@ -329,7 +334,12 @@
                                                                     </case>
                                                                     <!-- 图标 -->
                                                                     <case value="icon">
-                                                                        <input type="text" class="form-control" name="{$tab_form.name}" value="{$tab_form.value}" {$tab_form.extra_attr}>
+                                                                        <input type="text" class="form-control icon_{$tab_key}" name="{$tab_form.name}" value="{$tab_form.value}" {$tab_form.extra_attr}>
+                                                                        <script type="text/javascript">
+                                                                            $(function(){
+                                                                                $(".icon_{$tab_key}").iconChoosen({});
+                                                                            });
+                                                                        </script>
                                                                     </case>
                                                                     <!-- 日期 -->
                                                                     <case value="date">
