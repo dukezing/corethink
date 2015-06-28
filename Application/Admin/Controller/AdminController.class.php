@@ -82,7 +82,7 @@ class AdminController extends Controller{
                 if(in_array(1, $ids, true) || 1 == $ids)
                     $this->error('不允许更改超级管理员状态');
                 break;
-            case 'Group':
+            case 'UserGroup':
                 if(in_array(1, $ids, true) || 1 == $ids)
                     $this->error('不允许更改超级管理员组状态');
                 break;

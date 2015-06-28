@@ -1,5 +1,20 @@
 <extend name="Public/layout"/>
 
+<block name="style">
+    <style type="text/css">
+        @media (min-width: 992px) {
+            .form select,
+            .form textarea,
+            .form input[type=text],
+            .form input[type=password],
+            .form .token-input-list{
+                width: 50% !important;
+                max-width: 600px;
+            }
+        }
+    </style>
+</block>
+
 <block name="body">
     <div class="row">
     <div class="col-xs-12">
@@ -49,7 +64,7 @@
             </div>
             <neq name="info.id" value="1">
                 <div id="tab2" class='tab-pane'>
-                    <div class="form-group">
+                    <div class="form-group margin-left padding-left">
                         <div class="controls auth">
                             <volist name="__ALLMENULIST__" id="vo1">
                                 <div>

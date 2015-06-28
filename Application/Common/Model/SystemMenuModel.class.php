@@ -20,7 +20,6 @@ class SystemMenuModel extends Model{
     protected $_validate = array(
         array('title','require','菜单标题必须填写', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
         array('title', '1,32', '菜单标题长度为1-32个字符', self::EXISTS_VALIDATE, 'length', self::MODEL_BOTH),
-        array('title', '', '菜单标题已经存在', self::VALUE_VALIDATE, 'unique', self::MODEL_BOTH),
         array('url','require','链接地址必须填写', self::EXISTS_VALIDATE, 'regex', self::MODEL_BOTH),
     );
 
