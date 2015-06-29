@@ -3,7 +3,7 @@
         <h3 class="panel-title">{$info.comment} 条评论</h3>
     </div>
     <div class="panel-body">
-        <corethink:comment_list name="vo" table="$__CURRENT_TABLE_ID__" data_id="$info['id']">
+        <corethink:comment_list name="vo" table="$__CURRENT_TABLE_ID__" group="0" data_id="$info['id']">
             <div class="media border-bottom padding-bottom">
                 <div class="media-left">
                     <a href="{:U('User/index/uid/'.$vo['uid'])}" class="avatar">
@@ -48,6 +48,7 @@
                 <div class="form-group">
                     <input type="hidden" name="pid" value="0">
                     <input type="hidden" name="table" value="{$__CURRENT_TABLE_ID__}">
+                    <input type="hidden" name="group" value="0">
                     <input type="hidden" name="data_id" value="{$info.id}">
                     <table style="display:inline-block">
                         <tr>

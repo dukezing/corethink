@@ -125,9 +125,8 @@
 </block>
 
 <block name="script">
-    <script type="text/javascript" src="__PUBLIC__/highcharts/highcharts.js" charset="utf-8"></script>
-    <script>
-        $(function (){
+    <script type="text/javascript">
+        $(function(){
             //用户增长曲线图
             var mychart = new Chart($("#mychart").get(0).getContext("2d")).Line(
                 {
