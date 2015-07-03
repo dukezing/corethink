@@ -78,7 +78,7 @@ class CategoryController extends AdminController{
             if($data){
                 $id = $category_object->add();
                 if($id){
-                    $this->success('新增成功', U('Category/index', array('tab' => $tab)));
+                    $this->success('新增成功', U('Category/index', array('tab' => I('post.group'))));
                 }else{
                     $this->error('新增失败');
                 }
@@ -129,7 +129,7 @@ class CategoryController extends AdminController{
             $data = $category_object->create();
             if($data){
                 if($category_object->save()!== false){
-                    $this->success('更新成功', U('index'));
+                    $this->success('更新成功', U('Category/index', array('tab' => I('post.group'))));
                 }else{
                     $this->error('更新失败');
                 }
