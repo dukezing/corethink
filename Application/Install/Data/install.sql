@@ -39,7 +39,7 @@ LOCK TABLES `ct_addon` WRITE;
 INSERT INTO `ct_addon` (`id`, `name`, `title`, `description`, `config`, `author`, `version`, `adminlist`, `type`, `ctime`, `utime`, `sort`, `status`)
 VALUES
 	(1,'ReturnTop','返回顶部','返回顶部','{\"status\":\"1\",\"theme\":\"rocket\",\"customer\":\"\",\"case\":\"\",\"qq\":\"\",\"weibo\":\"\"}','CoreThink','1.0',0,0,1407681961,1408602081,0,1),
-	(2,'Email','邮件插件','实现系统发邮件功能','{\"status\":\"1\",\"MAIL_SMTP_TYPE\":\"1\",\"MAIL_SMTP_SECURE\":\"0\",\"MAIL_SMTP_PORT\":\"25\",\"MAIL_SMTP_HOST\":\"smtp.qq.com\",\"MAIL_SMTP_USER\":\"\",\"MAIL_SMTP_PASS\":\"\",\"default\":\"\"}','CoreThink','1.0',0,0,1428732454,1428732454,0,1),
+	(2,'Email','邮件插件','实现系统发邮件功能','{\"status\":\"1\",\"MAIL_SMTP_TYPE\":\"1\",\"MAIL_SMTP_SECURE\":\"0\",\"MAIL_SMTP_PORT\":\"25\",\"MAIL_SMTP_HOST\":\"smtp.qq.com\",\"MAIL_SMTP_USER\":\"\",\"MAIL_SMTP_PASS\":\"\",\"default\":\"[MAILBODY]\"}','CoreThink','1.0',0,0,1428732454,1428732454,0,1),
 	(3,'SyncLogin','第三方账号登陆','第三方账号登陆','{\"type\":[\"Weixin\",\"Qq\",\"Sina\",\"Renren\"],\"meta\":\"\",\"WeixinKEY\":\"\",\"WeixinSecret\":\"\",\"QqKEY\":\"\",\"QqSecret\":\"\",\"SinaKEY\":\"\",\"SinaSecret\":\"\",\"RenrenKEY\":\"\",\"RenrenSecret\":\"\"}','CoreThink','1.0',1,0,1428250248,1428250248,0,1),
 	(4,'AdFloat','图片漂浮广告','图片漂浮广告','{\"status\":\"0\",\"url\":\"http:\\/\\/www.corethink.cn\",\"image\":\"\",\"width\":\"100\",\"height\":\"100\",\"speed\":\"10\",\"target\":\"1\"}','CoreThink','1.0',0,0,1408602081,1408602081,0,1);
 
