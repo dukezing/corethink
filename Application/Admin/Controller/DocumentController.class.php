@@ -42,8 +42,8 @@ class DocumentController extends AdminController{
 
         //使用Builder快速建立列表页面。
         $builder = new \Common\Builder\ListBuilder();
-        $builder->title($category['title'])  //设置页面标题
-                ->addButton('新 增', $add_attr)    //添加新增按钮
+        $builder->title($category['title']) //设置页面标题
+                ->addButton('新 增', $add_attr) //添加新增按钮
                 ->addResumeButton() //添加启用按钮
                 ->addForbidButton() //添加禁用按钮
                 ->addRecycleButton() //添加回收按钮
@@ -111,7 +111,7 @@ class DocumentController extends AdminController{
 
         //使用FormBuilder快速建立表单页面。
         $builder = new \Common\Builder\FormBuilder();
-        $builder->title('新增文章')  //设置页面标题
+        $builder->title('新增文章') //设置页面标题
                 ->setUrl(U('update')) //设置表单提交地址
                 ->setExtraItems($new_attribute_list)
                 ->display();
@@ -166,7 +166,7 @@ class DocumentController extends AdminController{
 
         //使用FormBuilder快速建立表单页面。
         $builder = new \Common\Builder\FormBuilder();
-        $builder->title('编辑文章')  //设置页面标题
+        $builder->title('编辑文章') //设置页面标题
                 ->setUrl(U('update')) //设置表单提交地址
                 ->addItem('id', 'hidden', 'ID', 'ID')
                 ->setExtraItems($new_attribute_list)
@@ -184,7 +184,7 @@ class DocumentController extends AdminController{
         if(!$result){
             $this->error($document_object->getError());
         }else{
-            $this->success($result['id']?'更新成功':'新增成功', U('index', array('cid' => $cid)));
+            $this->success($result['id']?'更新成功':'新增成功', U('Document/index', array('cid' => I('post.cid'))));
         }
     }
 
@@ -228,7 +228,7 @@ class DocumentController extends AdminController{
 
         //使用Builder快速建立列表页面。
         $builder = new \Common\Builder\ListBuilder();
-        $builder->title('回收站')  //设置页面标题
+        $builder->title('回收站') //设置页面标题
                 ->addDeleteButton() //添加删除按钮
                 ->addRestoreButton() //添加还原按钮
                 ->setSearch('请输入ID/文档名称', U('recycle'))

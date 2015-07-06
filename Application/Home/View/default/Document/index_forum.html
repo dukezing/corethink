@@ -23,7 +23,7 @@
                                             <notempty name="vo_child.count_new_document"><span class="label label-dot label-danger"></span> ({$vo_child.count_new_document})</notempty>
                                         </h5>
                                         <div class="text">
-                                            帖数 {$vo_child.count_sum_document} 回复数 {$vo_child.count_sum_comment}
+                                            帖数 {$vo_child.count_sum_document|default=0} 回复数 {$vo_child.count_sum_comment|default=0}
                                         </div>
                                     </div>
                                 </div>
