@@ -55,16 +55,16 @@ ul.token-input-list{overflow:hidden;height:31px;width:100%;border:1px solid #999
     border-right: 0px !important;
 }
 .border-top {
-    border-top: 1px solid #ddd;
+    border-top: 1px solid #eee;
 }
 .border-bottom {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #eee;
 }
 .border-left {
-    border-left: 1px solid #ddd;
+    border-left: 1px solid #eee;
 }
 .border-right {
-    border-right: 1px solid #ddd;
+    border-right: 1px solid #eee;
 }
 
 .margin-none {
