@@ -212,12 +212,28 @@ $(function(){
         return false;
     });
 
+    //给数组增加查找指定的元素索引方法
+    Array.prototype.indexOf = function(val){
+            for (var i = 0; i < this.length; i++){
+                if (this[i] == val) return i;
+            }
+            return -1;
+    };
+    //给数组增加删除方法
+    Array.prototype.remove = function(val){
+        var index = this.indexOf(val);
+        if(index > -1){
+            this.splice(index, 1);
+        }
+    };
+
     $('img.lazy').lazyload({effect: 'fadeIn'}); //图片lazyload
     $(".navbar-auto-hiding").autoHidingNavbar(); //自动隐藏顶部导航
 });
 
 //弹窗提醒
 function alertMessager(message, type, time){
+    type = type ? type : 'danger';
     var messager = '<div style="width:380px;height:auto;margin:0 auto;max-width: 80%;top:51px;left:0;right:0;z-index:99999;"'+
                    'class="messager navbar-fixed-top border-none alert alert-'+type+'"><button type="button" class="close" '+
                    'data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>'+message+'</div>';
