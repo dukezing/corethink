@@ -22,8 +22,7 @@ class FormBuilder extends Controller{
     private $_form_items = array(); //表单项目
     private $_extra_items = array(); //额外已经构造好的表单项目
     private $_form_data = array(); //表单数据
-    private $_extra; //额外参数
-    private $_builder_class; //Builder最外层div样式
+    private $_extra_html; //额外功能代码
     private $_template = 'Builder/formbuilder'; //模版
 
     /**设置页面标题
@@ -111,12 +110,12 @@ class FormBuilder extends Controller{
         return $this;
     }
 
-    /**设置额外参数
-     * @param $extra  额外参数
+    /**设置额外功能代码
+     * @param $extra_html 额外功能代码
      * @return $this
      */
-    public function setExtra($extra){
-        $this->_extra = $extra;
+    public function setExtraHtml($extra_html){
+        $this->_extra_html = $extra_html;
         return $this;
     }
 
@@ -126,15 +125,6 @@ class FormBuilder extends Controller{
      */
     public function setTemplate($template){
         $this->_template = $template;
-        return $this;
-    }
-
-    /**Builder最外层div样式
-     * @param $builder_class 样式
-     * @return $this
-     */
-    public function setBuilderClass($builder_class){
-        $this->_builder_class = $builder_class;
         return $this;
     }
 
@@ -158,8 +148,7 @@ class FormBuilder extends Controller{
         $this->assign('current_tab', $this->_current_tab);
         $this->assign('url', $this->_url);
         $this->assign('form_items', $this->_form_items);
-        $this->assign('extra', $this->_extra);
-        $this->assign('builder_class', $this->_builder_class);
+        $this->assign('extra_html', $this->_extra_html);
         parent::display($this->_template);
     }
 }

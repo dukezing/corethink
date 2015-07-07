@@ -17,8 +17,8 @@
         window.daterangepicker_locale = {
             applyLabel: '确定',
             cancelLabel: '取消',
-            fromLabel: '从',
-            toLabel: '到',
+            fromLabel: '开始',
+            toLabel: '结束',
             customRangeLabel: '自定义',
             daysOfWeek: ['日', '一', '二', '三', '四', '五','六'],
             monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
@@ -27,7 +27,7 @@
     });
 </script>
 
-<div class="builder {$builder_class}">
+<div class="builder">
     <div class="row">
         <notempty name="tab_list">
             <div class="col-xs-12 margin-bottom">
@@ -526,33 +526,5 @@
             </form>
         </div>
     </div>
-    <!-- 额外参数 -->
-    <switch name="extra">
-        <case value="category">
-            <script type="text/javascript">
-                //选择模型时页面元素改变
-                $(function(){
-                    $('input[name="doc_type"]').change(function(){
-                        var model_id = $(this).val();
-                        if(model_id == 1){ //超链接
-                            $('.item_url').removeClass('hidden');
-                            $('.item_content').addClass('hidden');
-                            $('.item_index_template').addClass('hidden');
-                            $('.item_detail_template').addClass('hidden');
-                        }else if(model_id == 2){ //单页文档
-                            $('.item_url').addClass('hidden');
-                            $('.item_content').removeClass('hidden');
-                            $('.item_index_template').addClass('hidden');
-                            $('.item_detail_template').removeClass('hidden');
-                        }else{
-                            $('.item_url').addClass('hidden');
-                            $('.item_content').addClass('hidden');
-                            $('.item_index_template').removeClass('hidden');
-                            $('.item_detail_template').removeClass('hidden');
-                        }
-                    });
-                });
-            </script>
-        </case>
-    </switch>
+    {$extra_html}<!-- 额外功能代码 -->
 </div>

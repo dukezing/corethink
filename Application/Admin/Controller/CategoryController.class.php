@@ -13,6 +13,34 @@ use Think\Controller;
  * @author jry <598821125@qq.com>
  */
 class CategoryController extends AdminController{
+        //文档类型切换触发操作JS
+        private $extra_html = <<<EOF
+        <script type="text/javascript">
+            //选择模型时页面元素改变
+            $(function(){
+                $('input[name="doc_type"]').change(function(){
+                    var model_id = $(this).val();
+                    if(model_id == 1){ //超链接
+                        $('.item_url').removeClass('hidden');
+                        $('.item_content').addClass('hidden');
+                        $('.item_index_template').addClass('hidden');
+                        $('.item_detail_template').addClass('hidden');
+                    }else if(model_id == 2){ //单页文档
+                        $('.item_url').addClass('hidden');
+                        $('.item_content').removeClass('hidden');
+                        $('.item_index_template').addClass('hidden');
+                        $('.item_detail_template').removeClass('hidden');
+                    }else{
+                        $('.item_url').addClass('hidden');
+                        $('.item_content').addClass('hidden');
+                        $('.item_index_template').removeClass('hidden');
+                        $('.item_detail_template').removeClass('hidden');
+                    }
+                });
+            });
+        </script>
+EOF;
+
     /**
      * 分类列表
      * @author jry <598821125@qq.com>
@@ -114,7 +142,7 @@ class CategoryController extends AdminController{
                     ->addItem('sort', 'num', '排序', '用于显示的顺序')
                     ->addItem('post_auth', 'radio', '投稿权限', '前台用户投稿权限', C('CATEGORY_POST_AUTH'))
                     ->setFormData(array('group' => $tab, 'post_auth' => 1))
-                    ->setExtra('category')
+                    ->setExtraHtml($this->extra_html)
                     ->display();
         }
     }
@@ -169,7 +197,7 @@ class CategoryController extends AdminController{
                     ->addItem('sort', 'num', '排序', '用于显示的顺序')
                     ->addItem('post_auth', 'radio', '投稿权限', '前台用户投稿权限', C('CATEGORY_POST_AUTH'))
                     ->setFormData($info)
-                    ->setExtra('category')
+                    ->setExtraHtml($this->extra_html)
                     ->display();
         }
     }
