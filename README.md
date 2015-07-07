@@ -49,9 +49,9 @@ CoreThink是一套轻量级WEB产品开发框架，追求简单、高效、卓�
 
 感谢以下的项目,排名不分先后
 
-* [ThinkPHP](http://thinkphp.cn/) 
+* [Bootstrap](http://www.getbootstrap.com)
 * [jQuery](http://jquery.com)
-* [Zui](http://www.zui.sexy)
+* [ThinkPHP](http://thinkphp.cn/) 
 
 ##关于我们
 

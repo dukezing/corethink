@@ -236,22 +236,24 @@
                                 <!-- 拖动排序 -->
                                 <case value="board">
                                     <input type="hidden" name="{$form.name}" value='{$form.value}'>
-                                    <div class="boards boards_{$key}" {$form.extra_attr}>
-                                        <foreach name="form.options" item="option" key="option_key">
-                                            <div class="board panel" data-id="{$option_key}" style="position:relative">
-                                                <div class="panel-heading">
-                                                    <strong>{$option.title}</strong>
+                                    <div class="row boards_{$key}" {$form.extra_attr}>
+                                        <div class="container">
+                                            <foreach name="form.options" item="option" key="option_key">
+                                                <div class="panel panel-default col-xs-12 col-sm-3 padding-none margin-right" data-id="{$option_key}" style="position:relative">
+                                                    <div class="panel-heading">
+                                                        <strong>{$option.title}</strong>
+                                                    </div>
+                                                    <div class="list-group dragsort_{$key}" data-group="{$option_key}">
+                                                        <foreach name="option.field" item="option_field" key="option_field_key">
+                                                            <div class="list-group-item">
+                                                                <em data="{$field['id']}">{$option_field}</em>
+                                                                <input type="hidden" name="{$form.name}[{$option_key}][]" value="{$option_field_key}"/>
+                                                            </div>
+                                                        </foreach>
+                                                    </div>
                                                 </div>
-                                                <div class="panel-body dragsort_{$key}" data-group="{$option_key}">
-                                                    <foreach name="option.field" item="option_field" key="option_field_key">
-                                                        <div class="board-item">
-                                                            <em data="{$field['id']}">{$option_field}</em>
-                                                            <input type="hidden" name="{$form.name}[{$option_key}][]" value="{$option_field_key}"/>
-                                                        </div>
-                                                    </foreach>
-                                                </div>
-                                            </div>
-                                        </foreach>
+                                            </foreach>
+                                        </div>
                                     </div>
                                     <script type="text/javascript">
                                         //拖曳插件初始化
@@ -489,6 +491,25 @@
                                                                                     </div>
                                                                                 </div>
                                                                             </foreach>
+                                                                        </div>
+                                                                        <div class="row boards_{$tab_key}" {$tab_form.extra_attr}>
+                                                                            <div class="container">
+                                                                                <foreach name="form.options" item="option" key="option_key">
+                                                                                    <div class="panel panel-default col-xs-12 col-sm-3 padding-none margin-right" data-id="{$option_key}" style="position:relative">
+                                                                                        <div class="panel-heading">
+                                                                                            <strong>{$option.title}</strong>
+                                                                                        </div>
+                                                                                        <div class="list-group dragsort_{$tab_key}" data-group="{$option_key}">
+                                                                                            <foreach name="option.field" item="option_field" key="option_field_key">
+                                                                                                <div class="list-group-item">
+                                                                                                    <em data="{$field['id']}">{$option_field}</em>
+                                                                                                    <input type="hidden" name="{$tab_form.name}[{$option_key}][]" value="{$option_field_key}"/>
+                                                                                                </div>
+                                                                                            </foreach>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </foreach>
+                                                                            </div>
                                                                         </div>
                                                                         <script type="text/javascript">
                                                                             //拖曳插件初始化
