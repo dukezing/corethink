@@ -24,8 +24,7 @@ class ListBuilder extends Controller{
     private $_data_list = array(); //表格数据列表
     private $_right_button_list = array(); //表格右侧操作按钮组
     private $_page; //分页
-    private $_extra; //额外参数
-    private $_builder_class; //Builder最外层div样式
+    private $_extra_html; //额外功能代码
     private $_template = 'Builder/listbuilder'; //模版
 
     /**设置页面标题
@@ -179,12 +178,12 @@ class ListBuilder extends Controller{
         return $this;
     }
 
-    /**设置额外参数
-     * @param $extra  额外参数
+    /**设置额外功能代码
+     * @param $extra_html 额外功能代码
      * @return $this
      */
-    public function setExtra($extra){
-        $this->_extra = $extra;
+    public function setExtraHtml($extra_html){
+        $this->_extra_html = $extra_html;
         return $this;
     }
 
@@ -194,15 +193,6 @@ class ListBuilder extends Controller{
      */
     public function setTemplate($template){
         $this->_template = $template;
-        return $this;
-    }
-
-    /**Builder最外层div样式
-     * @param $builder_class 样式
-     * @return $this
-     */
-    public function setBuilderClass($builder_class){
-        $this->_builder_class = $builder_class;
         return $this;
     }
 
@@ -299,8 +289,7 @@ class ListBuilder extends Controller{
         $this->assign('data_list', $this->_data_list);
         $this->assign('right_button_list', $this->_right_button_list);
         $this->assign('page', $this->_page);
-        $this->assign('extra', $this->_extra);
-        $this->assign('builder_class', $this->_builder_class);
+        $this->assign('extra_html', $this->_extra_html);
         parent::display($this->_template);
     }
 

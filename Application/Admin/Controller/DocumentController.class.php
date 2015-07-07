@@ -40,6 +40,60 @@ class DocumentController extends AdminController{
         $move_attr['class'] = 'btn btn-info';
         $move_attr['onclick'] = 'move()';
 
+        //构造移动文档所需内容
+        $map = array();
+        $map['status'] = array('eq', 1);
+        $map['doc_type'] = array('eq', $category['doc_type']); //文档类型相同的分类才能移动
+        $category_list = D('Category')->where($map)->select();
+        $tree = new \Common\Util\Tree();
+        $category_list = $tree->toFormatTree($category_list);
+        //构造移动文档的目标分类列表
+        $options = '';
+        foreach($category_list as $key => $val){
+            $options .= '<option value="'.$val['id'].'">'.$val['title_show'].'</option>';
+        }
+
+        $extra_html = <<<EOF
+        <div class="modal fade" id="moveModal">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+                        <p class="modal-title">移动至</p>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{:U('Document/move')}" method="post" class="form">
+                            <div class="form-group">
+                                <select name="to_cid" class="form-control">{$options}</select>
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" name="ids">
+                                <input type="hidden" name="from_cid" value="{$cid}">
+                                <button class="btn btn-primary btn-block submit ajax-post" type="submit" target-form="form">确 定</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            function move(){
+                var ids = '';
+                $('input[name="ids[]"]:checked').each(function(){
+                   ids += ',' + $(this).val();
+                });
+                if(ids != ''){
+                    ids = ids.substr(1);
+                    $('input[name="ids"]').val(ids);
+                    $('.modal-title').html('移动选中的的文章至：');
+                    $('#moveModal').modal('show', 'fit')
+                }else{
+                    alertMessager('请选择需要移动的文章', 'danger');
+                }
+            }
+        </script>
+EOF;
+
         //使用Builder快速建立列表页面。
         $builder = new \Common\Builder\ListBuilder();
         $builder->title($category['title']) //设置页面标题
@@ -60,7 +114,7 @@ class DocumentController extends AdminController{
                 ->addRightButton('forbid') //添加禁用/启用按钮
                 ->addRightButton('recycle') //添加回收按钮
                 ->setPage($page->show())
-                ->setExtra('move')
+                ->setExtraHtml($extra_html)
                 ->display();
     }
 

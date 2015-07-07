@@ -1,4 +1,4 @@
-<div class="builder {$builder_class}">
+<div class="builder">
     <div class="row">
         <notempty name="button_list">
             <div class="col-xs-12 col-sm-9 margin-bottom">
@@ -52,82 +52,28 @@
             </div>
         </div>
     </div>
-</div>
-
-<script type="text/javascript">
-    //搜索功能
-    $("#search").click(function(){
-        var url = $(this).attr('url');
-        var query  = $('.search-form').find('input').serialize();
-        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
-        query = query.replace(/^&/g,'');
-        if(url.indexOf('?')>0){
-            url += '&' + query;
-        }else{
-            url += '?' + query;
-        }
-        window.location.href = url;
-    });
-
-    //回车搜索
-    $(".search-input").keyup(function(e){
-        if(e.keyCode === 13){
-            $("#search").click();
-            return false;
-        }
-    });
-</script>
-
-<!-- 额外参数 -->
-<switch name="extra">
-    <case value="move"><!-- 设置移动（文档模型专用） -->
-        <div class="modal fade" id="moveModal">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
-                        <p class="modal-title">移动至</p>
-                    </div>
-                    <div class="modal-body">
-                        <php>
-                            $map['status'] = array('eq', 1);
-                            $category_list = D('Category')->where($map)->select();
-                            $tree = new \Common\Util\Tree();
-                            $category_list = $tree->toFormatTree($category_list);
-                        </php>
-                        <form action="{:U('Document/move')}" method="post" class="form">
-                            <div class="form-group">
-                                <select name="to_cid" class="form-control">
-                                    <volist name="category_list" id="vo">
-                                        <option value="{$vo.id}">{$vo.title_show}</option>
-                                    </volist>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <input type="hidden" name="ids">
-                                <input type="hidden" name="from_cid" value="{$_GET.cid}">
-                                <button class="btn btn-primary btn-block submit ajax-post" type="submit" target-form="form">确 定</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <script type="text/javascript">
-            function move(){
-                var ids = '';
-                $('input[name="ids[]"]:checked').each(function(){
-                   ids += ',' + $(this).val();
-                });
-                if(ids != ''){
-                    ids = ids.substr(1);
-                    $('input[name="ids"]').val(ids);
-                    $('.modal-title').html('移动选中的的文章至：');
-                    $('#moveModal').modal('show', 'fit')
-                }else{
-                    alertMessager('请选择需要移动的文章', 'danger');
-                }
+    <script type="text/javascript">
+        //搜索功能
+        $("#search").click(function(){
+            var url = $(this).attr('url');
+            var query  = $('.search-form').find('input').serialize();
+            query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+            query = query.replace(/^&/g,'');
+            if(url.indexOf('?')>0){
+                url += '&' + query;
+            }else{
+                url += '?' + query;
             }
-        </script>
-    </case>
-</switch>
+            window.location.href = url;
+        });
+
+        //回车搜索
+        $(".search-input").keyup(function(e){
+            if(e.keyCode === 13){
+                $("#search").click();
+                return false;
+            }
+        });
+    </script>
+    {$extra_html}<!-- 额外功能代码 -->
+</div>
