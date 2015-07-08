@@ -87,7 +87,7 @@
         <block name="breadcrumb">
             <div class="breadcrumbs">
                 <div class="container margin-top">
-                    <ul class="breadcrumb bg-none">
+                    <ul class="breadcrumb">
                         <li><a href="__ROOT__/"><span class="glyphicon glyphicon-home"></span></a></li>
                         <corethink:breadcrumb name="_breadcrumb" cid="$__CURRENT_CATEGORY__" group="$__CURRENT_CATEGORY_GROUP__">
                             <li><a href="{:U('Document/index', array('cid' => $_breadcrumb['id']))}">{$_breadcrumb.title}</a></li>

@@ -2,6 +2,8 @@
 
 <block name="title"><title>{:C('WEB_SITE_TITLE')}－{:C('WEB_SITE_SLOGAN')}</title></block>
 
+<block name="breadcrumb"></block>
+
 <block name="style">
     <style type="text/css">
         .thumbnail .lazy{
@@ -44,45 +46,43 @@
     </script>
 </block>
 
-<block name="jumbotron"></block>
-
-<block name="breadcrumb"></block>
+<block name="jumbotron">
+    <div id="my-slide" style="color:#fff;text-shadow: 0 1px 3px rgba(0,0,0,.4),0 0 30px rgba(0,0,0,.075);">
+        <div data-lazy-background="__IMG__/slider01.jpg">
+            <h3 data-pos="['0%', '110%', '25%', '5%']" data-duration="300" data-effect="move">
+                CoreThink框架
+            </h3>
+            <h4 class="hidden-xs-inline" data-pos="['0%', '110%', '40%', '5%']" data-duration="300" data-effect="move">让企业开发变得简单、高效、卓越！</h4>
+            <div data-pos="['0%', '110%', '50%', '5%']" data-duration="200" data-effect="move">
+                <a class="btn btn-success" href="{:U('document/index/cid/1')}">免费下载（V1.0）</a>
+                <a class="btn btn-warning-inverse" href="{:U('document/index/cid/5')}">开发者社区</a>
+                <a class="btn btn-danger-inverse" href="{:U('document/index/cid/1')}">更新日志</a>
+                <a class="btn btn-info-inverse" target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=1ac8801c2f274de186f5c52203f428a1726ba9e3018aa579399b4c6161ca63cd">官方QQ群</a>
+            </div>
+        </div>
+        <div data-lazy-background="__IMG__/slider02.jpg">
+            <h3 data-pos="['0%', '110%', '35%', '15%']" data-duration="300" data-effect="move">
+                微＋大屏幕
+            </h3>
+            <h4 data-pos="['0%', '110%', '45%', '15%']" data-duration="300" data-effect="move">
+                PPT＋微信墙＋抽奖 全功能大屏幕
+            </h4>
+            <h4 data-pos="['0%', '110%', '50%', '15%']" data-duration="300" data-effect="move">
+                适用于晚会、婚庆、外场、节日、主题活动等各种场景
+            </h4>
+            <div data-pos="['0%', '110%', '60%', '15%']" data-duration="200" data-effect="move">
+                <a class="btn btn-success" href="#">即 将 推 出 <span class="fa fa-hand-o-right"></span></a>
+            </div>
+        </div>
+        <div data-lazy-background="__IMG__/slider03.jpg">
+        </div>
+        <div data-lazy-background="__IMG__/slider04.jpg">
+        </div>
+    </div>
+</block>
 
 <block name="body">
     <div class="main">
-        <div id="my-slide" style="color:#fff;text-shadow: 0 1px 3px rgba(0,0,0,.4),0 0 30px rgba(0,0,0,.075);">
-            <div data-lazy-background="__IMG__/slider01.jpg">
-                <h3 data-pos="['0%', '110%', '25%', '5%']" data-duration="300" data-effect="move">
-                    CoreThink框架
-                </h3>
-                <h4 class="hidden-xs-inline" data-pos="['0%', '110%', '40%', '5%']" data-duration="300" data-effect="move">让企业开发变得简单、高效、卓越！</h4>
-                <div data-pos="['0%', '110%', '50%', '5%']" data-duration="200" data-effect="move">
-                    <a class="btn btn-success" href="{:U('document/index/cid/1')}">免费下载（V1.0）</a>
-                    <a class="btn btn-warning-inverse" href="{:U('document/index/cid/5')}">开发者社区</a>
-                    <a class="btn btn-danger-inverse" href="{:U('document/index/cid/1')}">更新日志</a>
-                    <a class="btn btn-info-inverse" target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=1ac8801c2f274de186f5c52203f428a1726ba9e3018aa579399b4c6161ca63cd">官方QQ群</a>
-                </div>
-            </div>
-            <div data-lazy-background="__IMG__/slider02.jpg">
-                <h3 data-pos="['0%', '110%', '35%', '15%']" data-duration="300" data-effect="move">
-                    微＋大屏幕
-                </h3>
-                <h4 data-pos="['0%', '110%', '45%', '15%']" data-duration="300" data-effect="move">
-                    PPT＋微信墙＋抽奖 全功能大屏幕
-                </h4>
-                <h4 data-pos="['0%', '110%', '50%', '15%']" data-duration="300" data-effect="move">
-                    适用于晚会、婚庆、外场、节日、主题活动等各种场景
-                </h4>
-                <div data-pos="['0%', '110%', '60%', '15%']" data-duration="200" data-effect="move">
-                    <a class="btn btn-success" href="#">即 将 推 出 <span class="fa fa-hand-o-right"></span></a>
-                </div>
-            </div>
-            <div data-lazy-background="__IMG__/slider03.jpg">
-            </div>
-            <div data-lazy-background="__IMG__/slider04.jpg">
-            </div>
-        </div>
-        <div class="blank"></div>
         <div class="container">
             <a class="btn btn-info btn-block margin-top margin-bottom">特性</a>
             <div class="row">

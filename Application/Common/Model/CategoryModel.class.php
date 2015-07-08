@@ -77,7 +77,7 @@ class CategoryModel extends Model{
     }
 
     /**
-     * 获取分类树，指定分类则返回指定分类极其子分类，不指定则返回所有分类树
+     * 获取分类树，指定分类则返回指定分类的子分类树，不指定则返回所有分类树，指定分类若无子分类则返回同级分类
      * @param  integer $id    分类ID
      * @param  boolean $field 查询字段
      * @return array          分类树
@@ -90,12 +90,38 @@ class CategoryModel extends Model{
             $id   = $info['id'];
         }
         //获取所有分类
-        $map['status']  = array('eq', 1);
-        $map['group']  = array('eq', $group);
+        $map['status'] = array('eq', 1);
+        $map['group']  = array('eq', $id ? $info['group'] : $group);
         $tree = new \Common\Util\Tree();
-        $list = $this->field($field)->where($map)->order('sort')->select();
+        $list = $this->field($field)->where($map)->order('sort asc')->select();
         $list = $this->getCategoryCount($list); //获取分类的文档数目
-        $list = $tree->list_to_tree($list, $pk = 'id', $pid = 'pid', $child = '_child', $root = (int)$id);
+        $list = $tree->list_to_tree($list, $pk = 'id', $pid = 'pid', $child = '_child', $root = (int)$id); //返回当前分类的子分类树
+        if(!$list){
+            return $this->getSameLevelCategoryTree($id);
+        }
+        return $list;
+    }
+
+    /**
+     * 获取同级分类树
+     * @param  integer $id    分类ID
+     * @return array          分类树
+     * @author jry <598821125@qq.com>
+     */
+    public function getSameLevelCategoryTree($id = 0){
+        //获取当前分类信息
+        if((int)$id > 0){
+            $info = $this->find($id);
+            $parent_info = $this->find($info['pid']);
+            $id   = $info['id'];
+        }
+        //获取所有分类
+        $map['status'] = array('eq', 1);
+        $map['pid']    = array('eq', $info['pid']);
+        $map['group']  = array('eq', $info['group']);
+        $tree = new \Common\Util\Tree();
+        $list = $this->field($field)->where($map)->order('sort asc')->select();
+        $list = $this->getCategoryCount($list); //获取分类的文档数目
         return $list;
     }
 

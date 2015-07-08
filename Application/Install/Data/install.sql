@@ -161,6 +161,7 @@ DROP TABLE IF EXISTS `ct_document`;
 CREATE TABLE `ct_document` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '文档ID',
   `cid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '分类ID',
+  `doc_type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '文档类型ID',
   `uid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '发布者ID',
   `title` char(127) NOT NULL DEFAULT '' COMMENT '标题',
   `view` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '阅读量',

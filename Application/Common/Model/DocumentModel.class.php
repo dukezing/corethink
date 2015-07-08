@@ -18,6 +18,7 @@ class DocumentModel extends Model{
      * @author jry <598821125@qq.com>
      */
     protected $_validate = array(
+        array('doc_type', 'require', '文档类型不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_INSERT),
         array('cid', 'require', '分类不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
         array('cid', 'checkPostAuth', '该分类禁止投稿', self::MUST_VALIDATE, 'callback', self::MODEL_BOTH),
         array('title', 'require', '文档标题不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),

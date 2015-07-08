@@ -1,31 +1,64 @@
 <extend name="Public/layout"/>
 
+<block name="style">
+    <style type="text/css">
+        /* 文章列表样式 */
+        .article-list .list-cover{
+            width: 180px;
+            height: 100px;
+        }
+        .article-list .list-abstract{
+            height: 42px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        @media (max-width: 768px) {
+            .article-list .list-title{
+                font-size: 14px; 
+                margin-bottom: 0px;
+            }
+            .article-list .list-cover{
+                width: 90px;
+                height: 66px;
+            }
+            .article-list .list-info {
+                font-size: 10px;
+                margin-top: 3px !important;
+                margin-bottom: 2px !important;
+            }
+            .article-list .list-abstract{
+                height: 36px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</block>
+
 <block name="body">
-    <section class="container main">
+    <section class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-9">
-                <div class="list box">
-                    <section class="items">
-                        <volist name="volist" id="vo">
-                            <div class="item">
-                                <div class="item-heading">
-                                    <h4><a href="{:U('detail', array('id' => $vo['id']))}">{$vo.title}</a></h4>
-                                </div>
-                                <div class="item-content">
-                                    <div class="media pull-left hidden-xs">
-                                        <div class="media-place-holder lazy"><img class="cover" data-original="{$vo.cover|get_cover}"></div>
-                                    </div>
-                                    <div class="text">{$vo.abstract}</div>
-                                </div>
-                                <div class="item-footer">
-                                    <span class="label"></span>&nbsp;
-                                    <a href="#" class="text-muted"><i class="icon-comments"></i> {$vo.view}</a>&nbsp;
-                                    <span class="text-muted">{$vo.ctime|time_format}</span>
-                                </div>
+                <div class="article-list">
+                    <volist name="volist" id="vo">
+                        <div class="media border-bottom padding-bottom">
+                            <div class="media-left">
+                                <a href="{:U('Document/detail/id/'.$vo['id'])}">
+                                    <img class="list-cover lazy" data-original="{$vo.cover|get_cover}">
+                                </a>
                             </div>
-                        </volist>
-                    </section>
-                    <footer><ul class="pager pager-loose pager-pills">{$page}</ul></footer>
+                            <div class="media-body">
+                                <h4 class="list-title text-overflow margin-top-none"><a href="{:U('Document/detail/id/'.$vo['id'])}">{$vo.title}</a></h4>
+                                <ul class="list-info list-unstyled list-inline text-muted small">
+                                    <li><i class="fa fa-calendar"></i> {$vo.ctime|time_format='Y-m-d'}</li>
+                                    <li><i class="glyphicon glyphicon-eye-open"></i> {$vo.view}</li>
+                                    <li><i class="fa fa-comments"></i> {$vo.comment}</li>
+                                    <li><i class="fa fa-thumbs-o-up"></i> {$vo.good}</li>
+                                </ul>
+                                <div class="list-abstract text-muted">{$vo.abstract}</div>
+                            </div>
+                        </div>
+                    </volist>
+                    <ul class="pagination">{$page}</ul>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-3 form">
@@ -33,7 +66,7 @@
                 <div class="blank"></div>
                 <!-- 侧边导航 -->
                 <div class="list-group">
-                    <corethink:category_list name="vo">
+                    <corethink:category_list name="vo" pid="$__CURRENT_CATEGORY__">
                         <a class="list-group-item <if condition='$vo.id eq $__CURRENT_CATEGORY__'>active</if>" href="{:U('Document/index', array('cid' => $vo['id']))}">
                             {$vo.title}
                         </a>

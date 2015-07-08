@@ -65,55 +65,55 @@
 <block name="jumbotron"></block>
 
 <block name="top-nav">
-            <nav class="navbar navbar-inverse navbar-fixed-top navbar-auto-hiding" role="navigation">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-main">
-                            <span class="sr-only">切换导航</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <php>if(C('WEB_SITE_LOGO')):</php>
-                            <a class="navbar-brand" href="__ROOT__/"><img alt="Brand" class="brand" src="{$Think.config.WEB_SITE_LOGO|get_cover='path'}"></a>
-                        <php>else:</php>
-                            <a class="navbar-brand" href="__ROOT__/">{:C('WEB_SITE_TITLE')}</a>
-                        <php>endif;</php>
-                    </div>
-                    <div class="collapse navbar-collapse navbar-collapse-main">
-                        <ul class="nav navbar-nav">
-                            <li><a href="__ROOT__/">首页</a></li>
-                            <corethink:category_list name="vo">
-                                <li <if condition='$vo.id eq $__CURRENT_CATEGORY__'> class="active"</if> >
-                                    <a href="{:U('Document/index', array('cid' => $vo['id']))}">{$vo.title}</a>
-                                </li>
-                            </corethink:category_list>
-                        </ul>
-                        <ul class="nav navbar-nav navbar-right">
-                            <present name="__USER__">
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        <i class="fa fa-user"></i> {$__USER__.username}
-                                        <span class="caret"></span>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="{:U('User/index')}"><i class="fa fa-home"></i> 个人主页</a></li>
-                                        <li><a href="{:U('User/center')}"><i class="fa fa-tachometer"></i> 个人中心</a></li>
-                                        <li><a href="{:U('UserMessage/index')}"><i class="fa fa-envelope"></i> 消息中心</a></li>
-                                        <li><a href="{:U('Addon/index')}"><i class="fa fa-weixin"></i> 微＋平台</a></li>
-                                        <li class="divider hidden-xs"></li>
-                                        <li><a href="{:U('User/logout')}" class="ajax-get"><i class="fa fa-sign-out"></i> 退出登录</a></li>
-                                    </ul>
-                                </li>
-                            <else />
-                                <li><a href="#" data-toggle="modal" data-target="#login-modal">登录</a></li>
-                                <li><a href="{:U('User/register')}">注册</a></li>
-                            </present>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </block>
+    <nav class="navbar navbar-inverse navbar-fixed-top navbar-auto-hiding" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-main">
+                    <span class="sr-only">切换导航</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <php>if(C('WEB_SITE_LOGO')):</php>
+                    <a class="navbar-brand" href="__ROOT__/"><img alt="Brand" class="brand" src="{$Think.config.WEB_SITE_LOGO|get_cover='path'}"></a>
+                <php>else:</php>
+                    <a class="navbar-brand" href="__ROOT__/">{:C('WEB_SITE_TITLE')}</a>
+                <php>endif;</php>
+            </div>
+            <div class="collapse navbar-collapse navbar-collapse-main">
+                <ul class="nav navbar-nav">
+                    <li><a href="__ROOT__/">首页</a></li>
+                    <corethink:category_list name="vo">
+                        <li <if condition='$vo.id eq $__CURRENT_CATEGORY__'> class="active"</if> >
+                            <a href="{:U('Document/index', array('cid' => $vo['id']))}">{$vo.title}</a>
+                        </li>
+                    </corethink:category_list>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <present name="__USER__">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-user"></i> {$__USER__.username}
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{:U('User/index')}"><i class="fa fa-home"></i> 个人主页</a></li>
+                                <li><a href="{:U('User/center')}"><i class="fa fa-tachometer"></i> 个人中心</a></li>
+                                <li><a href="{:U('UserMessage/index')}"><i class="fa fa-envelope"></i> 消息中心</a></li>
+                                <li><a href="{:U('Addon/index')}"><i class="fa fa-weixin"></i> 微＋平台</a></li>
+                                <li class="divider hidden-xs"></li>
+                                <li><a href="{:U('User/logout')}" class="ajax-get"><i class="fa fa-sign-out"></i> 退出登录</a></li>
+                            </ul>
+                        </li>
+                    <else />
+                        <li><a href="#" data-toggle="modal" data-target="#login-modal">登录</a></li>
+                        <li><a href="{:U('User/register')}">注册</a></li>
+                    </present>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</block>
 
 <block name="breadcrumb">
     <div class="container-fluid">
@@ -141,15 +141,15 @@
 </block>
 
 <block name="footer">
-	<footer class="footer navbar-fixed-bottom border-top">
-		<div class="container">
-			<div class="row padding-top">
-				<ul class="list-inline text-center">
-					<li>{:C('WEB_SITE_COPYRIGHT')}</li>
-					<li><a class="padding-left border-left" href="http://www.miibeian.gov.cn/" target="_blank">{:C('WEB_SITE_ICP')}</a></li>
-					<li><a href="http://www.corethink.cn" title="轻量级WEB产品开发框架"><span class="label label-default">CorerThink</span></a></li>
-				</ul>
-			</div>
-		</div>
-	</footer>
+    <footer class="footer navbar-fixed-bottom border-top">
+        <div class="container">
+            <div class="row padding-top">
+                <ul class="list-inline text-center">
+                    <li>{:C('WEB_SITE_COPYRIGHT')}</li>
+                    <li><a class="padding-left border-left" href="http://www.miibeian.gov.cn/" target="_blank">{:C('WEB_SITE_ICP')}</a></li>
+                    <li><a href="http://www.corethink.cn" title="轻量级WEB产品开发框架"><span class="label label-default">CorerThink</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
 </block>

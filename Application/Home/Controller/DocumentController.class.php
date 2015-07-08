@@ -37,15 +37,32 @@ class DocumentController extends HomeController{
                 $map['status'] = array('eq', 1);
                 $document_list = D('Document')->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))
                                               ->order('sort desc,id desc')->where($map)->select();
-                $this->assign('volist', $document_list);
-
-                //分页
                 $page = new \Common\Util\Page(D('Document')->where($map)->count(), C('ADMIN_PAGE_ROWS'));
-                $this->assign('page', $page->show());
+
+                //如果当前分类下无文档则获取子分类文档
+                if(!$document_list){
+                    $child_cagegory_id_list = D('Category')->where(array('pid' => $cid))->getField('id',true);
+                    if($child_cagegory_id_list){
+                        $map['cid'] = array('in', $child_cagegory_id_list);
+                        $document_list = D('Document')->page(!empty($_GET["p"])?$_GET["p"]:1, C('ADMIN_PAGE_ROWS'))
+                                                     ->order('sort desc,id desc')->where($map)->select();
+                        $page = new \Common\Util\Page(D('Document')->where($map)->count(), C('ADMIN_PAGE_ROWS'));
+                    }
+                }
+
+                //获取扩展表的信息
+                foreach($document_list as &$doc){
+                    $doc_type_name = D('DocumentType')->getFieldById($doc['doc_type'], 'name');
+                    $temp = array();
+                    $temp = D('DocumentExtend'.$doc_type_name)->find($doc['id']);
+                    $doc = array_merge($doc, $temp);
+                }
 
                 $this->assign('__CURRENT_CATEGORY__', $category['id']);
                 $this->assign('__CURRENT_CATEGORY_GROUP__', $category['group']);
                 $this->assign('info', $category);
+                $this->assign('volist', $document_list);
+                $this->assign('page', $page->show());
                 $this->meta_title = $category['title'];
                 Cookie('__forward__', $_SERVER['REQUEST_URI']);
                 $this->display($template);

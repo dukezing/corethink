@@ -15,7 +15,8 @@
                         <ul class="list-unstyled list-inline border-top border-bottom padding-top padding-bottom">
                             <li><i class="fa fa-calendar"></i> {$info.utime|time_format}</li>
                             <li><i class="glyphicon glyphicon-eye-open"></i> {$info.view} 浏览</li>
-                            <li><i class="fa fa-comments"></i> {$info.comment}条评论</li>
+                            <li><i class="fa fa-comments"></i> {$info.comment} 评论</li>
+                            <li><i class="fa fa-thumbs-o-up"></i> {$info.good} 赞</li>
                         </ul>
                     </div>
                     <div class="blank"></div>
@@ -69,7 +70,7 @@
             <div class="col-xs-12 col-sm-3">
                 <!-- 侧边导航 -->
                 <div class="list-group">
-                    <corethink:category_list name="vo">
+                    <corethink:category_list name="vo" pid="$__CURRENT_CATEGORY__">
                         <a class="list-group-item <if condition='$vo.id eq $__CURRENT_CATEGORY__'>active</if>" href="{:U('Document/index', array('cid' => $vo['id']))}">
                             {$vo.title}
                         </a>

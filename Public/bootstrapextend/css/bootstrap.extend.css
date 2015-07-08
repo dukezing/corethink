@@ -40,6 +40,11 @@ ul.token-input-list{overflow:hidden;height:31px;width:100%;border:1px solid #999
 .text-shadow-none {
     text-shadow: none;
 }
+.text-overflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 .bg-none {
     background: none !important;
 }
