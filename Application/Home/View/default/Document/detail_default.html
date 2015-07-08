@@ -4,39 +4,67 @@
     <section class="container main">
         <div class="row">
             <div class="col-xs-12 col-sm-9">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">{$info.title}</h3>
+                <article class="article">
+                    <!-- 文章标题 -->
+                    <div class="article-title">
+                        <h3 class="text-muted-5">{$info.title}</h3>
                     </div>
-                    <div class="panel-body article">
-                        <div class="article-title">
-                            <h2 class="text-center">{$info.title}</h2>
+                    <div class="blank"></div>
+                    <!-- 文章信息 -->
+                    <div class="article-info text-muted">
+                        <ul class="list-unstyled list-inline border-top border-bottom padding-top padding-bottom">
+                            <li><i class="fa fa-calendar"></i> {$info.utime|time_format}</li>
+                            <li><i class="glyphicon glyphicon-eye-open"></i> {$info.view} 浏览</li>
+                            <li><i class="fa fa-comments"></i> {$info.comment}条评论</li>
+                        </ul>
+                    </div>
+                    <div class="blank"></div>
+                    <!-- 文章摘要 -->
+                    <notempty name="info.abstract">
+                        <div class="article-abstract">
+                            <blockquote class="abstract">
+                                <small>{$info.abstract}</small>
+                            </blockquote>
                         </div>
-                        <div class="article-info text-center margin-bottom">
-                            发布时间：{$info.utime|time_format}
-                            阅读：{$info.view}
-                        </div>
-                        <div class="article-body lazy margin-bottom">
-                            <notempty name="info.abstract">
-                                <section class="abstract">{$info.abstract}</section>
-                            </notempty>
-                            {$info.content|parse_content}
-                        </div>
-                        <div class="article-footer">
-                            <div class="digg text-center">
-                                <a href="{:U('UserDigg/digg/', array('type' => 'good', 'doc_id' => $info['id']))}" class="btn digg-good ajax-digg">
-                                    <span class="text"><span class="fa fa-thumbs-o-up"></span> 点赞</span>
-                                    <span class="num">{$info.good}</span>
-                                </a>
-                                <a href="{:U('UserDigg/digg/', array('type' => 'mark', 'doc_id' => $info['id']))}" class="btn digg-mark ajax-digg">
-                                    <span class="text"><span class="fa fa-star-o"></span> 收藏</span>
-                                    <span class="num">{$info.mark}</span>
-                                </a>
-                            </div>
+                    </notempty>
+                    <!-- 文章正文 -->
+                    <div class="article-body">
+                        {$info.content|parse_content}
+                    </div>
+                    <!-- 文章点赞 -->
+                    <div class="article-digg text-center padding-top">
+                        <a href="{:U('UserDigg/digg/', array('type' => 'good', 'doc_id' => $info['id']))}" class="btn btn-danger-inverse btn-pills digg-good ajax-digg">
+                            <span class="text"><span class="fa fa-thumbs-o-up"></span> 点赞</span>
+                            <span class="num">{$info.good}</span>
+                        </a>
+                        <a href="{:U('UserDigg/digg/', array('type' => 'mark', 'doc_id' => $info['id']))}" class="btn btn-success-inverse btn-pills digg-mark ajax-digg">
+                            <span class="text"><span class="fa fa-star-o"></span> 收藏</span>
+                            <span class="num">{$info.mark}</span>
+                        </a>
+                        <div class="btn-group">
+                            <a class="btn btn-info-inverse btn-pills dropdown-toggle" data-toggle="dropdown">
+                                <span class="text"><span class="fa fa-share"></span> 分享</span>
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">微信</a></li>
+                                <li><a href="#">朋友圈</a></li>
+                                <li><a href="#">微博</a></li>
+                                <li><a href="#">QQ空间</a></li>
+                            </ul>
                         </div>
                     </div>
-                </div>
-                <include file="Document/comment" /><!-- 包含评论 -->
+                    <!-- 文章导航 -->
+                    <div class="article-pager">
+                        <hr>
+                        <ul class="list-unstyled">
+                            <li class="previous">上一篇：<a href="#"></a></li>
+                            <li class="next">下一篇：<a href="#"></a></li>
+                        </ul>
+                        <hr>
+                    </div>
+                </article>
+                <include file="Comment/default" /><!-- 包含评论 -->
             </div>
             <div class="col-xs-12 col-sm-3">
                 <!-- 侧边导航 -->
@@ -58,14 +86,14 @@
             //已赞设置高亮
             $.get("{:U('UserDigg/getDiggStatus/', array('type' => 'good', 'doc_id' => $info['id']))}").success(function(data){
                 if(data.status == 1){
-                    $('.digg-good').addClass('btn-primary');
+                    $('.digg-good').addClass('hover');
                 }
             });
 
             //已收藏设置高亮
             $.get("{:U('UserDigg/getDiggStatus/', array('type' => 'mark', 'doc_id' => $info['id']))}").success(function(data){
                 if(data.status == 1){
-                    $('.digg-mark').addClass('btn-primary');
+                    $('.digg-mark').addClass('hover');
                 }
             });
 
@@ -79,9 +107,9 @@
                         if(data.status == 1){
                             var ret = data.info.split(".");
                             if(ret[0] == "yes"){
-                                $(that).addClass('btn-primary');
+                                $(that).addClass('hover');
                             }else{
-                                $(that).removeClass('btn-primary');
+                                $(that).removeClass('hover');
                             }
                             $(that).find('span.num').css({'opacity':'0'}).text(ret[1]).animate({opacity:'1'});
                         }else{

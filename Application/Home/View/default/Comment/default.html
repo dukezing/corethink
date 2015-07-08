@@ -1,8 +1,6 @@
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">{$info.comment} 条评论</h3>
-    </div>
-    <div class="panel-body">
+<div class="comment-box">
+    <h3>{$info.comment} 条评论</h3>
+    <div class="comment-list">
         <corethink:comment_list name="vo" table="$__CURRENT_TABLE_ID__" group="0" data_id="$info['id']">
             <div class="media border-bottom padding-bottom">
                 <div class="media-left">

@@ -82,23 +82,18 @@
             </nav>
         </block>
 
-        <block name="jumbotron">
-            <div class="jumbotron jumbotron-primary margin-bottom">
-                <div class="container">
-                    <h2>{:C('WEB_SITE_TITLE')}</h2>
-                    <p>{:C('WEB_SITE_SLOGAN')}</p>
-                </div>
-            </div>
-        </block>
+        <block name="jumbotron"></block>
 
         <block name="breadcrumb">
-            <div class="container">
-                <ul class="breadcrumb">
-                    <li><a href="__ROOT__/">首页</a></li>
-                    <corethink:breadcrumb name="_breadcrumb" cid="$__CURRENT_CATEGORY__" group="$__CURRENT_CATEGORY_GROUP__">
-                        <li><a href="{:U('Document/index', array('cid' => $_breadcrumb['id']))}">{$_breadcrumb.title}</a></li>
-                    </corethink:breadcrumb>
-                </ul>
+            <div class="breadcrumbs">
+                <div class="container margin-top">
+                    <ul class="breadcrumb bg-none">
+                        <li><a href="__ROOT__/"><span class="glyphicon glyphicon-home"></span></a></li>
+                        <corethink:breadcrumb name="_breadcrumb" cid="$__CURRENT_CATEGORY__" group="$__CURRENT_CATEGORY_GROUP__">
+                            <li><a href="{:U('Document/index', array('cid' => $_breadcrumb['id']))}">{$_breadcrumb.title}</a></li>
+                        </corethink:breadcrumb>
+                    </ul>
+                </div>
             </div>
         </block>
 
