@@ -1,0 +1,54 @@
+<extend name="Public/layout"/>
+
+<block name="breadcrumb"></block>
+
+<block name="jumbotron">
+    <div class="jumbotron jumbotron-inverse margin-bottom">
+        <div class="container">
+            <h2>{:C('WEB_SITE_TITLE')}</h2>
+            <p>{:C('WEB_SITE_SLOGAN')}</p>
+        </div>
+    </div>
+</block>
+
+<block name="body">
+    <section class="container main">
+        <div class="row">
+            <div class="col-xs-12 col-sm-9">
+                <article class="article">
+                    <!-- 文章摘要 -->
+                    <notempty name="info.abstract">
+                        <div class="article-abstract">
+                            <blockquote class="abstract">
+                                <small>{$info.abstract}</small>
+                            </blockquote>
+                        </div>
+                    </notempty>
+                    <!-- 文章正文 -->
+                    <div class="article-body">
+                        {$info.content|parse_content}
+                    </div>
+                </article>
+            </div>
+            <div class="col-xs-12 col-sm-3">
+                <!-- 侧边导航 -->
+                <div class="panel-group margin-none" role="tablist">
+                    <corethink:category_list name="vo" group="3" pid="15">
+                        <div class="panel panel-default margin-none border-radius-none border-bottom-none">
+                            <div class="panel-heading" role="tab">
+                                <h4 class="panel-title"><a data-toggle="collapse" href="#side-menu{$key}">{$vo.title}</a></h4>
+                            </div>
+                            <div id="side-menu{$key}" class="panel-collapse collapse in" role="tabpanel">
+                                <div class="list-group">
+                                    <volist name="vo._child" id="vo_child">
+                                        <a class="list-group-item border-radius-none <if condition='$vo_child.id eq $__CURRENT_CATEGORY__'>active</if>" href="{:U('Document/index', array('cid' => $vo_child['id']))}">{$vo_child.title}</a>
+                                    </volist>
+                                </div>
+                            </div>
+                        </div>
+                    </corethink:category_list>
+                </div>
+            </div>
+        </div>
+    </section>
+</block>
