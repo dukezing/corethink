@@ -234,7 +234,7 @@ $(function(){
 //弹窗提醒
 function alertMessager(message, type, time){
     type = type ? type : 'danger';
-    var messager = '<div style="width:380px;height:auto;margin:0 auto;max-width: 80%;top:51px;left:0;right:0;z-index:99999;"'+
+    var messager = '<div style="width:380px;height:auto;margin:0 auto;max-width: 80%;top:52px;left:0;right:0;z-index:99999;"'+
                    'class="messager navbar-fixed-top border-none alert alert-'+type+'"><button type="button" class="close" '+
                    'data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>'+message+'</div>';
     $('.messager').remove();

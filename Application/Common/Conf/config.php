@@ -13,7 +13,7 @@
 const THINK_ADDON_PATH = './Addons/';
 return array(
     //CoreThink当前版本
-    'CORETHINK_VERSION' => '1.0beta',
+    'CORETHINK_VERSION' => '1.0Beta',
 
     //数据库配置
     'DB_TYPE'   => $_SERVER[ENV_PRE.'DB_TYPE'] ? : 'mysql', // 数据库类型

@@ -1,0 +1,136 @@
+/* 
+全局
+ */
+.alert,
+.form-control {
+    border-radius: 0px;
+}
+.btn {
+    border-radius: 0px;
+    background: #15afef;
+    border-color: #15afef;
+    color: #fff;
+}
+.btn:hover,
+.btn:focus,
+.btn:active,
+.btn.disabled,
+.btn.disabled:hover {
+    background: #0c7dac;
+    border-color: #0c7dac;
+}
+/* 
+主导航背景色
+ */
+.navbar-inverse {
+    background-color: #15afef;
+    border-color: #15afef;
+    border: none;
+}
+/* 
+主导航border为0时保持高度
+ */
+.navbar-nav>li>a {
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+/* 
+主导航字体颜色
+ */
+.navbar-inverse .navbar-brand,
+.navbar-inverse .navbar-nav>li>a {
+    color: #fff;
+}
+/* 
+主导航高亮项目背景色
+ */
+.navbar-inverse .navbar-nav>.active>a,
+.navbar-inverse .navbar-nav>.active>a:focus,
+.navbar-inverse .navbar-nav>.active>a:hover {
+    color: #fff;
+    background-color: #0c7dac;
+}
+/* 
+主导航鼠标移过背景色
+ */
+.navbar-inverse .navbar-nav>li>a:focus,
+.navbar-inverse .navbar-nav>li>a:hover {
+    color: #fff;
+    background-color: #0c7dac;
+}
+
+/* 
+左侧导航
+ */
+.wrap>.left {
+    margin-top: 10px;
+    background-color: #fff !important;
+    border-right: 1px solid #ddd;
+}
+.wrap>.left>.panel-group {
+    padding-left: 20px;
+}
+.wrap>.left>.panel-group>.panel-default {
+    border: none;
+}
+.wrap>.left>.panel-group>.panel-default>.panel-heading {
+    border-left: 3px solid #3bb4f2;
+    background-color: #fff;
+    border-radius: 0px;
+}
+.wrap>.left>.panel-group>.panel-default>.panel-collapse>.list-group{
+    border: none;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.wrap>.left>.panel-group>.panel-default .list-group-item {
+    border: none;
+}
+.wrap>.left>.panel-group>.panel-default .list-group-item.active,
+.wrap>.left>.panel-group>.panel-default .list-group-item.active:focus,
+.wrap>.left>.panel-group>.panel-default .list-group-item.active:hover {
+    color: #414141;
+    background-color: #f6f6f6;
+    border-color: #fff;
+}
+
+/* 
+面包屑导航
+ */
+.wrap>.right .breadcrumb {
+    background-color: #fff;
+    margin-top: 8px;
+    color: #555;
+}
+.wrap>.right .breadcrumb a{
+    color: #777;
+    font-size: 18px;
+}
+
+/* 
+TAB切换
+ */
+.wrap>.right .nav-tabs>li>a {
+    margin: 0px;
+    border-radius: 0px;
+    padding: 10px 25px;
+}
+.wrap>.right .nav-tabs>li.active>a,
+.wrap>.right .nav-tabs>li.active>a:focus,
+.wrap>.right .nav-tabs>li.active>a:hover {
+    color: #555;
+    padding: 9px 25px;
+    border-top: 3px solid #3bb4f2;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom-color: transparent;
+}
+
+/* 
+表格
+ */
+.wrap>.right .table thead th {
+    background: #36baf1;
+    border: none;
+    color: #fff;
+}
