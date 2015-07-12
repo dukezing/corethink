@@ -75,7 +75,7 @@ class LoginController extends AddonController{
                 D('Addons://SyncLogin/SyncLogin')->update($id);
                 //登录用户
                 $uid = D('User')->login($username, $password);
-                $this->success('注册成功', U('Home/Index/index'));
+                $this->success('注册成功', 'http://'.$_SERVER['HTTP_HOST'].__ROOT__);
             }else{
                 $this->error('注册失败');
             }

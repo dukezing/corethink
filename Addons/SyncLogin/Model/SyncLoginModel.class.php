@@ -72,12 +72,12 @@ class SyncLoginModel extends Model{
              ),
              'access_token' => array(
                  'name'  => 'access_token',
-                 'title' => 'openid',
+                 'title' => 'access_token',
                  'type'  => 'text',
              ),
             'refresh_token' => array(
                  'name'  => 'refresh_token',
-                 'title' => 'openid',
+                 'title' => 'refresh_token',
                  'type'  => 'text',
              ),
         ),
