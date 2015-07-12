@@ -1,8 +1,8 @@
 /* 
 全局
  */
- a {
-    color: #15afef;
+a {
+    color: #03AE87;
 }
 .alert,
 .form-control {
@@ -10,8 +10,8 @@
 }
 .btn {
     border-radius: 0px;
-    background: #15afef;
-    border-color: #15afef;
+    background: #03AE87;
+    border-color: #03AE87;
     color: #fff;
 }
 .btn:hover,
@@ -19,16 +19,16 @@
 .btn:active,
 .btn.disabled,
 .btn.disabled:hover {
-    background: #0c7dac;
-    border-color: #0c7dac;
+    background: #05d9a9;
+    border-color: #05d9a9;
     color: #fff;
 }
 /* 
 主导航背景色
  */
 .navbar-inverse {
-    background-color: #15afef;
-    border-color: #15afef;
+    background-color: #03AE87;
+    border-color: #03AE87;
     border: none;
 }
 /* 
@@ -52,7 +52,7 @@
 .navbar-inverse .navbar-nav>.active>a:focus,
 .navbar-inverse .navbar-nav>.active>a:hover {
     color: #fff;
-    background-color: #0c7dac;
+    background-color: #05d9a9;
 }
 /* 
 主导航鼠标移过背景色
@@ -60,7 +60,7 @@
 .navbar-inverse .navbar-nav>li>a:focus,
 .navbar-inverse .navbar-nav>li>a:hover {
     color: #fff;
-    background-color: #0c7dac;
+    background-color: #05d9a9;
 }
 
 /* 
@@ -78,7 +78,7 @@
     border: none;
 }
 .wrap>.left>.panel-group>.panel-default>.panel-heading {
-    border-left: 3px solid #15afef;
+    border-left: 3px solid #03AE87;
     background-color: #fff;
     border-radius: 0px;
 }
@@ -124,7 +124,7 @@ TAB切换
 .wrap>.right .nav-tabs>li.active>a:hover {
     color: #555;
     padding: 9px 25px;
-    border-top: 3px solid #15afef;
+    border-top: 3px solid #03AE87;
     border-left: 1px solid #ddd;
     border-right: 1px solid #ddd;
     border-bottom-color: transparent;
@@ -134,7 +134,7 @@ TAB切换
 表格
  */
 .wrap>.right .table thead th {
-    background: #15afef;
+    background: #03AE87;
     border: none;
     color: #fff;
 }
