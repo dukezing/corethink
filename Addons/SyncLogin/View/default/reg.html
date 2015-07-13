@@ -1,5 +1,15 @@
 <extend name="Public/layout"/>
 
+<block name="breadcrumb">
+    <div class="container">
+        <ul class="breadcrumb">
+            <li><i class="icon-location-arrow"></i></li>
+            <li><a href="__ROOT__/">首页</a></li>
+            <li><a href="{:U('')}">第三方登录</a></li>
+        </ul>
+    </div>
+</block>
+
 <block name="body">
     <div class="container">
         <div class="row">
@@ -20,6 +30,7 @@
                 <div class="tab-content">
                     <div id="reg1" class='tab-pane active'>
                         <form class="form reg-form" action="{:U('home/addon/execute',array('_addons'=>'SyncLogin','_controller'=>'Login','_action'=>'doregister'))}" method="post">
+                            <div class="blank"></div>
                             <div class="form-group">
                                 <label class="control-label">用户名</label>
                                 <div class="controls">
@@ -41,6 +52,7 @@
                     </div>
                     <div id="reg2" class='tab-pane'>
                         <form class="login-form" action="{:U('home/addon/execute',array('_addons'=>'SyncLogin','_controller'=>'Login','_action'=>'dobind'))}" method="post">
+                            <div class="blank"></div>
                             <div class="form form-group">
                                 <label class="control-label">账号</label>
                                 <div class="controls">

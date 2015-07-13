@@ -16,15 +16,11 @@
     <link rel="apple-touch-icon" type="image/x-icon" href="__ROOT__/favicon.ico">
     <link rel="stylesheet" type="text/css" href="__PUBLIC__/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="__PUBLIC__/bootstrapextend/css/bootstrap.extend.css">
+    <style type="text/css">.breadcrumb {margin-top: 10px}</style>
     <block name="style"></block>
     <script type="text/javascript" src="__PUBLIC__/jquery/jquery-1.11.1.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="__PUBLIC__/bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="__PUBLIC__/bootstrapextend/js/bootstrap.extend.js" charset="utf-8"></script>
-    <script type="text/javascript">
-        $(function(){
-            $(window).resize(function(){$('body .main').css("min-height", $(window).height()-362);}).resize(); //调整内容高度
-        });
-    </script>
     <block name="script"></block>
 </head>
 <body style="padding-top: 50px;">
@@ -85,19 +81,19 @@
         <block name="jumbotron"></block>
 
         <block name="breadcrumb">
-            <div class="breadcrumbs">
-                <div class="container margin-top">
-                    <ul class="breadcrumb">
-                        <li><a href="__ROOT__/"><span class="glyphicon glyphicon-home"></span></a></li>
-                        <corethink:breadcrumb name="_breadcrumb" cid="$__CURRENT_CATEGORY__" group="$__CURRENT_CATEGORY_GROUP__">
-                            <li><a href="{:U('Document/index', array('cid' => $_breadcrumb['id']))}">{$_breadcrumb.title}</a></li>
-                        </corethink:breadcrumb>
-                    </ul>
-                </div>
+            <div class="container">
+                <ul class="breadcrumb">
+                    <li><a href="__ROOT__/"><span class="glyphicon glyphicon-home"></span></a></li>
+                    <corethink:breadcrumb name="_breadcrumb" cid="$__CURRENT_CATEGORY__" group="$__CURRENT_CATEGORY_GROUP__">
+                        <li><a href="{:U('Document/index', array('cid' => $_breadcrumb['id']))}">{$_breadcrumb.title}</a></li>
+                    </corethink:breadcrumb>
+                </ul>
             </div>
         </block>
 
-        <block name="body">这里是内容</block>
+        <div class="main">
+            <block name="body">这里是内容</block>
+        </div>
 
         <block name="footer">
             <footer class="footer">
