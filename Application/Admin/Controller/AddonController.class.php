@@ -334,7 +334,6 @@ class AddonController extends AdminController {
         $admin = $admin_list[$tab];
         $addon_model_object = D('Addons://'.$name.'/'.$admin['model']);
         $param = $addon_model_object->adminList;
-        //dump($addon_model_object);exit();
         if($param){
             if(IS_POST){
                 $data = $addon_model_object->create();

@@ -34,11 +34,11 @@
                     </div>
                     <!-- 文章点赞 -->
                     <div class="article-digg text-center padding-top">
-                        <a href="{:U('UserDigg/digg/', array('type' => 'good', 'doc_id' => $info['id']))}" class="btn btn-danger-inverse btn-pills digg-good ajax-digg">
+                        <a href="{:U('PublicDigg/digg/', array('table' => $__CURRENT_TABLE_ID__, 'data_id' => $info['id'], 'type' => '1'))}" class="btn btn-danger-inverse btn-pills digg-good ajax-digg">
                             <span class="text"><span class="fa fa-thumbs-o-up"></span> 点赞</span>
                             <span class="num">{$info.good}</span>
                         </a>
-                        <a href="{:U('UserDigg/digg/', array('type' => 'mark', 'doc_id' => $info['id']))}" class="btn btn-success-inverse btn-pills digg-mark ajax-digg">
+                        <a href="{:U('PublicDigg/digg/', array('table' => $__CURRENT_TABLE_ID__, 'data_id' => $info['id'], 'type' => '3'))}" class="btn btn-success-inverse btn-pills digg-mark ajax-digg">
                             <span class="text"><span class="fa fa-star-o"></span> 收藏</span>
                             <span class="num">{$info.mark}</span>
                         </a>
@@ -84,15 +84,15 @@
 <block name="script">
     <script type="text/javascript">
         $(function(){
-            //已赞设置高亮
-            $.get("{:U('UserDigg/getDiggStatus/', array('type' => 'good', 'doc_id' => $info['id']))}").success(function(data){
+            // //已赞设置高亮
+            $.get("{:U('PublicDigg/getDiggStatus/', array('table' => $__CURRENT_TABLE_ID__, 'data_id' => $info['id'], 'type' => '1'))}").success(function(data){
                 if(data.status == 1){
                     $('.digg-good').addClass('hover');
                 }
             });
 
             //已收藏设置高亮
-            $.get("{:U('UserDigg/getDiggStatus/', array('type' => 'mark', 'doc_id' => $info['id']))}").success(function(data){
+            $.get("{:U('PublicDigg/getDiggStatus/', array('table' => $__CURRENT_TABLE_ID__, 'data_id' => $info['id'], 'type' => '3'))}").success(function(data){
                 if(data.status == 1){
                     $('.digg-mark').addClass('hover');
                 }
@@ -106,13 +106,12 @@
                 if((target = $(this).attr('href')) || (target = $(this).attr('url'))){
                     $.get(target).success(function(data){
                         if(data.status == 1){
-                            var ret = data.info.split(".");
-                            if(ret[0] == "yes"){
+                            if(data.digg_status == 1){
                                 $(that).addClass('hover');
                             }else{
                                 $(that).removeClass('hover');
                             }
-                            $(that).find('span.num').css({'opacity':'0'}).text(ret[1]).animate({opacity:'1'});
+                            $(that).find('span.num').css({'opacity':'0'}).text(data.digg_count).animate({opacity:'1'});
                         }else{
                             if(data.login == 1){
                                 $('#login-modal').modal(); //弹出登陆框

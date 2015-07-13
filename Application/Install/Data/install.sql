@@ -274,6 +274,27 @@ VALUES
 UNLOCK TABLES;
 
 
+
+# Dump of table ct_public_digg
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `ct_public_digg`;
+
+CREATE TABLE `ct_public_digg` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `table` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '数据表ID',
+  `data_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '数据ID',
+  `type` tinyint(3) NOT NULL DEFAULT '0' COMMENT 'Digg类型',
+  `uid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `ctime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `utime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `sort` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+  `status` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='Digg表';
+
+
+
 # Dump of table ct_system_config
 # ------------------------------------------------------------
 
@@ -413,7 +434,7 @@ VALUES
 	(55,54,'添加','Tag/add','',1426580628,1426580628,1,1),
 	(56,54,'编辑','Tag/edit','',1426580628,1426580628,2,1),
 	(57,54,'设置状态','Tag/setStatus','',1426580628,1426580628,3,1),
-	(58,9,'评论列表','UserComment/index','',1426580628,1426580628,4,1),
+	(58,9,'万能评论','UserComment/index','',1426580628,1426580628,4,1),
 	(59,58,'添加','UserComment/add','',1426580628,1426580628,1,1),
 	(60,58,'编辑','UserComment/edit','',1426580628,1426580628,2,1),
 	(61,58,'设置状态','UserComment/setStatus','',1426580628,1426580628,3,1),
@@ -554,22 +575,6 @@ CREATE TABLE `ct_user_comment` (
   `ip` varchar(15) NOT NULL COMMENT '来源IP',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COMMENT='评论表';
-
-
-
-# Dump of table ct_user_digg
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `ct_user_digg`;
-
-CREATE TABLE `ct_user_digg` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `doc_id` int(11) unsigned NOT NULL COMMENT '文档ID',
-  `good` text COMMENT '赞',
-  `bad` text COMMENT '踩',
-  `mark` text COMMENT '收藏',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Digg表';
 
 
 

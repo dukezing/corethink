@@ -69,7 +69,7 @@ return array(
         '0'  => '禁止投稿',
     ),
 
-    //注册方式列表
+    //注册注册列表
     'REG_TYPE_LIST' => array(
         '1'  => '邮箱',
         '2'  => '手机号',
@@ -104,9 +104,16 @@ return array(
 
     //评论及Digg数据表ID
     'TABLE_LIST' => array(
-        '0'  => 'Document',
-        '1'  => 'Category',
-        '2'  => 'User',
+        '1'  => 'Document',
+        '2'  => 'Category',
+        '3'  => 'User',
+    ),
+
+    //Digg类型
+    'DIGG_TYPE_LIST' => array(
+        '1'  => 'good', //赞
+        '2'  => 'bad',  //踩
+        '3'  => 'mark', //收藏
     ),
 
     //文件上传相关配置
