@@ -101,6 +101,20 @@ return array(
         '1'  => '微＋插件',
     ),
 
+    //评论及Digg数据表ID
+    'TABLE_LIST' => array(
+        '1'  => 'Document',
+        '2'  => 'Category',
+        '3'  => 'User',
+    ),
+
+    //Digg类型
+    'DIGG_TYPE_LIST' => array(
+        '1'  => 'good', //赞
+        '2'  => 'bad',  //踩
+        '3'  => 'mark', //收藏
+    ),
+
     //文件上传相关配置
     'UPLOAD_CONFIG' => array(
         'mimes'    => '', //允许上传的文件MiMe类型
