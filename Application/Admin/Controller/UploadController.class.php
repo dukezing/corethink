@@ -8,6 +8,7 @@
 // +----------------------------------------------------------------------
 namespace Admin\Controller;
 use Think\Controller;
+use Think\Storage;
 /**
  * 后台上传控制器
  * @author jry <598821125@qq.com>
@@ -47,6 +48,48 @@ class UploadController extends AdminController{
                 ->addRightButton('delete') //添加删除按钮
                 ->setPage($page->show())
                 ->display();
+    }
+
+    /**
+     * 设置一条或者多条数据的状态
+     * @author jry <598821125@qq.com>
+     */
+    public function setStatus($model = CONTROLLER_NAME){
+        $ids    = I('request.ids');
+        $status = I('request.status');
+        if(empty($ids)){
+            $this->error('请选择要操作的数据');
+        }
+        switch($status){
+            case 'delete' : //删除条目
+                if(!is_array($ids)){
+                    $id_list[0] = $ids;
+                }else{
+                    $id_list = $ids;
+                }
+                foreach($id_list as $id){
+                    $upload_info = D('Upload')->find($id);
+                    if($upload_info){
+                        $realpath = realpath('.'.$upload_info['path']);
+                        if($realpath){
+                            array_map("unlink", glob($realpath));
+                            if(count(glob($realpath))){
+                                $this->error('删除失败！');
+                            }else{
+                                $resut = D('Upload')->delete($id);
+                                $this->success('删除成功！');
+                            }
+                        }else{
+                            $resut = D('Upload')->delete($id);
+                            $this->success('删除成功！');
+                        }
+                    }
+                }
+                break;
+            default :
+                parent::setStatus($model);
+                break;
+        }
     }
 
     /**
