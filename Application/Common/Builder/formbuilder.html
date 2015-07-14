@@ -1,12 +1,16 @@
 <style type="text/css">
     @media (min-width: 992px) {
-        .form select,
-        .form textarea,
-        .form input[type=text],
-        .form input[type=password],
+        .form .form-control.input,
+        .form .form-control.select,
+        .form .form-control.textarea,
         .form .token-input-list{
             width: 50% !important;
             max-width: 600px;
+        }
+        .form button.submit,
+        .form button.reset,
+        .form button.return {
+            min-width: 128px;
         }
     }
     /* 多图上传样式 */
@@ -50,23 +54,23 @@
         </notempty>
         <div class="col-xs-12">
             <form action="{$url}" method="post" class="form builder-form">
-                <volist name="form_items" id="form">
+                <volist name="form_items" id="form" key="k">
                     <div class="form-group item_{$form.name} {$form.extra_class}">
                         <php>if($form['type'] != 'group' && $form['type'] != 'hidden'):</php>
-                            <label class="item-label">{$form.title}<notempty name="form.tip"><span class="check-tips">（{$form.tip}）</span></notempty></label>
+                            <label class="item-label">{$form.title}<notempty name="form.tip"><span class="check-tips">（<span class="small">{$form.tip}</span>）</span></notempty></label>
                         <php>endif;</php>
                         <div class="controls">
                             <switch name="form.type">
                                 <case value="hidden">
-                                    <input type="hidden" class="form-control" name="{$form.name}" value="{$form.value}" {$form.extra_attr}>
+                                    <input type="hidden" class="form-control input" name="{$form.name}" value="{$form.value}" {$form.extra_attr}>
                                 </case>
                                 <!-- 数字 -->
                                 <case value="num">
-                                    <input type="text" class="form-control num" name="{$form.name}" value="{$form.value}" {$form.extra_attr}>
+                                    <input type="text" class="form-control input num" name="{$form.name}" value="{$form.value}" {$form.extra_attr}>
                                 </case>
                                 <!-- 字符串 -->
                                 <case value="text">
-                                    <input type="text" class="form-control text" name="{$form.name}" value="{$form.value}" {$form.extra_attr}>
+                                    <input type="text" class="form-control input text" name="{$form.name}" value="{$form.value}" {$form.extra_attr}>
                                 </case>
                                 <!-- 文本 -->
                                 <case value="textarea">
@@ -78,7 +82,7 @@
                                 </case>
                                 <!-- 密码 -->
                                 <case value="password">
-                                    <input type="password" class="form-control password" name="{$form.name}" value="{$form.value}" {$form.extra_attr}>
+                                    <input type="password" class="form-control input password" name="{$form.name}" value="{$form.value}" {$form.extra_attr}>
                                 </case>
                                 <!-- 单选按钮 -->
                                 <case value="radio">
@@ -98,7 +102,7 @@
                                 </case>
                                 <!-- 下拉框 -->
                                 <case value="select">
-                                    <select name="{$form.name}" class="form-control" {$form.extra_attr}>
+                                    <select name="{$form.name}" class="form-control select" {$form.extra_attr}>
                                         <option value=''>请选择：</option>
                                         <foreach name="form.options" item="option" key="option_key">
                                             <option value="{$option_key}" <eq name="form.value" value="$option_key"> selected</eq>>{$option}</option>
@@ -107,19 +111,19 @@
                                 </case>
                                 <!-- 图标 -->
                                 <case value="icon">
-                                    <input type="text" class="form-control icon_{$key}" name="{$form.name}" value="{$form.value}" {$form.extra_attr}>
+                                    <input type="text" class="form-control input icon_{$k}" name="{$form.name}" value="{$form.value}" {$form.extra_attr}>
                                     <script type="text/javascript">
                                         $(function(){
-                                            $(".icon_{$key}").iconChoosen({});
+                                            $(".icon_{$k}").iconChoosen({});
                                         });
                                     </script>
                                 </case>
                                 <!-- 日期 -->
                                 <case value="date">
-                                    <input type="text" class="form-control date time_{$key}" name="{$form.name}" value="<notempty name='form.value'>{$form.value|time_format='Y-m-d'}</notempty>" {$form.extra_attr}>
+                                    <input type="text" class="form-control input date time_{$k}" name="{$form.name}" value="<notempty name='form.value'>{$form.value|time_format='Y-m-d'}</notempty>" {$form.extra_attr}>
                                     <script type="text/javascript">
                                         $(function(){
-                                            $(".time_{$key}").daterangepicker({
+                                            $(".time_{$l}").daterangepicker({
                                                 showDropdowns: true,
                                                 singleDatePicker: true,
                                                 startDate: moment().subtract(0, 'days'),
@@ -131,10 +135,10 @@
                                 </case>
                                 <!-- 时间 -->
                                 <case value="time">
-                                    <input type="text" class="form-control time time_{$key}" name="{$form.name}" value="<notempty name='form.value'>{$form.value|time_format}</notempty>" {$form.extra_attr}>
+                                    <input type="text" class="form-control input time time_{$k}" name="{$form.name}" value="<notempty name='form.value'>{$form.value|time_format}</notempty>" {$form.extra_attr}>
                                     <script type="text/javascript">
                                         $(function(){
-                                            $(".time_{$key}").daterangepicker({
+                                            $(".time_{$k}").daterangepicker({
                                                 showDropdowns: true,
                                                 singleDatePicker: true,
                                                 startDate: moment().subtract(0, 'days'),
@@ -148,22 +152,22 @@
                                 </case>
                                 <!-- 图片 -->
                                 <case value="picture">
-                                    <div id="upload_{$key}" {$form.extra_attr}></div>
-                                    <div id="preview_{$key}">
+                                    <div id="upload_{$k}" {$form.extra_attr}></div>
+                                    <div id="preview_{$k}">
                                         <input type="hidden" name="{$form.name}" value="{$form.value}">
                                         <img style="margin-top:8px;max-height:60px;" src="{$form.value|get_cover}">
                                     </div>
                                     <script type="text/javascript">
                                         $(function(){
-                                            $('#upload_{$key}').Huploadify({
+                                            $('#upload_{$k}').Huploadify({
                                                 uploader:'{:U("Upload/upload")}',
                                                 fileTypeExts:'*.gif;*.jpg;*.jpeg;*.png;*.bmp',
                                                 fileSizeLimit:{:C('UPLOAD_IMAGE_SIZE')}*1024,
                                                 buttonText:'上 传 图 片',
                                                 onUploadComplete:function(file, data){
                                                     var data = $.parseJSON(data);
-                                                    $('#preview_{$key} img').attr('src', data.url);
-                                                    $('#preview_{$key} input').attr('value', data.id);
+                                                    $('#preview_{$k} img').attr('src', data.url);
+                                                    $('#preview_{$k} input').attr('value', data.id);
                                                 }
                                             });
                                         });
@@ -171,26 +175,28 @@
                                 </case>
                                 <!-- 图片(多图) -->
                                 <case value="pictures">
-                                    <div id="upload_{$key}" {$form.extra_attr}></div>
-                                    <div id="preview_{$key}">
+                                    <div id="upload_{$k}" {$form.extra_attr}></div>
+                                    <div id="preview_{$k}">
                                         <input type="hidden" name="{$form.name}" value="{$form.value}">
-                                        <?php $images = explode(',',$form['value']); ?>
-                                        <foreach name="images" item="img">
-                                            <span class="img-box"><img src="{$img|get_cover}" data-id="{$img}"><i class="glyphicon glyphicon-remove-sign remove-picture"></i></span>
-                                        </foreach>
+                                        <notempty name="form.value">
+                                            <?php $images = explode(',',$form['value']); ?>
+                                            <foreach name="images" item="img">
+                                                <span class="img-box"><img src="{$img|get_cover}" data-id="{$img}"><i class="glyphicon glyphicon-remove-sign remove-picture"></i></span>
+                                            </foreach>
+                                        </notempty>
                                     </div>
                                     <script type="text/javascript">
                                         $(function(){
-                                            $('#upload_{$key}').Huploadify({
+                                            $('#upload_{$k}').Huploadify({
                                                 uploader:'{:U("Upload/upload")}',
                                                 fileTypeExts:'*.gif;*.jpg;*.jpeg;*.png;*.bmp',
                                                 fileSizeLimit:{:C('UPLOAD_IMAGE_SIZE')}*1024,
                                                 buttonText:'上 传 图 片',
                                                 onUploadComplete:function(file, data){
                                                     var data = $.parseJSON(data);
-                                                    var input = $('#preview_{$key} input');
+                                                    var input = $('#preview_{$k} input');
                                                     var new_img = '<span class="img-box"><img class="img" src="' + data.url + '"><i class="glyphicon glyphicon-remove-sign"></i></span>';
-                                                    $('#preview_{$key}').append(new_img);
+                                                    $('#preview_{$k}').append(new_img);
                                                     if(input.val()){
                                                         input.val(input.val() + ',' + data.id);
                                                     }else{
@@ -199,12 +205,12 @@
                                                 }
                                             });
                                             //删除图片
-                                            $('#preview_{$key} .remove-picture').click(function(){
+                                            $('#preview_{$k} .remove-picture').click(function(){
                                                 var ready_for_remove_id = $(this).closest('.img-box').find('img').attr('data-id'); //获取待删除的图片ID
                                                 if(!ready_for_remove_id){alertMessager('错误');}
-                                                var current_picture_ids = $('#preview_{$key} input').val().split(","); //获取当前图集以逗号分隔的ID并转换成数组
+                                                var current_picture_ids = $('#preview_{$k} input').val().split(","); //获取当前图集以逗号分隔的ID并转换成数组
                                                 current_picture_ids.remove(ready_for_remove_id); //从数组中删除待删除的图片ID
-                                                $('#preview_{$key} input').val(current_picture_ids.join(',')) //删除后覆盖原input的值
+                                                $('#preview_{$k} input').val(current_picture_ids.join(',')) //删除后覆盖原input的值
                                                 $(this).closest('.img-box').remove(); //删除图片预览图
                                             });
                                         });
@@ -212,12 +218,11 @@
                                 </case>
                                 <!-- 编辑器 -->
                                 <case value="kindeditor">
-                                    <textarea id="kindeditor_{$key}" name="{$form.name}" class="form-control" {$form.extra_attr}>{$form.value}</textarea>
+                                    <textarea id="kindeditor_{$k}" name="{$form.name}" class="form-control" {$form.extra_attr}>{$form.value}</textarea>
                                     <script type="text/javascript">
                                         $(function(){
-                                            var editor_{$key};
-                                            KindEditor.ready(function(K) {
-                                                kindeditor_{$key} = K.create('#kindeditor_{$key}', {
+                                            KindEditor.ready(function(K){
+                                                kindeditor_{$k} = K.create('#kindeditor_{$k}', {
                                                     allowFileManager : false,
                                                     width: '100%',
                                                     height: '500px',
@@ -247,11 +252,11 @@
                                 </case>
                                 <!-- 标签 -->
                                 <case value="tags">
-                                    <input type="text" class="form-control tag_{$key}" name="{$form.name}" value="{$form.value}" {$form.extra_attr}>
+                                    <input type="text" class="form-control input tag_{$k}" name="{$form.name}" value="{$form.value}" {$form.extra_attr}>
                                     <script type="text/javascript">
                                         $(function(){
                                             //标签自动完成
-                                            var tags = $('.tag_{$key}'), tagsPre = [];
+                                            var tags = $('.tag_{$k}'), tagsPre = [];
                                             if (tags.length > 0) {
                                                 var items = tags.val().split(','), result = [];
                                                 for (var i = 0; i < items.length; i ++) {
@@ -287,14 +292,14 @@
                                 <!-- 拖动排序 -->
                                 <case value="board">
                                     <input type="hidden" name="{$form.name}" value='{$form.value}'>
-                                    <div class="row boards_{$key}" {$form.extra_attr}>
-                                        <div class="container">
+                                    <div class="row boards_{$k}" {$form.extra_attr}>
+                                        <div class="container-fluid">
                                             <foreach name="form.options" item="option" key="option_key">
                                                 <div class="panel panel-default col-xs-12 col-sm-3 padding-none margin-right" data-id="{$option_key}" style="position:relative">
                                                     <div class="panel-heading">
                                                         <strong>{$option.title}</strong>
                                                     </div>
-                                                    <div class="list-group dragsort_{$key}" data-group="{$option_key}">
+                                                    <div class="list-group dragsort_{$k}" data-group="{$option_key}">
                                                         <foreach name="option.field" item="option_field" key="option_field_key">
                                                             <div class="list-group-item">
                                                                 <em data="{$field['id']}">{$option_field}</em>
@@ -309,7 +314,7 @@
                                     <script type="text/javascript">
                                         //拖曳插件初始化
                                         $(function(){
-                                            $(".dragsort_{$key}").dragsort({
+                                            $(".dragsort_{$k}").dragsort({
                                                  dragSelector:'div',
                                                  placeHolderTemplate: '<div class="clearfix draging-place">&nbsp;</div>',
                                                  dragBetween:true, //允许拖动到任意地方
@@ -323,30 +328,30 @@
                                 </case>
                                 <case value="group">
                                     <ul class="nav-tabs nav">
-                                        <volist name="form.options" id="li">
-                                            <li data-tab="tab{$i}" <eq name="i" value="1">class="active"</eq>><a href="#tab{$i}" data-toggle="tab">{$li.title}</a></li>
+                                        <volist name="form.options" id="li" key="group_k">
+                                            <li data-tab="tab{$group_k}" <eq name="group_k" value="1">class="active"</eq>><a href="#tab{$group_k}" data-toggle="tab">{$li.title}</a></li>
                                         </volist>
                                     </ul>
                                     <div class="tab-content">
                                         <div class="blank"></div>
-                                        <volist name="form.options" id="tab">
-                                            <div id="tab{$i}" class='tab-pane <eq name="i" value="1">active</eq> tab{$i}'>
+                                        <volist name="form.options" id="tab" key="group_k">
+                                            <div id="tab{$group_k}" class='tab-pane <eq name="group_k" value="1">active</eq> tab{$group_k}'>
                                                 <div class="controls">
-                                                    <volist name="tab.options" id="tab_form" key="tab_key">
+                                                    <volist name="tab.options" id="tab_form" key="tab_k">
                                                         <div class="form-group {$tab_form.extra_class}">
                                                             <label class="item-label">{$tab_form.title}<notempty name="tab_form.tip"><span class="check-tips">（{$tab_form.tip}）</span></notempty></label>
                                                             <div class="controls">
                                                                 <switch name="tab_form.type">
                                                                     <case value="hidden">
-                                                                        <input type="hidden" class="form-control" name="{$tab_form.name}" value="{$tab_form.value}" {$tab_form.extra_attr}>
+                                                                        <input type="hidden" class="form-control input" name="{$tab_form.name}" value="{$tab_form.value}" {$tab_form.extra_attr}>
                                                                     </case>
                                                                     <!-- 数字 -->
                                                                     <case value="num">
-                                                                        <input type="text" class="form-control num" name="{$tab_form.name}" value="{$tab_form.value}" {$tab_form.extra_attr}>
+                                                                        <input type="text" class="form-control input num" name="{$tab_form.name}" value="{$tab_form.value}" {$tab_form.extra_attr}>
                                                                     </case>
                                                                     <!-- 字符串 -->
                                                                     <case value="text">
-                                                                        <input type="text" class="form-control text" name="{$tab_form.name}" value="{$tab_form.value}" {$tab_form.extra_attr}>
+                                                                        <input type="text" class="form-control input text" name="{$tab_form.name}" value="{$tab_form.value}" {$tab_form.extra_attr}>
                                                                     </case>
                                                                     <!-- 文本 -->
                                                                     <case value="textarea">
@@ -358,7 +363,7 @@
                                                                     </case>
                                                                     <!-- 密码 -->
                                                                     <case value="password">
-                                                                        <input type="password" class="form-control password" name="{$tab_form.name}" value="{$tab_form.value}" {$tab_form.extra_attr}>
+                                                                        <input type="password" class="form-control input password" name="{$tab_form.name}" value="{$tab_form.value}" {$tab_form.extra_attr}>
                                                                     </case>
                                                                     <!-- 单选按钮 -->
                                                                     <case value="radio">
@@ -387,19 +392,19 @@
                                                                     </case>
                                                                     <!-- 图标 -->
                                                                     <case value="icon">
-                                                                        <input type="text" class="form-control icon_{$tab_key}" name="{$tab_form.name}" value="{$tab_form.value}" {$tab_form.extra_attr}>
+                                                                        <input type="text" class="form-control input icon_{$tab_k}" name="{$tab_form.name}" value="{$tab_form.value}" {$tab_form.extra_attr}>
                                                                         <script type="text/javascript">
                                                                             $(function(){
-                                                                                $(".icon_{$tab_key}").iconChoosen({});
+                                                                                $(".tab{$group_k} .icon_{$tab_k}").iconChoosen({});
                                                                             });
                                                                         </script>
                                                                     </case>
                                                                     <!-- 日期 -->
                                                                     <case value="date">
-                                                                        <input type="text" class="form-control date time_{$tab_key}" name="{$tab_form.name}" value="<notempty name='tab_form.value'>{$tab_form.value|time_format='Y-m-d'}</notempty>" {$tab_form.extra_attr}>
+                                                                        <input type="text" class="form-control input date time_{$tab_k}" name="{$tab_form.name}" value="<notempty name='tab_form.value'>{$tab_form.value|time_format='Y-m-d'}</notempty>" {$tab_form.extra_attr}>
                                                                         <script type="text/javascript">
                                                                             $(function(){
-                                                                                $(".time_{$tab_key}").daterangepicker({
+                                                                                $(".tab{$group_k} .time_{$tab_k}").daterangepicker({
                                                                                     showDropdowns: true,
                                                                                     singleDatePicker: true,
                                                                                     startDate: moment().subtract(0, 'days'),
@@ -411,10 +416,10 @@
                                                                     </case>
                                                                     <!-- 时间 -->
                                                                     <case value="time">
-                                                                        <input type="text" class="form-control time time_{$tab_key}" name="{$tab_form.name}" value="<notempty name='tab_form.value'>{$tab_form.value|time_format}</notempty>" {$tab_form.extra_attr}>
+                                                                        <input type="text" class="form-control input time time_{$tab_k}" name="{$tab_form.name}" value="<notempty name='tab_form.value'>{$tab_form.value|time_format}</notempty>" {$tab_form.extra_attr}>
                                                                         <script type="text/javascript">
                                                                             $(function(){
-                                                                                $(".time_{$tab_key}").daterangepicker({
+                                                                                $(".tab{$group_k} .time_{$tab_k}").daterangepicker({
                                                                                     showDropdowns: true,
                                                                                     singleDatePicker: true,
                                                                                     startDate: moment().subtract(0, 'days'),
@@ -428,22 +433,22 @@
                                                                     </case>
                                                                     <!-- 图片 -->
                                                                     <case value="picture">
-                                                                        <div id="upload_{$tab_key}" {$form.extra_attr}></div>
-                                                                        <div id="preview_{$tab_key}">
+                                                                        <div class="upload_{$tab_k}" {$form.extra_attr}></div>
+                                                                        <div class="preview_{$tab_k}">
                                                                             <input type="hidden" name="{$tab_form.name}" value="{$tab_form.value}">
                                                                             <img style="margin-top:8px;max-height:60px;" src="{$tab_form.value|get_cover}">
                                                                         </div>
                                                                         <script type="text/javascript">
                                                                             $(function(){
-                                                                                $('#upload_{$tab_key}').Huploadify({
+                                                                                $('.tab{$group_k} .upload_{$tab_k}').Huploadify({
                                                                                     uploader:'{:U("Upload/upload")}',
                                                                                     fileTypeExts:'*.gif;*.jpg;*.jpeg;*.png;*.bmp',
                                                                                     fileSizeLimit:{:C('UPLOAD_IMAGE_SIZE')}*1024,
                                                                                     buttonText:'上 传 图 片',
                                                                                     onUploadComplete:function(file, data){
                                                                                         var data = $.parseJSON(data);
-                                                                                        $('#preview_{$tab_key} img').attr('src', data.url);
-                                                                                        $('#preview_{$tab_key} input').attr('value', data.id);
+                                                                                        $('.tab{$group_k} .preview_{$tab_k} img').attr('src', data.url);
+                                                                                        $('.tab{$group_k} .preview_{$tab_k} input').attr('value', data.id);
                                                                                     }
                                                                                 });
                                                                             });
@@ -451,26 +456,28 @@
                                                                     </case>
                                                                     <!-- 图片(多图) -->
                                                                     <case value="pictures">
-                                                                        <div id="upload_{$tab_key}" {$tab_form.extra_attr}></div>
-                                                                        <div id="preview_{$tab_key}">
+                                                                        <div class="upload_{$tab_k}" {$tab_form.extra_attr}></div>
+                                                                        <div class="preview_{$tab_k}">
                                                                             <input type="hidden" name="{$tab_form.name}" value="{$tab_form.value}">
-                                                                            <?php $images = explode(',',$tab_form['value']); ?>
-                                                                            <foreach name="images" item="img">
-                                                                                <span class="img-box"><img src="{$img|get_cover}" data-id="{$img}"><i class="glyphicon glyphicon-remove-sign remove-picture"></i></span>
-                                                                            </foreach>
+                                                                            <notempty name="tab_form.value">
+                                                                                <?php $images = explode(',',$tab_form['value']); ?>
+                                                                                <foreach name="images" item="img">
+                                                                                    <span class="img-box"><img src="{$img|get_cover}" data-id="{$img}"><i class="glyphicon glyphicon-remove-sign remove-picture"></i></span>
+                                                                                </foreach>
+                                                                            </notempty>
                                                                         </div>
                                                                         <script type="text/javascript">
                                                                             $(function(){
-                                                                                $('#upload_{$tab_key}').Huploadify({
+                                                                                $('.tab{$group_k} .upload_{$tab_k}').Huploadify({
                                                                                     uploader:'{:U("Upload/upload")}',
                                                                                     fileTypeExts:'*.gif;*.jpg;*.jpeg;*.png;*.bmp',
                                                                                     fileSizeLimit:{:C('UPLOAD_IMAGE_SIZE')}*1024,
                                                                                     buttonText:'上 传 图 片',
                                                                                     onUploadComplete:function(file, data){
                                                                                         var data = $.parseJSON(data);
-                                                                                        var input = $('#preview_{$tab_key} input');
-                                                                                        var new_img = '<span class="img-box"><img class="img" src="' + data.url + '"><i class="glyphicon glyphicon-remove-sign"></i></span>';
-                                                                                        $('#preview_{$tab_key}').append(new_img);
+                                                                                        var input = $('.tab{$group_k} .preview_{$tab_k} input');
+                                                                                        var new_img = '<span class="img-box"><img class="img" src="' + data.url + '"><i class="glyphicon glyphicon-remove-sign remove-picture"></i></span>';
+                                                                                        $('.tab{$group_k} .preview_{$tab_k}').append(new_img);
                                                                                         if(input.val()){
                                                                                             input.val(input.val() + ',' + data.id);
                                                                                         }else{
@@ -479,12 +486,12 @@
                                                                                     }
                                                                                 });
                                                                                 //删除图片
-                                                                                $('#preview_{$tab_key} .remove-picture').click(function(){
+                                                                                $('.tab{$group_k} .preview_{$tab_k} .remove-picture').click(function(){
                                                                                     var ready_for_remove_id = $(this).closest('.img-box').find('img').attr('data-id'); //获取待删除的图片ID
                                                                                     if(!ready_for_remove_id){alertMessager('错误');}
-                                                                                    var current_picture_ids = $('#preview_{$tab_key} input').val().split(","); //获取当前图集以逗号分隔的ID并转换成数组
+                                                                                    var current_picture_ids = $('.tab{$group_k} .preview_{$tab_k} input').val().split(","); //获取当前图集以逗号分隔的ID并转换成数组
                                                                                     current_picture_ids.remove(ready_for_remove_id); //从数组中删除待删除的图片ID
-                                                                                    $('#preview_{$tab_key} input').val(current_picture_ids.join(',')) //删除后覆盖原input的值
+                                                                                    $('.tab{$group_k} .preview_{$tab_k} input').val(current_picture_ids.join(',')) //删除后覆盖原input的值
                                                                                     $(this).closest('.img-box').remove(); //删除图片预览图
                                                                                 });
                                                                             });
@@ -492,12 +499,11 @@
                                                                     </case>
                                                                     <!-- 编辑器 -->
                                                                     <case value="kindeditor">
-                                                                        <textarea id="kindeditor_{$tab_key}" name="{$tab_form.name}" class="form-control" {$tab_form.extra_attr}>{$tab_form.value}</textarea>
+                                                                        <textarea name="{$tab_form.name}" class="form-control kindeditor_{$tab_k}" {$tab_form.extra_attr}>{$tab_form.value}</textarea>
                                                                         <script type="text/javascript">
                                                                             $(function(){
-                                                                                var kindeditor_{$tab_key};
                                                                                 KindEditor.ready(function(K) {
-                                                                                    kindeditor_{$tab_key} = K.create('#kindeditor_{$tab_key}', {
+                                                                                    kindeditor_{$tab_k} = K.create('.tab{$group_k} .kindeditor_{$tab_k}', {
                                                                                         allowFileManager : false,
                                                                                         width: '100%',
                                                                                         height: '500px',
@@ -527,11 +533,11 @@
                                                                     </case>
                                                                     <!-- 标签 -->
                                                                     <case value="tags">
-                                                                        <input type="text" class="form-control tag_{$tab_key}" name="{$tab_form.name}" value="{$tab_form.value}" {$tab_form.extra_attr}>
+                                                                        <input type="text" class="form-control tag_{$tab_k}" name="{$tab_form.name}" value="{$tab_form.value}" {$tab_form.extra_attr}>
                                                                         <script type="text/javascript">
                                                                             $(function(){
                                                                                 //标签自动完成
-                                                                                var tags = $('.tag_{$tab_key}'), tagsPre = [];
+                                                                                var tags = $('.tab{$group_k} .tag_{$tab_k}'), tagsPre = [];
                                                                                 if (tags.length > 0) {
                                                                                     var items = tags.val().split(','), result = [];
                                                                                     for (var i = 0; i < items.length; i ++) {
@@ -567,31 +573,14 @@
                                                                     <!-- 拖动排序 -->
                                                                     <case value="board">
                                                                         <input type="hidden" name="{$tab_form.name}" value='{$tab_form.value}'>
-                                                                        <div class="boards boards_{$tab_key}" {$tab_form.extra_attr}>
-                                                                            <foreach name="tab_form.options" item="option" key="option_key">
-                                                                                <div class="board panel" data-id="{$option_key}" style="position:relative">
-                                                                                    <div class="panel-heading">
-                                                                                        <strong>{$option.title}</strong>
-                                                                                    </div>
-                                                                                    <div class="panel-body dragsort_{$tab_key}" data-group="{$option_key}">
-                                                                                        <foreach name="option.field" item="option_field" key="option_field_key">
-                                                                                            <div class="board-item">
-                                                                                                <em data="{$option_field_key}">{$option_field}</em>
-                                                                                                <input type="hidden" name="{$tab_form.name}[{$option_key}][]" value="{$option_field_key}"/>
-                                                                                            </div>
-                                                                                        </foreach>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </foreach>
-                                                                        </div>
-                                                                        <div class="row boards_{$tab_key}" {$tab_form.extra_attr}>
-                                                                            <div class="container">
+                                                                        <div class="row boards_{$tab_k}" {$tab_form.extra_attr}>
+                                                                            <div class="container-fluid">
                                                                                 <foreach name="form.options" item="option" key="option_key">
                                                                                     <div class="panel panel-default col-xs-12 col-sm-3 padding-none margin-right" data-id="{$option_key}" style="position:relative">
                                                                                         <div class="panel-heading">
                                                                                             <strong>{$option.title}</strong>
                                                                                         </div>
-                                                                                        <div class="list-group dragsort_{$tab_key}" data-group="{$option_key}">
+                                                                                        <div class="list-group dragsort_{$tab_k}" data-group="{$option_key}">
                                                                                             <foreach name="option.field" item="option_field" key="option_field_key">
                                                                                                 <div class="list-group-item">
                                                                                                     <em data="{$field['id']}">{$option_field}</em>
@@ -606,13 +595,13 @@
                                                                         <script type="text/javascript">
                                                                             //拖曳插件初始化
                                                                             $(function(){
-                                                                                $(".dragsort_{$tab_key}").dragsort({
+                                                                                $(".tab{$group_k} .dragsort_{$tab_k}").dragsort({
                                                                                      dragSelector:'div',
                                                                                      placeHolderTemplate: '<div class="clearfix draging-place">&nbsp;</div>',
                                                                                      dragBetween:true, //允许拖动到任意地方
                                                                                      dragEnd:function(){
                                                                                          var self = $(this);
-                                                                                         self.find('input').attr('name', '{$tab_form.name}[' + self.closest('.dragsort_{$tab_key}').data('group') + '][]');
+                                                                                         self.find('input').attr('name', '{$tab_form.name}[' + self.closest('.dragsort_{$tab_k}').data('group') + '][]');
                                                                                      }
                                                                                  });
                                                                             });

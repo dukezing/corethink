@@ -38,7 +38,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <volist name="data_list" id="data">
+                        <volist name="data_list" id="data" empty="$empty">
                             <tr>
                                 <td><input class="ids" type="checkbox" value="{$data['id']}" name="ids[]"></td>
                                 <volist name="field_list" id="field">
@@ -48,6 +48,9 @@
                         </volist>
                     </tbody>
                 </table>
+                <empty name="data_list">
+                    <div class="text-center clearfix">暂时没有数据～</div>
+                </empty>
                 <ul class="pagination"><notempty name="page">{$page}</notempty></ul>
             </div>
         </div>
