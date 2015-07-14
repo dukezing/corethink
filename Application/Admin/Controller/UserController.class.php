@@ -89,7 +89,7 @@ class UserController extends AdminController{
                     ->addItem('password', 'password', '密码', '密码')
                     ->addItem('avatar', 'picture', '用户头像', '用户头像')
                     ->addItem('vip', 'radio', 'VIP等级', 'VIP等级', C('USER_VIP_LEVEL'))
-                    ->setFormData(array('reg_type' => 0))
+                    ->setFormData(array('reg_type' => 4))
                     ->display();
         }
     }
