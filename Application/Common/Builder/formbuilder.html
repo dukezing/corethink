@@ -383,7 +383,7 @@
                                                                     </case>
                                                                     <!-- 下拉框 -->
                                                                     <case value="select">
-                                                                        <select name="{$tab_form.name}" class="form-control" {$tab_form.extra_attr}>
+                                                                        <select name="{$tab_form.name}" class="form-control select" {$tab_form.extra_attr}>
                                                                             <option value=''>请选择：</option>
                                                                             <foreach name="tab_form.options" item="option" key="option_key">
                                                                                 <option value="{$option_key}" <eq name="tab_form.value" value="$option_key"> selected</eq>>{$option}</option>
