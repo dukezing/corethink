@@ -34,7 +34,7 @@
 /*
 主导航border为0时保持高度
  */
- @media (min-width: 768) {
+@media (min-width: 768) {
     .navbar-nav>li>a {
         padding-top: 16px;
         padding-bottom: 16px;
@@ -52,7 +52,10 @@
  */
 .navbar-inverse .navbar-nav>.active>a,
 .navbar-inverse .navbar-nav>.active>a:focus,
-.navbar-inverse .navbar-nav>.active>a:hover {
+.navbar-inverse .navbar-nav>.active>a:hover,
+.navbar-inverse .navbar-nav>.open>a,
+.navbar-inverse .navbar-nav>.open>a:focus,
+.navbar-inverse .navbar-nav>.open>a:hover {
     color: #fff;
     background-color: #0c7dac;
 }
@@ -158,35 +161,37 @@ TAB切换
 /*
  小屏幕特殊样式
  */
-.navbar-inverse .navbar-toggle {
-    border-color: #fff;
-}
-.navbar-inverse .navbar-toggle:focus,
-.navbar-inverse .navbar-toggle:hover {
-    background-color: #fff;
-}
-.navbar-inverse .navbar-toggle:hover .icon-bar {
-    background-color: #15afef;
-}
-.navbar-inverse .navbar-collapse,
-.navbar-inverse .navbar-form {
-    border-color: #15afef;
-}
+@media (max-width: 768) {
+    .navbar-inverse .navbar-toggle {
+        border-color: #fff;
+    }
+    .navbar-inverse .navbar-toggle:focus,
+    .navbar-inverse .navbar-toggle:hover {
+        background-color: #fff;
+    }
+    .navbar-inverse .navbar-toggle:hover .icon-bar {
+        background-color: #15afef;
+    }
+    .navbar-inverse .navbar-collapse,
+    .navbar-inverse .navbar-form {
+        border-color: #15afef;
+    }
 
-.navbar-inverse .navbar-nav>.open>a,
-.navbar-inverse .navbar-nav>.open>a:focus,
-.navbar-inverse .navbar-nav>.open>a:hover {
-    color: #fff;
-    background-color: #0c7dac;
-}
-.navbar-inverse .navbar-nav .open .dropdown-menu .divider {
-    background-color: #0c7dac
-}
-.navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
-    color: #fff;
-}
-.navbar-inverse .navbar-nav .open .dropdown-menu>li>a:focus,
-.navbar-inverse .navbar-nav .open .dropdown-menu>li>a:hover {
-    color: #fff;
-    background-color: #0c7dac;
+    .navbar-inverse .navbar-nav>.open>a,
+    .navbar-inverse .navbar-nav>.open>a:focus,
+    .navbar-inverse .navbar-nav>.open>a:hover {
+        color: #fff;
+        background-color: #0c7dac;
+    }
+    .navbar-inverse .navbar-nav .open .dropdown-menu .divider {
+        background-color: #0c7dac
+    }
+    .navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
+        color: #fff;
+    }
+    .navbar-inverse .navbar-nav .open .dropdown-menu>li>a:focus,
+    .navbar-inverse .navbar-nav .open .dropdown-menu>li>a:hover {
+        color: #fff;
+        background-color: #0c7dac;
+    }
 }

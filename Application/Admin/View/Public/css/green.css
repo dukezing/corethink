@@ -52,7 +52,10 @@
  */
 .navbar-inverse .navbar-nav>.active>a,
 .navbar-inverse .navbar-nav>.active>a:focus,
-.navbar-inverse .navbar-nav>.active>a:hover {
+.navbar-inverse .navbar-nav>.active>a:hover,
+.navbar-inverse .navbar-nav>.open>a,
+.navbar-inverse .navbar-nav>.open>a:focus,
+.navbar-inverse .navbar-nav>.open>a:hover {
     color: #fff;
     background-color: #05d9a9;
 }
@@ -158,35 +161,37 @@ TAB切换
 /*
  小屏幕特殊样式
  */
-.navbar-inverse .navbar-toggle {
-    border-color: #fff;
-}
-.navbar-inverse .navbar-toggle:focus,
-.navbar-inverse .navbar-toggle:hover {
-    background-color: #fff;
-}
-.navbar-inverse .navbar-toggle:hover .icon-bar {
-    background-color: #03AE87;
-}
-.navbar-inverse .navbar-collapse,
-.navbar-inverse .navbar-form {
-    border-color: #03AE87;
-}
+@media (max-width: 768) {
+    .navbar-inverse .navbar-toggle {
+        border-color: #fff;
+    }
+    .navbar-inverse .navbar-toggle:focus,
+    .navbar-inverse .navbar-toggle:hover {
+        background-color: #fff;
+    }
+    .navbar-inverse .navbar-toggle:hover .icon-bar {
+        background-color: #03AE87;
+    }
+    .navbar-inverse .navbar-collapse,
+    .navbar-inverse .navbar-form {
+        border-color: #03AE87;
+    }
 
-.navbar-inverse .navbar-nav>.open>a,
-.navbar-inverse .navbar-nav>.open>a:focus,
-.navbar-inverse .navbar-nav>.open>a:hover {
-    color: #fff;
-    background-color: #05d9a9;
-}
-.navbar-inverse .navbar-nav .open .dropdown-menu .divider {
-    background-color: #05d9a9
-}
-.navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
-    color: #fff;
-}
-.navbar-inverse .navbar-nav .open .dropdown-menu>li>a:focus,
-.navbar-inverse .navbar-nav .open .dropdown-menu>li>a:hover {
-    color: #fff;
-    background-color: #05d9a9;
+    .navbar-inverse .navbar-nav>.open>a,
+    .navbar-inverse .navbar-nav>.open>a:focus,
+    .navbar-inverse .navbar-nav>.open>a:hover {
+        color: #fff;
+        background-color: #05d9a9;
+    }
+    .navbar-inverse .navbar-nav .open .dropdown-menu .divider {
+        background-color: #05d9a9
+    }
+    .navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
+        color: #fff;
+    }
+    .navbar-inverse .navbar-nav .open .dropdown-menu>li>a:focus,
+    .navbar-inverse .navbar-nav .open .dropdown-menu>li>a:hover {
+        color: #fff;
+        background-color: #05d9a9;
+    }
 }
