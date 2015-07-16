@@ -49,10 +49,10 @@ class SystemMenuModel extends Model{
     }
 
     /**
-     * 根据Controller和Action获取当前菜单
+     * 获取当前菜单
      * @author jry <598821125@qq.com>
      */
-    public function getMenuByControllerAndAction(){
+    public function getCurrentMenu(){
         $map['status'] = array('eq', 1);
         $map['url'] = array('like', CONTROLLER_NAME.'/'.ACTION_NAME.'%');
         $result = $this->where($map)->order('pid desc')->find();
