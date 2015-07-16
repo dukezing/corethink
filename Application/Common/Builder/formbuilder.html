@@ -320,7 +320,7 @@
                                                  dragBetween:true, //允许拖动到任意地方
                                                  dragEnd:function(){
                                                      var self = $(this);
-                                                     self.find('input').attr('name', '{$form.name}[' + self.closest('.dragsort_{$key}').data('group') + '][]');
+                                                     self.find('input').attr('name', '{$form.name}[' + self.closest('.dragsort_{$k}').data('group') + '][]');
                                                  }
                                              });
                                         });
