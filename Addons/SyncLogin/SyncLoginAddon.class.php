@@ -47,7 +47,7 @@ class SyncLoginAddon extends Addon{
                 PRIMARY KEY (`id`)
             ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='第三方登陆插件表';
 sql;
-        M()->execute(sql);
+        M()->execute($sql);
         return true;
     }
 

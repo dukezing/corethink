@@ -20,6 +20,7 @@ class InitHookBehavior extends Behavior{
      * @author jry <598821125@qq.com>
      */
     public function run(&$content){
+        //安装模式下直接返回
         if(defined('BIND_MODULE') && BIND_MODULE === 'Install') return;
         $data = S('hooks');
         if(!$data){

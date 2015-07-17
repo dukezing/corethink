@@ -13,7 +13,7 @@ use Think\Controller;
  * 为什么要继承AdminController？
  * 因为AdminController的初始化函数中读取了顶部导航栏和左侧的菜单，
  * 如果不继承的话，只能复制AdminController中的代码来读取导航栏和左侧的菜单。
- * 这样做会导致一个问题就是当AdminController被官方修改后AdminBuilder不会同步更新，从而导致错误。
+ * 这样做会导致一个问题就是当AdminController被官方修改后AdminController不会同步更新，从而导致错误。
  * 所以综合考虑还是继承比较好。
  * @author jry <598821125@qq.com>
  */
@@ -36,14 +36,20 @@ class AdminController extends Controller{
         //读取数据库中的配置
         $config = S('DB_CONFIG_DATA');
         if(!$config){
+            //获取所有系统配置
             $config = D('SystemConfig')->lists();
-            $config['DEFAULT_THEME'] = ''; //后台无模板主题
+
+            //后台无模板主题
+            $config['DEFAULT_THEME'] = '';
+
             //模板相关配置
             $config['TMPL_PARSE_STRING']['__PUBLIC__'] = __ROOT__.'/Public';
             $config['TMPL_PARSE_STRING']['__IMG__'] = __ROOT__.'/Application/Admin/View/Public/img';
             $config['TMPL_PARSE_STRING']['__CSS__'] = __ROOT__.'/Application/Admin/View/Public/css';
             $config['TMPL_PARSE_STRING']['__JS__']  = __ROOT__.'/Application/Admin/View/Public/js';
-            S('DB_CONFIG_DATA',$config);
+
+            //缓存配置
+            S('DB_CONFIG_DATA', $config, 3600);
         }
         C($config); //添加配置
 
@@ -58,6 +64,24 @@ class AdminController extends Controller{
         //设置数组key为菜单ID
         foreach($all_admin_menu_list as $key => $val){
             $all_menu_list[$val['id']] = $val;
+        }
+
+        //获取功能模块的后台菜单列表
+        $moule_list = D('StoreModule')->where(array('status' => 1))->select(); //获取所有安装并启用的功能模块
+        $all_module_menu_list = array();
+        foreach($moule_list as $key => $val){
+            $menu_list_item = $tree->list_to_tree(json_decode($val['admin_menu'], true));
+            $all_module_menu_list[] = $menu_list_item[0];
+        }
+
+        //设置数组key为菜单ID
+        foreach($all_module_menu_list as &$menu){
+            $new_all_module_menu_list[$menu['id']] = $menu;
+        }
+
+        //合并系统核心菜单与功能模块菜单
+        if($new_all_module_menu_list){
+            $all_menu_list += $new_all_module_menu_list;
         }
 
         $current_menu = D('SystemMenu')->getCurrentMenu(); //当前菜单

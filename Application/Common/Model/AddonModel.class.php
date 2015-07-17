@@ -69,11 +69,11 @@ class AddonModel extends Model{
         foreach($addons as &$val){
             switch($val['status']){
                 case '-1': //未安装
-                    $val['status'] = '<i class="icon-trash" style="color:red"></i>';
+                    $val['status'] = '<i class="glyphicon glyphicon-trash" style="color:red"></i>';
                     $val['right_button']  = '<a class="ajax-get" href="'.U('install?addon_name='.$val['name']).'">安装</a>';
                     break;
                 case '0': //禁用
-                    $val['status'] = '<i class="icon-ban-circle" style="color:red"></i>';
+                    $val['status'] = '<i class="glyphicon glyphicon-ban-circle" style="color:red"></i>';
                     $val['right_button']  = '<a href="'.U('config',array('id'=>$val['id'])).'">设置</a> ';
                     $val['right_button'] .= '<a class="ajax-get" href="'.U('setStatus',array('status'=>'resume', 'ids' => $val['id'])).'">启用</a> ';
                     $val['right_button'] .= '<a class="ajax-get" href="'.U('uninstall?id='.$val['id']).'">卸载</a> ';
@@ -82,7 +82,7 @@ class AddonModel extends Model{
                     }
                     break;
                 case '1': //正常
-                    $val['status'] = '<i class="icon-ok" style="color:green"></i>';
+                    $val['status'] = '<i class="glyphicon glyphicon-ok" style="color:green"></i>';
                     $val['right_button']  = '<a href="'.U('config',array('id'=>$val['id'])).'">设置</a> ';
                     $val['right_button'] .= '<a class="ajax-get" href="'.U('setStatus',array('status'=>'forbid', 'ids' => $val['id'])).'">禁用</a> ';
                     $val['right_button'] .= '<a class="ajax-get" href="'.U('uninstall?id='.$val['id']).'">卸载</a> ';

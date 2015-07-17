@@ -291,7 +291,29 @@ CREATE TABLE `ct_public_digg` (
   `sort` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
   `status` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='Digg表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='Digg表';
+
+
+
+# Dump of table ct_store_module
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `ct_store_module`;
+CREATE TABLE `ct_store_module` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `name` varchar(32) NOT NULL DEFAULT '' COMMENT '名称',
+  `title` varchar(64) NOT NULL DEFAULT '' COMMENT '标题',
+  `description` varchar(128) NOT NULL DEFAULT '' COMMENT '描述',
+  `developer` varchar(32) NOT NULL DEFAULT '' COMMENT '开发者',
+  `version` varchar(8) NOT NULL DEFAULT '' COMMENT '版本',
+  `icon` varchar(32) NOT NULL DEFAULT '' COMMENT '图标',
+  `admin_menu` text NOT NULL COMMENT '菜单节点',
+  `ctime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `utime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `sort` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+  `status` tinyint(3) NOT NULL DEFAULT '0' COMMENT '状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
 
@@ -415,7 +437,7 @@ VALUES
 	(35,32,'执行','Admin/Addon/execute','',1427475588,1427475588,3,1),
 	(36,32,'插件设置','Admin/Addon/config','',1427475588,1427475588,4,1),
 	(37,32,'数据列表','Admin/Addon/adminList','',1427475588,1427475588,5,1),
-	(38,8,'数据备份','Admin/Datebase/export','',1426580628,1426580628,1,1),
+	(38,8,'数据备份','Admin/Datebase/export','',1426580628,1426580628,3,1),
 	(39,38,'备份','Admin/Datebase/do_export','',1426580628,1426580628,1,1),
 	(40,38,'优化表','Admin/Datebase/optimize','',1426580628,1426580628,2,1),
 	(41,38,'修复表','Admin/Datebase/repair','',1426580628,1426580628,3,1),
@@ -453,7 +475,11 @@ VALUES
 	(74,71,'设置状态','Admin/UserGroup/setStatus','',1426580628,1426580628,3,1),
 	(75,32,'新增数据','Admin/Addon/adminAdd','',1426580628,1426580628,6,1),
 	(76,32,'编辑数据','Admin/Addon/adminEdit','',1426580628,1426580628,7,1),
-	(77,32,'设置状态','Admin/Addon/setStatus','',1426580628,1426580628,8,1);
+	(77,32,'设置状态','Admin/Addon/setStatus','',1426580628,1426580628,8,1),
+	(78,2,'应用商店','','',1437185077,1437185164,2,1),
+	(79,78,'功能模块','Admin/StoreModule/index','',1437185242,1437185242,1,1),
+	(80,78,'前台主题','Admin/StoreTheme/index','',1437185290,1437185290,2,0),
+	(81,78,'全局插件','Admin/StoreAddon/index','',1437185290,1437185290,3,0);
 
 /*!40000 ALTER TABLE `ct_system_menu` ENABLE KEYS */;
 UNLOCK TABLES;
