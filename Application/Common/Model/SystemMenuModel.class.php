@@ -38,6 +38,9 @@ class SystemMenuModel extends Model{
      * @author jry <598821125@qq.com>
      */
     public function getRootMenuById($id){
+        if(empty($id)){
+            return false;
+        }
         $map['id'] = array('eq', $id);
         $map['status'] = array('eq', 1);
         $main_menu = array();
@@ -54,7 +57,7 @@ class SystemMenuModel extends Model{
      */
     public function getCurrentMenu(){
         $map['status'] = array('eq', 1);
-        $map['url'] = array('like', CONTROLLER_NAME.'/'.ACTION_NAME.'%');
+        $map['url'] = array('like', MODULE_NAME.'/'.CONTROLLER_NAME.'/'.ACTION_NAME.'%');
         $result = $this->where($map)->order('pid desc')->find();
         return $result;
     }

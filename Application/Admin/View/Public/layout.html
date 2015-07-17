@@ -116,7 +116,7 @@
                 <ul class="breadcrumb margin-bottom border-radius-none" style="margin-left:-15px;margin-right:-15px;">
                     <li><i class="icon-location-arrow"></i></li>
                     <volist name="__PARENT_MENU__" id="vo">
-                        <li><a href="{:U($vo['url'])}">{$vo.title}</a></li>
+                        <li>{$vo.title}</li>
                     </volist>
                 </ul>
                 <block name="body">这是内容</block>
