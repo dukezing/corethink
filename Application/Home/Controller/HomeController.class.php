@@ -23,15 +23,14 @@ class HomeController extends Controller{
         $config = S('DB_CONFIG_DATA');
         if(!$config){
             $config = D('SystemConfig')->lists();
+            //模板相关配置
+            $config['TMPL_PARSE_STRING']['__PUBLIC__'] = __ROOT__.'/Public';
+            $config['TMPL_PARSE_STRING']['__IMG__'] = __ROOT__.'/Application/Home/View/'.$config['DEFAULT_THEME'].'/Public/img';
+            $config['TMPL_PARSE_STRING']['__CSS__'] = __ROOT__.'/Application/Home/View/'.$config['DEFAULT_THEME'].'/Public/css';
+            $config['TMPL_PARSE_STRING']['__JS__']  = __ROOT__.'/Application/Home/View/'.$config['DEFAULT_THEME'].'/Public/js';
+            $config['HOME_PAGE'] = 'http://'.$_SERVER['HTTP_HOST'].__ROOT__;
             S('DB_CONFIG_DATA',$config);
         }
-
-        //模板相关配置
-        $config['TMPL_PARSE_STRING']['__PUBLIC__'] = __ROOT__.'/Public';
-        $config['TMPL_PARSE_STRING']['__IMG__'] = __ROOT__.'/Application/'.MODULE_NAME.'/View/'.$config['DEFAULT_THEME'].'/Public/img';
-        $config['TMPL_PARSE_STRING']['__CSS__'] = __ROOT__.'/Application/'.MODULE_NAME.'/View/'.$config['DEFAULT_THEME'].'/Public/css';
-        $config['TMPL_PARSE_STRING']['__JS__']  = __ROOT__.'/Application/'.MODULE_NAME.'/View/'.$config['DEFAULT_THEME'].'/Public/js';
-        $config['HOME_PAGE'] = 'http://'.$_SERVER['HTTP_HOST'].__ROOT__;
         C($config); //添加配置
 
         if(!C('TOGGLE_WEB_SITE')){

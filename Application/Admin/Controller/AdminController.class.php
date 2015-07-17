@@ -38,6 +38,11 @@ class AdminController extends Controller{
         if(!$config){
             $config = D('SystemConfig')->lists();
             $config['DEFAULT_THEME'] = ''; //后台无模板主题
+            //模板相关配置
+            $config['TMPL_PARSE_STRING']['__PUBLIC__'] = __ROOT__.'/Public';
+            $config['TMPL_PARSE_STRING']['__IMG__'] = __ROOT__.'/Application/Admin/View/Public/img';
+            $config['TMPL_PARSE_STRING']['__CSS__'] = __ROOT__.'/Application/Admin/View/Public/css';
+            $config['TMPL_PARSE_STRING']['__JS__']  = __ROOT__.'/Application/Admin/View/Public/js';
             S('DB_CONFIG_DATA',$config);
         }
         C($config); //添加配置
