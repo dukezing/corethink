@@ -39,6 +39,7 @@ return array(
     //应用配置
     'DEFAULT_MODULE'     => 'Home',
     'MODULE_DENY_LIST'   => array('Common'),
+    'MODULE_ALLOW_LIST'  => array('Home','Admin','Install'),
     'AUTOLOAD_NAMESPACE' => array('Addons' => THINK_ADDON_PATH), //扩展模块列表
 
     //表单类型

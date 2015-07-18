@@ -67,20 +67,20 @@ class Tree{
     public function list_to_tree($list, $pk='id', $pid = 'pid', $child = '_child', $root = 0){
         // 创建Tree
         $tree = array();
-        if(is_array($list)) {
+        if(is_array($list)){
             // 创建基于主键的数组引用
             $refer = array();
-            foreach ($list as $key => $data) {
+            foreach($list as $key => $data){
                 $refer[$data[$pk]] =& $list[$key];
             }
-            foreach ($list as $key => $data) {
+            foreach($list as $key => $data){
                 // 判断是否存在parent
-                $parentId = $data[$pid];
-                if ($root == $parentId) {
+                $parent_id = $data[$pid];
+                if($parent_id === null || (String)$root === $parent_id){
                     $tree[] =& $list[$key];
                 }else{
-                    if (isset($refer[$parentId])) {
-                        $parent =& $refer[$parentId];
+                    if(isset($refer[$parent_id])){
+                        $parent =& $refer[$parent_id];
                         $parent[$child][] =& $list[$key];
                     }
                 }
@@ -99,8 +99,8 @@ class Tree{
      * @author jry <598821125@qq.com>
      */
     public function tree_to_list($tree, $child = '_child', $order='id', &$list = array()){
-        if(is_array($tree)) {
-            foreach ($tree as $key => $value) {
+        if(is_array($tree)){
+            foreach ($tree as $key => $value){
                 $reffer = $value;
                 if(isset($reffer[$child])){
                     unset($reffer[$child]);
@@ -127,7 +127,7 @@ class Tree{
             $refer = $resultSet = array();
             foreach($list as $i => $data)
                 $refer[$i] = &$data[$field];
-            switch($sortby) {
+            switch($sortby){
                 case 'asc': // 正向排序
                     asort($refer);
                     break;

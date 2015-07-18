@@ -66,7 +66,7 @@
                 <div id="tab2" class='tab-pane'>
                     <div class="form-group margin-left padding-left">
                         <div class="controls auth">
-                            <volist name="__ALLMENULIST__" id="vo1">
+                            <volist name="__ALL_MENU_LIST__" id="vo1">
                                 <div>
                                     <label class="checkbox">
                                         <input type="checkbox" name="auth[]" <php>if(in_array($vo1['id'], $info['auth'])) echo "checked";</php> value="{$vo1.id}">{$vo1.title}

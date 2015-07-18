@@ -39,7 +39,7 @@ class UserGroupModel extends Model{
      * @author jry <598821125@qq.com>
      */
     public function checkAuth(){
-        $current_menu = D('SystemMenu')->getMenuByControllerAndAction(); //当前菜单id
+        $current_menu = D('SystemMenu')->getCurrentMenu(); //当前菜单id
         $user_group = (int)D('User')->getFieldById(session('user_auth.uid'), 'group'); //获得当前登录用户信息
         if($user_group !== 1){
             $group_info = $this->find($user_group);

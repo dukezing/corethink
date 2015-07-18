@@ -66,14 +66,14 @@
             <div class="collapse navbar-collapse navbar-collapse-top">
                 <!-- 顶部主导航 -->
                 <ul class="nav navbar-nav">
-                    <volist name="__ALLMENULIST__" id="vo">
+                    <volist name="__ALL_MENU_LIST__" id="vo">
                         <li <php>if($vo['id'] == $__CURRENT_ROOTMENU__) echo 'class="active"';</php> >
                             <a href="{:U($vo['url'])}"><i class="{$vo.icon}"></i> {$vo.title}</a>
                         </li>
                     </volist>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{:U('Index/rmdirr')}" class="ajax-get"><i class="glyphicon glyphicon-trash"></i> 清空缓存</a></li>
+                    <li><a href="{:U('Admin/Index/rmdirr')}" class="ajax-get"><i class="glyphicon glyphicon-trash"></i> 清空缓存</a></li>
                     <li><a target="_blank" href="__ROOT__/"><i class="glyphicon glyphicon-new-window"></i> 打开前台</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -81,9 +81,9 @@
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a target="_blank" href="{:U('Home/User/center')}"><i class="glyphicon glyphicon-home"></i> 个人中心</a></li>
-                            <li><a href="{:U('User/edit', array('id' => is_login()))}"><i class="glyphicon glyphicon-edit"></i> 修改信息</a></li>
+                            <li><a href="{:U('Admin/User/edit', array('id' => is_login()))}"><i class="glyphicon glyphicon-edit"></i> 修改信息</a></li>
                             <li class="divider"></li>
-                            <li><a href="{:U('Public/logout')}" class="ajax-get"><i class="glyphicon glyphicon-log-out"></i> 退出</a></li>
+                            <li><a href="{:U('Admin/Public/logout')}" class="ajax-get"><i class="glyphicon glyphicon-log-out"></i> 退出</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -95,8 +95,7 @@
             <div class="col-xs-12 col-sm-2 left">
                 <!-- 侧边导航 -->
                 <div class="panel-group margin-none" role="tablist">
-                    <php>$__SIDEMENU__ = $__ALLMENULIST__[$__CURRENT_ROOTMENU__]['_child'];</php>
-                    <volist name="__SIDEMENU__" id="vo">
+                    <volist name="__SIDE_MENU_LIST__" id="vo">
                         <div class="panel panel-default margin-none border-radius-none border-bottom-none">
                             <div class="panel-heading" role="tab">
                                 <h4 class="panel-title"><a data-toggle="collapse" href="#side-menu{$key}"><i class="{$vo.icon}"></i> {$vo.title}</a></h4>
@@ -117,7 +116,7 @@
                 <ul class="breadcrumb margin-bottom border-radius-none" style="margin-left:-15px;margin-right:-15px;">
                     <li><i class="icon-location-arrow"></i></li>
                     <volist name="__PARENT_MENU__" id="vo">
-                        <li><a href="{:U($vo['url'])}">{$vo.title}</a></li>
+                        <li>{$vo.title}</li>
                     </volist>
                 </ul>
                 <block name="body">这是内容</block>
