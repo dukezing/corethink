@@ -70,13 +70,13 @@ class Tree{
         if(is_array($list)){
             // 创建基于主键的数组引用
             $refer = array();
-            foreach ($list as $key => $data){
+            foreach($list as $key => $data){
                 $refer[$data[$pk]] =& $list[$key];
             }
-            foreach ($list as $key => $data){
+            foreach($list as $key => $data){
                 // 判断是否存在parent
                 $parent_id = $data[$pid];
-                if((String)$root === $parent_id){
+                if($parent_id === null || (String)$root === $parent_id){
                     $tree[] =& $list[$key];
                 }else{
                     if(isset($refer[$parent_id])){
