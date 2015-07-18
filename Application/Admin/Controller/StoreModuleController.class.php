@@ -78,6 +78,34 @@ class StoreModuleController extends AdminController{
     }
 
     /**
+     * 更新模块信息
+     * @author jry <598821125@qq.com>
+     */
+    public function updateModuleInfo($id){
+        $store_module_object = D('StoreModule');
+        $name = $store_module_object->getFieldById($id, 'name');
+        $config_file = realpath(APP_PATH.$name).'/corethink.php';
+        if(!$config_file){
+            $this->error('不存在安装文件');
+        }
+        $config = include $config_file;
+        $data = $config['info'];
+        $data['admin_menu'] = json_encode($config['admin_menu']);
+        $data['id'] = $id;
+        $data = $store_module_object->create($data);
+        if($data){
+            $id = $store_module_object->save();
+            if($id){
+                $this->success('更新成功', U('index'));
+            }else{
+                $this->error('更新失败');
+            }
+        }else{
+            $this->error($store_module_object->getError());
+        }
+    }
+
+    /**
      * 设置一条或者多条数据的状态
      * @author jry <598821125@qq.com>
      */

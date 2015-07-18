@@ -78,13 +78,15 @@ class StoreModuleModel extends Model{
                     break;
                 case '0': //禁用
                     $val['status'] = '<i class="glyphicon glyphicon-ban-circle" style="color:red"></i>';
-                    $val['right_button'] .= '<a class="ajax-get" href="'.U('setStatus',array('status'=>'resume', 'ids' => $val['id'])).'">启用</a> ';
-                    $val['right_button'] .= '<a class="ajax-get" href="'.U('uninstall?id='.$val['id']).'">卸载</a> ';
+                    $val['right_button'] .= '<a class="ajax-get" href="'.U('updateModuleInfo?id='.$val['id']).'">更新菜单</a> ';
+                    $val['right_button'] .= '<a class="ajax-get" href="'.U('setStatus', array('status' => 'resume', 'ids' => $val['id'])).'">启用</a> ';
+                    $val['right_button'] .= '<a class="ajax-get" href="'.U('setStatus', array('status' => 'uninstall', 'ids' => $val['id'])).'">卸载</a> ';
                     break;
                 case '1': //正常
                     $val['status'] = '<i class="glyphicon glyphicon-ok" style="color:green"></i>';
-                    $val['right_button'] .= '<a class="ajax-get" href="'.U('setStatus',array('status'=>'forbid', 'ids' => $val['id'])).'">禁用</a> ';
-                    $val['right_button'] .= '<a class="ajax-get" href="'.U('setStatus',array('status'=>'uninstall', 'ids' => $val['id'])).'">卸载</a> ';
+                    $val['right_button'] .= '<a class="ajax-get" href="'.U('updateModuleInfo?id='.$val['id']).'">更新菜单</a> ';
+                    $val['right_button'] .= '<a class="ajax-get" href="'.U('setStatus', array('status' => 'forbid', 'ids' => $val['id'])).'">禁用</a> ';
+                    $val['right_button'] .= '<a class="ajax-get" href="'.U('setStatus', array('status' => 'uninstall', 'ids' => $val['id'])).'">卸载</a> ';
                     break;
             }
         }
