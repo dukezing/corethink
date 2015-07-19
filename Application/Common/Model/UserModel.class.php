@@ -115,6 +115,10 @@ class UserModel extends Model{
      * @author jry <598821125@qq.com>
      */
     public function login($username, $password, $map){
+        //去除前后空格
+        $username = trim($username);
+
+        //匹配登录方式
         if(preg_match("/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/", $username)){
             $map['email'] = array('eq', $username); //邮箱登陆
         }elseif(preg_match("/^1\d{10}$/", $username)){
