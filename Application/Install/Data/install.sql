@@ -306,7 +306,6 @@ CREATE TABLE `ct_store_module` (
   `description` varchar(128) NOT NULL DEFAULT '' COMMENT '描述',
   `developer` varchar(32) NOT NULL DEFAULT '' COMMENT '开发者',
   `version` varchar(8) NOT NULL DEFAULT '' COMMENT '版本',
-  `icon` varchar(32) NOT NULL DEFAULT '' COMMENT '图标',
   `admin_menu` text NOT NULL COMMENT '菜单节点',
   `ctime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `utime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',

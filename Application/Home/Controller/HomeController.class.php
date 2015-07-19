@@ -23,6 +23,12 @@ class HomeController extends Controller{
         $config = S('DB_CONFIG_DATA');
         if(!$config){
             $config = D('SystemConfig')->lists();
+
+            //Home模块有模板主题
+            if(MODULE_NAME !== 'Home'){
+                $config['DEFAULT_THEME'] = '';
+            }
+
             //模板相关配置
             $config['TMPL_PARSE_STRING']['__PUBLIC__'] = __ROOT__.'/Public';
             $config['TMPL_PARSE_STRING']['__IMG__'] = __ROOT__.'/Application/Home/View/'.$config['DEFAULT_THEME'].'/Public/img';

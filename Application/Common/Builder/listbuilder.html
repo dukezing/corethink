@@ -51,7 +51,9 @@
                 <empty name="data_list">
                     <div class="text-center clearfix">暂时没有数据～</div>
                 </empty>
-                <ul class="pagination"><notempty name="page">{$page}</notempty></ul>
+                <notempty name="page">
+                    <ul class="pagination">{$page}</ul>
+                </notempty>
             </div>
         </div>
     </div>

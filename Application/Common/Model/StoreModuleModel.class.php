@@ -24,7 +24,6 @@ class StoreModuleModel extends Model{
         array('description', 'require', '模块描述不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
         array('developer', 'require', '模块开发者不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
         array('version', 'require', '模块版本不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
-        array('icon', 'require', '模块图标不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
         array('admin_menu', 'require', '模块菜单节点不能为空', self::MUST_VALIDATE, 'regex', self::MODEL_BOTH),
     );
 
